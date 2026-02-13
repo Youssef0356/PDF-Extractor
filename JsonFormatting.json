@@ -1,0 +1,49 @@
+{
+  "categorie_equipement": "Capteurs | Actionneur",
+  "type_equipement": "Transmetteur",
+
+  "type_de_mesure": "debit | niveau | pression | temperature | autre",
+
+  "technologie": "electromagnetique | hydraulique | autre",
+
+  "signal": "4-20mA | 0-20mA | 0-5V | 0-10V | autre",
+
+  "nb_fils": "2 fils | 4 fils | autre",
+
+  "reperage": "nomSignal",
+
+  "armoire": "27 | 28",
+
+  "communication": [
+    "HART",
+    "Modbus RTU",
+    "Modbus TCP",
+    "Profibus"
+  ],
+  "classe": "A | B | autre",
+
+  "plage_de_mesure": {
+    "valeur_min": null,
+    "valeur_max": null,
+    "unite": ""
+  },
+
+  "sortie_alarme": [
+    {
+      "nom": "",
+      "seuil": null
+    }
+  ],
+
+  "seuillaire": null,
+
+  "marque": "",
+
+  "modele": "",
+
+  "reference": "",
+
+  "datasheet": "",
+
+  "image": ""
+}
