@@ -30,7 +30,21 @@ interface FileField {
     accept: string;
 }
 
-type FormField = SelectField | TextField | RangeField | FileField;
+interface DynamicField {
+    key: string;
+    label: string;
+    type: 'dynamic';
+    dependsOn: string;
+    placeholder: string;
+}
+
+interface DateField {
+    key: string;
+    label: string;
+    type: 'date';
+}
+
+type FormField = SelectField | TextField | RangeField | FileField | DynamicField | DateField;
 
 interface Section {
     title: string;
@@ -74,7 +88,7 @@ const SECTIONS: Section[] = [
                 placeholderMin: 'min',
                 placeholderMax: 'max',
             }
-        
+
         ],
     },
     {
@@ -102,8 +116,9 @@ const SECTIONS: Section[] = [
             {
                 key: 'reperage',
                 label: 'reperage_signal',
-                type: 'text',
-                placeholder: 'reperage_signal',
+                type: 'dynamic',
+                dependsOn: 'nbFils',
+                placeholder: 'fil',
             },
         ],
     },
@@ -117,17 +132,23 @@ const SECTIONS: Section[] = [
                 type: 'select',
                 options: ['HART', 'Modbus RTU', 'Modbus TCP', 'PROFIBUS DP', 'Autre'],
             },
+        ],
+    },
+    {
+        title: 'Classe',
+        icon: '5',
+        fields: [
             {
                 key: 'classe',
                 label: 'classe',
                 type: 'select',
                 options: ['Classe A', 'Classe B', 'Autre'],
-            }
+            },
         ],
     },
     {
         title: 'Sorties Alarme',
-        icon: '5',
+        icon: '6',
         fields: [
             {
                 key: 'nomAlarme',
@@ -163,7 +184,7 @@ const SECTIONS: Section[] = [
     },
     {
         title: 'Manufacturer & Files',
-        icon: '6',
+        icon: '7',
         fields: [
             {
                 key: 'marque',
@@ -182,6 +203,11 @@ const SECTIONS: Section[] = [
                 label: 'ref',
                 type: 'text',
                 placeholder: 'ref',
+            },
+            {
+                key: 'dateCalibration',
+                label: 'date_calibration',
+                type: 'date',
             },
             {
                 key: 'datasheet',
@@ -400,6 +426,60 @@ function EquipmentForm() {
                                 }}
                             />
                         </div>
+                    </div>
+                );
+
+            case 'dynamic': {
+                // Get the number of inputs from the field this depends on
+                const depValue = values[field.dependsOn];
+                const count = parseInt(depValue, 10);
+                const inputCount = isNaN(count) || count <= 0 ? 1 : count;
+                // Store values as pipe-separated
+                const dynamicValues = (values[field.key] || '').split('|');
+
+                return (
+                    <div key={field.key} className={`w-full ${isEnabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-all duration-200`}>
+                        <label className="block text-xs font-medium text-gray-500 mb-1">
+                            {field.label}
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                            {Array.from({ length: inputCount }, (_, i) => (
+                                <input
+                                    key={`${field.key}_${i}`}
+                                    type="text"
+                                    className={inputClass}
+                                    style={{ flex: '1 1 0', minWidth: '80px' }}
+                                    disabled={!isEnabled}
+                                    placeholder={`${field.placeholder} ${i + 1}`}
+                                    value={dynamicValues[i] || ''}
+                                    onChange={(e) => {
+                                        const newDynamic = [...dynamicValues];
+                                        // Ensure array is long enough
+                                        while (newDynamic.length < inputCount) newDynamic.push('');
+                                        newDynamic[i] = e.target.value;
+                                        handleChange(field.key, newDynamic.join('|'));
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+
+            case 'date':
+                return (
+                    <div key={field.key} className={wrapperClass}>
+                        <label className="block text-xs font-medium text-gray-500 mb-1">
+                            {field.label}
+                        </label>
+                        <input
+                            type="date"
+                            className={inputClass}
+                            disabled={!isEnabled}
+                            required
+                            value={values[field.key]}
+                            onChange={(e) => handleChange(field.key, e.target.value)}
+                        />
                     </div>
                 );
         }
