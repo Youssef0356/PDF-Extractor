@@ -113,16 +113,16 @@ const PDFDropZone: React.FC<PDFDropZoneProps> = ({ onFileSelect }) => {
                                 <path d="M40 55v10m-5-5l5 5 5-5" stroke="url(#iconGradient)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                                 <defs>
                                     <linearGradient id="iconGradient" x1="20" y1="10" x2="60" y2="70">
-                                        <stop offset="0%" stopColor="#6366f1" />
-                                        <stop offset="100%" stopColor="#8b5cf6" />
+                                        <stop offset="0%" stopColor="#0084ffff" />
+                                        <stop offset="100%" stopColor="#5cb8f6ff" />
                                     </linearGradient>
                                 </defs>
                             </svg>
                         </div>
-                        <h3 className="text-3xl font-bold mb-3 bg-gradient-to-br from-indigo-500 to-violet-500 bg-clip-text text-transparent">Drop your PDF here</h3>
+                        <h3 className="text-3xl font-bold mb-3 bg-gradient-to-br from-blue-600 to-blue-300 bg-clip-text text-transparent">Drop your PDF here</h3>
                         <p className="text-lg text-gray-500 mb-8 font-medium">or click to browse</p>
                         <div className="flex flex-col items-center gap-3 mt-6">
-                            <span className="bg-gradient-to-br from-indigo-500 to-violet-500 text-white px-6 py-2 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-indigo-500/30">PDF</span>
+                            <span className="bg-gradient-to-br from-blue-500 to-blue-300 text-white px-6 py-2 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-blue-500/30">PDF</span>
                             <span className="text-sm text-gray-400">Maximum file size: 50MB</span>
                         </div>
                     </>
