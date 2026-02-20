@@ -1,0 +1,52 @@
+{
+  "corrections": {
+    "DEL": {
+      "correct": "MODEL",
+      "count": 8,
+      "confidence": 0.95
+    },
+    "RIAL": {
+      "correct": "SERIAL",
+      "count": 7,
+      "confidence": 0.95
+    },
+    "4WIREG": {
+      "correct": "WIRE",
+      "count": 1,
+      "confidence": 0.95
+    },
+    "CBA": {
+      "correct": "CSA",
+      "count": 7,
+      "confidence": 0.95
+    },
+    "RNCLOSURE": {
+      "correct": "ENCLOSURE",
+      "count": 7,
+      "confidence": 0.95
+    },
+    "COSAS": {
+      "correct": "CSA",
+      "count": 7,
+      "confidence": 0.95
+    },
+    "DC": {
+      "correct": "VDC",
+      "count": 6,
+      "confidence": 0.95
+    }
+  },
+  "vocabulary_additions": [
+    "MODEL",
+    "SERIAL",
+    "WIRE",
+    "CSA",
+    "ENCLOSURE",
+    "VDC"
+  ],
+  "stats": {
+    "total_documents_processed": 40,
+    "total_corrections_made": 43,
+    "last_updated": "2026-02-20T11:02:40.751377"
+  }
+}

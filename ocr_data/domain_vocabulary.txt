@@ -1,0 +1,151 @@
+# Domain Vocabulary for Equipment Label OCR
+# Format: word frequency (higher = more likely to be the correct spelling)
+# Lines starting with # are comments
+# Add new terms as you encounter new equipment types
+
+# ── Equipment Brands ──────────────────────────────────────────
+ROSEMOUNT 100
+EMERSON 100
+ENDRESS 80
+HAUSER 80
+SIEMENS 90
+YOKOGAWA 80
+HONEYWELL 80
+ABB 80
+DANFOSS 70
+FOXBORO 70
+FISHER 70
+SCHNEIDER 70
+VEGA 60
+KROHNE 60
+WIKA 60
+PEPPERL 50
+FUCHS 50
+BURKERT 50
+HIMA 50
+TURCK 50
+FLUKE 50
+PHOENIX 50
+
+# ── Equipment Types ───────────────────────────────────────────
+TRANSMITTER 100
+TRANSDUCER 80
+SENSOR 90
+DETECTOR 70
+CONTROLLER 80
+ACTUATOR 70
+POSITIONER 60
+INDICATOR 60
+RECORDER 50
+ANALYZER 50
+REGULATOR 50
+
+# ── Measurement Types ─────────────────────────────────────────
+TEMPERATURE 100
+PRESSURE 100
+FLOW 90
+LEVEL 90
+HUMIDITY 70
+DENSITY 60
+VISCOSITY 50
+CONDUCTIVITY 50
+VIBRATION 50
+DISPLACEMENT 40
+
+# ── Technical Terms ───────────────────────────────────────────
+ENCLOSURE 90
+CALIBRATION 90
+OUTPUT 100
+SUPPLY 90
+SERIAL 90
+MODEL 100
+FACTORY 80
+PROTOCOL 70
+CONFIGURATION 60
+CERTIFICATION 60
+RATING 70
+RANGE 80
+ACCURACY 60
+RESOLUTION 50
+REPEATABILITY 40
+DIAGNOSTICS 50
+DAMPING 40
+
+# ── Communication Protocols ──────────────────────────────────
+HART 100
+MODBUS 80
+PROFIBUS 70
+FIELDBUS 70
+FOUNDATION 60
+PROFINET 50
+ETHERNET 50
+BLUETOOTH 40
+WIRELESS 50
+
+# ── Electrical Terms ─────────────────────────────────────────
+VOLTAGE 80
+CURRENT 80
+POWER 70
+WIRE 90
+TERMINAL 60
+GROUND 50
+SHIELD 40
+LOOP 60
+SIGNAL 80
+
+# ── Units and Standards ──────────────────────────────────────
+VDC 100
+VAC 80
+NEMA 90
+CSA 80
+ATEX 70
+IEC 70
+HAZARDOUS 60
+INTRINSIC 50
+SAFETY 60
+EXPLOSION 40
+FLAMEPROOF 40
+APPROVED 50
+
+# ── Enclosure / Protection ───────────────────────────────────
+IP66 80
+IP67 80
+IP68 60
+IP65 60
+TYPE 70
+CLASS 60
+DIVISION 50
+GROUP 50
+ZONE 50
+
+# ── Common Label Words ───────────────────────────────────────
+MADE 70
+MANUFACTURED 50
+ASSEMBLY 40
+NUMBER 80
+DATE 70
+CODE 60
+REVISION 40
+VERSION 40
+PATENT 30
+WARNING 60
+CAUTION 50
+MAXIMUM 60
+MINIMUM 60
+AMBIENT 50
+
+# ── Location / Origin ────────────────────────────────────────
+SHAKOPEE 60
+MINNESOTA 50
+GERMANY 40
+JAPAN 40
+CHINA 40
+USA 50
+
+# ── Common Rosemount Models ──────────────────────────────────
+3144 80
+3051 80
+644 60
+248 60
+0042908 50
+D1A1K5 80

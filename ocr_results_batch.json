@@ -1,0 +1,20 @@
+{
+    "FacebookPageCoverEnhanced.png": {
+        "raw_text": "T",
+        "corrected_text": "T",
+        "parsed_data": {},
+        "config_used": "s3_otsu_nlm_PSM4"
+    },
+    "Rosemount.jpeg": {
+        "raw_text": "\u00b0 ~~ \n\u2014=ay\u201d | \n4 wr RS \n| EAL TEMPERATURE TaaATIER > LN \n, \u2019 DEL 3144P DIAIKG | \n> Sc RIAL NO. 0042908 09/19 wee \nq FACTORY CAL. Pt100_385 4-WIRE/G To 100c Ol | \n| SUPPLY 12.0-42.4 \u00a5DC \u201cOUTPUT 4.20 ms CBA RNcLosURE NPE Se \n\u2014_ \n\\a (\\ .. 1C.\u00a2swi14 3*40149.0000 / 4 : \nof ~~ 7 4 \n\\ cosas a \nig",
+        "corrected_text": "o ~~\n-=ay\u201d I\n4 wr RS\nI EAL TEMPERATURE TaaATIER > LN\n, \u2019 MODEL 3144P DIAIKG I\n> Sc SERIAL NO. 0042908 09/19 wee\nq FACTORY CAL. Pt100_385 4-WIRE/G To 100c Ol I\nI SUPPLY 12.0-42.4 VDC \u201cOUTPUT 4.20 ms CSA ENCLOSURE NPE Se\n-_\n\\a (\\ .. 1C.\u00a2swi14 3*40149.0000 / 4 :\nof ~~ 7 4\n\\ CSA a\nig",
+        "parsed_data": {
+            "supply_voltage": "120-424 VDC",
+            "model": "Staspcaaixe Jive Sees be INE",
+            "date": "09/19",
+            "csa_enclosure_type": "Pt100_3",
+            "sw_version": "1.1.2"
+        },
+        "config_used": "s3_otsu_nlm_PSM6"
+    }
+}
