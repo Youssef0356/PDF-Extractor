@@ -73,12 +73,11 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
         response = ollama_client.chat(
             model=TEXT_MODEL,
             messages=[{"role": "user", "content": prompt}],
-            options={"temperature": 0.1},  # Low temperature for factual extraction
+            options={"temperature": 0.1},
+            keep_alive="10m",  # Keep model in VRAM for 10 minutes
         )
         
         raw = response["message"]["content"].strip()
-        
-        # Try to parse JSON from the response
         result = _parse_llm_json(raw)
         return result
         
@@ -113,7 +112,7 @@ def _parse_llm_json(raw: str) -> dict:
 
 def extract_all_fields(field_chunks: dict[str, list[dict]]) -> EquipmentSchema:
     """
-    Extract all form fields from the document.
+    Extract all form fields from the document in parallel.
     
     Args:
         field_chunks: Dict mapping field_name -> relevant chunks
@@ -122,24 +121,42 @@ def extract_all_fields(field_chunks: dict[str, list[dict]]) -> EquipmentSchema:
     Returns:
         Populated EquipmentSchema.
     """
+    from concurrent.futures import ThreadPoolExecutor
+    from config import LLM_MAX_WORKERS
+    
     extracted = {}
     
-    for field_name, chunks in field_chunks.items():
-        print(f"[LLM] Extracting field: {field_name} (from {len(chunks)} chunks)...")
+    def process_field(field_name, chunks):
+        print(f"  [LLM] START: {field_name} (from {len(chunks)} chunks)...")
+        start_time = time.time()
         result = extract_field(field_name, chunks)
+        elapsed = time.time() - start_time
+        print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
+        return field_name, result
+
+    # Import time for logging
+    import time
+
+    # Run extractions in parallel
+    with ThreadPoolExecutor(max_workers=LLM_MAX_WORKERS) as executor:
+        futures = [
+            executor.submit(process_field, name, chunks) 
+            for name, chunks in field_chunks.items()
+        ]
         
-        value = result.get("value")
-        confidence = result.get("confidence", 0.0)
-        
-        if value is not None and confidence > 0.3:  # Minimum confidence threshold
-            extracted[field_name] = value
-            print(f"  [OK] {field_name} = {value} (confidence: {confidence})")
-        else:
-            print(f"  [MISS] {field_name} = not found (confidence: {confidence})")
+        for future in futures:
+            field_name, result = future.result()
+            value = result.get("value")
+            confidence = result.get("confidence", 0.0)
+            
+            if value is not None and confidence > 0.3:
+                extracted[field_name] = value
+                print(f"  [OK] {field_name} = {value}")
+            else:
+                print(f"  [MISS] {field_name} (conf: {confidence})")
     
     # Build the EquipmentSchema from extracted data
     schema_data = {}
-    
     for field_name, value in extracted.items():
         if field_name == "plageMesure" and isinstance(value, dict):
             schema_data["plageMesure"] = value

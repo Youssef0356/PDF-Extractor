@@ -88,11 +88,11 @@ FIELD_DESCRIPTIONS = {
         ],
     },
     "technologie": {
-        "description": "Technology used (Electromagnetique, Hydraulique, or Autre)",
-        "allowed_values": ["Electromagnetique", "Hydraulique", "Autre"],
+        "description": "Technology used (Electromagnetique, Hydraulique,Pneumatique or Autre)",
+        "allowed_values": ["Electromagnetique", "Hydraulique","Pneumatique", "Autre"],
         "search_queries": [
-            "technology electromagnetic hydraulic measurement principle",
-            "technologie electromagnetique hydraulique principe de mesure",
+            "technology electromagnetic hydraulic pneumatique measurement principle",
+            "technologie electromagnetique hydraulique pneumatique principe de mesure",
             "sensing technology sensor type",
         ],
     },

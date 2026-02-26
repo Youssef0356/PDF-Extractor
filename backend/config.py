@@ -3,8 +3,8 @@ Configuration for the PDF Extractor backend.
 """
 
 # -- Ollama Models --------------------------------------------------
-VISION_MODEL = "qwen2.5vl:7b"       # Multimodal (vision + text)
-TEXT_MODEL = "qwen2.5vl:7b"         # Using VL model for text too (handles both)
+VISION_MODEL = "qwen2.5vl:3b"       # Multimodal (vision + text)
+TEXT_MODEL = "qwen2.5vl:3b"         # Using VL model for text too (handles both)
 EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
 
 # -- Chunking ------------------------------------------------------
@@ -22,3 +22,4 @@ TOP_K_CHUNKS = 5          # Number of chunks to retrieve per field
 
 # -- Server ---------------------------------------------------------
 UPLOAD_DIR = "./uploads"
+LLM_MAX_WORKERS = 2       # Number of simultaneous fields to extract (safer for 8GB GPU)
