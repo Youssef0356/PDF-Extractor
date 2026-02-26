@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import type { EquipmentData } from '../services/api';
 
 // --- Field definitions organized by section ---
 interface SelectField {
@@ -230,7 +231,11 @@ const ALL_FIELD_KEYS = SECTIONS.flatMap((s) => s.fields.map((f) => f.key));
 
 type FormValues = Record<string, string>;
 
-function EquipmentForm() {
+interface EquipmentFormProps {
+    extractedData?: EquipmentData | null;
+}
+
+function EquipmentForm({ extractedData }: EquipmentFormProps) {
     const [values, setValues] = useState<FormValues>(() => {
         const init: FormValues = {};
         ALL_FIELD_KEYS.forEach((k) => (init[k] = ''));
@@ -238,6 +243,53 @@ function EquipmentForm() {
     });
 
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+    const [aiFilledFields, setAiFilledFields] = useState<Set<string>>(new Set());
+
+    // Auto-fill form when extractedData arrives
+    useEffect(() => {
+        if (!extractedData) return;
+
+        const newValues: FormValues = { ...values };
+        const filledKeys = new Set<string>();
+
+        const simpleFields = [
+            'categorie', 'typeMesure', 'technologie', 'typeSignal',
+            'nbFils', 'alimentation', 'reperage', 'communication',
+            'classe', 'marque', 'modele', 'reference', 'dateCalibration',
+        ] as const;
+
+        for (const key of simpleFields) {
+            const val = extractedData[key];
+            if (val != null && val !== '') {
+                newValues[key] = String(val);
+                filledKeys.add(key);
+            }
+        }
+
+        // Handle plageMesure (range field stored as "min|max")
+        if (extractedData.plageMesure) {
+            const pm = extractedData.plageMesure;
+            const min = pm.min != null ? String(pm.min) : '';
+            const max = pm.max != null ? String(pm.max) : '';
+            if (min || max) {
+                newValues['plageMesure'] = `${min}|${max}`;
+                filledKeys.add('plageMesure');
+            }
+        }
+
+        // Handle sortiesAlarme
+        if (extractedData.sortiesAlarme && extractedData.sortiesAlarme.length > 0) {
+            const alarm = extractedData.sortiesAlarme[0];
+            if (alarm.nomAlarme) { newValues['nomAlarme'] = alarm.nomAlarme; filledKeys.add('nomAlarme'); }
+            if (alarm.typeAlarme) { newValues['typeAlarme'] = alarm.typeAlarme; filledKeys.add('typeAlarme'); }
+            if (alarm.seuilAlarme != null) { newValues['seuilAlarme'] = String(alarm.seuilAlarme); filledKeys.add('seuilAlarme'); }
+            if (alarm.uniteAlarme) { newValues['uniteAlarme'] = alarm.uniteAlarme; filledKeys.add('uniteAlarme'); }
+            if (alarm.relaisAssocie) { newValues['relaisAssocie'] = alarm.relaisAssocie; filledKeys.add('relaisAssocie'); }
+        }
+
+        setValues(newValues);
+        setAiFilledFields(filledKeys);
+    }, [extractedData]);
 
     const toggleSection = (title: string) => {
         setCollapsedSections((prev) => {
@@ -302,6 +354,8 @@ function EquipmentForm() {
     const renderField = (field: FormField) => {
         const isEnabled = enabledFields.has(field.key);
 
+        const isAiFilled = aiFilledFields.has(field.key);
+
         const wrapperClass = `
             flex-1 min-w-0 transition-all duration-200
             ${isEnabled ? 'opacity-100' : 'opacity-40 pointer-events-none'}
@@ -320,8 +374,8 @@ function EquipmentForm() {
             case 'select':
                 return (
                     <div key={field.key} className={wrapperClass}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <select
                             className={inputClass}
@@ -343,8 +397,8 @@ function EquipmentForm() {
             case 'text':
                 return (
                     <div key={field.key} className={wrapperClass}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <input
                             type="text"
@@ -361,8 +415,8 @@ function EquipmentForm() {
             case 'range':
                 return (
                     <div key={field.key} className={wrapperClass}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <div className="flex gap-2 items-center">
                             <input
@@ -396,8 +450,8 @@ function EquipmentForm() {
             case 'file':
                 return (
                     <div key={field.key} className={wrapperClass}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <div
                             className={`
@@ -439,8 +493,8 @@ function EquipmentForm() {
 
                 return (
                     <div key={field.key} className={`w-full ${isEnabled ? 'opacity-100' : 'opacity-40 pointer-events-none'} transition-all duration-200`}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {Array.from({ length: inputCount }, (_, i) => (
@@ -469,8 +523,8 @@ function EquipmentForm() {
             case 'date':
                 return (
                     <div key={field.key} className={wrapperClass}>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">
-                            {field.label}
+                        <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
+                            {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
                         <input
                             type="date"

@@ -1,13 +1,46 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import PDFDropZone from './PDFDropZone';
 import EquipmentForm from './EquipmentForm';
+import { extractFromPDF } from '../services/api';
+import type { EquipmentData } from '../services/api';
+
+type ExtractionStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
 
 function EquipmentManagement() {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [extractedData, setExtractedData] = useState<EquipmentData | null>(null);
+    const [status, setStatus] = useState<ExtractionStatus>('idle');
+    const [statusMessage, setStatusMessage] = useState('');
 
-    const handleFileSelect = useCallback((file: File) => {
-        console.log('File selected:', file);
-        setSelectedFile(file);
+    const handleFileSelect = useCallback(async (file: File) => {
+        setStatus('uploading');
+        setStatusMessage('Envoi du PDF au serveur...');
+        setExtractedData(null);
+
+
+        try {
+            setStatus('processing');
+            setStatusMessage('Analyse IA en cours... Cela peut prendre quelques minutes.');
+
+            const response = await extractFromPDF(file);
+
+            if (response.success && response.data) {
+                setExtractedData(response.data);
+                setStatus('success');
+                setStatusMessage(
+                    `Extraction réussie en ${response.processing_time_seconds?.toFixed(1)}s`
+                );
+            } else {
+                setStatus('error');
+                setStatusMessage(response.message || 'Erreur lors de l\'extraction');
+            }
+        } catch (err) {
+            setStatus('error');
+            setStatusMessage(
+                err instanceof Error
+                    ? `Erreur: ${err.message}. Vérifiez que le serveur backend est en cours d'exécution.`
+                    : 'Erreur inconnue'
+            );
+        }
     }, []);
 
     return (
@@ -38,12 +71,39 @@ function EquipmentManagement() {
                         <p className="text-xs text-gray-400 mt-1 ml-3">Glissez-déposez ou cliquez pour importer</p>
                     </div>
                     <PDFDropZone onFileSelect={handleFileSelect} />
-                    {selectedFile && (
-                        <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2">
-                            <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <p className="text-sm font-medium text-green-700 truncate">{selectedFile.name}</p>
+
+                    {/* Status Indicator */}
+                    {status !== 'idle' && (
+                        <div className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${status === 'uploading' || status === 'processing'
+                            ? 'bg-blue-50 border border-blue-200'
+                            : status === 'success'
+                                ? 'bg-green-50 border border-green-200'
+                                : 'bg-red-50 border border-red-200'
+                            }`}>
+                            {(status === 'uploading' || status === 'processing') && (
+                                <svg className="w-4 h-4 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                </svg>
+                            )}
+                            {status === 'success' && (
+                                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            )}
+                            {status === 'error' && (
+                                <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            )}
+                            <p className={`text-sm font-medium ${status === 'uploading' || status === 'processing'
+                                ? 'text-blue-700'
+                                : status === 'success'
+                                    ? 'text-green-700'
+                                    : 'text-red-700'
+                                }`}>
+                                {statusMessage}
+                            </p>
                         </div>
                     )}
                 </div>
@@ -55,9 +115,13 @@ function EquipmentManagement() {
                             <span className="w-1 h-5 rounded-full bg-blue-500"></span>
                             Fiche Équipement
                         </h2>
-                        <p className="text-xs text-gray-400 mt-1 ml-3">Remplissez les champs progressivement</p>
+                        <p className="text-xs text-gray-400 mt-1 ml-3">
+                            {extractedData
+                                ? 'Champs remplis automatiquement par l\'IA — vérifiez et ajustez'
+                                : 'Remplissez les champs progressivement'}
+                        </p>
                     </div>
-                    <EquipmentForm />
+                    <EquipmentForm extractedData={extractedData} />
                 </div>
             </div>
         </div>
