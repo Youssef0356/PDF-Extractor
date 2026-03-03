@@ -1,0 +1,8 @@
+{
+  "typeMesure": "Debit",
+  "typeSignal": "4-20mA",
+  "communication": "PROFIBUS DP",
+  "marque": "KROHNE",
+  "modele": "H250 M40 H250",
+  "reference": "PA 392 572 356 572"
+}

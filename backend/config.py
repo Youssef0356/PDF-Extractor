@@ -5,7 +5,7 @@ import os
 
 # -- Ollama Models --------------------------------------------------
 VISION_MODEL = "qwen2.5vl:3b"       # Multimodal (vision + text)
-TEXT_MODEL = "qwen2.5vl:3b"         # Using VL model for text too (handles both)
+TEXT_MODEL = "gemma:2b"         # Using VL model for text too (handles both)
 EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
 
 # -- Chunking ------------------------------------------------------

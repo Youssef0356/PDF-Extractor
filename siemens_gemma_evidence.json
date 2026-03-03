@@ -1,0 +1,433 @@
+{
+  "file": "backend/uploads/1_differentiel sitransp_p320_p420_fi01_en.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": 0.45,
+  "min_confidence": 0.5,
+  "evidence": {
+    "categorie": [
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.25677376985549927,
+        "text_preview": "1/112\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure \ntransmitters featuring extensive user-friendliness and high accu-\nracy"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": null,
+        "distance": 0.29576313495635986,
+        "text_preview": "e\n0.01 ... 1 bar | Refer to the information on the nameplate of the pressure transmitter \nand the data on the mounting flange1)\nSpan (infinitely adjustable) or measuring range, max. \noperating pressure and max. test pressure | Span\nMax. permissible operating pres-\nsure MAWP (PS) | Maximum permissibl"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": null,
+        "distance": 0.2962459325790405,
+        "text_preview": "e nameplate of the pressure transmitter \nand the data on the mounting flange1)\n166 … 5000 mbar a\n16.6 ... 500 kPa a\n2.41 … 72.5 psi a\n1 … 30 bar a \n0.1 ... 3 MPa a\n14.5 … 435 psi a\nDepending on the process connection, the span may differ from these values.\nMeasuring limits\n• Low measuring limit\n- Me"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.3044482469558716,
+        "text_preview": "erential pressure\n• Level\n• Volume flow\n• Mass flow\n■Benefits\n• Diagnostic functions in accordance with NAMUR \nrecommendation NE107\n• SIL devices developed according to IEC 61508\n• SIL validation on the device or remotely with SIMATIC PDM\n• Reduction of internal inductance for Ex applications to LI "
+      },
+      {
+        "page_number": 27,
+        "chunk_id": null,
+        "distance": 0.3045962452888489,
+        "text_preview": "AMUR NE 21\nDesign\nWeight (pressure transmitter without mounting \nflange)\nMaterial\n• Wetted parts materials\n- Process connection\nStainless steel, mat. no. 1.4404/316L\n- Seal diaphragm\nStainless steel, material no. 1.4404/316L or Alloy C276, material no. 2.4819\n• Non-wetted parts materials\n- Electroni"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 20,
+        "chunk_id": null,
+        "distance": 0.2944607138633728,
+        "text_preview": "1/131\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (differential pressure series)\n1\nLocal operation/display\nWithout display (cover closed)\n0\nWith display (cover closed)\n1\nWith display (cover with gl"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.3104879856109619,
+        "text_preview": "erential pressure\n• Level\n• Volume flow\n• Mass flow\n■Benefits\n• Diagnostic functions in accordance with NAMUR \nrecommendation NE107\n• SIL devices developed according to IEC 61508\n• SIL validation on the device or remotely with SIMATIC PDM\n• Reduction of internal inductance for Ex applications to LI "
+      },
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.31273704767227173,
+        "text_preview": "uge pressure of corrosive and non-corrosive gases, vapors \nand liquids.\nSpan (infinitely adjustable)\n• For SITRANS P320/P420 with HART: 0.01 bar to 700 bar \n(0.15 psi to 10153 psi)\nThere are two series:\n• Gauge pressure series\n• Differential pressure series\nPressure transmitters for absolute pressur"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": null,
+        "distance": 0.3129578232765198,
+        "text_preview": "1/117\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Technical specifications\nSITRANS P320 / SITRANS P420 for gauge pressure (pressure series)\nInput\nMeasured variable\nGauge pressu"
+      },
+      {
+        "page_number": 15,
+        "chunk_id": null,
+        "distance": 0.3168904185295105,
+        "text_preview": "1/126\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (differential pressure series)\n1\n■Technical specifications\nSITRANS P320 / SITRANS P420 for gauge pressure (differential pressure series)\nInput\nMeas"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.42624080181121826,
+        "text_preview": "1/112\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure \ntransmitters featuring extensive user-friendliness and high accu-\nracy"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": null,
+        "distance": 0.4280238151550293,
+        "text_preview": "1/113\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nPressure transmitters for differential pressure and flow\nMeasured variables:\n• Differential pressure\n• Small positive or negative overpressure"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": null,
+        "distance": 0.4309980869293213,
+        "text_preview": "erential pressure\n• Level\n• Volume flow\n• Mass flow\n■Benefits\n• Diagnostic functions in accordance with NAMUR \nrecommendation NE107\n• SIL devices developed according to IEC 61508\n• SIL validation on the device or remotely with SIMATIC PDM\n• Reduction of internal inductance for Ex applications to LI "
+      },
+      {
+        "page_number": 26,
+        "chunk_id": null,
+        "distance": 0.43193358182907104,
+        "text_preview": "Reference conditions\n• According to EN 60770-1\n• Rising characteristic curve\n• Start of scale value 0 bar/kPa/psi\n• Seal diaphragm stainless steel\n• Measuring cell with silicone oil filling\n• Room temperature 25 °C (77 °F)\nConformity error at limit point setting, including hys-\nteresis and repeatabi"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": null,
+        "distance": 0.4368298649787903,
+        "text_preview": "power and shield is accessible when you remove the back \ncover (10).\n• The measuring cell with process connection (6) is located in \nthe bottom part of the enclosure.\nThe measuring cell is prevented from rotating by a locking \nscrew (5).\n• Thanks to the modular design of the pressure transmitter, th"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 45,
+        "chunk_id": null,
+        "distance": 0.3556877374649048,
+        "text_preview": "er measuring limit\n100% of the max. measuring span (for oxygen measurement max. 100 bar/10 MPa/ 1450 psi and 60 °C \n(140 °F) ambient temperature/process temperature)\n• Start of scale\nBetween the measuring limits (infinitely adjustable)\nOutput\nHART\nOutput signal\n4 ... 20 mA\n• Low saturation limit (in"
+      },
+      {
+        "page_number": 26,
+        "chunk_id": null,
+        "distance": 0.38947606086730957,
+        "text_preview": "Reference conditions\n• According to EN 60770-1\n• Rising characteristic curve\n• Start of scale value 0 bar/kPa/psi\n• Seal diaphragm stainless steel\n• Measuring cell with silicone oil filling\n• Room temperature 25 °C (77 °F)\nConformity error at limit point setting, including hys-\nteresis and repeatabi"
+      },
+      {
+        "page_number": 7,
+        "chunk_id": null,
+        "distance": 0.3950870633125305,
+        "text_preview": "1/118\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nMeasuring accuracy\nReference conditions\n• According to EN 60770-1\n• Rising characteristic curve\n• Start of scale value 0 bar/kP"
+      },
+      {
+        "page_number": 28,
+        "chunk_id": null,
+        "distance": 0.3971162438392639,
+        "text_preview": "mperature of measuring medium\n-40 ... +100 °C (-40 ... +212 °F) temperature class T4\n-40 ... +70 °C (-40 ... +158 °F) temperature class T6\n- Connection\nTo a circuit with the operating values:\nUn = 10.5 to 45 V, 4 ... 20 mA\n• Dust explosion protection for Zone 20, 21, 22\n- Marking\nEx II 1D Ex tb IIIC"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": null,
+        "distance": 0.3981032967567444,
+        "text_preview": "is 750 mbar a/75 kPa a/10.8 psi \na. The measuring cell is vacuum-resistant up to 30 mbar a/3 kPa a/0.44 psi a.\n- Measuring cell with silicone oil filling\n30 mbar a/3 kPa a/0.44 psi a\n- Measuring cell with inert oil\n30 mbar a/3 kPa a/0.44 psi a\n- Measuring cell with FDA-compliant oil\n100 mbar a/10 kP"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 68,
+        "chunk_id": null,
+        "distance": 0.42003297805786133,
+        "text_preview": "display\n• Current transmitter\n3.55 … 22.8 mA\n• Failure signal\n3.55 … 22.8 mA\nLoad\nResistor R []\n• Without HART communication\nR = (UH - 10.5 V)/22.8 mA,\nUH: Power supply in V\n• With HART communication\nR = 230 … 1100  (HART communicator (handheld))\nR = 230 … 500  (SIMATIC PDM)\nCharacteristic curve\n"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": null,
+        "distance": 0.4271116852760315,
+        "text_preview": "20 … +80 °C (-4 … +176 °F)\n• Storage temperature\n-50 ... +85 °C (-58 ... +185 °F); with FDA-compliant oil: -20 ... + 85 °C (-4 ... +185 °F)\n• Climatic class in accordance with IEC 60721-3-4\n4K4H\n• Degree of protection\n- According to IEC 60529\nIP66, IP68\n- According to NEMA 250\nType 4X\n• Electromagne"
+      },
+      {
+        "page_number": 55,
+        "chunk_id": null,
+        "distance": 0.4364168047904968,
+        "text_preview": "0.004 · r + 0.045)% (SITRANS P320)\nr 5:\n5 < r 100: | 0.04% (SITRANS P420)\n(0.004 · r + 0.045)% (SITRANS P420) | - 250 mbar/25 kPa/3.63 psi (PN 160)\n600 mbar/60 kPa/8.7 psi\n1600 mbar/160 MPa/23.21 psi\n5 bar/500 kpa/72.5 psi\n30 bar/3 MPa/435 psi\n- 20 mbar/2 kPa/0.29 psi\nr 5:\n5 < r 20: | 0.075%\n"
+      },
+      {
+        "page_number": 54,
+        "chunk_id": null,
+        "distance": 0.4443485736846924,
+        "text_preview": "| 16 MPa | 24 MPa\n0.4019 … 24.11 inH2O | 2320 psi | 3480 psi\n2.5 ... 250 mbar | 160 bar | 240 bar\n0.2 ... 25 kPa | 16 MPa | 24 MPa\n1.005 … 100.5 inH2O | 2320 psi | 3480 psi\n6 ... 600 mbar | 160 bar | 240 bar\n0.6 ... 60 kPa | 16 MPa | 24 MPa\n2.41 … 241.1 inH2O | 2320 psi | 3480 psi\n16 ... 1600 mbar |"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 22,
+        "chunk_id": null,
+        "distance": 0.410774827003479,
+        "text_preview": "| Flange connections with flange EN 1092-1\nReserved for 7MF7: without process flanges, without \nscrews, without gaskets | K00\nProcess connection material PVDF, on the side ½-\n14 NPT | K05\nProcess flanges/process connection material PVDF, \nflange on the side EN 1092-1 Form B1 DN 25 PN 40, \nMAWP 4 bar"
+      },
+      {
+        "page_number": 71,
+        "chunk_id": null,
+        "distance": 0.4127469062805176,
+        "text_preview": "°F) temperature class T4\n-40 ... +70 °C (-40 ... +158 °F) temperature class T6\n- \"ec\" connection\nTo a circuit with the operating values:\nUn = 10.5 to 30 V, 4 ... 20 mA\n- \"ic\" connection\nTo certified intrinsically safe circuits with the peak values:\nUi = 30 V, Ii = 101 mA, Pi = 760 mW\nUi = 29 V, Ii ="
+      },
+      {
+        "page_number": 28,
+        "chunk_id": null,
+        "distance": 0.41376781463623047,
+        "text_preview": "m\n-40 ... +100 °C (-40 ... +212 °F) temperature class T4\n-40 ... +70 °C (-40 ... +158 °F) temperature class T6\n- \"ec\" connection\nTo a circuit with the operating values:\nUn = 10.5 to 30 V, 4 ... 20 mA\n- \"ic\" connection\nTo certified intrinsically safe circuits with the peak values:\nUi = 30 V, Ii = 101"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": null,
+        "distance": 0.41492611169815063,
+        "text_preview": "U04 | Flange connections with flange EN 1092-1\nReserved for 7MF7: without process flanges, without \nscrews, without gaskets | K00\nProcess connection material PVDF, on the side ½-\n14 NPT | K05\nProcess flanges/process connection material PVDF, \nflange on the side EN 1092-1 Form B1 DN 25 PN 40, \nMAWP 4"
+      },
+      {
+        "page_number": 35,
+        "chunk_id": null,
+        "distance": 0.41755008697509766,
+        "text_preview": "ction according to NEUMO BioConnect flange \nconnection\nOrder \ncode\nDN\nPN\nD\nH2\nP14\n50\n16\n110 mm (4.3\")\nApprox. \n52 mm (2\")\nP15\n65\n16\n140 mm (5.5\")\nP16\n80\n16\n150 mm (5.9\")\nP17\n100\n16\n175 mm (6.9\")\nP23\n2\"\n16\n100 mm (3.9\")\nP24\n2½\"\n16\n110 mm (4.3\")\nP25\n3\"\n16\n140 mm (5.5\")\nP26\n4\"\n16\n175 mm (6.9\")\nSanitar"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 40,
+        "chunk_id": null,
+        "distance": 0.4304755926132202,
+        "text_preview": "ion acc. to FM\nAvailable soon\n- Marking (XP/DIP) or IS; NI; S\nCL I, DIV 1, GP ABCD T4 ... T6; CL II, DIV 1, GP EFG; CL III; Ex ia IIC T4 ... T6: CL I, DIV 2, \nGP ABCD T4 ... T6; CL II, DIV 2, GP FG; CL III\n• Explosion protection according to CSA\nAvailable soon\n- Marking (XP/DIP) or (IS)\nCL I, DIV 1,"
+      },
+      {
+        "page_number": 54,
+        "chunk_id": null,
+        "distance": 0.4307805299758911,
+        "text_preview": "| 16 MPa | 24 MPa\n0.4019 … 24.11 inH2O | 2320 psi | 3480 psi\n2.5 ... 250 mbar | 160 bar | 240 bar\n0.2 ... 25 kPa | 16 MPa | 24 MPa\n1.005 … 100.5 inH2O | 2320 psi | 3480 psi\n6 ... 600 mbar | 160 bar | 240 bar\n0.6 ... 60 kPa | 16 MPa | 24 MPa\n2.41 … 241.1 inH2O | 2320 psi | 3480 psi\n16 ... 1600 mbar |"
+      },
+      {
+        "page_number": 22,
+        "chunk_id": null,
+        "distance": 0.43278950452804565,
+        "text_preview": "| Flange connections with flange EN 1092-1\nReserved for 7MF7: without process flanges, without \nscrews, without gaskets | K00\nProcess connection material PVDF, on the side ½-\n14 NPT | K05\nProcess flanges/process connection material PVDF, \nflange on the side EN 1092-1 Form B1 DN 25 PN 40, \nMAWP 4 bar"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": null,
+        "distance": 0.43359827995300293,
+        "text_preview": "Keys\n4 keys for operation directly on the device\nDisplay\n• With or without integrated display (optional)\n• Cover with inspection window (optional)\nAuxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ... 45 V DC\n10.5 ... 30 V DC in intrinsically safe mode\nRipple\nUSS  0.2 V (47 … 125 Hz)"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": null,
+        "distance": 0.43442732095718384,
+        "text_preview": "U04 | Flange connections with flange EN 1092-1\nReserved for 7MF7: without process flanges, without \nscrews, without gaskets | K00\nProcess connection material PVDF, on the side ½-\n14 NPT | K05\nProcess flanges/process connection material PVDF, \nflange on the side EN 1092-1 Form B1 DN 25 PN 40, \nMAWP 4"
+      }
+    ],
+    "reperage": [],
+    "communication": [],
+    "classe": [
+      {
+        "page_number": 49,
+        "chunk_id": null,
+        "distance": 0.36382371187210083,
+        "text_preview": "otection\nWithout Ex\nA\nIntrinsic safety\nB\nFlameproof enclosure\nC\nFlameproof enclosure, intrinsic safety\nD\nDust protection by enclosure Zone 21/22 (DIP), increased safety Zone 2\nL\nDust protection by enclosure Zone 20/21/22 (DIP), increased safety Zone 2\nM\nCombination of options B, C and L (zone model)"
+      },
+      {
+        "page_number": 69,
+        "chunk_id": null,
+        "distance": 0.3765595555305481,
+        "text_preview": "0 °C (-4 … +176 °F)\n• Storage temperature\n-50 ... +85 °C (-58 ... +185 °F)\n• Climatic class in accordance with IEC 60721-3-4\n4K4H\n• Degree of protection\n- According to IEC 60529\nIP66, IP68\n- According to NEMA 250\nType 4X\n• Electromagnetic compatibility\n- Emitted interference and interference immunit"
+      },
+      {
+        "page_number": 62,
+        "chunk_id": null,
+        "distance": 0.381427526473999,
+        "text_preview": "milar to 316L\n2\nEnclosure\nDual chamber device\n5\nType of protection\nWithout Ex\nA\nIntrinsic safety\nB\nFlameproof enclosure\nC\nFlameproof enclosure, intrinsic safety\nD\nDust protection by enclosure Zone 21/22 (DIP), increased safety Zone 2\nL\nDust protection by enclosure Zone 20/21/22 (DIP), increased safe"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": null,
+        "distance": 0.38408219814300537,
+        "text_preview": "display (optional)\n• Cover with inspection window (optional)\nAuxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ... 45 V DC \n10.5 ... 30 V DC in intrinsically safe mode\nRipple\nUSS  0.2 V (47 … 125 Hz)\nNoise\nUeff 1.2 mV (0.5 … 10 kHz)\nAuxiliary power\n–\nSeparate supply voltage\n–\nCertif"
+      },
+      {
+        "page_number": 46,
+        "chunk_id": null,
+        "distance": 0.3843473792076111,
+        "text_preview": "osion protection\n-40 … +85 °C (-4 … +185 °F)\nAmbient conditions\n• Ambient temperature/enclosure\nObserve the temperature class in areas subject to explosion hazard.\n- Measuring cell with silicone oil filling\n-40 ... +85 °C (-40 ... +185 °F)\n- Measuring cell with silicone oil filling,\nmeasuring cell 3"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 25,
+        "chunk_id": null,
+        "distance": 0.44835060834884644,
+        "text_preview": "e\n0.01 ... 1 bar | Refer to the information on the nameplate of the pressure transmitter \nand the data on the mounting flange1)\nSpan (infinitely adjustable) or measuring range, max. \noperating pressure and max. test pressure | Span\nMax. permissible operating pres-\nsure MAWP (PS) | Maximum permissibl"
+      }
+    ],
+    "marque": [],
+    "modele": [
+      {
+        "page_number": 40,
+        "chunk_id": null,
+        "distance": 0.4304755926132202,
+        "text_preview": "ion acc. to FM\nAvailable soon\n- Marking (XP/DIP) or IS; NI; S\nCL I, DIV 1, GP ABCD T4 ... T6; CL II, DIV 1, GP EFG; CL III; Ex ia IIC T4 ... T6: CL I, DIV 2, \nGP ABCD T4 ... T6; CL II, DIV 2, GP FG; CL III\n• Explosion protection according to CSA\nAvailable soon\n- Marking (XP/DIP) or (IS)\nCL I, DIV 1,"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 52,
+        "chunk_id": null,
+        "distance": 0.41836631298065186,
+        "text_preview": "1/163\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor absolute pressure (differential pressure series)\n1\n■Selection and ordering data \nCustomer-specific device settings\nOrder code\nAdd \"-Z\" to article no., specify ord"
+      },
+      {
+        "page_number": 65,
+        "chunk_id": null,
+        "distance": 0.42105644941329956,
+        "text_preview": "1/176\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor differential pressure and flow\n1\n■Selection and ordering data \nCustomer-specific device settings\nOrder code\nAdd \"-Z\" to article no., specify order code and plain "
+      },
+      {
+        "page_number": 33,
+        "chunk_id": null,
+        "distance": 0.42210841178894043,
+        "text_preview": "1/144\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\n■Selection and ordering data \nCustomer-specific device settings\nOrder code\nAdd \"-Z\" to article no., specify"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": null,
+        "distance": 0.42289769649505615,
+        "text_preview": "1/134\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (differential pressure series)\n1\n■Selection and ordering data \nCustomer-specific device settings\nOrder code\nAdd \"-Z\" to article no., specify order "
+      },
+      {
+        "page_number": 74,
+        "chunk_id": null,
+        "distance": 0.44192302227020264,
+        "text_preview": "1/185\nSiemens FI 01 · 2018\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n■Selection and ordering data \nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included \nPlastic\nA00\nMetal\nA01\nStainless st"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 63,
+        "chunk_id": null,
+        "distance": 0.32747989892959595,
+        "text_preview": "t factory calibration \n(IEC 60770-2)\nC11\nAcceptance certificate (EN 10204-3.1) - Material of \npressurized and wetted parts\nC12\nTest report - NACE (MR 0103-2012 and MR 0175-2009)\nC13\nTest report (EN 10204-2.2) - Wetted parts\nC14\nAcceptance certificate (EN 10204-3.1) - PMI test of \npressurized and wet"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": null,
+        "distance": 0.33137238025665283,
+        "text_preview": "oint factory calibration \n(IEC 60770-2)\nC11\nAcceptance certificate (EN 10204-3.1) - Material of \npressurized and wetted parts\nC12\nTest report - NACE (MR 0103-2012 and MR 0175-2009)\nC13\nTest report (EN 10204-2.2) - Wetted parts\nC14\nAcceptance certificate (EN 10204-3.1) - PMI test of \npressurized and "
+      },
+      {
+        "page_number": 21,
+        "chunk_id": null,
+        "distance": 0.33841508626937866,
+        "text_preview": "ificate, 5-point factory calibration \n(IEC 60770-2)\nC11\nAcceptance certificate (EN 10204-3.1) - Material of \npressurized and wetted parts\nC12\nTest report - NACE (MR 0103-2012 and MR 0175-2009)\nC13\nTest report (EN 10204-2.2) - Wetted parts\nC14\nAcceptance certificate (EN 10204-3.1) - PMI test of \npres"
+      },
+      {
+        "page_number": 42,
+        "chunk_id": null,
+        "distance": 0.3401849865913391,
+        "text_preview": "5-point factory calibration \n(IEC 60770-2)\nC11\nAcceptance certificate (EN 10204-3.1) - Material of \npressurized and wetted parts\nC12\nTest report - NACE (MR 0103-2012 and MR 0175-2009)\nC13\nTest report (EN 10204-2.2) - Wetted parts\nC14\nAcceptance certificate (EN 10204-3.1) - PMI test of \npressurized a"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": null,
+        "distance": 0.34922951459884644,
+        "text_preview": "est certificate, 5-point factory calibration \n(IEC 60770-2)\nC11\nAcceptance certificate (EN 10204-3.1) - Material of \npressurized and wetted parts\nC12\nTest report - NACE (MR 0103-2012 and MR 0175-2009)\nC13\nTest report (EN 10204-2.2) - Wetted parts\nC14\nAcceptance certificate (EN 10204-3.1) - PMI test "
+      }
+    ]
+  },
+  "llm_meta": {
+    "categorie": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Transmetteur",
+      "quote": "The value for the field 'categorie' is 'Transmetteur'."
+    },
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "typeMesure"
+    },
+    "technologie": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "Not Provided"
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "typeSignal": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "4-20mA",
+      "quote": "4-20mA"
+    },
+    "nbFils": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "4",
+      "quote": "4"
+    },
+    "alimentation": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "24V DC",
+      "quote": "24V DC"
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "communication": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "classe": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Classe A",
+      "quote": "Classe A"
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "marque": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "modele": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "reference": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    }
+  }
+}

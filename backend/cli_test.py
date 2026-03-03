@@ -19,7 +19,8 @@ from services.chunker import chunk_text, Chunk
 from services.embeddings import generate_embeddings_batch
 from services.vector_store import clear_collection, query_chunks
 from services.semantic_search import search_all_fields
-from services.llm_extractor import extract_all_fields
+from services.llm_extractor import extract_all_fields_with_meta
+from services.regex_extractor import extract_with_regex
 
 
 def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
@@ -38,6 +39,7 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
     print(f"  -> {pdf.total_pages} pages")
 
     all_chunks: list[Chunk] = []
+    all_page_texts: list[str] = []
 
     for page in iter_pages(pdf):
         if not page.text.strip():
@@ -46,6 +48,8 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
         combined = page.text
         if page.tables:
             combined += "\n\n[TABLE DATA]\n" + "\n".join(page.tables)
+
+        all_page_texts.append(combined)
 
         chunks = chunk_text(
             text=combined,
@@ -97,7 +101,9 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
 
     elapsed = time.time() - total_start
     print(f"\n[Index] DONE in {elapsed:.1f}s")
-    return len(all_chunks)
+
+    full_text = "\n\n".join(all_page_texts)
+    return len(all_chunks), full_text
 
 
 def _print_query_results(query: str, results: list[dict], max_distance: float | None) -> None:
@@ -180,7 +186,11 @@ def run_extraction(
     total_start = time.time()
 
     # Index always (this is your embedding test integrated in backend)
-    count = _index_pdf_to_chroma(file_path, collection_name)
+    result = _index_pdf_to_chroma(file_path, collection_name)
+    if isinstance(result, tuple):
+        count, full_text = result
+    else:
+        count, full_text = result, ""
     if count == 0:
         return
 
@@ -191,14 +201,24 @@ def run_extraction(
         print(f"{'='*60}")
         return
 
+    # Regex extraction (fast, deterministic)
+    print(f"\n[4/6] Regex extraction (deterministic fields)...")
+    regex_results = extract_with_regex(full_text)
+    if regex_results:
+        print(f"  -> {len(regex_results)} fields matched by regex")
+    else:
+        print(f"  -> No regex matches")
+
     # Semantic search per field + LLM extraction (kept for later)
-    print(f"\n[4/5] Semantic search per field...")
+    print(f"\n[5/6] Semantic search per field...")
     field_chunks = search_all_fields()
     field_chunks = _filter_field_chunks_by_distance(field_chunks, field_max_distance)
     evidence = _build_evidence(field_chunks)
 
-    print(f"\n[5/5] Extracting values with LLM ({TEXT_MODEL})...")
-    equipment = extract_all_fields(field_chunks, min_confidence=min_confidence)
+    print(f"\n[6/6] Extracting values with LLM ({TEXT_MODEL}) + regex...")
+    equipment, llm_meta = extract_all_fields_with_meta(
+        field_chunks, min_confidence=min_confidence, regex_results=regex_results
+    )
 
     elapsed = time.time() - total_start
     print(f"\n{'='*60}")
@@ -228,6 +248,7 @@ def run_extraction(
                 "field_max_distance": field_max_distance,
                 "min_confidence": min_confidence,
                 "evidence": evidence,
+                "llm_meta": llm_meta,
             },
             f,
             indent=2,

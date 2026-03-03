@@ -1,0 +1,16 @@
+{
+  "typeMesure": "Niveau",
+  "plageMesure": {
+    "min": 0.2,
+    "max": 12.8,
+    "unite": "µs"
+  },
+  "typeSignal": "0-10V",
+  "nbFils": "2",
+  "alimentation": "24V DC",
+  "reperage": "0.1 mA",
+  "marque": "Siemens",
+  "modele": "SIMATIC S7",
+  "reference": "6ES72141AG400XB0",
+  "dateCalibration": "7/19/2022"
+}

@@ -2,7 +2,7 @@
   "file": "backend/uploads/4_H250-M40_COR_FR.pdf",
   "collection": "pdf_chunks",
   "field_max_distance": 0.45,
-  "min_confidence": 0.5,
+  "min_confidence": 0.4,
   "evidence": {
     "categorie": [
       {
@@ -392,5 +392,101 @@
         "text_preview": "MONTAGE 3\n27\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n3.2  Conditions de montage\nRespecter les instructions suivantes pour le montage de l'appareil dans la conduite:\n•\nLe débitmètre à section variable doit être installé verticalement (principe de mesure). Sens \nd'écoulement "
       }
     ]
+  },
+  "llm_meta": {
+    "categorie": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "Le champ categorie n'est pas spécifié dans les exemples."
+    },
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "technologie": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Electromagnetique",
+      "quote": "Electromagnetique"
+    },
+    "plageMesure": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": {
+        "min": 5,
+        "max": 100,
+        "unite": "DN"
+      },
+      "quote": "La plage de mesure est de 5 à 100 DN"
+    },
+    "typeSignal": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "4-20mA",
+      "quote": "4-20mA"
+    },
+    "nbFils": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "4",
+      "quote": "4"
+    },
+    "alimentation": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "24V DC",
+      "quote": "24V DC"
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "communication": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "HART",
+      "quote": "The communication protocol for ESK4 is HART®."
+    },
+    "classe": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Classe A",
+      "quote": "Classe A"
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "marque": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "H250 M40",
+      "quote": "H250 M40"
+    },
+    "reference": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null
+    }
   }
 }

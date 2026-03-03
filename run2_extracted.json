@@ -1,17 +1,14 @@
 {
-  "categorie": "Autre",
-  "technologie": "Autre",
+  "technologie": "Electromagnetique",
   "plageMesure": {
-    "min": null,
-    "max": null,
-    "unite": "100:1"
+    "min": 5.0,
+    "max": 100.0,
+    "unite": "DN"
   },
-  "typeSignal": "Autre",
-  "nbFils": "2",
+  "typeSignal": "4-20mA",
+  "nbFils": "4",
   "alimentation": "24V DC",
   "communication": "HART",
-  "classe": "Autre",
-  "marque": "KROHNE Messtechnik",
-  "modele": "H250 M40",
-  "dateCalibration": "10/2015"
+  "classe": "Classe A",
+  "modele": "H250 M40"
 }

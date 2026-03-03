@@ -1,0 +1,7 @@
+{
+  "categorie": "Transmetteur",
+  "typeSignal": "4-20mA",
+  "nbFils": "4",
+  "alimentation": "24V DC",
+  "classe": "Classe A"
+}

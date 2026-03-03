@@ -1,0 +1,16 @@
+{
+  "categorie": "Transmetteur",
+  "typeMesure": "Pression",
+  "plageMesure": {
+    "min": 0.12,
+    "max": 1450.0,
+    "unite": "psi"
+  },
+  "typeSignal": "4-20mA",
+  "nbFils": "4",
+  "reperage": "CG-0339",
+  "communication": "HART",
+  "marque": "Siemens",
+  "modele": "SITRANS P320/P420",
+  "reference": "7MF 0 3 0 7 - 77777 - 7777"
+}
