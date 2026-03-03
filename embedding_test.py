@@ -43,47 +43,38 @@ TEST_FIELDS: list[str] = []
 # Field -> natural language query templates / synonyms.
 # This is the critical piece: you must query with wording the PDF is likely to contain.
 FIELD_QUERIES: dict[str, list[str]] = {
-    "categorie_equipement": [
-        "type d'équipement (capteur, actionneur, vanne, servomoteur)",
-        "de quel équipement s'agit-il (vanne, actionneur, capteur) ?",
-    ],
-    "type_equipement": [
-        "type d'équipement (vanne de régulation, vanne d'isolement, servomoteur)",
-        "désignation / type de vanne",
-    ],
-    "type_de_mesure": [
-        "grandeur mesurée (débit, niveau, pression, température)",
-        "mesure de pression / température / débit / niveau",
-    ],
-    "technologie": [
-        "technologie (pneumatique, électrique, hydraulique)",
-        "type d'actionnement (pneumatique, électrique)",
-    ],
-    "signal": [
-        "signal de commande (4-20 mA, 0-10 V, pneumatique)",
-        "signal de réglage",
-    ],
-    "nb_fils": [
-        "nombre de fils (2 fils, 4 fils)",
-        "raccordement électrique nombre de fils",
-    ],
-    "communication": [
-        "protocole de communication (HART, Modbus, Profibus)",
-        "communication", 
-    ],
-    "marque": [
-        "marque / fabricant", 
-        "SAMSON fabricant",
-    ],
-    "modele": [
-        "modèle / type (ex: type 3241)",
-        "type 3241",
-    ],
-    "reference": [
-        "référence", 
-        "référence produit",
-    ],
 }
+
+
+def interactive_search_loop() -> None:
+    while True:
+        query = input("\nSearch query (empty to quit): ").strip()
+        if not query:
+            break
+
+        results = query_chunks(
+            query_text=query,
+            n_results=TOP_K,
+            collection_name=COLLECTION_NAME,
+        )
+
+        if MAX_DISTANCE is not None:
+            results = [r for r in results if r.get("distance", 1.0) <= MAX_DISTANCE]
+
+        if not results:
+            if MAX_DISTANCE is None:
+                print("No results")
+            else:
+                print(f"No results under MAX_DISTANCE={MAX_DISTANCE}")
+            continue
+
+        print("\nTop matches:")
+        for i, r in enumerate(results, start=1):
+            page = r.get("metadata", {}).get("page_number", "Unknown")
+            dist = r.get("distance", 0.0)
+            text = r.get("text", "")
+            text_preview = text.replace("\n", " ")
+            print(f"  {i}. Page {page} | distance={dist:.4f} | {text_preview[:220]}...")
 
 
 def _load_schema_fields(schema_path: str) -> list[str]:
@@ -266,31 +257,35 @@ def main():
         collection = embed_and_store(chunks, COLLECTION_NAME)
         
         # Step 3: Test semantic search
-        print("\n[3/4] Testing semantic search capabilities...")
-
-        schema_fields = _load_schema_fields(SCHEMA_PATH)
-        fields = TEST_FIELDS if TEST_FIELDS else schema_fields
-        if not fields:
-            fields = [
-                "type_equipement",
-                "modele",
-                "marque",
-                "signal",
-                "communication",
-            ]
-
-        field_to_queries: dict[str, list[str]] = {f: _build_queries_for_field(f) for f in fields}
+        print("\n[3/4] Search mode...")
+        mode = input("Choose mode: (i)nteractive search or (b)atch field test? [i/b]: ").strip().lower() or "i"
 
         search_results_by_field: dict[str, dict] = {}
-        for field, queries in field_to_queries.items():
-            print("\n" + "=" * 60)
-            print(f"FIELD: {field}")
-            print("=" * 60)
-            # Run multiple query phrasings per field and keep them grouped
-            search_results_by_field[field] = {
-                "queries": queries,
-                "results_by_query": test_semantic_search(collection, queries),
-            }
+        fields: list[str] = []
+
+        if mode.startswith("b"):
+            schema_fields = _load_schema_fields(SCHEMA_PATH)
+            fields = TEST_FIELDS if TEST_FIELDS else schema_fields
+            if not fields:
+                fields = [
+                    "type_equipement",
+                    "modele",
+                    "marque",
+                    "signal",
+                    "communication",
+                ]
+
+            field_to_queries: dict[str, list[str]] = {f: _build_queries_for_field(f) for f in fields}
+            for field, queries in field_to_queries.items():
+                print("\n" + "=" * 60)
+                print(f"FIELD: {field}")
+                print("=" * 60)
+                search_results_by_field[field] = {
+                    "queries": queries,
+                    "results_by_query": test_semantic_search(collection, queries),
+                }
+        else:
+            interactive_search_loop()
         
         # Step 4: Analyze embedding quality
         print("\n[4/4] Analyzing embedding quality...")
@@ -327,11 +322,14 @@ def main():
         print("=" * 60)
         print(f"✅ Processed {len(chunks)} chunks from PDF")
         print(f"✅ Stored embeddings in collection: {COLLECTION_NAME}")
-        print(f"✅ Tested {len(fields)} fields")
+        if fields:
+            print(f"✅ Tested {len(fields)} fields")
         print(f"✅ Processing time: {time.time() - start_time:.2f} seconds")
         print(f"✅ Results saved to: embedding_test_results.json")
         
         # Show successful searches
+        if not search_results_by_field:
+            return
         all_queries = []
         for field_data in search_results_by_field.values():
             all_queries.extend(list(field_data.get("results_by_query", {}).keys()))
