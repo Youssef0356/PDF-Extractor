@@ -33,8 +33,9 @@ Document excerpts:
 \"\"\"
 
 IMPORTANT RULES:
-- Extract ONLY the value for "{field_name}".
-- If the information is not found, respond with null.
+- Extract ONLY the value for "{field_name}" if it is EXPLICITLY stated in the excerpts.
+- DO NOT guess, infer, or use general knowledge.
+- If the exact value is not explicitly stated or is ambiguous, you MUST respond with null.
 - For the "plageMesure" field, extract min, max, and unit separately.
 - For "sortiesAlarme", extract all alarm entries as a list.
 - Respond with ONLY valid JSON, no other text.

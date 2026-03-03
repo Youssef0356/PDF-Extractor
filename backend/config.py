@@ -1,6 +1,7 @@
 """
 Configuration for the PDF Extractor backend.
 """
+import os
 
 # -- Ollama Models --------------------------------------------------
 VISION_MODEL = "qwen2.5vl:3b"       # Multimodal (vision + text)
@@ -13,7 +14,7 @@ CHUNK_OVERLAP = 100       # 20% overlap
 CHARS_PER_TOKEN = 4       # approximate characters per token
 
 # -- ChromaDB ------------------------------------------------------
-CHROMA_PERSIST_DIR = "./chroma_db"
+CHROMA_PERSIST_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_db")
 CHROMA_COLLECTION_NAME = "pdf_chunks"
 
 # -- PDF Processing -------------------------------------------------
