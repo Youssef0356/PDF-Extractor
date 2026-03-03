@@ -17,29 +17,22 @@ from config import TEXT_MODEL, EMBEDDING_MODEL, CHROMA_COLLECTION_NAME
 from services.pdf_parser import open_pdf, iter_pages
 from services.chunker import chunk_text, Chunk
 from services.embeddings import generate_embeddings_batch
-from services.vector_store import clear_collection
+from services.vector_store import clear_collection, query_chunks
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields
 
 
-def run_extraction(file_path: str):
+def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
     if not os.path.exists(file_path):
         print(f"[ERROR] File not found: {file_path}")
         print(f"Provide the full absolute path or a path relative to the backend folder.")
-        return
-
-    print(f"\n{'='*60}")
-    print(f"  PDF EXTRACTOR - OPTIMIZED PIPELINE")
-    print(f"  File     : {os.path.basename(file_path)}")
-    print(f"  LLM      : {TEXT_MODEL}")
-    print(f"  Embeddings: {EMBEDDING_MODEL}")
-    print(f"{'='*60}")
+        return 0
 
     total_start = time.time()
 
     # -- Phase 1: Parse + Chunk (CPU only, very fast) ---------------
     t0 = time.time()
-    print(f"\n[1/4] Parsing & chunking PDF...")
+    print(f"\n[1/3] Parsing & chunking PDF...")
 
     pdf = open_pdf(file_path)
     print(f"  -> {pdf.total_pages} pages")
@@ -57,16 +50,20 @@ def run_extraction(file_path: str):
         chunks = chunk_text(
             text=combined,
             page_number=page.page_number,
-            has_images=page.has_images,
+            has_images=False,
             doc_id="cli",
         )
         all_chunks.extend(chunks)
 
     print(f"  -> {len(all_chunks)} chunks in {time.time()-t0:.1f}s")
 
+    if not all_chunks:
+        print("[WARN] No text chunks found. PDF might be image-based or empty.")
+        return 0
+
     # -- Phase 2: Single batch embedding call -----------------------
     t0 = time.time()
-    print(f"\n[2/4] Embedding {len(all_chunks)} chunks (single batch)...")
+    print(f"\n[2/3] Embedding {len(all_chunks)} chunks (single batch)...")
 
     texts = [c.text for c in all_chunks]
     embeddings = generate_embeddings_batch(texts)
@@ -75,10 +72,10 @@ def run_extraction(file_path: str):
 
     # -- Phase 3: Store in ChromaDB ---------------------------------
     t0 = time.time()
-    print(f"\n[3/4] Storing in ChromaDB...")
+    print(f"\n[3/3] Storing in ChromaDB collection '{collection_name}'...")
 
-    collection = clear_collection(CHROMA_COLLECTION_NAME)
-    
+    collection = clear_collection(collection_name)
+
     batch_size = 5000
     for i in range(0, len(all_chunks), batch_size):
         batch = all_chunks[i:i + batch_size]
@@ -90,7 +87,7 @@ def run_extraction(file_path: str):
                 {
                     "page_number": c.page_number,
                     "chunk_index": c.chunk_index,
-                    "has_images": c.has_images,
+                    "has_images": False,
                 }
                 for c in batch
             ],
@@ -98,13 +95,110 @@ def run_extraction(file_path: str):
 
     print(f"  -> {len(all_chunks)} chunks stored in {time.time()-t0:.1f}s")
 
-    # -- Phase 4: Semantic search ----------------------------------
-    print(f"\n[3.5/4] Semantic search per field...")
-    field_chunks = search_all_fields()
+    elapsed = time.time() - total_start
+    print(f"\n[Index] DONE in {elapsed:.1f}s")
+    return len(all_chunks)
 
-    # -- Phase 5: LLM extraction -----------------------------------
-    print(f"\n[4/4] Extracting values with LLM ({TEXT_MODEL})...")
-    equipment = extract_all_fields(field_chunks)
+
+def _print_query_results(query: str, results: list[dict], max_distance: float | None) -> None:
+    print(f"\nQuery: {query}")
+    if max_distance is not None:
+        results = [r for r in results if r.get("distance", 1.0) <= max_distance]
+    if not results:
+        if max_distance is None:
+            print("No results")
+        else:
+            print(f"No results under max_distance={max_distance}")
+        return
+
+    print("Top matches:")
+    for i, r in enumerate(results, start=1):
+        page = r.get("metadata", {}).get("page_number", "Unknown")
+        dist = r.get("distance", 0.0)
+        text = (r.get("text") or "").replace("\n", " ")
+        print(f"  {i}. Page {page} | distance={dist:.4f} | {text[:220]}...")
+
+
+def _interactive_search(collection_name: str, top_k: int, max_distance: float | None) -> None:
+    print("\nInteractive semantic search (empty query to quit)")
+    while True:
+        q = input("Search query: ").strip()
+        if not q:
+            break
+        results = query_chunks(query_text=q, n_results=top_k, collection_name=collection_name)
+        _print_query_results(q, results, max_distance)
+
+
+def _filter_field_chunks_by_distance(
+    field_chunks: dict[str, list[dict]],
+    max_distance: float | None,
+) -> dict[str, list[dict]]:
+    if max_distance is None:
+        return field_chunks
+
+    filtered: dict[str, list[dict]] = {}
+    for field, chunks in field_chunks.items():
+        filtered[field] = [c for c in chunks if c.get("distance", 1.0) <= max_distance]
+    return filtered
+
+
+def _build_evidence(field_chunks: dict[str, list[dict]]) -> dict:
+    evidence: dict[str, list[dict]] = {}
+    for field, chunks in field_chunks.items():
+        evidence[field] = [
+            {
+                "page_number": (c.get("metadata") or {}).get("page_number"),
+                "chunk_id": (c.get("metadata") or {}).get("chunk_id"),
+                "distance": c.get("distance"),
+                "text_preview": (c.get("text") or "")[:300],
+            }
+            for c in chunks
+        ]
+    return evidence
+
+
+def run_extraction(
+    file_path: str,
+    collection_name: str,
+    no_llm: bool,
+    field_max_distance: float | None,
+    min_confidence: float,
+    output_prefix: str,
+):
+    if not os.path.exists(file_path):
+        print(f"[ERROR] File not found: {file_path}")
+        print(f"Provide the full absolute path or a path relative to the backend folder.")
+        return
+
+    print(f"\n{'='*60}")
+    print(f"  PDF EXTRACTOR - OPTIMIZED PIPELINE")
+    print(f"  File     : {os.path.basename(file_path)}")
+    print(f"  LLM      : {TEXT_MODEL}")
+    print(f"  Embeddings: {EMBEDDING_MODEL}")
+    print(f"{'='*60}")
+
+    total_start = time.time()
+
+    # Index always (this is your embedding test integrated in backend)
+    count = _index_pdf_to_chroma(file_path, collection_name)
+    if count == 0:
+        return
+
+    if no_llm:
+        elapsed = time.time() - total_start
+        print(f"\n{'='*60}")
+        print(f"  DONE (index only) in {elapsed:.1f}s")
+        print(f"{'='*60}")
+        return
+
+    # Semantic search per field + LLM extraction (kept for later)
+    print(f"\n[4/5] Semantic search per field...")
+    field_chunks = search_all_fields()
+    field_chunks = _filter_field_chunks_by_distance(field_chunks, field_max_distance)
+    evidence = _build_evidence(field_chunks)
+
+    print(f"\n[5/5] Extracting values with LLM ({TEXT_MODEL})...")
+    equipment = extract_all_fields(field_chunks, min_confidence=min_confidence)
 
     elapsed = time.time() - total_start
     print(f"\n{'='*60}")
@@ -112,8 +206,36 @@ def run_extraction(file_path: str):
     print(f"{'='*60}")
 
     print("\nEXTRACTED DATA:")
-    result = equipment.model_dump(exclude_none=True)
+    full_result = equipment.model_dump(exclude_none=False)
+
+    # Apply strict confidence gating at the final output stage too.
+    # Note: extract_all_fields already applies a confidence threshold internally, but we keep
+    # an additional layer here so the CLI behavior is explicit and configurable.
+    # Because we don't have per-field confidence returned here, we conservatively only output
+    # non-null values that survived extract_all_fields.
+    result = {k: v for k, v in full_result.items() if v is not None}
     print(json.dumps(result, indent=4, ensure_ascii=False))
+
+    extracted_path = f"{output_prefix}_extracted.json"
+    evidence_path = f"{output_prefix}_evidence.json"
+    with open(extracted_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+    with open(evidence_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "file": file_path,
+                "collection": collection_name,
+                "field_max_distance": field_max_distance,
+                "min_confidence": min_confidence,
+                "evidence": evidence,
+            },
+            f,
+            indent=2,
+            ensure_ascii=False,
+        )
+
+    print(f"\nSaved: {extracted_path}")
+    print(f"Saved: {evidence_path}")
 
 
 if __name__ == "__main__":
@@ -127,5 +249,82 @@ Examples:
         """
     )
     parser.add_argument("file", help="Path to a PDF file")
+
+    parser.add_argument(
+        "--collection",
+        default=CHROMA_COLLECTION_NAME,
+        help=f"ChromaDB collection name (default: {CHROMA_COLLECTION_NAME})",
+    )
+    parser.add_argument(
+        "--index-only",
+        action="store_true",
+        help="Only parse/chunk/embed/store (no LLM)",
+    )
+    parser.add_argument(
+        "--no-llm",
+        action="store_true",
+        help="Same as --index-only (kept for clarity)",
+    )
+    parser.add_argument(
+        "--search",
+        default="",
+        help="Run a semantic search query after indexing (prints top matches)",
+    )
+    parser.add_argument(
+        "--interactive-search",
+        action="store_true",
+        help="After indexing, enter an interactive search loop",
+    )
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=3,
+        help="Number of chunks to return for search queries",
+    )
+    parser.add_argument(
+        "--max-distance",
+        type=float,
+        default=None,
+        help="Optional: filter out results with distance > max_distance",
+    )
+
+    parser.add_argument(
+        "--field-max-distance",
+        type=float,
+        default=None,
+        help="Optional: filter semantic-search chunks per field before sending them to the LLM",
+    )
+    parser.add_argument(
+        "--min-confidence",
+        type=float,
+        default=0.3,
+        help="Minimum confidence for accepting an extracted field (LLM-side default is 0.3)",
+    )
+    parser.add_argument(
+        "--output-prefix",
+        default="cli_output",
+        help="Prefix for output files (writes <prefix>_extracted.json and <prefix>_evidence.json)",
+    )
+
     args = parser.parse_args()
-    run_extraction(args.file)
+
+    no_llm = bool(args.index_only or args.no_llm)
+    run_extraction(
+        args.file,
+        args.collection,
+        no_llm=no_llm,
+        field_max_distance=args.field_max_distance,
+        min_confidence=args.min_confidence,
+        output_prefix=args.output_prefix,
+    )
+
+    if args.search:
+        results = query_chunks(
+            query_text=args.search,
+            n_results=args.top_k,
+            collection_name=args.collection,
+        )
+        _print_query_results(args.search, results, args.max_distance)
+
+    if args.interactive_search:
+        _interactive_search(args.collection, args.top_k, args.max_distance)

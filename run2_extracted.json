@@ -1,0 +1,17 @@
+{
+  "categorie": "Autre",
+  "technologie": "Autre",
+  "plageMesure": {
+    "min": null,
+    "max": null,
+    "unite": "100:1"
+  },
+  "typeSignal": "Autre",
+  "nbFils": "2",
+  "alimentation": "24V DC",
+  "communication": "HART",
+  "classe": "Autre",
+  "marque": "KROHNE Messtechnik",
+  "modele": "H250 M40",
+  "dateCalibration": "10/2015"
+}

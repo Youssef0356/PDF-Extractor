@@ -4,6 +4,7 @@ Uses Ollama (Qwen2.5) to extract structured data from document chunks.
 """
 import json
 import ollama as ollama_client
+import time
 
 from config import TEXT_MODEL, VISION_MODEL
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
@@ -70,21 +71,30 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
     
     prompt = _build_extraction_prompt(field_name, chunks)
     
-    try:
-        response = ollama_client.chat(
-            model=TEXT_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            options={"temperature": 0.1},
-            keep_alive="10m",  # Keep model in VRAM for 10 minutes
-        )
-        
-        raw = response["message"]["content"].strip()
-        result = _parse_llm_json(raw)
-        return result
-        
-    except Exception as e:
-        print(f"[LLM] Error extracting '{field_name}': {e}")
-        return {"value": None, "confidence": 0.0}
+    last_error: Exception | None = None
+    for attempt in range(1, 4):
+        try:
+            response = ollama_client.chat(
+                model=TEXT_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                options={"temperature": 0.1},
+                keep_alive="10m",  # Keep model in VRAM for 10 minutes
+            )
+
+            raw = response["message"]["content"].strip()
+            result = _parse_llm_json(raw)
+            return result
+
+        except Exception as e:
+            last_error = e
+            # Transient server errors happen under load; back off and retry.
+            wait_s = 2 * attempt
+            print(f"[LLM] Error extracting '{field_name}' (attempt {attempt}/3): {e}")
+            if attempt < 3:
+                time.sleep(wait_s)
+
+    print(f"[LLM] Giving up extracting '{field_name}' after 3 attempts: {last_error}")
+    return {"value": None, "confidence": 0.0}
 
 
 def _parse_llm_json(raw: str) -> dict:
@@ -111,14 +121,15 @@ def _parse_llm_json(raw: str) -> dict:
     return {"value": None, "confidence": 0.0}
 
 
-def extract_all_fields(field_chunks: dict[str, list[dict]]) -> EquipmentSchema:
+def extract_all_fields(field_chunks: dict[str, list[dict]], min_confidence: float = 0.3) -> EquipmentSchema:
     """
     Extract all form fields from the document in parallel.
     
     Args:
         field_chunks: Dict mapping field_name -> relevant chunks
-                      (from semantic_search.search_all_fields).
-                      
+                     (from semantic_search.search_all_fields).
+        min_confidence: Minimum confidence threshold required to accept a field value.
+        
     Returns:
         Populated EquipmentSchema.
     """
@@ -135,9 +146,6 @@ def extract_all_fields(field_chunks: dict[str, list[dict]]) -> EquipmentSchema:
         print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
         return field_name, result
 
-    # Import time for logging
-    import time
-
     # Run extractions in parallel
     with ThreadPoolExecutor(max_workers=LLM_MAX_WORKERS) as executor:
         futures = [
@@ -150,7 +158,7 @@ def extract_all_fields(field_chunks: dict[str, list[dict]]) -> EquipmentSchema:
             value = result.get("value")
             confidence = result.get("confidence", 0.0)
             
-            if value is not None and confidence > 0.3:
+            if value is not None and confidence >= min_confidence:
                 extracted[field_name] = value
                 print(f"  [OK] {field_name} = {value}")
             else:

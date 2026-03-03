@@ -23,4 +23,4 @@ TOP_K_CHUNKS = 5          # Number of chunks to retrieve per field
 
 # -- Server ---------------------------------------------------------
 UPLOAD_DIR = "./uploads"
-LLM_MAX_WORKERS = 2       # Number of simultaneous fields to extract (safer for 8GB GPU)
+LLM_MAX_WORKERS = 1       # Number of simultaneous fields to extract (safer for 8GB GPU)
