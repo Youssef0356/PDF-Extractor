@@ -4,9 +4,10 @@ Uses Ollama (Qwen2.5) to extract structured data from document chunks.
 """
 import json
 import ollama as ollama_client
+import re
 import time
 
-from config import TEXT_MODEL, VISION_MODEL
+from config import ACCURACY_FIRST, TEXT_MODEL, VISION_MODEL
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
 
 
@@ -37,10 +38,17 @@ IMPORTANT RULES:
 - Extract ONLY the value for "{field_name}" if it is EXPLICITLY stated in the excerpts.
 - DO NOT guess, infer, or use general knowledge.
 - If the exact value is not explicitly stated or is ambiguous, you MUST respond with null.
+- For the "categorie" field: extract it ONLY if the category word is explicitly written in the excerpts (e.g., "Transmetteur" / "Actionneur"). Otherwise return null.
+- Apply domain constraints:
+  - If typeMesure is Pression: units must be consistent with pressure (bar, Pa, psi, kPa, MPa, mbar). Never return flow units (m³/h, L/h).
+  - If technologie is Ultrasonique: typeSignal is probably an electrical signal (e.g., 4-20mA or voltage) and should not be a communication protocol.
 - For the "plageMesure" field, extract min, max, and unit separately.
+- For the "plageMesure" field: ONLY accept physical measurement ranges with real units (e.g., m3/h, l/h, bar, °C, %). If the excerpt is about a ratio like "10:1" / "100:1" (rangeability / turndown / plage étendue), you MUST return null.
 - For "sortiesAlarme", extract all alarm entries as a list.
 - Respond with ONLY valid JSON, no other text.
 - If you return a non-null value, you MUST also return a "quote" copied verbatim from the excerpts that supports the value.
+- The quote MUST be an exact substring of the excerpts (do not paraphrase).
+- DO NOT use "..." or "…" in the quote. If you cannot copy a fully verbatim quote, return null.
 
 Response format:
 {{"value": <extracted_value>, "confidence": <number between 0.0 and 1.0>, "quote": <string or null>}}
@@ -84,6 +92,7 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
 
             raw = response["message"]["content"].strip()
             result = _parse_llm_json(raw)
+            result["_raw"] = raw[:1200]
             if "quote" not in result:
                 result["quote"] = None
             if "confidence" not in result:
@@ -100,7 +109,7 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
                 time.sleep(wait_s)
 
     print(f"[LLM] Giving up extracting '{field_name}' after 3 attempts: {last_error}")
-    return {"value": None, "confidence": 0.0, "quote": None}
+    return {"value": None, "confidence": 0.0, "quote": None, "_raw": None, "_error": str(last_error) if last_error else None}
 
 
 def _parse_llm_json(raw: str) -> dict:
@@ -114,17 +123,54 @@ def _parse_llm_json(raw: str) -> dict:
         lines = [l for l in lines if not l.strip().startswith("```")]
         raw = "\n".join(lines)
 
+    def _extract_first_json_object(text: str) -> str | None:
+        s = text or ""
+        start = s.find("{")
+        if start < 0:
+            return None
+
+        depth = 0
+        in_str = False
+        esc = False
+        for i in range(start, len(s)):
+            ch = s[i]
+
+            if in_str:
+                if esc:
+                    esc = False
+                    continue
+                if ch == "\\":
+                    esc = True
+                    continue
+                if ch == '"':
+                    in_str = False
+                continue
+
+            if ch == '"':
+                in_str = True
+                continue
+
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return s[start : i + 1]
+
+        return None
+
     try:
         parsed = json.loads(raw)
     except json.JSONDecodeError:
-        start = raw.find("{")
-        end = raw.rfind("}") + 1
-        if start >= 0 and end > start:
+        extracted = _extract_first_json_object(raw)
+        if extracted:
             try:
-                parsed = json.loads(raw[start:end])
+                parsed = json.loads(extracted)
             except json.JSONDecodeError:
+                print(f"[LLM] JSON parse failed (showing first 240 chars): {raw[:240]!r}")
                 return {"value": None, "confidence": 0.0, "quote": None}
         else:
+            print(f"[LLM] JSON parse failed (no '{{' found; first 240 chars): {raw[:240]!r}")
             return {"value": None, "confidence": 0.0, "quote": None}
 
     if not isinstance(parsed, dict):
@@ -194,6 +240,9 @@ def _normalize_value(field_name: str, value):
 
 
 def _is_value_allowed(field_name: str, value) -> bool:
+    if not ACCURACY_FIRST:
+        return True
+
     field_info = FIELD_DESCRIPTIONS.get(field_name, {})
     allowed = field_info.get("allowed_values")
     if value is None or not allowed:
@@ -217,6 +266,11 @@ def _is_expected_type(field_name: str, value) -> bool:
 def _quote_in_context(quote: str | None, chunks: list[dict]) -> bool:
     if not quote or not isinstance(quote, str) or not quote.strip():
         return False
+
+    # Quotes containing ellipses are not verbatim and should not be accepted.
+    if "..." in quote or "…" in quote:
+        return False
+
     context = "\n---\n".join([(c.get("text") or "") for c in chunks])
     if not context:
         return False
@@ -224,7 +278,36 @@ def _quote_in_context(quote: str | None, chunks: list[dict]) -> bool:
     q = quote.strip()
     if q in context:
         return True
-    return q.lower() in context.lower()
+
+    def _norm(s: str) -> str:
+        # Normalize whitespace for robust matching, but keep content strict.
+        s = s.replace("\r\n", "\n").replace("\r", "\n")
+        s = re.sub(r"\s+", " ", s)
+        return s.strip().lower()
+
+    qn = _norm(q)
+    cn = _norm(context)
+
+    # If the model copied a multi-line quote, it may not appear as one contiguous substring
+    # because of line breaks or repeated headers. We still want verbatim behavior, so we
+    # only accept if each non-empty line appears in the context *in order*.
+    if "\n" in q:
+        parts = [p.strip() for p in q.splitlines() if p.strip()]
+        if not parts:
+            return False
+
+        pos = 0
+        for p in parts:
+            pn = _norm(p)
+            if not pn:
+                continue
+            idx = cn.find(pn, pos)
+            if idx < 0:
+                return False
+            pos = idx + len(pn)
+        return True
+
+    return bool(qn) and qn in cn
 
 
 def _value_supported_by_quote(value, quote: str | None) -> bool:
@@ -275,6 +358,11 @@ def _passes_semantic_guard(field_name: str, value, quote: str | None) -> bool:
             return False
         if any(u in ql for u in [" ms", "µs", " us"]):
             # If the quote is in time units, treat as non-measurement range.
+            return False
+        # Reject rangeability ratios and rangeability contexts being misread as a measuring range.
+        if re.search(r"\b\d+\s*:\s*\d+\b", ql):
+            return False
+        if "rangeability" in ql or "turndown" in ql:
             return False
         return True
 
@@ -343,8 +431,11 @@ def extract_all_fields(field_chunks: dict[str, list[dict]], min_confidence: floa
                 print(f"  [OK] {field_name} = {value}")
             else:
                 print(f"  [MISS] {field_name} (conf: {confidence})")
-    
+
     # Build the EquipmentSchema from extracted data
+    extracted = _apply_cross_field_guards(extracted)
+    extracted = _post_extract_reretrieval_verification(extracted, field_chunks=field_chunks)
+
     schema_data = {}
     for field_name, value in extracted.items():
         if field_name == "plageMesure" and isinstance(value, dict):
@@ -355,6 +446,86 @@ def extract_all_fields(field_chunks: dict[str, list[dict]], min_confidence: floa
             schema_data[field_name] = value
     
     return EquipmentSchema(**schema_data)
+
+
+def _normalize_for_query(field_name: str, value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    if field_name == "plageMesure" and isinstance(value, dict):
+        min_v = value.get("min")
+        max_v = value.get("max")
+        unite = value.get("unite")
+        return f"{min_v} {unite} {max_v}"
+    if field_name == "sortiesAlarme" and isinstance(value, list):
+        names = []
+        for a in value:
+            if isinstance(a, dict) and a.get("nomAlarme"):
+                names.append(str(a.get("nomAlarme")))
+        return " ".join(names)
+    return str(value)
+
+
+def _top_result_supports_value(field_name: str, value, top_chunk: dict | None) -> bool:
+    if value is None:
+        return True
+    if not top_chunk:
+        return False
+
+    text = (top_chunk.get("text") or "")
+    if not text:
+        return False
+
+    # Reuse the existing lexical support check against the chunk text.
+    if not _basic_value_supported_by_quote(value, text):
+        return False
+
+    # Minimal semantic guard as a second pass.
+    return _passes_semantic_guard(field_name, value, text)
+
+
+def _post_extract_reretrieval_verification(
+    extracted: dict[str, object],
+    field_chunks: dict[str, list[dict]] | None = None,
+) -> dict[str, object]:
+    """Re-query Chroma with the extracted value and ensure the top chunk supports it.
+
+    If the top result does not support the value, mark the field as suspicious and drop it.
+    """
+    try:
+        from services.vector_store import query_chunks
+    except Exception:
+        return extracted
+
+    doc_id = None
+    if field_chunks:
+        for chunks in field_chunks.values():
+            for c in chunks or []:
+                md = c.get("metadata") if isinstance(c, dict) else None
+                if md and md.get("doc_id"):
+                    doc_id = md.get("doc_id")
+                    break
+            if doc_id:
+                break
+
+    where = {"doc_id": doc_id} if doc_id else None
+
+    verified: dict[str, object] = {}
+    for field_name, value in extracted.items():
+        qv = _normalize_for_query(field_name, value).strip()
+        if not qv:
+            continue
+
+        query = f"What is {qv}?"
+        results = query_chunks(query, n_results=1, where=where)
+        top = results[0] if results else None
+        if _top_result_supports_value(field_name, value, top):
+            verified[field_name] = value
+        else:
+            print(f"  [VERIFY FAIL] {field_name}='{value}' not supported by top re-retrieval")
+
+    return verified
 
 
 def extract_all_fields_with_meta(
@@ -415,15 +586,40 @@ def extract_all_fields_with_meta(
                     confidence = 0.0
                 quote = result.get("quote")
 
+                checks = {
+                    "non_null": value is not None,
+                    "min_confidence": confidence >= min_confidence,
+                    "expected_type": _is_expected_type(field_name, value),
+                    "allowed_value": _is_value_allowed(field_name, value),
+                    "quote_supported": _value_supported_by_quote(value, quote),
+                    "semantic_guard": _passes_semantic_guard(field_name, value, quote),
+                    "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
+                }
+
                 ok = (
-                    value is not None
-                    and confidence >= min_confidence
-                    and _is_expected_type(field_name, value)
-                    and _is_value_allowed(field_name, value)
-                    and _value_supported_by_quote(value, quote)
-                    and _passes_semantic_guard(field_name, value, quote)
-                    and _quote_in_context(quote, field_chunks.get(field_name, []))
+                    checks["non_null"]
+                    and checks["min_confidence"]
+                    and checks["expected_type"]
+                    and checks["allowed_value"]
+                    and checks["quote_supported"]
+                    and checks["semantic_guard"]
+                    and checks["quote_in_context"]
                 )
+
+                rejection_reason = None
+                if not ok:
+                    for k in [
+                        "non_null",
+                        "min_confidence",
+                        "expected_type",
+                        "allowed_value",
+                        "quote_supported",
+                        "semantic_guard",
+                        "quote_in_context",
+                    ]:
+                        if not checks.get(k, False):
+                            rejection_reason = k
+                            break
 
                 meta[field_name] = {
                     "accepted": ok,
@@ -431,6 +627,10 @@ def extract_all_fields_with_meta(
                     "value": value if ok else None,
                     "quote": quote,
                     "source": "llm",
+                    "checks": checks,
+                    "rejection_reason": rejection_reason,
+                    "raw": result.get("_raw"),
+                    "error": result.get("_error"),
                 }
 
                 if ok:
@@ -449,3 +649,27 @@ def extract_all_fields_with_meta(
             schema_data[field_name] = value
 
     return EquipmentSchema(**schema_data), meta
+
+
+def _apply_cross_field_guards(extracted: dict[str, object]) -> dict[str, object]:
+    """Apply cross-field consistency checks to reduce wrong-but-plausible outputs."""
+    out = dict(extracted)
+
+    type_mesure = (out.get("typeMesure") or "")
+    if isinstance(type_mesure, str) and type_mesure.lower() == "pression":
+        pm = out.get("plageMesure")
+        if isinstance(pm, dict):
+            unite = pm.get("unite")
+            if isinstance(unite, str):
+                allowed_pressure_units = {"bar", "pa", "psi", "kpa", "mpa", "mbar"}
+                if unite.strip().lower() not in allowed_pressure_units:
+                    out.pop("plageMesure", None)
+
+    techno = (out.get("technologie") or "")
+    if isinstance(techno, str) and techno.strip().lower() == "ultrasonique":
+        ts = out.get("typeSignal")
+        if isinstance(ts, str) and ts.strip() in {"Autre", ""}:
+            # Don't force a value; just drop an unhelpful placeholder.
+            out.pop("typeSignal", None)
+
+    return out

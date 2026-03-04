@@ -43,14 +43,21 @@ def store_chunks_batch(chunks: list, collection) -> None:
 
     ids = [chunk.chunk_id for chunk in chunks]
     documents = [chunk.text for chunk in chunks]
-    metadatas = [
-        {
+    metadatas = []
+    for chunk in chunks:
+        md = {
+            "chunk_id": getattr(chunk, "chunk_id", None),
+            "doc_id": getattr(chunk, "doc_id", None),
             "page_number": chunk.page_number,
             "chunk_index": chunk.chunk_index,
             "has_images": chunk.has_images,
+            "chunk_type": getattr(chunk, "chunk_type", "text"),
+            "table_id": getattr(chunk, "table_id", None),
+            "row_index": getattr(chunk, "row_index", None),
         }
-        for chunk in chunks
-    ]
+        # Chroma metadata values must be primitive and cannot be None.
+        md = {k: v for k, v in md.items() if v is not None}
+        metadatas.append(md)
 
     embeddings = generate_embeddings_batch(documents)
 
@@ -78,6 +85,7 @@ def query_chunks(
     query_text: str,
     n_results: int = 5,
     collection_name: str = CHROMA_COLLECTION_NAME,
+    where: dict | None = None,
 ) -> list[dict]:
     """
     Query ChromaDB for the most relevant chunks.
@@ -94,10 +102,14 @@ def query_chunks(
 
     query_embedding = generate_embedding(query_text)
 
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=n_results,
-    )
+    query_kwargs = {
+        "query_embeddings": [query_embedding],
+        "n_results": n_results,
+    }
+    if where:
+        query_kwargs["where"] = where
+
+    results = collection.query(**query_kwargs)
 
     formatted = []
     if results["documents"] and results["documents"][0]:
@@ -109,3 +121,16 @@ def query_chunks(
             })
 
     return formatted
+
+
+def document_is_indexed(doc_id: str, collection_name: str = CHROMA_COLLECTION_NAME) -> bool:
+    """Return True if the collection already contains chunks for the given doc_id."""
+    if not doc_id:
+        return False
+    collection = get_or_create_collection(collection_name)
+    try:
+        existing = collection.get(where={"doc_id": doc_id}, include=["ids"])
+        ids = existing.get("ids") or []
+        return len(ids) > 0
+    except Exception:
+        return False

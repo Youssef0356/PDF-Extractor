@@ -1,0 +1,22 @@
+{
+  "equipmentName": "SITRANS P320/P420",
+  "categorie": null,
+  "typeMesure": "Pression",
+  "technologie": null,
+  "plageMesure": {
+    "min": 0.12,
+    "max": 1450.0,
+    "unite": "psi"
+  },
+  "typeSignal": "4-20mA",
+  "nbFils": "1",
+  "alimentation": "45 V DC",
+  "reperage": "CG-0339",
+  "communication": "HART",
+  "classe": null,
+  "sortiesAlarme": null,
+  "marque": null,
+  "modele": "SITRANS P320/P420",
+  "reference": "7MF 0 3 0 7 - 77777 - 7777",
+  "dateCalibration": "Five-step factory calibration"
+}

@@ -19,6 +19,7 @@ export interface SortieAlarme {
 }
 
 export interface EquipmentData {
+    equipmentName: string | null;
     categorie: string | null;
     typeMesure: string | null;
     technologie: string | null;

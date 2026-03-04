@@ -21,6 +21,7 @@ class SortieAlarme(BaseModel):
 
 class EquipmentSchema(BaseModel):
     """The target JSON schema that the AI must fill."""
+    equipmentName: Optional[str] = None
     categorie: Optional[str] = Field(
         None, description="Transmetteur | Actionneur | Autre"
     )
@@ -69,6 +70,18 @@ class ExtractionResponse(BaseModel):
 
 # -- Field metadata for semantic search prompts ----------------------
 FIELD_DESCRIPTIONS = {
+    "equipmentName": {
+        "description": "Equipment name / designation (human-readable name)",
+        "allowed_values": None,
+        "search_queries": [
+            "equipment name",
+            "designation",
+            "device name",
+            "product name",
+            "nom de l'equipement",
+            "désignation",
+        ],
+    },
     "categorie": {
         "description": "Category of the equipment (Transmetteur, Actionneur, or Autre)",
         "allowed_values": ["Transmetteur", "Actionneur", "Autre"],
@@ -102,30 +115,29 @@ FIELD_DESCRIPTIONS = {
         "description": "Technology used (Electromagnetique, Hydraulique,Pneumatique or Autre)",
         "allowed_values": ["Electromagnetique", "Hydraulique","Pneumatique", "Autre"],
         "search_queries": [
-            "measurement principle",
-            "sensor technology",
-            "capacitive sensor",
-            "piezoresistive",
-            "ceramic sensor",
-            "silicon sensor",
-            "technologie electromagnetique hydraulique pneumatique principe de mesure",
             "principe de mesure",
+            "measurement principle",
+            "operating principle",
+            "section variable",
+            "débitmètre à section variable",
+            "rotamètre",
+            "variable area flowmeter",
+            "technologie electromagnetique hydraulique pneumatique",
         ],
     },
     "plageMesure": {
         "description": "Measurement range with minimum, maximum, and unit",
         "allowed_values": None,
         "search_queries": [
-            "measuring range",
-            "measurement range",
-            "rangeability",
-            "span",
-            "LRV URV",
-            "lower range value",
-            "upper range value",
-            "URL",
             "plage de mesure",
             "étendue de mesure",
+            "measuring range",
+            "measurement range",
+            "plage de débit",
+            "débit min",
+            "débit max",
+            "Qmin Qmax",
+            "débitmètre plage",
         ],
     },
     "typeSignal": {

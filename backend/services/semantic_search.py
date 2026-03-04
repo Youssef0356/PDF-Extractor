@@ -7,7 +7,24 @@ from models.schema import FIELD_DESCRIPTIONS
 from services.vector_store import query_chunks
 
 
-def search_for_field(field_name: str, n_results: int = TOP_K_CHUNKS) -> list[dict]:
+_IDENTITY_FIELDS = {"marque", "modele", "reference", "equipmentName"}
+
+# Accuracy-first: for some fields, narrative text is much less noisy than tables.
+# We still allow fallback to mixed retrieval if we don't get enough hits.
+_TEXT_FIRST_FIELDS = {
+    *_IDENTITY_FIELDS,
+    "technologie",
+    "plageMesure",
+    "alimentation",
+    "nbFils",
+}
+
+
+def search_for_field(
+    field_name: str,
+    n_results: int = TOP_K_CHUNKS,
+    doc_id: str | None = None,
+) -> list[dict]:
     """
     Search for chunks relevant to a specific form field.
     
@@ -27,14 +44,37 @@ def search_for_field(field_name: str, n_results: int = TOP_K_CHUNKS) -> list[dic
     
     # Run multiple queries and merge results
     all_results: dict[str, dict] = {}
-    
-    for query in field_info["search_queries"]:
-        results = query_chunks(query, n_results=n_results)
+
+    def _key_for(r: dict) -> str:
+        md = (r.get("metadata") or {})
+        cid = md.get("chunk_id")
+        if isinstance(cid, str) and cid:
+            return cid
+        return r.get("text") or ""
+
+    def _merge_results(results: list[dict]) -> None:
         for result in results:
-            chunk_text = result["text"]
-            # Keep the best (lowest distance) result for each chunk
-            if chunk_text not in all_results or result["distance"] < all_results[chunk_text]["distance"]:
-                all_results[chunk_text] = result
+            k = _key_for(result)
+            if not k:
+                continue
+            if k not in all_results or result["distance"] < all_results[k]["distance"]:
+                all_results[k] = result
+
+    base_where = {"doc_id": doc_id} if doc_id else None
+
+    # Text-first fields: prefer narrative text first, then allow tables as fallback.
+    if field_name in _TEXT_FIRST_FIELDS:
+        where_text = dict(base_where or {})
+        where_text["chunk_type"] = "text"
+        for query in field_info["search_queries"]:
+            _merge_results(query_chunks(query, n_results=n_results, where=where_text))
+
+        if len(all_results) < max(1, n_results // 2):
+            for query in field_info["search_queries"]:
+                _merge_results(query_chunks(query, n_results=n_results, where=base_where))
+    else:
+        for query in field_info["search_queries"]:
+            _merge_results(query_chunks(query, n_results=n_results, where=base_where))
     
     # Sort by distance (lower = more relevant)
     sorted_results = sorted(all_results.values(), key=lambda r: r["distance"])
@@ -42,7 +82,7 @@ def search_for_field(field_name: str, n_results: int = TOP_K_CHUNKS) -> list[dic
     return sorted_results[:n_results]
 
 
-def search_all_fields() -> dict[str, list[dict]]:
+def search_all_fields(doc_id: str | None = None) -> dict[str, list[dict]]:
     """
     Search for relevant chunks for ALL form fields.
     
@@ -51,5 +91,5 @@ def search_all_fields() -> dict[str, list[dict]]:
     """
     results = {}
     for field_name in FIELD_DESCRIPTIONS:
-        results[field_name] = search_for_field(field_name)
+        results[field_name] = search_for_field(field_name, doc_id=doc_id)
     return results

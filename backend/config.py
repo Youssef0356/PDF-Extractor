@@ -5,8 +5,12 @@ import os
 
 # -- Ollama Models --------------------------------------------------
 VISION_MODEL = "qwen2.5vl:3b"       # Multimodal (vision + text)
-TEXT_MODEL = "gemma:2b"         # Using VL model for text too (handles both)
+TEXT_MODEL = "gemma3:4b"         # Using VL model for text too (handles both)
 EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
+
+# -- Extraction Policy ----------------------------------------------
+# If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).
+ACCURACY_FIRST = False
 
 # -- Chunking ------------------------------------------------------
 CHUNK_SIZE = 500          # tokens (~375 words)

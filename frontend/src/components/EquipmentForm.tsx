@@ -59,6 +59,12 @@ const SECTIONS: Section[] = [
         icon: '1',
         fields: [
             {
+                key: 'equipmentName',
+                label: 'equipment_name',
+                type: 'text',
+                placeholder: 'equipment name',
+            },
+            {
                 key: 'categorie',
                 label: 'categorie_equipement',
                 type: 'select',
@@ -89,7 +95,6 @@ const SECTIONS: Section[] = [
                 placeholderMin: 'min',
                 placeholderMax: 'max',
             }
-
         ],
     },
     {
@@ -253,6 +258,7 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
         const filledKeys = new Set<string>();
 
         const simpleFields = [
+            'equipmentName',
             'categorie', 'typeMesure', 'technologie', 'typeSignal',
             'nbFils', 'alimentation', 'reperage', 'communication',
             'classe', 'marque', 'modele', 'reference', 'dateCalibration',

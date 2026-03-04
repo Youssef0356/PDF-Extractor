@@ -71,7 +71,7 @@ _REFERENCE_PATTERNS = [
     # Siemens 7MF order numbers
     re.compile(r"\b(7MF\s*\d[\d\s\-\.]{5,})\b"),
     # Siemens S7 order numbers like: 6ES72141AG400XB0
-    re.compile(r"\b(6ES7\s*[0-9A-Z\s]{8,})\b", re.IGNORECASE),
+    re.compile(r"\b(6ES7[0-9A-Z]{8,})\b", re.IGNORECASE),
     # Generic "PA nnn" style
     re.compile(r"\b(PA\s*\d{3,}[\d\.\-\s]*)\b"),
     # Generic "Order No." / "Part No." / "Article No." / "Ref." patterns
@@ -249,31 +249,48 @@ def _extract_reference(text: str) -> Optional[dict]:
             value = m.group(1).strip()
             # Clean up whitespace in references
             value = re.sub(r"\s+", " ", value)
+            # Strip common trailing artifacts from PDF headers/footers.
+            value = re.sub(r"\s+(?:page|p\.|seite)\s*\d+\b", "", value, flags=re.IGNORECASE).strip()
             return {"value": value, "confidence": 0.9, "quote": m.group(0).strip(), "source": "regex"}
     return None
 
 
-def _extract_categorie(text: str) -> Optional[dict]:
-    """Infer equipment category from document keywords."""
-    text_lower = text.lower()
-    # Count occurrences to determine dominant category
-    transmitter_score = (
-        len(re.findall(r"\btransmitt(?:er|ers)\b", text_lower))
-        + len(re.findall(r"\btransmetteur\b", text_lower))
-        + len(re.findall(r"\bpressure\s+transmitt", text_lower))
-        + len(re.findall(r"\btransmitter\b", text_lower))
-    )
-    actuator_score = (
-        len(re.findall(r"\bactuator\b", text_lower))
-        + len(re.findall(r"\bactionneur\b", text_lower))
-        + len(re.findall(r"\bvalve\s+actuator\b", text_lower))
-        + len(re.findall(r"\bpositioner\b", text_lower))
-    )
+def _extract_equipment_name(text: str) -> Optional[dict]:
+    """Match a human-readable equipment designation/name from common label patterns."""
+    patterns = [
+        re.compile(r"(?:Equipment|Device|Instrument|Product)\s*Name\s*[:=]\s*([^\n]{3,80})", re.IGNORECASE),
+        re.compile(r"(?:Designation|Désignation)\s*[:=]\s*([^\n]{3,80})", re.IGNORECASE),
+        re.compile(r"(?:Instrument)\s*[:=]\s*([^\n]{3,80})", re.IGNORECASE),
+    ]
+    for pat in patterns:
+        m = pat.search(text)
+        if m:
+            value = m.group(1).strip()
+            value = re.sub(r"\s+", " ", value)
+            # Avoid obviously-bad captures.
+            if len(value) < 3:
+                continue
+            return {"value": value, "confidence": 0.85, "quote": m.group(0).strip(), "source": "regex"}
+    return None
 
-    if transmitter_score >= 3:
-        return {"value": "Transmetteur", "confidence": 0.9, "quote": f"transmitter mentioned {transmitter_score}x", "source": "regex"}
-    if actuator_score >= 3:
-        return {"value": "Actionneur", "confidence": 0.9, "quote": f"actuator mentioned {actuator_score}x", "source": "regex"}
+
+def _extract_categorie(text: str) -> Optional[dict]:
+    """Extract equipment category ONLY if explicitly labeled in the document."""
+    patterns = [
+        re.compile(
+            r"(?:Cat(?:égorie|egorie)|Category|Type\s+d['’]?instrument)\s*[:=]\s*(Transmetteur|Actionneur|Autre)",
+            re.IGNORECASE,
+        ),
+    ]
+
+    for pat in patterns:
+        m = pat.search(text)
+        if m:
+            value = m.group(1)
+            # Normalize capitalization to match allowed values.
+            canonical = value[0].upper() + value[1:].lower()
+            return {"value": canonical, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
+
     return None
 
 
@@ -416,6 +433,10 @@ def extract_with_regex(full_text: str) -> dict[str, dict]:
     r = _extract_reference(full_text)
     if r:
         results["reference"] = r
+
+    r = _extract_equipment_name(full_text)
+    if r:
+        results["equipmentName"] = r
 
     r = _extract_reperage(full_text)
     if r:

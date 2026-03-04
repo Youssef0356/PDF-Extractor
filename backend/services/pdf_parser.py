@@ -4,8 +4,14 @@ Streams pages one by one to avoid loading the entire document into memory.
 """
 import fitz  # PyMuPDF
 import base64
+import re
 from dataclasses import dataclass, field
 from typing import Generator
+
+try:
+    import pdfplumber  # type: ignore
+except Exception:  # pragma: no cover
+    pdfplumber = None
 
 from config import IMAGE_DPI
 
@@ -17,6 +23,7 @@ class PageContent:
     text: str
     has_images: bool = False
     tables: list[str] = field(default_factory=list)
+    tables_structured: list[dict] = field(default_factory=list)
     # NOTE: image_base64 is NOT stored here anymore.
     # Use render_page_image() on demand to avoid RAM bloat.
 
@@ -51,26 +58,185 @@ def iter_pages(pdf: ParsedPDF) -> Generator[PageContent, None, None]:
     Each page is parsed and yielded, then discarded from memory.
     """
     doc = fitz.open(pdf.file_path)
+
+    def _normalize_line(line: str) -> str:
+        l = (line or "").strip().lower()
+        l = re.sub(r"\s+", " ", l)
+        # Replace digits so that "Page 1" and "Page 2" normalize together.
+        l = re.sub(r"\d+", "#", l)
+        return l
+
+    def _detect_repeating_edges(texts: list[str], max_lines: int = 2, min_hits: int = 3) -> tuple[set[str], set[str]]:
+        """Detect likely header/footer lines based on repeated first/last lines across pages."""
+        if not texts:
+            return set(), set()
+
+        head_counts: dict[str, int] = {}
+        foot_counts: dict[str, int] = {}
+
+        for t in texts:
+            lines = [ln.strip() for ln in (t or "").splitlines() if ln.strip()]
+            if not lines:
+                continue
+
+            for ln in lines[:max_lines]:
+                key = _normalize_line(ln)
+                head_counts[key] = head_counts.get(key, 0) + 1
+
+            for ln in lines[-max_lines:]:
+                key = _normalize_line(ln)
+                foot_counts[key] = foot_counts.get(key, 0) + 1
+
+        header_keys = {k for k, c in head_counts.items() if c >= min_hits and len(k) >= 4}
+        footer_keys = {k for k, c in foot_counts.items() if c >= min_hits and len(k) >= 4}
+        return header_keys, footer_keys
+
+    def _clean_page_text(text: str, header_keys: set[str], footer_keys: set[str]) -> str:
+        lines = [ln.rstrip() for ln in (text or "").splitlines()]
+        cleaned: list[str] = []
+        for ln in lines:
+            s = ln.strip()
+            if not s:
+                cleaned.append("")
+                continue
+
+            # Drop standalone page-number lines.
+            if re.fullmatch(r"(?i)(page|p\.|seite)\s*\d+", s):
+                continue
+
+            key = _normalize_line(s)
+            if key in header_keys or key in footer_keys:
+                continue
+
+            cleaned.append(ln)
+
+        # Collapse excessive blank lines.
+        out_lines: list[str] = []
+        blank_run = 0
+        for ln in cleaned:
+            if not ln.strip():
+                blank_run += 1
+                if blank_run <= 2:
+                    out_lines.append("")
+            else:
+                blank_run = 0
+                out_lines.append(ln.strip())
+        return "\n".join(out_lines).strip()
+
+    buffer_pages = min(5, len(doc))
+    buffered_texts: list[str] = []
+    buffered_meta: list[tuple[int, bool, list[str], list[dict]]] = []
+
+    plumber_doc = None
+    if pdfplumber is not None:
+        try:
+            plumber_doc = pdfplumber.open(pdf.file_path)
+        except Exception:
+            plumber_doc = None
+
+    def _table_to_markdown(table: list[list[object]]) -> tuple[str, list[str]]:
+        """Convert a 2D table into a markdown table + row-level strings."""
+        if not table:
+            return "", []
+
+        norm_rows: list[list[str]] = []
+        for row in table:
+            if row is None:
+                continue
+            norm = [str(c).strip() if c is not None else "" for c in row]
+            # Drop empty rows
+            if any(x for x in norm):
+                norm_rows.append(norm)
+
+        if not norm_rows:
+            return "", []
+
+        headers = norm_rows[0]
+        body = norm_rows[1:] if len(norm_rows) > 1 else []
+
+        def esc(s: str) -> str:
+            return (s or "").replace("|", "\\|")
+
+        md_lines: list[str] = []
+        md_lines.append("| " + " | ".join(esc(h) for h in headers) + " |")
+        md_lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
+        for r in body:
+            # Pad rows to header length
+            rr = (r + [""] * len(headers))[: len(headers)]
+            md_lines.append("| " + " | ".join(esc(c) for c in rr) + " |")
+
+        row_texts: list[str] = []
+        for ridx, r in enumerate(body):
+            rr = (r + [""] * len(headers))[: len(headers)]
+            kv = [f"{headers[i]} = {rr[i]}" for i in range(len(headers)) if headers[i] or rr[i]]
+            if kv:
+                row_texts.append("TABLE ROW: " + " | ".join(kv))
+            else:
+                row_texts.append("")
+
+        return "\n".join(md_lines).strip(), row_texts
+
+    def _extract_tables_structured(page_index0: int) -> list[dict]:
+        """Extract tables using pdfplumber when available; return list of {markdown,row_texts}."""
+        if plumber_doc is None:
+            return []
+        try:
+            p = plumber_doc.pages[page_index0]
+            tables = p.extract_tables() or []
+        except Exception:
+            return []
+
+        structured: list[dict] = []
+        for t in tables:
+            md, row_texts = _table_to_markdown(t)
+            if md:
+                structured.append({"markdown": md, "row_texts": row_texts})
+        return structured
     try:
-        for page_num in range(len(doc)):
+        # --- Buffer first pages to detect repeating header/footer lines ---
+        for page_num in range(buffer_pages):
             page = doc[page_num]
-
-            # Extract text
             text = page.get_text("text")
-
-            # Detect images
             has_images = len(page.get_images(full=True)) > 0
+            tables_structured = _extract_tables_structured(page_num)
+            tables = _extract_table_text(page) if not tables_structured else []
+            buffered_texts.append(text or "")
+            buffered_meta.append((page_num + 1, has_images, tables, tables_structured))
 
-            # Extract table-like structures
-            tables = _extract_table_text(page)
+        header_keys, footer_keys = _detect_repeating_edges(buffered_texts)
 
+        for i, raw in enumerate(buffered_texts):
+            page_number, has_images, tables, tables_structured = buffered_meta[i]
+            cleaned_text = _clean_page_text(raw, header_keys, footer_keys)
             yield PageContent(
-                page_number=page_num + 1,
-                text=text.strip(),
+                page_number=page_number,
+                text=cleaned_text,
                 has_images=has_images,
                 tables=tables,
+                tables_structured=tables_structured,
+            )
+
+        # --- Stream remaining pages using detected header/footer patterns ---
+        for page_num in range(buffer_pages, len(doc)):
+            page = doc[page_num]
+            text = page.get_text("text")
+            has_images = len(page.get_images(full=True)) > 0
+            tables_structured = _extract_tables_structured(page_num)
+            tables = _extract_table_text(page) if not tables_structured else []
+            cleaned_text = _clean_page_text(text or "", header_keys, footer_keys)
+            yield PageContent(
+                page_number=page_num + 1,
+                text=cleaned_text,
+                has_images=has_images,
+                tables=tables,
+                tables_structured=tables_structured,
             )
     finally:
+        try:
+            if plumber_doc is not None:
+                plumber_doc.close()
+        except Exception:
+            pass
         doc.close()
 
 

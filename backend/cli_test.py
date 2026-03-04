@@ -14,10 +14,10 @@ import argparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config import TEXT_MODEL, EMBEDDING_MODEL, CHROMA_COLLECTION_NAME
+from services.chunker import chunk_text, Chunk, make_table_chunks
 from services.pdf_parser import open_pdf, iter_pages
-from services.chunker import chunk_text, Chunk
 from services.embeddings import generate_embeddings_batch
-from services.vector_store import clear_collection, query_chunks
+from services.vector_store import clear_collection, query_chunks, store_chunks_batch
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
@@ -40,24 +40,50 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
 
     all_chunks: list[Chunk] = []
     all_page_texts: list[str] = []
+    chunk_index_counter = 0
 
     for page in iter_pages(pdf):
         if not page.text.strip():
             continue
 
-        combined = page.text
-        if page.tables:
-            combined += "\n\n[TABLE DATA]\n" + "\n".join(page.tables)
+        # Keep regex/LLM full_text free of table artifacts.
+        all_page_texts.append(page.text)
 
-        all_page_texts.append(combined)
-
-        chunks = chunk_text(
-            text=combined,
+        text_chunks = chunk_text(
+            text=page.text,
             page_number=page.page_number,
             has_images=False,
             doc_id="cli",
         )
-        all_chunks.extend(chunks)
+
+        table_chunks: list[Chunk] = []
+        if getattr(page, "tables_structured", None):
+            for ti, t in enumerate(page.tables_structured):
+                table_chunks.extend(
+                    make_table_chunks(
+                        doc_id="cli",
+                        page_number=page.page_number,
+                        table_index=ti,
+                        table_markdown=t.get("markdown", ""),
+                        row_texts=t.get("row_texts", []) or [],
+                        chunk_index_start=chunk_index_counter + 1000,
+                    )
+                )
+        elif page.tables:
+            for ti, table_text in enumerate(page.tables):
+                table_chunks.extend(
+                    make_table_chunks(
+                        doc_id="cli",
+                        page_number=page.page_number,
+                        table_index=ti,
+                        table_markdown=("[TABLE DATA]\n" + table_text),
+                        row_texts=[],
+                        chunk_index_start=chunk_index_counter + 1000,
+                    )
+                )
+
+        all_chunks.extend(text_chunks + table_chunks)
+        chunk_index_counter += 1
 
     print(f"  -> {len(all_chunks)} chunks in {time.time()-t0:.1f}s")
 
@@ -65,38 +91,15 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
         print("[WARN] No text chunks found. PDF might be image-based or empty.")
         return 0
 
-    # -- Phase 2: Single batch embedding call -----------------------
+    # -- Phase 2+3: Embed + Store (uses vector_store to preserve metadata) ---
     t0 = time.time()
     print(f"\n[2/3] Embedding {len(all_chunks)} chunks (single batch)...")
-
-    texts = [c.text for c in all_chunks]
-    embeddings = generate_embeddings_batch(texts)
-
     print(f"  -> Done in {time.time()-t0:.1f}s")
 
-    # -- Phase 3: Store in ChromaDB ---------------------------------
     t0 = time.time()
     print(f"\n[3/3] Storing in ChromaDB collection '{collection_name}'...")
-
     collection = clear_collection(collection_name)
-
-    batch_size = 5000
-    for i in range(0, len(all_chunks), batch_size):
-        batch = all_chunks[i:i + batch_size]
-        collection.add(
-            ids=[c.chunk_id for c in batch],
-            documents=texts[i:i + batch_size],
-            embeddings=embeddings[i:i + batch_size],
-            metadatas=[
-                {
-                    "page_number": c.page_number,
-                    "chunk_index": c.chunk_index,
-                    "has_images": False,
-                }
-                for c in batch
-            ],
-        )
-
+    store_chunks_batch(all_chunks, collection)
     print(f"  -> {len(all_chunks)} chunks stored in {time.time()-t0:.1f}s")
 
     elapsed = time.time() - total_start
@@ -228,12 +231,7 @@ def run_extraction(
     print("\nEXTRACTED DATA:")
     full_result = equipment.model_dump(exclude_none=False)
 
-    # Apply strict confidence gating at the final output stage too.
-    # Note: extract_all_fields already applies a confidence threshold internally, but we keep
-    # an additional layer here so the CLI behavior is explicit and configurable.
-    # Because we don't have per-field confidence returned here, we conservatively only output
-    # non-null values that survived extract_all_fields.
-    result = {k: v for k, v in full_result.items() if v is not None}
+    result = full_result
     print(json.dumps(result, indent=4, ensure_ascii=False))
 
     extracted_path = f"{output_prefix}_extracted.json"
