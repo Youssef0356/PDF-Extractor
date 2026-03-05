@@ -1,0 +1,30 @@
+{
+  "equipmentName": "6ES72141AG400XB0",
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": null,
+  "plageMesure": {
+    "min": -20.0,
+    "max": 60.0,
+    "unite": "°C"
+  },
+  "typeSignal": "0-10V",
+  "nbFils": "2",
+  "alimentation": "24V DC",
+  "reperage": null,
+  "communication": "Autre",
+  "classe": "B",
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "0",
+      "typeAlarme": "residual current",
+      "seuilAlarme": 0.1,
+      "uniteAlarme": "mA",
+      "relaisAssocie": null
+    }
+  ],
+  "marque": "Siemens",
+  "modele": "SIMATIC S7-1200",
+  "reference": "6ES72141AG400XB0",
+  "dateCalibration": null
+}

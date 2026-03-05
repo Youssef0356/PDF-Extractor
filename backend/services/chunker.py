@@ -18,7 +18,7 @@ class Chunk:
     chunk_index: int
     has_images: bool = False  # Whether the source page has images
     image_base64: str = ""   # Page image if relevant
-    chunk_type: str = "text"  # text | table
+    chunk_type: str = "text"  # text | table | ocr
     table_id: Optional[str] = None
     row_index: Optional[int] = None
 

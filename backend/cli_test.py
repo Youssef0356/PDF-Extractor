@@ -13,14 +13,29 @@ import argparse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config import TEXT_MODEL, EMBEDDING_MODEL, CHROMA_COLLECTION_NAME
+from config import (
+    TEXT_MODEL,
+    EMBEDDING_MODEL,
+    CHROMA_COLLECTION_NAME,
+    ENABLE_VISION_OCR,
+    VISION_OCR_ONLY_IF_NO_TEXT,
+    VISION_OCR_MAX_PAGES,
+    VISION_OCR_TEXT_CHAR_THRESHOLD,
+    VISION_OCR_AUTO_MIXED_PAGES,
+    VISION_OCR_TEXT_AREA_RATIO_MAX,
+    VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN,
+    VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN,
+    VISION_OCR_DRAWING_COUNT_MIN,
+)
 from services.chunker import chunk_text, Chunk, make_table_chunks
-from services.pdf_parser import open_pdf, iter_pages
+from services.pdf_parser import open_pdf, iter_pages, render_page_image
 from services.embeddings import generate_embeddings_batch
 from services.vector_store import clear_collection, query_chunks, store_chunks_batch
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
+from services.vision_ocr import extract_text_from_page_image_base64
+from services.document_classifier import classify_document
 
 
 def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
@@ -41,20 +56,76 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
     all_chunks: list[Chunk] = []
     all_page_texts: list[str] = []
     chunk_index_counter = 0
+    ocr_pages_done = 0
 
     for page in iter_pages(pdf):
-        if not page.text.strip():
+        page_text = (page.text or "").strip()
+
+        ocr_text = ""
+        text_len = len(page_text)
+        below_threshold = text_len < VISION_OCR_TEXT_CHAR_THRESHOLD
+        auto_mixed = bool(
+            VISION_OCR_AUTO_MIXED_PAGES
+            and page.has_images
+            and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
+            and (getattr(page, "max_image_area_ratio", 0.0) >= VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN)
+        )
+        auto_vector = bool(
+            VISION_OCR_AUTO_MIXED_PAGES
+            and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
+            and (
+                (getattr(page, "max_drawing_area_ratio", 0.0) >= VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN)
+                or (getattr(page, "drawing_count", 0) >= VISION_OCR_DRAWING_COUNT_MIN)
+            )
+        )
+        should_ocr = bool(
+            ENABLE_VISION_OCR
+            and ocr_pages_done < VISION_OCR_MAX_PAGES
+            and (
+                (not page_text)
+                or auto_mixed
+                or auto_vector
+                or (not VISION_OCR_ONLY_IF_NO_TEXT and below_threshold)
+            )
+        )
+        if should_ocr:
+            try:
+                img_b64 = render_page_image(pdf.file_path, page.page_number)
+                ocr_text = extract_text_from_page_image_base64(img_b64)
+                if ocr_text.strip():
+                    ocr_pages_done += 1
+            except Exception as e:
+                print(f"[OCR] Failed page {page.page_number}: {e}")
+
+        if not page_text and not ocr_text.strip():
             continue
 
         # Keep regex/LLM full_text free of table artifacts.
-        all_page_texts.append(page.text)
+        if page_text:
+            all_page_texts.append(page_text)
+        if ocr_text.strip():
+            all_page_texts.append("[OCR]\n" + ocr_text.strip())
 
-        text_chunks = chunk_text(
-            text=page.text,
-            page_number=page.page_number,
-            has_images=False,
-            doc_id="cli",
-        )
+        text_chunks: list[Chunk] = []
+        if page_text:
+            text_chunks = chunk_text(
+                text=page_text,
+                page_number=page.page_number,
+                has_images=False,
+                doc_id="cli",
+            )
+
+        ocr_chunks: list[Chunk] = []
+        if ocr_text.strip():
+            ocr_chunks = chunk_text(
+                text=("[OCR]\n" + ocr_text.strip()),
+                page_number=page.page_number,
+                has_images=False,
+                doc_id="cli",
+            )
+            for c in ocr_chunks:
+                c.chunk_type = "ocr"
+                c.chunk_id = f"{c.chunk_id}_ocr"
 
         table_chunks: list[Chunk] = []
         if getattr(page, "tables_structured", None):
@@ -82,7 +153,7 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
                     )
                 )
 
-        all_chunks.extend(text_chunks + table_chunks)
+        all_chunks.extend(text_chunks + ocr_chunks + table_chunks)
         chunk_index_counter += 1
 
     print(f"  -> {len(all_chunks)} chunks in {time.time()-t0:.1f}s")
@@ -212,6 +283,9 @@ def run_extraction(
     else:
         print(f"  -> No regex matches")
 
+    doc_ctx = classify_document(full_text)
+    print(f"\n[DOC] doc_type={doc_ctx.doc_type} conf={doc_ctx.confidence:.2f} ({doc_ctx.rationale})")
+
     # Semantic search per field + LLM extraction (kept for later)
     print(f"\n[5/6] Semantic search per field...")
     field_chunks = search_all_fields()
@@ -220,7 +294,7 @@ def run_extraction(
 
     print(f"\n[6/6] Extracting values with LLM ({TEXT_MODEL}) + regex...")
     equipment, llm_meta = extract_all_fields_with_meta(
-        field_chunks, min_confidence=min_confidence, regex_results=regex_results
+        field_chunks, min_confidence=min_confidence, regex_results=regex_results, doc_ctx=doc_ctx
     )
 
     elapsed = time.time() - total_start

@@ -10,14 +10,28 @@ import uuid
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from config import UPLOAD_DIR, CHROMA_COLLECTION_NAME
+from config import (
+    UPLOAD_DIR,
+    CHROMA_COLLECTION_NAME,
+    ENABLE_VISION_OCR,
+    VISION_OCR_ONLY_IF_NO_TEXT,
+    VISION_OCR_MAX_PAGES,
+    VISION_OCR_TEXT_CHAR_THRESHOLD,
+    VISION_OCR_AUTO_MIXED_PAGES,
+    VISION_OCR_TEXT_AREA_RATIO_MAX,
+    VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN,
+    VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN,
+    VISION_OCR_DRAWING_COUNT_MIN,
+)
 from models.schema import ExtractionResponse, EquipmentSchema
-from services.pdf_parser import open_pdf, iter_pages
+from services.pdf_parser import open_pdf, iter_pages, render_page_image
 from services.chunker import chunk_text, make_table_chunks
 from services.vector_store import clear_collection, store_chunks_batch, document_is_indexed
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
+from services.vision_ocr import extract_text_from_page_image_base64
+from services.document_classifier import classify_document
 
 
 # -- FastAPI App ----------------------------------------------------
@@ -88,20 +102,77 @@ async def extract_from_pdf(file: UploadFile = File(...)):
             collection = clear_collection(CHROMA_COLLECTION_NAME)
             total_chunks = 0
             chunk_index_counter = 0
+            ocr_pages_done = 0
 
             for page in iter_pages(pdf):
-                if not page.text.strip():
+                page_text = (page.text or "").strip()
+
+                # Optionally OCR page images (for scanned/image-based PDFs).
+                ocr_text = ""
+                text_len = len(page_text)
+                below_threshold = text_len < VISION_OCR_TEXT_CHAR_THRESHOLD
+                auto_mixed = bool(
+                    VISION_OCR_AUTO_MIXED_PAGES
+                    and page.has_images
+                    and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
+                    and (getattr(page, "max_image_area_ratio", 0.0) >= VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN)
+                )
+                auto_vector = bool(
+                    VISION_OCR_AUTO_MIXED_PAGES
+                    and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
+                    and (
+                        (getattr(page, "max_drawing_area_ratio", 0.0) >= VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN)
+                        or (getattr(page, "drawing_count", 0) >= VISION_OCR_DRAWING_COUNT_MIN)
+                    )
+                )
+                should_ocr = bool(
+                    ENABLE_VISION_OCR
+                    and ocr_pages_done < VISION_OCR_MAX_PAGES
+                    and (
+                        (not page_text)  # scanned page
+                        or auto_mixed  # mixed page with large image blocks
+                        or auto_vector  # vector-drawing-dominant page (no embedded images)
+                        or (not VISION_OCR_ONLY_IF_NO_TEXT and below_threshold)  # legacy threshold mode
+                    )
+                )
+                if should_ocr:
+                    try:
+                        img_b64 = render_page_image(pdf.file_path, page.page_number)
+                        ocr_text = extract_text_from_page_image_base64(img_b64)
+                        if ocr_text.strip():
+                            ocr_pages_done += 1
+                    except Exception as e:
+                        print(f"[OCR] Failed page {page.page_number}: {e}")
+
+                if not page_text and not ocr_text.strip():
                     continue
 
                 # Keep full_text for regex/LLM extraction free of table artifacts.
-                full_text_parts.append(page.text)
+                if page_text:
+                    full_text_parts.append(page_text)
+                if ocr_text.strip():
+                    full_text_parts.append("[OCR]\n" + ocr_text.strip())
 
-                text_chunks = chunk_text(
-                    text=page.text,
-                    page_number=page.page_number,
-                    has_images=page.has_images,
-                    doc_id=doc_id,
-                )
+                text_chunks = []
+                if page_text:
+                    text_chunks = chunk_text(
+                        text=page_text,
+                        page_number=page.page_number,
+                        has_images=page.has_images,
+                        doc_id=doc_id,
+                    )
+
+                ocr_chunks = []
+                if ocr_text.strip():
+                    ocr_chunks = chunk_text(
+                        text=("[OCR]\n" + ocr_text.strip()),
+                        page_number=page.page_number,
+                        has_images=page.has_images,
+                        doc_id=doc_id,
+                    )
+                    for c in ocr_chunks:
+                        c.chunk_type = "ocr"
+                        c.chunk_id = f"{c.chunk_id}_ocr"
 
                 table_chunks: list = []
                 if getattr(page, "tables_structured", None):
@@ -130,7 +201,7 @@ async def extract_from_pdf(file: UploadFile = File(...)):
                             )
                         )
 
-                chunks = text_chunks + table_chunks
+                chunks = text_chunks + ocr_chunks + table_chunks
 
                 if chunks:
                     store_chunks_batch(chunks, collection)
@@ -149,7 +220,9 @@ async def extract_from_pdf(file: UploadFile = File(...)):
         if not full_text.strip():
             full_text = "\n\n".join([(p.text or "") for p in iter_pages(pdf)])
         regex_results = extract_with_regex(full_text)
-        equipment, _meta = extract_all_fields_with_meta(field_chunks, regex_results=regex_results)
+        doc_ctx = classify_document(full_text)
+        print(f"[DOC] doc_type={doc_ctx.doc_type} conf={doc_ctx.confidence:.2f} ({doc_ctx.rationale})")
+        equipment, _meta = extract_all_fields_with_meta(field_chunks, regex_results=regex_results, doc_ctx=doc_ctx)
 
         elapsed = time.time() - start_time
         print(f"\n{'='*60}")

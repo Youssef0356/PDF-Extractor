@@ -22,6 +22,11 @@ class PageContent:
     page_number: int
     text: str
     has_images: bool = False
+    image_count: int = 0
+    drawing_count: int = 0
+    text_area_ratio: float = 0.0
+    max_image_area_ratio: float = 0.0
+    max_drawing_area_ratio: float = 0.0
     tables: list[str] = field(default_factory=list)
     tables_structured: list[dict] = field(default_factory=list)
     # NOTE: image_base64 is NOT stored here anymore.
@@ -192,26 +197,87 @@ def iter_pages(pdf: ParsedPDF) -> Generator[PageContent, None, None]:
             if md:
                 structured.append({"markdown": md, "row_texts": row_texts})
         return structured
+
+    def _compute_layout_metrics(page: fitz.Page) -> tuple[int, int, float, float, float]:
+        """Return (image_count, drawing_count, text_area_ratio, max_image_area_ratio, max_drawing_area_ratio)."""
+        try:
+            pr = page.rect
+            page_area = float(pr.width * pr.height) if pr else 0.0
+            if page_area <= 0:
+                return 0, 0, 0.0, 0.0, 0.0
+
+            d = page.get_text("dict") or {}
+            blocks = d.get("blocks") or []
+
+            text_area = 0.0
+            image_count = 0
+            max_img_area = 0.0
+            drawing_count = 0
+            max_draw_area = 0.0
+            for b in blocks:
+                bt = b.get("type")
+                bbox = b.get("bbox")
+                if not bbox or len(bbox) != 4:
+                    continue
+                x0, y0, x1, y1 = bbox
+                area = max(0.0, float(x1 - x0)) * max(0.0, float(y1 - y0))
+                if bt == 0:
+                    text_area += area
+                elif bt == 1:
+                    image_count += 1
+                    if area > max_img_area:
+                        max_img_area = area
+
+            # Vector drawings (lines/shapes) are common in datasheets and are not counted as images.
+            # We approximate their visual dominance by the bounding rectangles reported by PyMuPDF.
+            try:
+                drawings = page.get_drawings() or []
+            except Exception:
+                drawings = []
+
+            for dr in drawings:
+                r = dr.get("rect")
+                if not r:
+                    continue
+                drawing_count += 1
+                area = max(0.0, float(r.x1 - r.x0)) * max(0.0, float(r.y1 - r.y0))
+                if area > max_draw_area:
+                    max_draw_area = area
+
+            return image_count, drawing_count, (text_area / page_area), (max_img_area / page_area), (max_draw_area / page_area)
+        except Exception:
+            # Fail open: keep metrics at zero, and rely on other heuristics.
+            try:
+                image_count = len(page.get_images(full=True))
+            except Exception:
+                image_count = 0
+            return image_count, 0, 0.0, 0.0, 0.0
     try:
         # --- Buffer first pages to detect repeating header/footer lines ---
         for page_num in range(buffer_pages):
             page = doc[page_num]
             text = page.get_text("text")
-            has_images = len(page.get_images(full=True)) > 0
+            image_count, drawing_count, text_area_ratio, max_image_area_ratio, max_drawing_area_ratio = _compute_layout_metrics(page)
+            has_images = image_count > 0
             tables_structured = _extract_tables_structured(page_num)
             tables = _extract_table_text(page) if not tables_structured else []
             buffered_texts.append(text or "")
-            buffered_meta.append((page_num + 1, has_images, tables, tables_structured))
+            buffered_meta.append((page_num + 1, has_images, image_count, drawing_count, text_area_ratio, max_image_area_ratio, max_drawing_area_ratio, tables, tables_structured))
 
         header_keys, footer_keys = _detect_repeating_edges(buffered_texts)
 
         for i, raw in enumerate(buffered_texts):
-            page_number, has_images, tables, tables_structured = buffered_meta[i]
+            page_number, has_images, image_count, drawing_count, text_area_ratio, max_image_area_ratio, max_drawing_area_ratio, tables, tables_structured = buffered_meta[i]
             cleaned_text = _clean_page_text(raw, header_keys, footer_keys)
             yield PageContent(
                 page_number=page_number,
                 text=cleaned_text,
                 has_images=has_images,
+                image_count=image_count,
+                drawing_count=drawing_count,
+                text_area_ratio=text_area_ratio,
+                max_image_area_ratio=max_image_area_ratio,
+                max_drawing_area_ratio=max_drawing_area_ratio,
                 tables=tables,
                 tables_structured=tables_structured,
             )
@@ -220,7 +286,8 @@ def iter_pages(pdf: ParsedPDF) -> Generator[PageContent, None, None]:
         for page_num in range(buffer_pages, len(doc)):
             page = doc[page_num]
             text = page.get_text("text")
-            has_images = len(page.get_images(full=True)) > 0
+            image_count, drawing_count, text_area_ratio, max_image_area_ratio, max_drawing_area_ratio = _compute_layout_metrics(page)
+            has_images = image_count > 0
             tables_structured = _extract_tables_structured(page_num)
             tables = _extract_table_text(page) if not tables_structured else []
             cleaned_text = _clean_page_text(text or "", header_keys, footer_keys)
@@ -228,6 +295,11 @@ def iter_pages(pdf: ParsedPDF) -> Generator[PageContent, None, None]:
                 page_number=page_num + 1,
                 text=cleaned_text,
                 has_images=has_images,
+                image_count=image_count,
+                drawing_count=drawing_count,
+                text_area_ratio=text_area_ratio,
+                max_image_area_ratio=max_image_area_ratio,
+                max_drawing_area_ratio=max_drawing_area_ratio,
                 tables=tables,
                 tables_structured=tables_structured,
             )

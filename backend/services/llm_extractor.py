@@ -9,9 +9,10 @@ import time
 
 from config import ACCURACY_FIRST, TEXT_MODEL, VISION_MODEL
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
+from services.document_classifier import DocumentContext
 
 
-def _build_extraction_prompt(field_name: str, chunks: list[dict]) -> str:
+def _build_extraction_prompt(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> str:
     """Build a prompt for extracting a specific field value."""
     field_info = FIELD_DESCRIPTIONS.get(field_name, {})
     description = field_info.get("description", field_name)
@@ -24,7 +25,25 @@ def _build_extraction_prompt(field_name: str, chunks: list[dict]) -> str:
     if allowed:
         allowed_str = f"\nThe value MUST be one of: {', '.join(allowed)}"
     
+    doc_ctx_str = ""
+    if doc_ctx is not None:
+        doc_ctx_str = (
+            f"\nDocument context:\n"
+            f"- doc_type: {doc_ctx.doc_type}\n"
+            f"- classifier_confidence: {doc_ctx.confidence}\n"
+            f"- rationale: {doc_ctx.rationale}\n"
+        )
+
+    equipment_name_rule = ""
+    if field_name == "equipmentName":
+        equipment_name_rule = (
+            "- For \"equipmentName\": this is the COMMERCIAL product name only (human-readable). "
+            "Do NOT return part numbers / order numbers / references (e.g., strings like 6AV..., 6ES7..., 7MF...). "
+            "If you only see a reference/order number and no explicit commercial name, return null.\n"
+        )
+
     prompt = f"""You are an industrial document analyzer specializing in equipment datasheets.
+{doc_ctx_str}
 
 Given the following document excerpts, extract the value for the field "{field_name}".
 Field description: {description}{allowed_str}
@@ -39,7 +58,7 @@ IMPORTANT RULES:
 - DO NOT guess, infer, or use general knowledge.
 - If the exact value is not explicitly stated or is ambiguous, you MUST respond with null.
 - For the "categorie" field: extract it ONLY if the category word is explicitly written in the excerpts (e.g., "Transmetteur" / "Actionneur"). Otherwise return null.
-- Apply domain constraints:
+{equipment_name_rule}- Apply domain constraints:
   - If typeMesure is Pression: units must be consistent with pressure (bar, Pa, psi, kPa, MPa, mbar). Never return flow units (m³/h, L/h).
   - If technologie is Ultrasonique: typeSignal is probably an electrical signal (e.g., 4-20mA or voltage) and should not be a communication protocol.
 - For the "plageMesure" field, extract min, max, and unit separately.
@@ -64,7 +83,17 @@ Your JSON response:"""
     return prompt
 
 
-def extract_field(field_name: str, chunks: list[dict]) -> dict:
+def _build_strict_json_prompt(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> str:
+    """A stricter prompt variant used when the model drifts away from JSON."""
+    base = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
+    return (
+        base
+        + "\n\nSTRICT MODE: Output MUST be a single JSON object and MUST start with '{' and end with '}'. "
+        + "Do not output any other characters before or after the JSON."
+    )
+
+
+def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> dict:
     """
     Extract a single field value using the LLM.
     
@@ -78,7 +107,7 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
     if not chunks:
         return {"value": None, "confidence": 0.0, "quote": None}
 
-    prompt = _build_extraction_prompt(field_name, chunks)
+    prompt = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
 
     last_error: Exception | None = None
     for attempt in range(1, 4):
@@ -92,6 +121,12 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
 
             raw = response["message"]["content"].strip()
             result = _parse_llm_json(raw)
+
+            # If the model drifted away from JSON, retry once with a stricter instruction.
+            if attempt < 3 and (result.get("value") is None and (not raw.lstrip().startswith("{") or not raw.rstrip().endswith("}"))):
+                prompt = _build_strict_json_prompt(field_name, chunks, doc_ctx=doc_ctx)
+                raise ValueError("LLM did not return JSON; retrying with strict JSON prompt")
+
             result["_raw"] = raw[:1200]
             if "quote" not in result:
                 result["quote"] = None
@@ -110,6 +145,19 @@ def extract_field(field_name: str, chunks: list[dict]) -> dict:
 
     print(f"[LLM] Giving up extracting '{field_name}' after 3 attempts: {last_error}")
     return {"value": None, "confidence": 0.0, "quote": None, "_raw": None, "_error": str(last_error) if last_error else None}
+
+
+def _field_applicable(field_name: str, doc_ctx: DocumentContext | None) -> bool:
+    """Return False when a field should be forced null for a given document type."""
+    if doc_ctx is None:
+        return True
+
+    # For HMI manuals/spec sheets, these schema fields (instrument taxonomy) are usually inapplicable.
+    if doc_ctx.doc_type == "hmi_manual":
+        if field_name in {"categorie", "typeMesure", "technologie", "plageMesure", "sortiesAlarme", "dateCalibration", "classe"}:
+            return False
+
+    return True
 
 
 def _parse_llm_json(raw: str) -> dict:
@@ -378,7 +426,11 @@ def _passes_semantic_guard(field_name: str, value, quote: str | None) -> bool:
     return True
 
 
-def extract_all_fields(field_chunks: dict[str, list[dict]], min_confidence: float = 0.3) -> EquipmentSchema:
+def extract_all_fields(
+    field_chunks: dict[str, list[dict]],
+    min_confidence: float = 0.3,
+    doc_ctx: DocumentContext | None = None,
+) -> EquipmentSchema:
     """
     Extract all form fields from the document in parallel.
     
@@ -398,7 +450,7 @@ def extract_all_fields(field_chunks: dict[str, list[dict]], min_confidence: floa
     def process_field(field_name, chunks):
         print(f"  [LLM] START: {field_name} (from {len(chunks)} chunks)...")
         start_time = time.time()
-        result = extract_field(field_name, chunks)
+        result = extract_field(field_name, chunks, doc_ctx=doc_ctx)
         elapsed = time.time() - start_time
         print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
         return field_name, result
@@ -532,6 +584,7 @@ def extract_all_fields_with_meta(
     field_chunks: dict[str, list[dict]],
     min_confidence: float = 0.3,
     regex_results: dict[str, dict] | None = None,
+    doc_ctx: DocumentContext | None = None,
 ) -> tuple[EquipmentSchema, dict[str, dict]]:
     from concurrent.futures import ThreadPoolExecutor
     from config import LLM_MAX_WORKERS
@@ -566,7 +619,7 @@ def extract_all_fields_with_meta(
     def process_field(field_name, chunks):
         print(f"  [LLM] START: {field_name} (from {len(chunks)} chunks)...")
         start_time = time.time()
-        result = extract_field(field_name, chunks)
+        result = extract_field(field_name, chunks, doc_ctx=doc_ctx)
         elapsed = time.time() - start_time
         print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
         return field_name, result
@@ -654,6 +707,25 @@ def extract_all_fields_with_meta(
 def _apply_cross_field_guards(extracted: dict[str, object]) -> dict[str, object]:
     """Apply cross-field consistency checks to reduce wrong-but-plausible outputs."""
     out = dict(extracted)
+
+    def _looks_like_reference(s: str) -> bool:
+        t = (s or "").strip()
+        if not t:
+            return False
+        # Common industrial order numbers: long alphanumeric tokens and vendor prefixes.
+        if re.fullmatch(r"[A-Z0-9\-_/\.]{8,}", t.upper()):
+            if any(ch.isdigit() for ch in t) and any(ch.isalpha() for ch in t):
+                return True
+        if re.match(r"^(6AV|6ES7|7MF)\b", t.strip(), flags=re.IGNORECASE):
+            return True
+        return False
+
+    # equipmentName must be a commercial name; never accept a technical reference/order number.
+    eq = out.get("equipmentName")
+    if isinstance(eq, str):
+        ref = out.get("reference")
+        if _looks_like_reference(eq) or (isinstance(ref, str) and eq.strip() == ref.strip()):
+            out.pop("equipmentName", None)
 
     type_mesure = (out.get("typeMesure") or "")
     if isinstance(type_mesure, str) and type_mesure.lower() == "pression":

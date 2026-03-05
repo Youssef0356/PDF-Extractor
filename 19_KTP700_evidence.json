@@ -1,0 +1,796 @@
+{
+  "file": "backend/uploads/19_KTP700.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": 0.55,
+  "min_confidence": 0.5,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.47161298990249634,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c0",
+        "distance": 0.47179144620895386,
+        "text_preview": "● Modicon (Modbus TCP/IP)\nOui\n● Modicon (Modbus)\nNon\nServicetools/Aides à la configuration\n● Vue de nettoyage\nOui\n● Calibrage de l'écran tactile\nOui\n● Backup/Restore\nOui\n● Backup/Restore automatique\nNon\n● Simulation\nOui\n● Commutation d'appareil\nOui\n● Transfert des différentiels\nNon\nPériphérie / opti"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.4940524697303772,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.494057297706604,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.5105302333831787,
+        "text_preview": "Planificateur de tâches\nOui\n● commandé par horloge\nNon\n● commandé par tâches\nOui\nSystème d'aide\nQui\n● Nombre de caractères par texte d'info\n500\nGestion de messages\n● Nombre de classes de messages\n32\n● S7 Procédure de numérotation de messages\nNon\n● Messages système IHM\nOui\n● Messages système divers ("
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r0",
+        "distance": 0.339216947555542,
+        "text_preview": "TABLE ROW: Organes de commande = Clavier"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r8",
+        "distance": 0.3394489288330078,
+        "text_preview": "TABLE ROW: Organes de commande = Commande tactile"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r6",
+        "distance": 0.3462887406349182,
+        "text_preview": "TABLE ROW: Organes de commande = — pavé numérique |  = Oui; Clavier sur écran"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r7",
+        "distance": 0.3462887406349182,
+        "text_preview": "TABLE ROW: Organes de commande = — pavé alphanumérique |  = Oui; Clavier sur écran"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r2",
+        "distance": 0.34674108028411865,
+        "text_preview": "TABLE ROW: Type de sortie = ● Haut-parleur |  = Non"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t7_r1",
+        "distance": 0.3113682270050049,
+        "text_preview": "TABLE ROW: Heure = ● Horloge matérielle (horloge temps réel) |  = Oui"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t0_r10",
+        "distance": 0.31989580392837524,
+        "text_preview": "TABLE ROW: Ecran = ● Rétroéclairage à intensité variable |  = Oui"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r2",
+        "distance": 0.34296858310699463,
+        "text_preview": "TABLE ROW: Type de configuration/Fixation = Angle d'inclinaison maxi admissible sans ventilation\nexterne |  = 35°"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_summary",
+        "distance": 0.3708110451698303,
+        "text_preview": "| Type de configuration/Fixation |  |\n| --- | --- |\n| Intégration verticale (format portrait) possible | Oui |\n| Intégration horizontale (format paysage) possible | Oui |\n| Angle d'inclinaison maxi admissible sans ventilation\nexterne | 35° |"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r37",
+        "distance": 0.37813055515289307,
+        "text_preview": "TABLE ROW: Planificateur de tâches = ● Numéro de vue dans l'API | Oui = Oui"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.44510096311569214,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.4630357623100281,
+        "text_preview": "avec interfaces logicielles\nNon\nIndustrial Ethernet\n● Nombre d'interfaces Industrial Ethernet\n1\n● LED d'état Industrial Ethernet\n2\nJournaux\nPROFINET\nOui\nPROFINET IO\nNon\nIRT\nNon\nPROFIBUS\nNon\nMPI\nNon\nProtocoles (Ethernet)\n● TCP/IP\nOui\n● DHCP\nOui\n● SNMP\nOui\n● DCP\nOui\n● LLDP\nOui\nPropriétés WEB\n● HTTP\nNo"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.47217506170272827,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4789379835128784,
+        "text_preview": "Fiche technique\n6AV2123-2GB03-0AX0\nSIMATIC HMI, KTP700 BASIC, BASIC PANEL, TACTILE/CLAVIER,\nECRAN 7\" TFT, 65536 FARBEN, INTERFACE PROFINET,\nCONFIGURABLE A PARTIR WINCC BASIC V13/ STEP7 BASIC\nV13, CONTIENT LOGICIEL OPEN SOURCE FOURNIT A TITRE\nGRATUIT VOIR CD JOINT\nDésignation du type de produit\nEcran"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c0",
+        "distance": 0.4991569519042969,
+        "text_preview": "● Modicon (Modbus TCP/IP)\nOui\n● Modicon (Modbus)\nNon\nServicetools/Aides à la configuration\n● Vue de nettoyage\nOui\n● Calibrage de l'écran tactile\nOui\n● Backup/Restore\nOui\n● Backup/Restore automatique\nNon\n● Simulation\nOui\n● Commutation d'appareil\nOui\n● Transfert des différentiels\nNon\nPériphérie / opti"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.3767353892326355,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.4063621759414673,
+        "text_preview": "Planificateur de tâches\nOui\n● commandé par horloge\nNon\n● commandé par tâches\nOui\nSystème d'aide\nQui\n● Nombre de caractères par texte d'info\n500\nGestion de messages\n● Nombre de classes de messages\n32\n● S7 Procédure de numérotation de messages\nNon\n● Messages système IHM\nOui\n● Messages système divers ("
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.41309690475463867,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.420723557472229,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.43003642559051514,
+        "text_preview": "● Champs de texte\nOui\n● Champs d'E/S\nOui\n● Champs d'E/S graphiques (liste de graphiques)\nOui\n● Champs d'E/S symboliques (liste de textes)\nOui\n● Champs date/heure\nOui\n● Commutateur\nOui\n● Boutons\nOui\n● Affichage graphique\nOui\n● Icônes\nOui\n● Objets géométriques\nOui\nObjets graphiques complexes\n● Nombre "
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r0",
+        "distance": 0.2283620834350586,
+        "text_preview": "TABLE ROW: Type de sortie = Acoustique"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r1",
+        "distance": 0.27440065145492554,
+        "text_preview": "TABLE ROW: Type de sortie = ● Avertisseur sonore |  = Oui"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t8_r2",
+        "distance": 0.28902769088745117,
+        "text_preview": "TABLE ROW: Interfaces = Nombre d'interfaces 20 mA (TTY) |  = 0"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t0_r9",
+        "distance": 0.29959356784820557,
+        "text_preview": "TABLE ROW: Ecran = ● MTBF du rétroéclairage (à 25 °C) |  = 20 000 h"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r2",
+        "distance": 0.30689942836761475,
+        "text_preview": "TABLE ROW: Type de sortie = ● Haut-parleur |  = Non"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.4535067081451416,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.4850195646286011,
+        "text_preview": "Planificateur de tâches\nOui\n● commandé par horloge\nNon\n● commandé par tâches\nOui\nSystème d'aide\nQui\n● Nombre de caractères par texte d'info\n500\nGestion de messages\n● Nombre de classes de messages\n32\n● S7 Procédure de numérotation de messages\nNon\n● Messages système IHM\nOui\n● Messages système divers ("
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.4867846369743347,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.49575579166412354,
+        "text_preview": "Logiciel de configuration\n● STEP 7 Basic (portail TIA)\nOui; via WinCC Basic intégré (portail TIA)\n● STEP 7 Professional (portail TIA)\nOui; via WinCC Basic intégré (portail TIA)\n● WinCC flexible Compact\nNon\n● WinCC flexible Standard\nNon\n● WinCC flexible Advanced\nNon\n● WinCC Basic (portail TIA)\nOui\n● "
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.49625223875045776,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5126863121986389,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.5299276113510132,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.5316543579101562,
+        "text_preview": "Fiche technique\n6AV2123-2GB03-0AX0\nSIMATIC HMI, KTP700 BASIC, BASIC PANEL, TACTILE/CLAVIER,\nECRAN 7\" TFT, 65536 FARBEN, INTERFACE PROFINET,\nCONFIGURABLE A PARTIR WINCC BASIC V13/ STEP7 BASIC\nV13, CONTIENT LOGICIEL OPEN SOURCE FOURNIT A TITRE\nGRATUIT VOIR CD JOINT\nDésignation du type de produit\nEcran"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.5337186455726624,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t0_r3",
+        "distance": 0.47897595167160034,
+        "text_preview": "TABLE ROW: ● Modicon (Modbus TCP/IP) = ● Calibrage de l'écran tactile | Oui = Oui"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r9",
+        "distance": 0.48798561096191406,
+        "text_preview": "TABLE ROW: Organes de commande = ● Exécution à écran tactile |  = Oui"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t0_r19",
+        "distance": 0.489327609539032,
+        "text_preview": "TABLE ROW: — Ethernet = ● Taille de police variable | Non = Oui"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t0_r10",
+        "distance": 0.48942017555236816,
+        "text_preview": "TABLE ROW: Ecran = ● Rétroéclairage à intensité variable |  = Oui"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t7_r4",
+        "distance": 0.48977720737457275,
+        "text_preview": "TABLE ROW: Heure = ● synchronisable |  = Oui"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t1_r4",
+        "distance": 0.2008906602859497,
+        "text_preview": "TABLE ROW: Langues = ● Langues"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t1_r5",
+        "distance": 0.21584129333496094,
+        "text_preview": "TABLE ROW: Journaux = Protocoles (Ethernet)"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t0_r35",
+        "distance": 0.21816623210906982,
+        "text_preview": "TABLE ROW: — Ethernet = ● Allen Bradley (DF1) | Non = Non"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t7_r0",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: Heure = Horloge"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t1_r2",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: Langues = Langues"
+      }
+    ],
+    "classe": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t4_r0",
+        "distance": 0.3291743993759155,
+        "text_preview": "TABLE ROW: Degré et classe de protection = IP (face avant) |  = 65"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t4_r3",
+        "distance": 0.33536678552627563,
+        "text_preview": "TABLE ROW: Degré et classe de protection = Degré de protection (EN 60529) |  = 20"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t4_r2",
+        "distance": 0.3435465693473816,
+        "text_preview": "TABLE ROW: Degré et classe de protection = Capot type 4x face avant |  = Oui"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t4_r1",
+        "distance": 0.34845447540283203,
+        "text_preview": "TABLE ROW: Degré et classe de protection = Capot type 4 face avant |  = Oui"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r0",
+        "distance": 0.36438047885894775,
+        "text_preview": "TABLE ROW: Organes de commande = Clavier"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r1",
+        "distance": 0.2533670663833618,
+        "text_preview": "TABLE ROW: Type de sortie = ● Avertisseur sonore |  = Oui"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r2",
+        "distance": 0.25934427976608276,
+        "text_preview": "TABLE ROW: Type de sortie = ● Haut-parleur |  = Non"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_r0",
+        "distance": 0.25939488410949707,
+        "text_preview": "TABLE ROW: Type de sortie = Acoustique"
+      },
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_t0_r11",
+        "distance": 0.2677915096282959,
+        "text_preview": "TABLE ROW: ● Champs de texte = ● Vue des alarmes | Oui = Oui"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t6_summary",
+        "distance": 0.2767345905303955,
+        "text_preview": "| Type de sortie |  |\n| --- | --- |\n| Acoustique |  |\n| ● Avertisseur sonore | Oui |\n| ● Haut-parleur | Non |"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c0",
+        "distance": 0.42960894107818604,
+        "text_preview": "● Modicon (Modbus TCP/IP)\nOui\n● Modicon (Modbus)\nNon\nServicetools/Aides à la configuration\n● Vue de nettoyage\nOui\n● Calibrage de l'écran tactile\nOui\n● Backup/Restore\nOui\n● Backup/Restore automatique\nNon\n● Simulation\nOui\n● Commutation d'appareil\nOui\n● Transfert des différentiels\nNon\nPériphérie / opti"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.448330283164978,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.4490000605583191,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.47015881538391113,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.47625768184661865,
+        "text_preview": "Logiciel de configuration\n● STEP 7 Basic (portail TIA)\nOui; via WinCC Basic intégré (portail TIA)\n● STEP 7 Professional (portail TIA)\nOui; via WinCC Basic intégré (portail TIA)\n● WinCC flexible Compact\nNon\n● WinCC flexible Standard\nNon\n● WinCC flexible Advanced\nNon\n● WinCC Basic (portail TIA)\nOui\n● "
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.4209027886390686,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.4527650475502014,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.47316259145736694,
+        "text_preview": "Planificateur de tâches\nOui\n● commandé par horloge\nNon\n● commandé par tâches\nOui\nSystème d'aide\nQui\n● Nombre de caractères par texte d'info\n500\nGestion de messages\n● Nombre de classes de messages\n32\n● S7 Procédure de numérotation de messages\nNon\n● Messages système IHM\nOui\n● Messages système divers ("
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.4781298041343689,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c0",
+        "distance": 0.4852006435394287,
+        "text_preview": "● Modicon (Modbus TCP/IP)\nOui\n● Modicon (Modbus)\nNon\nServicetools/Aides à la configuration\n● Vue de nettoyage\nOui\n● Calibrage de l'écran tactile\nOui\n● Backup/Restore\nOui\n● Backup/Restore automatique\nNon\n● Simulation\nOui\n● Commutation d'appareil\nOui\n● Transfert des différentiels\nNon\nPériphérie / opti"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c0",
+        "distance": 0.47727394104003906,
+        "text_preview": "— Ethernet\nNon\n● Format d'archivage des données\n— CSV\nNon\n— TXT\nOui\n— RDB\nNon\nSécurité des données\n● Nombre de groupes d'utilisateurs\n50\n● Nombre de droits d'utilisateur\n32\n● Nombre d'utilisateurs\n50\n● Exportation/Importation de mot de passe\nOui\n● SIMATIC Logon\nNon\nJeux de caractères\n● Clavier\n— Eta"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.5122056603431702,
+        "text_preview": "Type de configuration/Fixation\nIntégration verticale (format portrait) possible\nOui\nIntégration horizontale (format paysage) possible\nOui\nAngle d'inclinaison maxi admissible sans ventilation\nexterne\n35°\nTension d'alimentation\nType de tension d'alimentation\n24 V CC\nValeur nominale (CC)\n24 V\nPlage adm"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.5189017057418823,
+        "text_preview": "Planificateur de tâches\nOui\n● commandé par horloge\nNon\n● commandé par tâches\nOui\nSystème d'aide\nQui\n● Nombre de caractères par texte d'info\n500\nGestion de messages\n● Nombre de classes de messages\n32\n● S7 Procédure de numérotation de messages\nNon\n● Messages système IHM\nOui\n● Messages système divers ("
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.5283818244934082,
+        "text_preview": "Fiche technique\n6AV2123-2GB03-0AX0\nSIMATIC HMI, KTP700 BASIC, BASIC PANEL, TACTILE/CLAVIER,\nECRAN 7\" TFT, 65536 FARBEN, INTERFACE PROFINET,\nCONFIGURABLE A PARTIR WINCC BASIC V13/ STEP7 BASIC\nV13, CONTIENT LOGICIEL OPEN SOURCE FOURNIT A TITRE\nGRATUIT VOIR CD JOINT\nDésignation du type de produit\nEcran"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5288387537002563,
+        "text_preview": "RCM (anciennement C-TICK)\nOui\nUtilisation en zone à risque d'explosion Ex\n● ATEX Zone 2\nNon\n● ATEX Zone 22\nNon\n● cULus Class I Zone 1\nNon\n● cULus Class I Zone 2, Division 2\nNon\n● FM Class I Division 2\nNon\nConditions ambiantes\nTempérature ambiante en service\n● Service (montage vertical)\n— en position"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_t0_r3",
+        "distance": 0.2785087823867798,
+        "text_preview": "TABLE ROW: ● Champs de texte = ● Champs date/heure | Oui = Oui"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r11",
+        "distance": 0.33565396070480347,
+        "text_preview": "TABLE ROW: Planificateur de tâches = ● Groupes d'acquittement | Oui = Oui"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r25",
+        "distance": 0.33948153257369995,
+        "text_preview": "TABLE ROW: Planificateur de tâches = ● Nombre de variables par appareil | Oui = 800"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r26",
+        "distance": 0.36060190200805664,
+        "text_preview": "TABLE ROW: Planificateur de tâches = ● Nombre de variables par vue | Oui = 100"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r3",
+        "distance": 0.36449551582336426,
+        "text_preview": "TABLE ROW: Planificateur de tâches = ● Nombre de caractères par texte d'info | Oui = 500"
+      }
+    ]
+  },
+  "llm_meta": {
+    "communication": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "PROFIBUS DP",
+      "quote": "PROFIBUS DP",
+      "source": "regex"
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Mitsubishi",
+      "quote": "Mitsubishi",
+      "source": "regex"
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "SIMATIC S7-1200",
+      "quote": "SIMATIC S7-1200",
+      "source": "regex"
+    },
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "6AV2123-2GB03-0AX0",
+      "quote": "6AV2123-2GB03-0AX0",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\n  \"value\": \"6AV2123-2GB03-0AX0\",\n  \"confidence\": 1.0,\n  \"quote\": \"6AV2123-2GB03-0AX0\"\n}\n```",
+      "error": null
+    },
+    "categorie": {
+      "accepted": false,
+      "confidence": 0.9,
+      "value": null,
+      "quote": "TABLE ROW: Organes de commande = Clavier",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "```json\n{\n  \"value\": \"Autre\",\n  \"confidence\": 0.9,\n  \"quote\": \"TABLE ROW: Organes de commande = Clavier\"\n}\n```",
+      "error": null
+    },
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 0.2,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\"value\": null, \"confidence\": 0.2, \"quote\": null}\n```",
+      "error": null
+    },
+    "technologie": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Ecran large TFT, rétroéclairage LED",
+      "quote": "Ecran large TFT, rétroéclairage LED",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\n  \"value\": \"Ecran large TFT, rétroéclairage LED\",\n  \"confidence\": 1.0,\n  \"quote\": \"Ecran large TFT, rétroéclairage LED\"\n}\n```",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": {
+        "min": "0",
+        "max": "50",
+        "unite": "%"
+      },
+      "quote": "Température ambiante en service\n● Service (montage vertical) — en position de montage verticale, minimale 0 °C\n— en position de montage verticale, maximale 50 °C",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": {\"min\": \"0\", \"max\": \"50\", \"unite\": \"%\"}, \"confidence\": 0.95, \"quote\": \"Température ambiante en service\\n● Service (montage vertical) — en position de montage verticale, minimale 0 °C\\n— en position de montage verticale, maximale 50 °C\"}\n```",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "20 mA (TTY)",
+      "quote": "TABLE ROW: Interfaces = Nombre d'interfaces 20 mA (TTY) |  = 0",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"20 mA (TTY)\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: Interfaces = Nombre d'interfaces 20 mA (TTY) |  = 0\"}\n```",
+      "error": null
+    },
+    "nbFils": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "Nombre de caractères par message\n8",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "```json\n{\"value\": \"4\", \"confidence\": 1.0, \"quote\": \"Nombre de caractères par message\\n8\"}\n```",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "24 V CC",
+      "quote": "Tension d'alimentation\nType de tension d'alimentation\n24 V CC",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"24 V CC\", \"confidence\": 1.0, \"quote\": \"Tension d'alimentation\\nType de tension d'alimentation\\n24 V CC\"}\n```",
+      "error": null
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\"value\": null, \"confidence\": 0.0, \"quote\": null}\n```",
+      "error": null
+    },
+    "classe": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "20",
+      "quote": "TABLE ROW: Degré et classe de protection = Degré de protection (EN 60529) |  = 20",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"20\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: Degré et classe de protection = Degré de protection (EN 60529) |  = 20\"}\n```",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": true,
+      "confidence": 0.8,
+      "value": [
+        {
+          "nomAlarme": "Avertisseur sonore",
+          "typeAlarme": "Oui",
+          "seuilAlarme": null,
+          "uniteAlarme": null,
+          "relaisAssocie": null
+        }
+      ],
+      "quote": "TABLE ROW: Type de sortie = ● Avertisseur sonore |  = Oui",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": [{\"nomAlarme\": \"Avertisseur sonore\", \"typeAlarme\": \"Oui\", \"seuilAlarme\": null, \"uniteAlarme\": null, \"relaisAssocie\": null}], \"confidence\": 0.8, \"quote\": \"TABLE ROW: Type de sortie = ● Avertisseur sonore |  = Oui\"}\n```",
+      "error": null
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "6AV2123-2GB03-0AX0",
+      "quote": "6AV2123-2GB03-0AX0",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\n  \"value\": \"6AV2123-2GB03-0AX0\",\n  \"confidence\": 1.0,\n  \"quote\": \"6AV2123-2GB03-0AX0\"\n}\n```",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.2,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\"value\": null, \"confidence\": 0.2, \"quote\": null}\n```",
+      "error": null
+    }
+  }
+}

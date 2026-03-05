@@ -64,10 +64,12 @@ def search_for_field(
 
     # Text-first fields: prefer narrative text first, then allow tables as fallback.
     if field_name in _TEXT_FIRST_FIELDS:
-        where_text = dict(base_where or {})
-        where_text["chunk_type"] = "text"
-        for query in field_info["search_queries"]:
-            _merge_results(query_chunks(query, n_results=n_results, where=where_text))
+        # Include OCR chunks as narrative text too.
+        for ct in ("text", "ocr"):
+            where_text = dict(base_where or {})
+            where_text["chunk_type"] = ct
+            for query in field_info["search_queries"]:
+                _merge_results(query_chunks(query, n_results=n_results, where=where_text))
 
         if len(all_results) < max(1, n_results // 2):
             for query in field_info["search_queries"]:

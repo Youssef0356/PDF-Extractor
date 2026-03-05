@@ -35,6 +35,8 @@ for _b in _BRANDS:
 # ---------------------------------------------------------------------------
 _MODEL_PATTERNS_BY_BRAND: dict[str, list[re.Pattern]] = {
     "Siemens": [
+        re.compile(r"\b(SIMATIC\s+HMI\s+KTP\d{3,4}\s+BASIC)\b", re.IGNORECASE),
+        re.compile(r"\b(SIMATIC\s+HMI\b[^\n]{0,60}?\bKTP\d{3,4}\s+BASIC)\b", re.IGNORECASE),
         re.compile(r"\b(SITRANS\s+[A-Z]\d{2,4}(?:/[A-Z]\d{2,4})*)\b", re.IGNORECASE),
         re.compile(r"\b(SIPART\s+PS\d+)\b", re.IGNORECASE),
         re.compile(r"\b(SIMATIC\s+S7-\d{3,4})\b", re.IGNORECASE),
@@ -70,6 +72,8 @@ _GENERIC_MODEL_PATTERNS = [
 _REFERENCE_PATTERNS = [
     # Siemens 7MF order numbers
     re.compile(r"\b(7MF\s*\d[\d\s\-\.]{5,})\b"),
+    # Siemens HMI order numbers like: 6AV2123-2GB03-0AX0
+    re.compile(r"\b(6AV\d{4}[-\s]?[0-9A-Z]{5}[-\s]?[0-9A-Z]{4}[-\s]?[0-9A-Z]{4})\b", re.IGNORECASE),
     # Siemens S7 order numbers like: 6ES72141AG400XB0
     re.compile(r"\b(6ES7[0-9A-Z]{8,})\b", re.IGNORECASE),
     # Generic "PA nnn" style
@@ -154,6 +158,12 @@ def _extract_type_signal(text: str) -> Optional[dict]:
 
 def _extract_communication(text: str) -> Optional[dict]:
     """Match communication protocol keywords."""
+    def _is_negated(match_start: int) -> bool:
+        # Look slightly before the match for explicit negations like "PROFIBUS: Non".
+        start = max(0, match_start - 40)
+        window = text[start:match_start].lower()
+        return any(tok in window for tok in [": non", " non", ": no", " no", "=0", ": 0"])
+
     protocols = [
         (re.compile(r"\bPROFIBUS\s+DP\b", re.IGNORECASE), "PROFIBUS DP"),
         (re.compile(r"\bModbus\s+TCP\b", re.IGNORECASE), "Modbus TCP"),
@@ -163,7 +173,19 @@ def _extract_communication(text: str) -> Optional[dict]:
     for pat, canonical in protocols:
         m = pat.search(text)
         if m:
+            if _is_negated(m.start()):
+                continue
             return {"value": canonical, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
+
+    # If the device clearly indicates Ethernet/PROFINET, map to "Autre" (schema doesn't list PROFINET).
+    for pat in [
+        re.compile(r"\bPROFINET\b", re.IGNORECASE),
+        re.compile(r"\bIndustrial\s+Ethernet\b", re.IGNORECASE),
+        re.compile(r"\bEthernet\b", re.IGNORECASE),
+    ]:
+        m = pat.search(text)
+        if m and not _is_negated(m.start()):
+            return {"value": "Autre", "confidence": 0.9, "quote": m.group(0).strip(), "source": "regex"}
     return None
 
 
@@ -433,6 +455,22 @@ def extract_with_regex(full_text: str) -> dict[str, dict]:
     r = _extract_reference(full_text)
     if r:
         results["reference"] = r
+
+    # If we have a Siemens order number, lock brand/model to Siemens/HMI patterns
+    # to avoid picking up "compatible" brands/models elsewhere in the document.
+    ref_val = (results.get("reference", {}) or {}).get("value")
+    if isinstance(ref_val, str):
+        ref_norm = re.sub(r"\s+", "", ref_val).upper()
+        if ref_norm.startswith("6AV") or ref_norm.startswith("6ES7") or ref_norm.startswith("7MF"):
+            results["marque"] = {"value": "Siemens", "confidence": 1.0, "quote": ref_val, "source": "regex"}
+            hm = re.search(r"\bKTP\d{3,4}\s+BASIC\b", full_text, re.IGNORECASE)
+            if hm:
+                results["modele"] = {
+                    "value": f"SIMATIC HMI {hm.group(0).strip()}",
+                    "confidence": 0.9,
+                    "quote": hm.group(0).strip(),
+                    "source": "regex",
+                }
 
     r = _extract_equipment_name(full_text)
     if r:

@@ -1,0 +1,790 @@
+{
+  "file": "backend/uploads/DOP-107CV-EV_EN_20180622.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": 0.55,
+  "min_confidence": 0.5,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.47155624628067017,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.47432655096054077,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c5",
+        "distance": 0.47827696800231934,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c6",
+        "distance": 0.4788365364074707,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.4791356921195984,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r19",
+        "distance": 0.44606542587280273,
+        "text_preview": "TABLE ROW: Model = communication |  = COM2 | DOP-107CV =  | DOP-107EV ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t1_r0",
+        "distance": 0.4508790969848633,
+        "text_preview": "TABLE ROW: A =  | Power input terminal = (24AWG wire min.) | B =  | COM2/COM3 ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r9",
+        "distance": 0.46563398838043213,
+        "text_preview": "TABLE ROW: Model = Buzzer | DOP-107CV = Multi-tone Frequency (2K – 4K Hz) / 80 dB | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r0",
+        "distance": 0.4676594138145447,
+        "text_preview": "TABLE ROW: Model =  |  = Panel type | DOP-107CV = 7\" TFT LCD (65535 colors) | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r8",
+        "distance": 0.4735894799232483,
+        "text_preview": "TABLE ROW: Model = Touchscreen | DOP-107CV = 4-wire resistive touchscreen > 10,000,000 operated | DOP-107EV ="
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r38",
+        "distance": 0.22972136735916138,
+        "text_preview": "TABLE ROW: Model = Operation temperature | DOP-107CV = 0°C to 50°C (32°F to 122°F) | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r39",
+        "distance": 0.23598283529281616,
+        "text_preview": "TABLE ROW: Model = Storage temperature | DOP-107CV = -20°C to +60°C (-4°F to 140°F) | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r28",
+        "distance": 0.27585089206695557,
+        "text_preview": "TABLE ROW: Model = Panel waterproof level | DOP-107CV = IP65 / NEMA4 | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r37",
+        "distance": 0.3138856887817383,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV = (subject to operation temperature and condition) | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r15",
+        "distance": 0.32224082946777344,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV = RS-232 (supporting flow control)*2 | DOP-107EV ="
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.46648895740509033,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.4690890312194824,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c4",
+        "distance": 0.4719241261482239,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c5",
+        "distance": 0.4738911986351013,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c6",
+        "distance": 0.4740417003631592,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.4961930513381958,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4975350499153137,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.5007938146591187,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.505657434463501,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.5063378810882568,
+        "text_preview": "(6) Hardware specifications\nModel\nDOP-107CV\nDOP-107EV\nDisplay\nPanel type\n7\" TFT LCD (65535 colors)\nResolution\n800 x 480 pixels\nBacklight\nLED Back Light (half-life under room temperature 25°C > 20,000 hours)*1\nDisplay range\n154.08 x 85.92 mm\nBrightness\n400 cd / m² (Typ.)\nCPU\nARM Cortex-A8 (800 MHz)\nF"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r5",
+        "distance": 0.3129640817642212,
+        "text_preview": "TABLE ROW:  = 4 | MODE1 = -"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_summary",
+        "distance": 0.34754282236099243,
+        "text_preview": "|  |  | MODE1 |\n| --- | --- | --- |\n| COM Port | Pin |  |\n|  |  | RS-232 |\n|  | 1 |  |\n|  | 2 | RXD |\n|  | 3 |  |\n|  | 4 | - |\n|  | 5 |  |\n|  | 6 | - |\n|  | 7 |  |\n|  | 8 | CTS |\n|  | 9 |  |"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t4_r5",
+        "distance": 0.3574090003967285,
+        "text_preview": "TABLE ROW:  = 4 | MODE1 = - |  = D+ | MODE2 = - |  = D+ | MODE3 = - |  = RXD+"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r10",
+        "distance": 0.3978288173675537,
+        "text_preview": "TABLE ROW:  = 9 | MODE1 ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r6",
+        "distance": 0.4059358835220337,
+        "text_preview": "TABLE ROW:  = 5 | MODE1 ="
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.42463308572769165,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.42797452211380005,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.429329514503479,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.42972761392593384,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c6",
+        "distance": 0.43080514669418335,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.45073604583740234,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.452991247177124,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.4532894492149353,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.45399290323257446,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c4",
+        "distance": 0.456027090549469,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r10",
+        "distance": 0.4264381527900696,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV =  | DOP-107EV = 1 Port, 10 / 100 Mbps auto detection"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r44",
+        "distance": 0.46931737661361694,
+        "text_preview": "TABLE ROW: Model = Vibration resistance | DOP-107CV =  | DOP-107EV ="
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r47",
+        "distance": 0.46931737661361694,
+        "text_preview": "TABLE ROW: Model = Shock resistance | DOP-107CV =  | DOP-107EV ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t4_r1",
+        "distance": 0.48321104049682617,
+        "text_preview": "TABLE ROW: MODE1 = RS-232 |  = RS-485 | MODE2 = RS-485 |  = RS-485 | MODE3 = RS-232 |  = RS-422"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r12",
+        "distance": 0.4896186590194702,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV =  | DOP-107EV = (built-in isolated circuit)*2"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r2",
+        "distance": 0.2679751515388489,
+        "text_preview": "TABLE ROW:  = 1 | MODE1 ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r5",
+        "distance": 0.26864397525787354,
+        "text_preview": "TABLE ROW:  = 4 | MODE1 = -"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r3",
+        "distance": 0.2716051936149597,
+        "text_preview": "TABLE ROW:  = 2 | MODE1 = RXD"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_r0",
+        "distance": 0.2787492275238037,
+        "text_preview": "TABLE ROW:  = COM Port |  = Pin | MODE1 ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t2_summary",
+        "distance": 0.2900732159614563,
+        "text_preview": "|  |  | MODE1 |\n| --- | --- | --- |\n| COM Port | Pin |  |\n|  |  | RS-232 |\n|  | 1 |  |\n|  | 2 | RXD |\n|  | 3 |  |\n|  | 4 | - |\n|  | 5 |  |\n|  | 6 | - |\n|  | 7 |  |\n|  | 8 | CTS |\n|  | 9 |  |"
+      }
+    ],
+    "classe": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.39228928089141846,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.3943566083908081,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.4029836058616638,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.40749019384384155,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c12",
+        "distance": 0.4111815094947815,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r10",
+        "distance": 0.45582884550094604,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV =  | DOP-107EV = 1 Port, 10 / 100 Mbps auto detection"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r8",
+        "distance": 0.4742969274520874,
+        "text_preview": "TABLE ROW: Model = Touchscreen | DOP-107CV = 4-wire resistive touchscreen > 10,000,000 operated | DOP-107EV ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.48046624660491943,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4844638705253601,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c7",
+        "distance": 0.4870208501815796,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4710214138031006,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.47401362657546997,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.47675997018814087,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.4771210551261902,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c5",
+        "distance": 0.4827132225036621,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.4961930513381958,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4975350499153137,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.5007938146591187,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.505657434463501,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c8",
+        "distance": 0.5130003690719604,
+        "text_preview": "(6) Hardware specifications\nModel\nDOP-107CV\nDOP-107EV\nDisplay\nPanel type\n7\" TFT LCD (65535 colors)\nResolution\n800 x 480 pixels\nBacklight\nLED Back Light (half-life under room temperature 25°C > 20,000 hours)*1\nDisplay range\n154.08 x 85.92 mm\nBrightness\n400 cd / m² (Typ.)\nCPU\nARM Cortex-A8 (800 MHz)\nF"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4996984004974365,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.49980998039245605,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.506354570388794,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.5064173340797424,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c4",
+        "distance": 0.5136756896972656,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r37",
+        "distance": 0.46858811378479004,
+        "text_preview": "TABLE ROW: Model =  | DOP-107CV = (subject to operation temperature and condition) | DOP-107EV ="
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.47727131843566895,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.47952330112457275,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c3",
+        "distance": 0.4844388961791992,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c2",
+        "distance": 0.4860951900482178,
+        "text_preview": "DOP-107EV\nDOP-107CV\nHigh color‧Wide screen‧User-friendly\nDelta Electronics, Inc.\nNo.18, Xinglong Rd., Taoyuan City\n33068, Taiwan\nInstruction Sheet\n(1) General precautions\nThank you for purchasing this product.\nThis instruction sheet provides information about the DOP-100\nseries HMI.\nBefore using thi"
+      }
+    ]
+  },
+  "llm_meta": {
+    "nbFils": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "4",
+      "quote": "4-wire",
+      "source": "regex"
+    },
+    "reperage": {
+      "accepted": true,
+      "confidence": 0.9,
+      "value": "DOP-100",
+      "quote": "DOP-100",
+      "source": "regex"
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 0.9,
+      "value": "ully to ensure the",
+      "quote": "refully to ensure the",
+      "source": "regex"
+    },
+    "equipmentName": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "coulomb",
+      "error": null
+    },
+    "categorie": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Buzzer",
+      "quote": "TABLE ROW: Model = Buzzer",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"Buzzer\", \"confidence\": 1.0, \"quote\": \"TABLE ROW: Model = Buzzer\"}\n```",
+      "error": null
+    },
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "DOP-107CV = 0°C to 50°C (32°F to 122°F) | DOP-107EV =",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "```json\n{\n  \"value\": \"Temperature\",\n  \"confidence\": 1.0,\n  \"quote\": \"DOP-107CV = 0°C to 50°C (32°F to 122°F) | DOP-107EV =\"\n}\n```",
+      "error": null
+    },
+    "technologie": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "கொள்ளலாம்",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "min_confidence",
+      "raw": "```json\n{\"value\": {\"min\": null, \"max\": null, \"unite\": null}, \"confidence\": 0.0, \"quote\": null}\n```",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\n  \"value\": null,\n  \"confidence\": 0.0,\n  \"quote\": null\n}\n```",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "When the HMI displays a low power notification and requires a battery change, please contact your local distributor or Delta Customer Service Center for the replacement",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "```json\n{\n  \"value\": \"None\",\n  \"confidence\": 1.0,\n  \"quote\": \"When the HMI displays a low power notification and requires a battery change, please contact your local distributor or Delta Customer Service Center for the replacement\"\n}\n```",
+      "error": null
+    },
+    "communication": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "RS-232",
+      "quote": "RS-232",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"RS-232\", \"confidence\": 1.0, \"quote\": \"RS-232\"}\n```",
+      "error": null
+    },
+    "classe": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "travis, please analyze the following text and extract the requested information according to the rules above:\n\n\"IMPORTANT RULES:\n- Extract ONLY the value for \"classe\" if it is EXPLICITLY stated in the excerpts.\n- DO NOT guess, infer, or use general knowledge.\n- If the exact value is not explicitly stated or is ambiguous, you MUST respond with null.\n- For the \"categorie\" field: extract it ONLY if the category word is explicitly written in the excerpts (e.g., \"Transmetteur\" / \"Actionneur\"). Otherwise return null.\n- Apply domain constraints:\n  - If typeMesure is Pression: units must be consistent with pressure (bar, Pa, psi, kPa, MPa, mbar). Never return flow units (m³/h, L/h).\n  - If technologie is Ultrasonique: typeSignal is probably an electrical signal (e.g., 4-20mA or voltage) and should not be a communication protocol.\n- For the \"plageMesure\" field, extract min, max, and unit separately.\n- For the \"plageMesure\" field: ONLY accept physical measurement ranges with real units (e.g., m3/h, l/h, bar, °C, %). If the excerpt is about a ratio like \"10:1\" / \"100:1\" (rangeability / turndown / plage étendue), you MUST return null.\n- For \"sortiesAlarme\", extract all alarm entries as a list.",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\n  \"value\": null,\n  \"confidence\": 0.0,\n  \"quote\": null\n}\n```",
+      "error": null
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Delta Electronics, Inc.",
+      "quote": "Delta Electronics, Inc.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\"value\": \"Delta Electronics, Inc.\", \"confidence\": 1.0, \"quote\": \"Delta Electronics, Inc.\"}\n```",
+      "error": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "DOP-107CV",
+      "quote": "DOP-107CV / DOP-107EV",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "```json\n{\n  \"value\": \"DOP-107CV\",\n  \"confidence\": 1.0,\n  \"quote\": \"DOP-107CV / DOP-107EV\"\n}\n```",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "```json\n{\n  \"value\": null,\n  \"confidence\": 0.0,\n  \"quote\": null\n}\n```",
+      "error": null
+    }
+  }
+}

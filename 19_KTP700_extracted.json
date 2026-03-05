@@ -1,0 +1,30 @@
+{
+  "equipmentName": "6AV2123-2GB03-0AX0",
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": "Ecran large TFT, rétroéclairage LED",
+  "plageMesure": {
+    "min": 0.0,
+    "max": 50.0,
+    "unite": "%"
+  },
+  "typeSignal": "20 mA (TTY)",
+  "nbFils": null,
+  "alimentation": "24 V CC",
+  "reperage": null,
+  "communication": "PROFIBUS DP",
+  "classe": "20",
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "Avertisseur sonore",
+      "typeAlarme": "Oui",
+      "seuilAlarme": null,
+      "uniteAlarme": null,
+      "relaisAssocie": null
+    }
+  ],
+  "marque": "Mitsubishi",
+  "modele": "SIMATIC S7-1200",
+  "reference": "6AV2123-2GB03-0AX0",
+  "dateCalibration": null
+}
