@@ -118,10 +118,13 @@ function EquipmentManagement() {
                         <p className="text-xs text-gray-400 mt-1 ml-3">
                             {extractedData
                                 ? 'Champs remplis automatiquement par l\'IA — vérifiez et ajustez'
-                                : 'Remplissez les champs progressivement'}
+                                : 'Remplissez les champs librement'}
                         </p>
                     </div>
-                    <EquipmentForm extractedData={extractedData} />
+                    <EquipmentForm
+                        extractedData={extractedData}
+                        isProcessing={status === 'uploading' || status === 'processing'}
+                    />
                 </div>
             </div>
         </div>

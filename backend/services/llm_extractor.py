@@ -7,7 +7,7 @@ import ollama as ollama_client
 import re
 import time
 
-from config import ACCURACY_FIRST, TEXT_MODEL, VISION_MODEL
+from config import ACCURACY_FIRST, TEXT_MODEL
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
 from services.document_classifier import DocumentContext
 
@@ -23,7 +23,12 @@ def _build_extraction_prompt(field_name: str, chunks: list[dict], doc_ctx: Docum
     
     allowed_str = ""
     if allowed:
-        allowed_str = f"\nThe value MUST be one of: {', '.join(allowed)}"
+        allowed_str = (
+            "\nPreferred canonical values (choose one of these IF it exactly matches the PDF text): "
+            + ", ".join(allowed)
+            + "\nIf the PDF contains an explicit value for this field but it is NOT in the canonical list, "
+            + "return the exact PDF value verbatim (do not force it into the list)."
+        )
     
     doc_ctx_str = ""
     if doc_ctx is not None:
@@ -104,6 +109,9 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
     Returns:
         Dict with 'value' and 'confidence'.
     """
+    if not _field_applicable(field_name, doc_ctx):
+        return {"value": None, "confidence": 0.0, "quote": None}
+
     if not chunks:
         return {"value": None, "confidence": 0.0, "quote": None}
 
@@ -112,12 +120,21 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
     last_error: Exception | None = None
     for attempt in range(1, 4):
         try:
-            response = ollama_client.chat(
-                model=TEXT_MODEL,
-                messages=[{"role": "user", "content": prompt}],
-                options={"temperature": 0.1},
-                keep_alive="10m",  # Keep model in VRAM for 10 minutes
-            )
+            try:
+                response = ollama_client.chat(
+                    model=TEXT_MODEL,
+                    messages=[{"role": "user", "content": prompt}],
+                    options={"temperature": 0.1},
+                    format="json",
+                    keep_alive="10m",  # Keep model in VRAM for 10 minutes
+                )
+            except TypeError:
+                response = ollama_client.chat(
+                    model=TEXT_MODEL,
+                    messages=[{"role": "user", "content": prompt}],
+                    options={"temperature": 0.1},
+                    keep_alive="10m",  # Keep model in VRAM for 10 minutes
+                )
 
             raw = response["message"]["content"].strip()
             result = _parse_llm_json(raw)
@@ -267,6 +284,68 @@ def _normalize_value(field_name: str, value):
             return "0-5V"
         return v
 
+    if field_name == "typeMesure" and isinstance(value, str):
+        v = value.strip()
+        v_l = v.lower()
+        if v_l in {"debit", "débit", "flow"}:
+            return "Debit"
+        if v_l in {"niveau", "level"}:
+            return "Niveau"
+        if v_l in {"pression", "pressure"}:
+            return "Pression"
+        if v_l in {"temperature", "température", "temperature."}:
+            return "Temperature"
+        if v_l in {"autre", "other", "n/a", "na"}:
+            return "Autre"
+        return v
+
+    if field_name == "categorie" and isinstance(value, str):
+        v = value.strip()
+        v_l = v.lower()
+        mapping = {
+            "transmetteur": "Transmetteur",
+            "transmitter": "Transmetteur",
+            "actionneur": "Actionneur",
+            "actuator": "Actionneur",
+            "capteurs": "Capteurs",
+            "capteur": "Capteurs",
+            "sensor": "Capteurs",
+            "sensors": "Capteurs",
+            "automate": "Automate",
+            "plc": "Automate",
+            "cpu": "Automate",
+            "ihm": "IHM",
+            "hmi": "IHM",
+            "autre": "Autre",
+            "other": "Autre",
+        }
+        return mapping.get(v_l, v)
+
+    if field_name == "technologie" and isinstance(value, str):
+        v = value.strip()
+        v_l = v.lower()
+        mapping = {
+            "électromagnétique": "Electromagnetique",
+            "electromagnetique": "Electromagnetique",
+            "magnetique": "Magnetique",
+            "magnétique": "Magnetique",
+            "hydraulique": "Hydraulique",
+            "pneumatique": "Pneumatique",
+            "numérique": "Numerique",
+            "numerique": "Numerique",
+            "piezo-resistif": "Piezo-resistif",
+            "piézo-résistif": "Piezo-resistif",
+            "electronique": "Electronique",
+            "électronique": "Electronique",
+            "section variable": "Section variable",
+            "tft tactile": "TFT Tactile",
+            "tft tactile lcd": "TFT Tactile",
+            "tactile lcd": "Tactile LCD",
+            "autre": "Autre",
+            "other": "Autre",
+        }
+        return mapping.get(v_l, v)
+
     if field_name == "alimentation" and isinstance(value, str):
         v = value.strip()
         v = v.replace("Vdc", "V DC").replace("VDC", "V DC")
@@ -282,7 +361,39 @@ def _normalize_value(field_name: str, value):
         if isinstance(value, int):
             return str(value)
         if isinstance(value, str):
-            return value.strip()
+            v = value.strip()
+            v_l = v.lower()
+            if v_l in {"2 fils", "2-wire", "two-wire", "2wire"}:
+                return "2 fils"
+            if v_l in {"4 fils", "4-wire", "four-wire", "4wire"}:
+                return "4 fils"
+            if v_l in {"1", "2", "4"}:
+                return v_l
+            return v
+
+    if field_name == "communication" and isinstance(value, str):
+        v = value.strip()
+        v_l = v.lower()
+        mapping = {
+            "profibus dp": "PROFIBUS DP",
+            "profibus": "PROFIBUS DP",
+            "profibus pa": "Profibus PA",
+            "foundation fieldbus": "Foundation Fieldbus",
+            "fieldbus": "Foundation Fieldbus",
+            "profinet": "Profinet",
+            "ethernet": "Ethernet",
+            "rs-232": "RS-232",
+            "rs232": "RS-232",
+            "rs-485": "RS-485",
+            "rs485": "RS-485",
+            "modbus tcp": "Modbus TCP",
+            "modbus tcp/ip": "Modbus TCP/IP",
+            "modbus tcpip": "Modbus TCP/IP",
+            "modbus rtu": "Modbus RTU",
+            "hart": "HART",
+            "mitsubishi mc tcp/ip": "Mitsubishi MC TCP/IP",
+        }
+        return mapping.get(v_l, v)
 
     return value
 
@@ -598,20 +709,60 @@ def extract_all_fields_with_meta(
     # --- Phase 1: Accept regex-extracted fields immediately ---
     llm_fields: dict[str, list[dict]] = {}
     for field_name, chunks in field_chunks.items():
+        if doc_ctx is not None and not _field_applicable(field_name, doc_ctx):
+            meta[field_name] = {
+                "accepted": False,
+                "confidence": 0.0,
+                "value": None,
+                "quote": None,
+                "source": "doc_type_gate",
+                "checks": {"applicable": False},
+                "rejection_reason": "inapplicable_for_doc_type",
+            }
+            continue
+
         if field_name in regex_results:
             rx = regex_results[field_name]
-            value = rx.get("value")
+            raw_value = rx.get("value")
             confidence = rx.get("confidence", 1.0)
             quote = rx.get("quote")
-            extracted[field_name] = value
-            meta[field_name] = {
-                "accepted": True,
-                "confidence": confidence,
-                "value": value,
-                "quote": quote,
-                "source": "regex",
+            value = _normalize_value(field_name, raw_value)
+
+            checks = {
+                "non_null": value is not None,
+                "min_confidence": float(confidence or 0.0) >= min_confidence,
+                "expected_type": _is_expected_type(field_name, value),
+                "allowed_value": _is_value_allowed(field_name, value),
+                "quote_supported": _value_supported_by_quote(value, quote),
+                "semantic_guard": _passes_semantic_guard(field_name, value, quote),
+                "quote_in_context": _quote_in_context(quote, chunks or []),
             }
-            print(f"  [REGEX] {field_name} = {value}")
+
+            ok = all(checks.values())
+            if ok:
+                extracted[field_name] = value
+                meta[field_name] = {
+                    "accepted": True,
+                    "confidence": confidence,
+                    "value": value,
+                    "quote": quote,
+                    "source": "regex",
+                    "checks": checks,
+                    "rejection_reason": None,
+                }
+                print(f"  [REGEX] {field_name} = {value}")
+            else:
+                # Fall back to LLM for this field.
+                meta[field_name] = {
+                    "accepted": False,
+                    "confidence": confidence,
+                    "value": None,
+                    "quote": quote,
+                    "source": "regex",
+                    "checks": checks,
+                    "rejection_reason": "regex_verification_failed",
+                }
+                llm_fields[field_name] = chunks
         else:
             llm_fields[field_name] = chunks
 

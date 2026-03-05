@@ -4,13 +4,14 @@ Configuration for the PDF Extractor backend.
 import os
 
 # -- Ollama Models --------------------------------------------------
-VISION_MODEL = "qwen2.5vl:3b"       # Multimodal (vision + text)
 TEXT_MODEL = "gemma3:4b"         # Using VL model for text too (handles both)
 EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
 
 # -- Extraction Policy ----------------------------------------------
 # If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).
-ACCURACY_FIRST = False
+ACCURACY_FIRST = True
+
+MIN_EXTRACT_CONFIDENCE = 0.6
 
 # -- Chunking ------------------------------------------------------
 CHUNK_SIZE = 500          # tokens (~375 words)
@@ -25,16 +26,20 @@ CHROMA_COLLECTION_NAME = "pdf_chunks"
 IMAGE_DPI = 300           # DPI for rendering PDF pages as images
 TOP_K_CHUNKS = 5          # Number of chunks to retrieve per field
 
-ENABLE_VISION_OCR = False
-VISION_OCR_ONLY_IF_NO_TEXT = False
-VISION_OCR_MAX_PAGES = 50
-VISION_OCR_TEXT_CHAR_THRESHOLD = 200
-VISION_OCR_AUTO_MIXED_PAGES = False
-VISION_OCR_TEXT_AREA_RATIO_MAX = 0.15
-VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN = 0.25
-VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN = 0.35
-VISION_OCR_DRAWING_COUNT_MIN = 25
 
 # -- Server ---------------------------------------------------------
 UPLOAD_DIR = "./uploads"
 LLM_MAX_WORKERS = 1       # Number of simultaneous fields to extract (safer for 8GB GPU)
+
+# -- Magic Numbers / Extract Config --------------------------------
+TABLE_CHUNK_OFFSET = 1000
+ENABLE_REGEX_EXTRACTION = True
+
+# -- Centralized Logging --------------------------------------------
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger("pdf_extractor")

@@ -66,8 +66,12 @@ def search_for_field(
     if field_name in _TEXT_FIRST_FIELDS:
         # Include OCR chunks as narrative text too.
         for ct in ("text", "ocr"):
-            where_text = dict(base_where or {})
-            where_text["chunk_type"] = ct
+            conditions = [{"chunk_type": ct}]
+            if doc_id:
+                conditions.append({"doc_id": doc_id})
+            
+            where_text = {"$and": conditions} if len(conditions) > 1 else conditions[0]
+            
             for query in field_info["search_queries"]:
                 _merge_results(query_chunks(query, n_results=n_results, where=where_text))
 

@@ -17,15 +17,9 @@ from config import (
     TEXT_MODEL,
     EMBEDDING_MODEL,
     CHROMA_COLLECTION_NAME,
-    ENABLE_VISION_OCR,
-    VISION_OCR_ONLY_IF_NO_TEXT,
-    VISION_OCR_MAX_PAGES,
-    VISION_OCR_TEXT_CHAR_THRESHOLD,
-    VISION_OCR_AUTO_MIXED_PAGES,
-    VISION_OCR_TEXT_AREA_RATIO_MAX,
-    VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN,
-    VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN,
-    VISION_OCR_DRAWING_COUNT_MIN,
+    TABLE_CHUNK_OFFSET,
+    ENABLE_REGEX_EXTRACTION,
+    logger,
 )
 from services.chunker import chunk_text, Chunk, make_table_chunks
 from services.pdf_parser import open_pdf, iter_pages, render_page_image
@@ -34,98 +28,43 @@ from services.vector_store import clear_collection, query_chunks, store_chunks_b
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
-from services.vision_ocr import extract_text_from_page_image_base64
 from services.document_classifier import classify_document
 
 
 def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
     if not os.path.exists(file_path):
-        print(f"[ERROR] File not found: {file_path}")
-        print(f"Provide the full absolute path or a path relative to the backend folder.")
+        logger.error(f"File not found: {file_path}")
+        logger.info("Provide the full absolute path or a path relative to the backend folder.")
         return 0
 
     total_start = time.time()
 
     # -- Phase 1: Parse + Chunk (CPU only, very fast) ---------------
     t0 = time.time()
-    print(f"\n[1/3] Parsing & chunking PDF...")
+    logger.info("[1/3] Parsing & chunking PDF...")
 
     pdf = open_pdf(file_path)
-    print(f"  -> {pdf.total_pages} pages")
+    logger.info(f"  -> {pdf.total_pages} pages")
 
     all_chunks: list[Chunk] = []
     all_page_texts: list[str] = []
     chunk_index_counter = 0
-    ocr_pages_done = 0
 
     for page in iter_pages(pdf):
         page_text = (page.text or "").strip()
 
-        ocr_text = ""
-        text_len = len(page_text)
-        below_threshold = text_len < VISION_OCR_TEXT_CHAR_THRESHOLD
-        auto_mixed = bool(
-            VISION_OCR_AUTO_MIXED_PAGES
-            and page.has_images
-            and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
-            and (getattr(page, "max_image_area_ratio", 0.0) >= VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN)
-        )
-        auto_vector = bool(
-            VISION_OCR_AUTO_MIXED_PAGES
-            and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
-            and (
-                (getattr(page, "max_drawing_area_ratio", 0.0) >= VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN)
-                or (getattr(page, "drawing_count", 0) >= VISION_OCR_DRAWING_COUNT_MIN)
-            )
-        )
-        should_ocr = bool(
-            ENABLE_VISION_OCR
-            and ocr_pages_done < VISION_OCR_MAX_PAGES
-            and (
-                (not page_text)
-                or auto_mixed
-                or auto_vector
-                or (not VISION_OCR_ONLY_IF_NO_TEXT and below_threshold)
-            )
-        )
-        if should_ocr:
-            try:
-                img_b64 = render_page_image(pdf.file_path, page.page_number)
-                ocr_text = extract_text_from_page_image_base64(img_b64)
-                if ocr_text.strip():
-                    ocr_pages_done += 1
-            except Exception as e:
-                print(f"[OCR] Failed page {page.page_number}: {e}")
-
-        if not page_text and not ocr_text.strip():
+        if not page_text:
             continue
 
         # Keep regex/LLM full_text free of table artifacts.
-        if page_text:
-            all_page_texts.append(page_text)
-        if ocr_text.strip():
-            all_page_texts.append("[OCR]\n" + ocr_text.strip())
+        all_page_texts.append(page_text)
 
-        text_chunks: list[Chunk] = []
-        if page_text:
-            text_chunks = chunk_text(
-                text=page_text,
-                page_number=page.page_number,
-                has_images=False,
-                doc_id="cli",
-            )
-
-        ocr_chunks: list[Chunk] = []
-        if ocr_text.strip():
-            ocr_chunks = chunk_text(
-                text=("[OCR]\n" + ocr_text.strip()),
-                page_number=page.page_number,
-                has_images=False,
-                doc_id="cli",
-            )
-            for c in ocr_chunks:
-                c.chunk_type = "ocr"
-                c.chunk_id = f"{c.chunk_id}_ocr"
+        text_chunks: list[Chunk] = chunk_text(
+            text=page_text,
+            page_number=page.page_number,
+            has_images=False,
+            doc_id="cli",
+        )
 
         table_chunks: list[Chunk] = []
         if getattr(page, "tables_structured", None):
@@ -153,28 +92,28 @@ def _index_pdf_to_chroma(file_path: str, collection_name: str) -> int:
                     )
                 )
 
-        all_chunks.extend(text_chunks + ocr_chunks + table_chunks)
+        all_chunks.extend(text_chunks + table_chunks)
         chunk_index_counter += 1
 
-    print(f"  -> {len(all_chunks)} chunks in {time.time()-t0:.1f}s")
+    logger.info(f"  -> {len(all_chunks)} chunks in {time.time()-t0:.1f}s")
 
     if not all_chunks:
-        print("[WARN] No text chunks found. PDF might be image-based or empty.")
+        logger.warning("No text chunks found. PDF might be image-based or empty.")
         return 0
 
     # -- Phase 2+3: Embed + Store (uses vector_store to preserve metadata) ---
     t0 = time.time()
-    print(f"\n[2/3] Embedding {len(all_chunks)} chunks (single batch)...")
-    print(f"  -> Done in {time.time()-t0:.1f}s")
+    logger.info(f"[2/3] Embedding {len(all_chunks)} chunks (single batch)...")
+    logger.info(f"  -> Done in {time.time()-t0:.1f}s")
 
     t0 = time.time()
-    print(f"\n[3/3] Storing in ChromaDB collection '{collection_name}'...")
+    logger.info(f"[3/3] Storing in ChromaDB collection '{collection_name}'...")
     collection = clear_collection(collection_name)
     store_chunks_batch(all_chunks, collection)
-    print(f"  -> {len(all_chunks)} chunks stored in {time.time()-t0:.1f}s")
+    logger.info(f"  -> {len(all_chunks)} chunks stored in {time.time()-t0:.1f}s")
 
     elapsed = time.time() - total_start
-    print(f"\n[Index] DONE in {elapsed:.1f}s")
+    logger.info(f"[Index] DONE in {elapsed:.1f}s")
 
     full_text = "\n\n".join(all_page_texts)
     return len(all_chunks), full_text
@@ -246,16 +185,15 @@ def run_extraction(
     output_prefix: str,
 ):
     if not os.path.exists(file_path):
-        print(f"[ERROR] File not found: {file_path}")
-        print(f"Provide the full absolute path or a path relative to the backend folder.")
+        logger.error(f"File not found: {file_path}")
         return
 
-    print(f"\n{'='*60}")
-    print(f"  PDF EXTRACTOR - OPTIMIZED PIPELINE")
-    print(f"  File     : {os.path.basename(file_path)}")
-    print(f"  LLM      : {TEXT_MODEL}")
-    print(f"  Embeddings: {EMBEDDING_MODEL}")
-    print(f"{'='*60}")
+    logger.info(f"{'='*60}")
+    logger.info(f"  PDF EXTRACTOR - OPTIMIZED PIPELINE")
+    logger.info(f"  File     : {os.path.basename(file_path)}")
+    logger.info(f"  LLM      : {TEXT_MODEL}")
+    logger.info(f"  Embeddings: {EMBEDDING_MODEL}")
+    logger.info(f"{'='*60}")
 
     total_start = time.time()
 
@@ -270,39 +208,39 @@ def run_extraction(
 
     if no_llm:
         elapsed = time.time() - total_start
-        print(f"\n{'='*60}")
-        print(f"  DONE (index only) in {elapsed:.1f}s")
-        print(f"{'='*60}")
+        logger.info(f"DONE (index only) in {elapsed:.1f}s")
         return
 
     # Regex extraction (fast, deterministic)
-    print(f"\n[4/6] Regex extraction (deterministic fields)...")
-    regex_results = extract_with_regex(full_text)
-    if regex_results:
-        print(f"  -> {len(regex_results)} fields matched by regex")
+    regex_results = {}
+    if ENABLE_REGEX_EXTRACTION:
+        logger.info("[4/6] Regex extraction (deterministic fields)...")
+        regex_results = extract_with_regex(full_text)
+        if regex_results:
+            logger.info(f"  -> {len(regex_results)} fields matched by regex")
+        else:
+            logger.info(f"  -> No regex matches")
     else:
-        print(f"  -> No regex matches")
+        logger.info("[4/6] Regex extraction disabled via config. Skipping...")
 
     doc_ctx = classify_document(full_text)
-    print(f"\n[DOC] doc_type={doc_ctx.doc_type} conf={doc_ctx.confidence:.2f} ({doc_ctx.rationale})")
+    logger.info(f"[DOC] doc_type={doc_ctx.doc_type} conf={doc_ctx.confidence:.2f} ({doc_ctx.rationale})")
 
     # Semantic search per field + LLM extraction (kept for later)
-    print(f"\n[5/6] Semantic search per field...")
+    logger.info("[5/6] Semantic search per field...")
     field_chunks = search_all_fields()
     field_chunks = _filter_field_chunks_by_distance(field_chunks, field_max_distance)
     evidence = _build_evidence(field_chunks)
 
-    print(f"\n[6/6] Extracting values with LLM ({TEXT_MODEL}) + regex...")
+    logger.info(f"[6/6] Extracting values with LLM ({TEXT_MODEL}) + regex...")
     equipment, llm_meta = extract_all_fields_with_meta(
         field_chunks, min_confidence=min_confidence, regex_results=regex_results, doc_ctx=doc_ctx
     )
 
     elapsed = time.time() - total_start
-    print(f"\n{'='*60}")
-    print(f"  DONE in {elapsed:.1f}s")
-    print(f"{'='*60}")
+    logger.info(f"DONE in {elapsed:.1f}s")
 
-    print("\nEXTRACTED DATA:")
+    logger.info("EXTRACTED DATA:")
     full_result = equipment.model_dump(exclude_none=False)
 
     result = full_result
@@ -327,8 +265,8 @@ def run_extraction(
             ensure_ascii=False,
         )
 
-    print(f"\nSaved: {extracted_path}")
-    print(f"Saved: {evidence_path}")
+    logger.info(f"Saved: {extracted_path}")
+    logger.info(f"Saved: {evidence_path}")
 
 
 if __name__ == "__main__":

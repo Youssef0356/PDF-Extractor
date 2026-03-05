@@ -1,0 +1,26 @@
+{
+  "equipmentName": "H250 M40",
+  "categorie": null,
+  "typeMesure": "Debit",
+  "technologie": null,
+  "plageMesure": null,
+  "typeSignal": "4-20mA",
+  "nbFils": null,
+  "alimentation": null,
+  "reperage": null,
+  "communication": "HART",
+  "classe": null,
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "Sortie binaire",
+      "typeAlarme": "binaire",
+      "seuilAlarme": 3.0,
+      "uniteAlarme": "mA",
+      "relaisAssocie": "B"
+    }
+  ],
+  "marque": "KROHNE",
+  "modele": "H250 M40 H250",
+  "reference": "PA 392 572 356 572",
+  "dateCalibration": null
+}

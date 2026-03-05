@@ -80,8 +80,8 @@ _REFERENCE_PATTERNS = [
     re.compile(r"\b(PA\s*\d{3,}[\d\.\-\s]*)\b"),
     # Generic "Order No." / "Part No." / "Article No." / "Ref." patterns
     re.compile(
-        r"(?:Order\s*(?:No\.?|Number)|Part\s*(?:No\.?|Number)|Article\s*(?:No\.?|Number)|Ref(?:erence)?(?:\s*No\.?)?)\s*[:=]?\s*"
-        r"([A-Z0-9][\w\-\./ ]{4,30})",
+        r"(?:Order\s*(?:No\.?|Number)|Part\s*(?:No\.?|Number)|Article\s*(?:No\.?|Number)|Ref(?:erence)?(?:\s*No\.? )?)\s*[:=]?\s*"
+        r"([A-Z0-9][\w\-\./ ]{4,30}(?:\d|[-/.]))",
         re.IGNORECASE,
     ),
 ]
@@ -273,6 +273,10 @@ def _extract_reference(text: str) -> Optional[dict]:
             value = re.sub(r"\s+", " ", value)
             # Strip common trailing artifacts from PDF headers/footers.
             value = re.sub(r"\s+(?:page|p\.|seite)\s*\d+\b", "", value, flags=re.IGNORECASE).strip()
+
+            if not _looks_like_reference(value):
+                continue
+
             return {"value": value, "confidence": 0.9, "quote": m.group(0).strip(), "source": "regex"}
     return None
 

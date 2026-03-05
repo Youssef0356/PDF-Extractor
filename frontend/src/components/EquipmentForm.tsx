@@ -68,7 +68,7 @@ const SECTIONS: Section[] = [
                 key: 'categorie',
                 label: 'categorie_equipement',
                 type: 'select',
-                options: ['Transmetteur', 'Actionneur', 'Autre'],
+                options: ['Transmetteur', 'Actionneur', 'Capteurs', 'Automate', 'IHM', 'Autre'],
             }
         ],
     },
@@ -80,13 +80,25 @@ const SECTIONS: Section[] = [
                 key: 'typeMesure',
                 label: 'type_mesure',
                 type: 'select',
-                options: ['Débit', 'Niveau', 'Pression', 'Température', 'Autre'],
+                options: ['Debit', 'Niveau', 'Pression', 'Temperature', 'Autre'],
             },
             {
                 key: 'technologie',
                 label: 'technologie',
                 type: 'select',
-                options: ['Électromagnétique', 'Hydraulique', 'Autre'],
+                options: [
+                    'Electromagnetique',
+                    'Magnetique',
+                    'Hydraulique',
+                    'Pneumatique',
+                    'Numerique',
+                    'Piezo-resistif',
+                    'Electronique',
+                    'Section variable',
+                    'TFT Tactile',
+                    'Tactile LCD',
+                    'Autre',
+                ],
             },
             {
                 key: 'plageMesure',
@@ -105,13 +117,13 @@ const SECTIONS: Section[] = [
                 key: 'typeSignal',
                 label: 'type_signal',
                 type: 'select',
-                options: ['4-20mA', '0-20mA', '0-10V', '0-5V', 'Autre'],
+                options: ['4-20mA', '0-20mA', '0-10V', '0-5V', '0-10V (AI)', '24V DC (DI/DO)', 'Autre'],
             },
             {
                 key: 'nbFils',
                 label: 'nb_fils',
                 type: 'select',
-                options: ['1', '2', '4', 'Autre'],
+                options: ['1', '2', '4', '2 fils', '4 fils', 'Autre'],
             },
             {
                 key: 'alimentation',
@@ -136,7 +148,21 @@ const SECTIONS: Section[] = [
                 key: 'communication',
                 label: 'communication',
                 type: 'select',
-                options: ['HART', 'Modbus RTU', 'Modbus TCP', 'PROFIBUS DP', 'Autre'],
+                options: [
+                    'HART',
+                    'Modbus RTU',
+                    'Modbus TCP',
+                    'Modbus TCP/IP',
+                    'PROFIBUS DP',
+                    'Profibus PA',
+                    'Foundation Fieldbus',
+                    'Profinet',
+                    'Ethernet',
+                    'RS-232',
+                    'RS-485',
+                    'Mitsubishi MC TCP/IP',
+                    'Autre',
+                ],
             },
         ],
     },
@@ -148,7 +174,7 @@ const SECTIONS: Section[] = [
                 key: 'classe',
                 label: 'classe',
                 type: 'select',
-                options: ['Classe A', 'Classe B', 'Autre'],
+                options: ['Classe A', 'Classe B', 'A', 'B', 'Autre'],
             },
         ],
     },
@@ -238,9 +264,10 @@ type FormValues = Record<string, string>;
 
 interface EquipmentFormProps {
     extractedData?: EquipmentData | null;
+    isProcessing?: boolean;
 }
 
-function EquipmentForm({ extractedData }: EquipmentFormProps) {
+function EquipmentForm({ extractedData, isProcessing = false }: EquipmentFormProps) {
     const [values, setValues] = useState<FormValues>(() => {
         const init: FormValues = {};
         ALL_FIELD_KEYS.forEach((k) => (init[k] = ''));
@@ -249,12 +276,15 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
 
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
     const [aiFilledFields, setAiFilledFields] = useState<Set<string>>(new Set());
+    // Store custom values inputted when "Autre" is selected
+    const [customValues, setCustomValues] = useState<FormValues>({});
 
     // Auto-fill form when extractedData arrives
     useEffect(() => {
         if (!extractedData) return;
 
         const newValues: FormValues = { ...values };
+        const newCustomValues: FormValues = { ...customValues };
         const filledKeys = new Set<string>();
 
         const simpleFields = [
@@ -264,10 +294,33 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
             'classe', 'marque', 'modele', 'reference', 'dateCalibration',
         ] as const;
 
+        // Helper to find field definition
+        const getFieldDef = (key: string): FormField | undefined => {
+            for (const section of SECTIONS) {
+                const found = section.fields.find(f => f.key === key);
+                if (found) return found;
+            }
+            return undefined;
+        };
+
         for (const key of simpleFields) {
             const val = extractedData[key];
             if (val != null && val !== '') {
-                newValues[key] = String(val);
+                const strVal = String(val);
+                const fieldDef = getFieldDef(key);
+
+                if (fieldDef?.type === 'select') {
+                    // Check if the extracted value is in the options
+                    if (!fieldDef.options.includes(strVal)) {
+                        // It's a custom value
+                        newValues[key] = 'Autre';
+                        newCustomValues[key] = strVal;
+                    } else {
+                        newValues[key] = strVal;
+                    }
+                } else {
+                    newValues[key] = strVal;
+                }
                 filledKeys.add(key);
             }
         }
@@ -293,8 +346,12 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
             if (alarm.relaisAssocie) { newValues['relaisAssocie'] = alarm.relaisAssocie; filledKeys.add('relaisAssocie'); }
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         setValues(newValues);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        setCustomValues(newCustomValues);
         setAiFilledFields(filledKeys);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [extractedData]);
 
     const toggleSection = (title: string) => {
@@ -311,46 +368,25 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
 
     // Compute which fields are enabled
     const enabledFields = useMemo(() => {
-        const enabled = new Set<string>();
-        enabled.add(ALL_FIELD_KEYS[0]);
-
-        for (let i = 1; i < ALL_FIELD_KEYS.length; i++) {
-            const prevKey = ALL_FIELD_KEYS[i - 1];
-            const currentKey = ALL_FIELD_KEYS[i];
-
-            if (currentKey === 'typeMesure' && values['categorie'] === 'Actionneur') {
-                continue;
-            }
-
-            let effectivePrev = prevKey;
-            if (prevKey === 'typeMesure' && values['categorie'] === 'Actionneur') {
-                effectivePrev = 'categorie';
-            }
-
-            if (values[effectivePrev] !== '') {
-                enabled.add(currentKey);
-            } else {
-                break;
-            }
-        }
-
-        return enabled;
-    }, [values]);
+        return new Set<string>(ALL_FIELD_KEYS);
+    }, []);
 
     const handleChange = (key: string, value: string) => {
         setValues((prev) => {
-            const next = { ...prev, [key]: value };
-            const idx = ALL_FIELD_KEYS.indexOf(key);
-            for (let i = idx + 1; i < ALL_FIELD_KEYS.length; i++) {
-                next[ALL_FIELD_KEYS[i]] = '';
-            }
-            return next;
+            return { ...prev, [key]: value };
         });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', values);
+        // Merge custom values back in for submission
+        const finalValues = { ...values };
+        for (const key of Object.keys(finalValues)) {
+            if (finalValues[key] === 'Autre' && customValues[key]) {
+                finalValues[key] = customValues[key];
+            }
+        }
+        console.log('Form submitted:', finalValues);
     };
 
     // Compute progress
@@ -377,28 +413,44 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
         `;
 
         switch (field.type) {
-            case 'select':
+            case 'select': {
+                const isAutre = values[field.key] === 'Autre';
                 return (
                     <div key={field.key} className={wrapperClass}>
                         <label className={`block text-xs font-medium mb-1 ${isAiFilled ? 'text-blue-600' : 'text-gray-500'}`}>
                             {isAiFilled && <span className="mr-1">🤖</span>}{field.label}
                         </label>
-                        <select
-                            className={inputClass}
-                            disabled={!isEnabled}
-                            required
-                            value={values[field.key]}
-                            onChange={(e) => handleChange(field.key, e.target.value)}
-                        >
-                            <option value="">{field.label}</option>
-                            {field.options.map((opt) => (
-                                <option key={opt} value={opt}>
-                                    {opt}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="flex gap-2">
+                            <select
+                                className={`${inputClass} ${isAutre ? 'w-1/3' : 'w-full'}`}
+                                disabled={!isEnabled}
+                                required
+                                value={values[field.key]}
+                                onChange={(e) => handleChange(field.key, e.target.value)}
+                            >
+                                <option value="">{field.label}</option>
+                                {field.options.map((opt) => (
+                                    <option key={opt} value={opt}>
+                                        {opt}
+                                    </option>
+                                ))}
+                            </select>
+                            {isAutre && (
+                                <input
+                                    type="text"
+                                    className={`${inputClass} w-2/3 border-blue-300 ring-1 ring-blue-100 bg-blue-50/30`}
+                                    disabled={!isEnabled}
+                                    required
+                                    placeholder="Précisez..."
+                                    value={customValues[field.key] || ''}
+                                    onChange={(e) => setCustomValues(prev => ({ ...prev, [field.key]: e.target.value }))}
+                                    autoFocus
+                                />
+                            )}
+                        </div>
                     </div>
                 );
+            }
 
             case 'text':
                 return (
@@ -556,48 +608,64 @@ function EquipmentForm({ extractedData }: EquipmentFormProps) {
             </div>
 
             {/* Sections */}
-            {SECTIONS.map((section) => {
-                const isCollapsed = collapsedSections.has(section.title);
-
-                return (
-                    <div
-                        key={section.title}
-                        className="bg-gray-50/80 rounded-xl border border-gray-200 overflow-hidden"
-                    >
-                        {/* Section Header */}
-                        <button
-                            type="button"
-                            onClick={() => toggleSection(section.title)}
-                            className="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-100/60 transition-colors"
-                        >
-                            <div className="flex items-center gap-3">
-                                <span className="w-6 h-6 rounded-md bg-blue-500 text-white text-xs font-bold flex items-center justify-center">
-                                    {section.icon}
-                                </span>
-                                <h3 className="text-sm font-semibold text-gray-700">{section.title}</h3>
+            <div className={`space-y-4 transition-opacity duration-300 ${isProcessing ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+                {isProcessing && (
+                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[2px] rounded-xl">
+                        <div className="relative">
+                            <div className="w-16 h-16 border-4 border-blue-200 rounded-full animate-pulse blur-[2px]"></div>
+                            <div className="absolute inset-0 w-16 h-16 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-2xl">🤖</span>
                             </div>
-                            <svg
-                                className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isCollapsed ? '' : 'rotate-180'}`}
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-
-                        {/* Section Fields — horizontal row layout */}
-                        {!isCollapsed && (
-                            <div className="px-5 pb-4 pt-1">
-                                <div className="flex flex-wrap gap-4">
-                                    {section.fields.map((field) => renderField(field))}
-                                </div>
-                            </div>
-                        )}
+                        </div>
+                        <p className="mt-4 font-semibold text-blue-700 animate-pulse">Extraction par l'IA en cours...</p>
+                        <p className="text-xs text-blue-500 mt-1 text-center px-6">Analyse sémantique et regex des champs du document.</p>
                     </div>
-                );
-            })}
+                )}
+
+                {SECTIONS.map((section) => {
+                    const isCollapsed = collapsedSections.has(section.title);
+
+                    return (
+                        <div
+                            key={section.title}
+                            className="bg-gray-50/80 rounded-xl border border-gray-200 overflow-hidden relative"
+                        >
+                            {/* Section Header */}
+                            <button
+                                type="button"
+                                onClick={() => toggleSection(section.title)}
+                                className="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-100/60 transition-colors"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className="w-6 h-6 rounded-md bg-blue-500 text-white text-xs font-bold flex items-center justify-center">
+                                        {section.icon}
+                                    </span>
+                                    <h3 className="text-sm font-semibold text-gray-700">{section.title}</h3>
+                                </div>
+                                <svg
+                                    className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isCollapsed ? '' : 'rotate-180'}`}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Section Fields — horizontal row layout */}
+                            {!isCollapsed && (
+                                <div className="px-5 pb-4 pt-1">
+                                    <div className="flex flex-wrap gap-4">
+                                        {section.fields.map((field) => renderField(field))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
 
             {/* Submit Button */}
             <div className="flex justify-end pt-2">

@@ -23,21 +23,21 @@ class EquipmentSchema(BaseModel):
     """The target JSON schema that the AI must fill."""
     equipmentName: Optional[str] = None
     categorie: Optional[str] = Field(
-        None, description="Transmetteur | Actionneur | Autre"
+        None, description="Transmetteur | Actionneur | Capteurs | Automate | IHM | Autre"
     )
     typeMesure: Optional[str] = Field(
         None, description="Debit | Niveau | Pression | Temperature | Autre"
     )
     technologie: Optional[str] = Field(
-        None, description="Electromagnetique | Hydraulique | Autre"
+        None, description="Electromagnetique | Hydraulique | Pneumatique | Numerique | Piezo-resistif | Electronique | Magnetique | Section variable | TFT Tactile | Tactile LCD | Autre"
     )
     plageMesure: Optional[PlageMesure] = None
 
     typeSignal: Optional[str] = Field(
-        None, description="4-20mA | 0-20mA | 0-10V | 0-5V | Autre"
+        None, description="4-20mA | 0-20mA | 0-10V | 0-5V | 0-10V (AI) | 24V DC (DI/DO) | Autre"
     )
     nbFils: Optional[str] = Field(
-        None, description="1 | 2 | 4 | Autre"
+        None, description="1 | 2 | 4 | 2 fils | 4 fils | Autre"
     )
     alimentation: Optional[str] = Field(
         None, description="None | 24V DC | 220V AC | Autre"
@@ -45,11 +45,11 @@ class EquipmentSchema(BaseModel):
     reperage: Optional[str] = None
 
     communication: Optional[str] = Field(
-        None, description="HART | Modbus RTU | Modbus TCP | PROFIBUS DP | Autre"
+        None, description="HART | Modbus RTU | Modbus TCP | Modbus TCP/IP | PROFIBUS DP | Profibus PA | Foundation Fieldbus | Profinet | Ethernet | RS-232 | RS-485 | Mitsubishi MC TCP/IP | Autre"
     )
 
     classe: Optional[str] = Field(
-        None, description="Classe A | Classe B | Autre"
+        None, description="Classe A | Classe B | A | B | Autre"
     )
 
     sortiesAlarme: Optional[list[SortieAlarme]] = None
@@ -83,8 +83,8 @@ FIELD_DESCRIPTIONS = {
         ],
     },
     "categorie": {
-        "description": "Category of the equipment (Transmetteur, Actionneur, or Autre)",
-        "allowed_values": ["Transmetteur", "Actionneur", "Autre"],
+        "description": "Category of the equipment (Transmetteur, Actionneur, Capteurs, Automate, IHM, or Autre)",
+        "allowed_values": ["Transmetteur", "Actionneur", "Capteurs", "Automate", "IHM", "Autre"],
         "search_queries": [
             "equipment type transmitter",
             "pressure transmitter",
@@ -92,6 +92,10 @@ FIELD_DESCRIPTIONS = {
             "instrument type",
             "categorie equipement transmetteur actionneur",
             "type d'instrument",
+            "hmi",
+            "operator panel",
+            "plc",
+            "automate",
         ],
     },
     "typeMesure": {
@@ -112,8 +116,20 @@ FIELD_DESCRIPTIONS = {
         ],
     },
     "technologie": {
-        "description": "Technology used (Electromagnetique, Hydraulique,Pneumatique or Autre)",
-        "allowed_values": ["Electromagnetique", "Hydraulique","Pneumatique", "Autre"],
+        "description": "Technology used (e.g., Electromagnetique, Hydraulique, Pneumatique, Numerique, Piezo-resistif, Electronique, Magnetique, Section variable, TFT Tactile, Tactile LCD, or Autre)",
+        "allowed_values": [
+            "Electromagnetique",
+            "Magnetique",
+            "Hydraulique",
+            "Pneumatique",
+            "Numerique",
+            "Piezo-resistif",
+            "Electronique",
+            "Section variable",
+            "TFT Tactile",
+            "Tactile LCD",
+            "Autre",
+        ],
         "search_queries": [
             "principe de mesure",
             "measurement principle",
@@ -123,6 +139,12 @@ FIELD_DESCRIPTIONS = {
             "rotamètre",
             "variable area flowmeter",
             "technologie electromagnetique hydraulique pneumatique",
+            "piezo",
+            "piezo-resistive",
+            "numerical",
+            "digital",
+            "tft",
+            "touchscreen",
         ],
     },
     "plageMesure": {
@@ -142,7 +164,7 @@ FIELD_DESCRIPTIONS = {
     },
     "typeSignal": {
         "description": "Output signal type (4-20mA, 0-20mA, 0-10V, 0-5V, or Autre)",
-        "allowed_values": ["4-20mA", "0-20mA", "0-10V", "0-5V", "Autre"],
+        "allowed_values": ["4-20mA", "0-20mA", "0-10V", "0-5V", "0-10V (AI)", "24V DC (DI/DO)", "Autre"],
         "search_queries": [
             "output signal",
             "output",
@@ -152,11 +174,16 @@ FIELD_DESCRIPTIONS = {
             "0-20 mA",
             "analog output",
             "type de signal sortie",
+            "digital input",
+            "digital output",
+            "DI",
+            "DO",
+            "AI",
         ],
     },
     "nbFils": {
         "description": "Number of wires (1, 2, 4, or Autre)",
-        "allowed_values": ["1", "2", "4", "Autre"],
+        "allowed_values": ["1", "2", "4", "2 fils", "4 fils", "Autre"],
         "search_queries": [
             "2-wire",
             "4-wire",
@@ -165,6 +192,8 @@ FIELD_DESCRIPTIONS = {
             "wiring",
             "electrical connection",
             "nombre de fils cablage",
+            "2 fils",
+            "4 fils",
         ],
     },
     "alimentation": {
@@ -190,8 +219,22 @@ FIELD_DESCRIPTIONS = {
         ],
     },
     "communication": {
-        "description": "Communication protocol (HART, Modbus RTU, Modbus TCP, PROFIBUS DP, or Autre)",
-        "allowed_values": ["HART", "Modbus RTU", "Modbus TCP", "PROFIBUS DP", "Autre"],
+        "description": "Communication protocol (e.g., HART, Modbus RTU, Modbus TCP, PROFIBUS DP, Profinet, Ethernet, etc.)",
+        "allowed_values": [
+            "HART",
+            "Modbus RTU",
+            "Modbus TCP",
+            "Modbus TCP/IP",
+            "PROFIBUS DP",
+            "Profibus PA",
+            "Foundation Fieldbus",
+            "Profinet",
+            "Ethernet",
+            "RS-232",
+            "RS-485",
+            "Mitsubishi MC TCP/IP",
+            "Autre",
+        ],
         "search_queries": [
             "HART",
             "communication protocol",
@@ -199,11 +242,17 @@ FIELD_DESCRIPTIONS = {
             "Modbus",
             "PROFIBUS",
             "protocole communication",
+            "Profinet",
+            "Ethernet",
+            "RS-232",
+            "RS-485",
+            "Foundation Fieldbus",
+            "Profibus PA",
         ],
     },
     "classe": {
         "description": "Equipment class (Classe A, Classe B, or Autre)",
-        "allowed_values": ["Classe A", "Classe B", "Autre"],
+        "allowed_values": ["Classe A", "Classe B", "A", "B", "Autre"],
         "search_queries": [
             "equipment class classification safety",
             "classe equipement",

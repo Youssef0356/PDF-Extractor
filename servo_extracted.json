@@ -1,0 +1,22 @@
+{
+  "equipmentName": null,
+  "categorie": null,
+  "typeMesure": "Pression",
+  "technologie": "Pneumatique",
+  "plageMesure": {
+    "min": 0.4,
+    "max": 1.2,
+    "unite": "bar"
+  },
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": null,
+  "reperage": null,
+  "communication": null,
+  "classe": null,
+  "sortiesAlarme": null,
+  "marque": "Samson",
+  "modele": null,
+  "reference": "3271",
+  "dateCalibration": null
+}
