@@ -11,11 +11,11 @@ EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
 # If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).
 ACCURACY_FIRST = True
 
-MIN_EXTRACT_CONFIDENCE = 0.6
+MIN_EXTRACT_CONFIDENCE = 0.7
 
 # -- Chunking ------------------------------------------------------
-CHUNK_SIZE = 500          # tokens (~375 words)
-CHUNK_OVERLAP = 100       # 20% overlap
+CHUNK_SIZE = 350          # tokens (~375 words)
+CHUNK_OVERLAP = 80       # 20% overlap
 CHARS_PER_TOKEN = 4       # approximate characters per token
 
 # -- ChromaDB ------------------------------------------------------
@@ -24,16 +24,16 @@ CHROMA_COLLECTION_NAME = "pdf_chunks"
 
 # -- PDF Processing -------------------------------------------------
 IMAGE_DPI = 300           # DPI for rendering PDF pages as images
-TOP_K_CHUNKS = 5          # Number of chunks to retrieve per field
+TOP_K_CHUNKS = 6         # Number of chunks to retrieve per field
 
 
 # -- Server ---------------------------------------------------------
 UPLOAD_DIR = "./uploads"
-LLM_MAX_WORKERS = 1       # Number of simultaneous fields to extract (safer for 8GB GPU)
+LLM_MAX_WORKERS = 2       # Number of simultaneous fields to extract (safer for 8GB GPU)
 
 # -- Magic Numbers / Extract Config --------------------------------
 TABLE_CHUNK_OFFSET = 1000
-ENABLE_REGEX_EXTRACTION = True
+ENABLE_REGEX_EXTRACTION = False
 
 # -- Centralized Logging --------------------------------------------
 import logging

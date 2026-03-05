@@ -1,0 +1,922 @@
+{
+  "file": "backend/uploads/6_OPTIFLUX 2000.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": null,
+  "min_confidence": 0.3,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_c0",
+        "distance": 0.46178436279296875,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+      },
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_c0",
+        "distance": 0.4620918035507202,
+        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_c0",
+        "distance": 0.4790799021720886,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n14\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.2  Transactions commerciales\n2.2.1  OIML R49\nL'OPTIFLUX 2000 dispose d'un certificat de conformité à la recommandation internationale\nOIML R49.\nLe certificat a été délivré par l'institut de"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_c0",
+        "distance": 0.49995970726013184,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n17\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nCaractéristiques d'écoulement certifiées MI-001\nDN\nPlage (R)\nQ3 / Q1\nDébit [m3/h]\nminimum Q1\nde transition Q2\npermanent Q3\nde surcharge Q4\n25\n400\n0,040\n0,064\n16\n20,0\n32\n400\n0,063\n0,100\n25\n31,"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_c0",
+        "distance": 0.5028747320175171,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_c1",
+        "distance": 0.5061143040657043,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n8\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.1  Caractéristiques techniques\n•\nLes données suivantes sont fournies pour les applications générales.\nSi vous avez une\napplication spécifique, veuillez contacter votre représentant local.\n•\n"
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r13",
+        "distance": 0.3498174548149109,
+        "text_preview": "TABLE ROW: Raccordements process =  |  = Câble en option, blindage triple.\nLongueur maxi: 600 m / 1950 ft\n(selon la conductivité électrique et le capteur de mesure)"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r26",
+        "distance": 0.3531172275543213,
+        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: acier inox, titane"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r32",
+        "distance": 0.3531172275543213,
+        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: acier inox, titane"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r10",
+        "distance": 0.353946328163147,
+        "text_preview": "TABLE ROW: Système de mesure = Construction modulaire |  = Le système de mesure comporte un capteur de mesure et un convertisseur\nde mesure. Il est disponible en version compacte ou en version séparée.\nPour plus d'informations, consulter la documentation du convertisseur de\nmesure."
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r29",
+        "distance": 0.3540353775024414,
+        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: Hastelloy® C, titane, tantale"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r5",
+        "distance": 0.3599786162376404,
+        "text_preview": "TABLE ROW: Conditions de service = Température ambiante |  = SSSSttttaaaannnnddddaaaarrrrdddd (avec boîtier du convertisseur en aluminium):"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r9",
+        "distance": 0.33877187967300415,
+        "text_preview": "TABLE ROW: Système de mesure =  |  = Grande échelle de diamètres mais aussi disponible avec des diamètres,\nlongueurs et pressions nominales spécifiques au client."
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r28",
+        "distance": 0.34173011779785156,
+        "text_preview": "TABLE ROW: Conditions de service = Perte de pression |  = Négligeable"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r10",
+        "distance": 0.35137468576431274,
+        "text_preview": "TABLE ROW: Précision de mesure = Répétabilité |  = ±0,2% de la valeur mesurée, mimimum 1 mm/s"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_t1_r18",
+        "distance": 0.35320740938186646,
+        "text_preview": "TABLE ROW: VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee = 1 Cette valeur peut varier en fonction des presse-étoupe utilisés. | a = 88mm / 3.5\" ="
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r2",
+        "distance": 0.358806312084198,
+        "text_preview": "TABLE ROW: Précision de mesure =  |  = Pression de service: 1bar / 14,5psi"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r22",
+        "distance": 0.35945314168930054,
+        "text_preview": "TABLE ROW: Raccordements process = Directive pour les\néquipements sous\npression |  = Directive: 97/23/CE"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c0",
+        "distance": 0.4293142557144165,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
+      },
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.4370150566101074,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n7\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.3  Principe de mesure\nUn fluide conducteur coule à l'intérieur du tube de mesure isolé électriquement et y traverse un\nchamp magnétique.\nCe champ magnétique est généré par un courant qui traver"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.44095486402511597,
+        "text_preview": "OPTIFLUX 2000\nOPTIFLUX 2000\nOPTIFLUX 2000\nOPTIFLUX 2000\nNotice technique\nNotice technique\nNotice technique\nNotice technique\nCapteur de mesure électromagnétique\n•   Pour toutes les applications eau et eaux usées\n• Large gamme d'homologations pour eaux potables\n• Construction robuste, entièrement soud"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_c0",
+        "distance": 0.4505467414855957,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": "cli_p25_c0",
+        "distance": 0.4526682496070862,
+        "text_preview": "MONTAGE 3\n25\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3  Conditions de montage\n3.3.1  Sections droites amont/aval\nPour éviter des distorsions de l'écoulement ou des tourbillons, (causés par des coudes et des\nsections en T), utiliser des sections de conduite droit"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c4",
+        "distance": 0.4537380337715149,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n12\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nRaccordements process\nBride\nBride\nBride\nBride\nEN 1092-1\nDN25...3000 en PN 2,5...40\nASME\n1…24\" en 150 & 300 lb RF\nJIS\nDN25…1000 en 10...20 K\nAWWA\nDN700...2000 en 6...10 bar\nConception de la su"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c0",
+        "distance": 0.32724928855895996,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
+      },
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_c0",
+        "distance": 0.337896466255188,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n19\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.3  Incertitude de mesure\nChaque débitmètre est étalonné sous conditions de référence par comparaison directe des\nvolumes.\nLa performance du débitmètre est définie et documentée dans un cert"
+      },
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_c0",
+        "distance": 0.33851683139801025,
+        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_c0",
+        "distance": 0.34311461448669434,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
+      },
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_c0",
+        "distance": 0.34737974405288696,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c1",
+        "distance": 0.348996639251709,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r30",
+        "distance": 0.25572723150253296,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r29",
+        "distance": 0.2766719460487366,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r5",
+        "distance": 0.2823757529258728,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r14",
+        "distance": 0.2954326868057251,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = NEPSI |  = GYJ05234 / GYJ05237"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r26",
+        "distance": 0.3067593574523926,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = Revêtement polyoléfine : ACS, KTW (<60°C), DVGW-W270, WRAS (en\npréparation)"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r0",
+        "distance": 0.30742478370666504,
+        "text_preview": "TABLE ROW: Raccordements process = BBBBrrrriiiiddddeeee"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 29,
+        "chunk_id": "cli_p29_c0",
+        "distance": 0.4320191740989685,
+        "text_preview": "MONTAGE 3\n29\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.10  Position de montage\n3.4  Montage\n3.4.1  Couples de serrage et pressions\nLes valeurs de pression et de couples de serrage maxi pour le débitmètre sont théoriques et\ncalculées pour des conditions d'exploit"
+      },
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_c0",
+        "distance": 0.448875367641449,
+        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c2",
+        "distance": 0.45918720960617065,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 27,
+        "chunk_id": "cli_p27_c0",
+        "distance": 0.46227145195007324,
+        "text_preview": "MONTAGE 3\n27\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.6  Déviation des brides\n3.3.7  Pompe\n3.3.8  Vanne de régulation\nDéviation maxi admissible pour les faces de brides de conduite :\nLmaxi - Lmini ≤ 0,5 mm / 0,02\"\nFigure 3-9: Déviation des brides\n1  Lmaxi\n2  Lm"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c3",
+        "distance": 0.4635171890258789,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.4644656777381897,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.4112708568572998,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n7\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.3  Principe de mesure\nUn fluide conducteur coule à l'intérieur du tube de mesure isolé électriquement et y traverse un\nchamp magnétique.\nCe champ magnétique est généré par un courant qui traver"
+      },
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_c0",
+        "distance": 0.45662015676498413,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_c0",
+        "distance": 0.473294734954834,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n23\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nBrides ASME B16.5 / 150 lb\nBrides ASME B16.5 / 300 lb\nDiamètre\nnominal\n[pouces]\nDimensions [pouces]\nPoids approx.\n[lb]\nL\nH\nW\n1\"\n5,91\n5,39\n4,25\n7\n1½\"\n5,91\n6,10\n5,00\n11\n2\"\n7,87\n7,05\n5,98\n18\n3\"\n"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "cli_p18_c0",
+        "distance": 0.4856802225112915,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n18\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nVérification selon MI-001\nLa vérification selon MI-001 est réalisée avec les valeurs suivantes pour R, Q1, Q2 et Q3.\nVérification avec d'autres valeurs pour R et Q3 disponible sur demande.\nDN"
+      },
+      {
+        "page_number": 35,
+        "chunk_id": "cli_p35_c0",
+        "distance": 0.4929807186126709,
+        "text_preview": "NOTES 5\n35\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr"
+      },
+      {
+        "page_number": 28,
+        "chunk_id": "cli_p28_c0",
+        "distance": 0.49387550354003906,
+        "text_preview": "3 MONTAGE\n28\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.9  Purge d'air et forces de vide\nFigure 3-12: Purge d'air\n1  ≥ 5 m\n2  Point de purge d'air\nFigure 3-13: Vide\n1  ≥ 5 m"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r34",
+        "distance": 0.4808870553970337,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = Résistance aux vibrations |  = CEI68-2-64"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r25",
+        "distance": 0.5072817802429199,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = Revêtement polypropylène: ACS, KIWA, KTW, NSF / ANSI standard 61,\nWRAS"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r9",
+        "distance": 0.5089815855026245,
+        "text_preview": "TABLE ROW: Raccordements process = CCCCââââbbbblllleeee ssssiiiiggggnnnnaaaallll (versions séparées uniquement)"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r0",
+        "distance": 0.5089928507804871,
+        "text_preview": "TABLE ROW: Système de mesure = Principe de mesure |  = Loi d'induction de Faraday"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r30",
+        "distance": 0.5130270719528198,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r16",
+        "distance": 0.5139414072036743,
+        "text_preview": "TABLE ROW: Précision de mesure = MID Annexe MI-001\n(Directive 2004/22/CE) |  = AAAAtttttttteeeessssttttaaaattttiiiioooonnnn CCCCEEEE ddddeeee ttttyyyyppppeeee sssseeeelllloooonnnn MMMMIIIIDDDD AAAAnnnnnnnneeeexxxxeeee MMMMIIII----000000001111"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r30",
+        "distance": 0.24161195755004883,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r5",
+        "distance": 0.2682194709777832,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r29",
+        "distance": 0.26989197731018066,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r14",
+        "distance": 0.28232401609420776,
+        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = NEPSI |  = GYJ05234 / GYJ05237"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r0",
+        "distance": 0.28727859258651733,
+        "text_preview": "TABLE ROW: Raccordements process = BBBBrrrriiiiddddeeee"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r16",
+        "distance": 0.28727859258651733,
+        "text_preview": "TABLE ROW: Raccordements process = CCCCEEEE"
+      }
+    ],
+    "classe": [
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r24",
+        "distance": 0.30204951763153076,
+        "text_preview": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF) |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r30",
+        "distance": 0.3672516345977783,
+        "text_preview": "TABLE ROW: Conditions de service = Condition physique |  = Liquides électroconducteurs"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r5",
+        "distance": 0.4041430950164795,
+        "text_preview": "TABLE ROW: Conditions de service = Température ambiante |  = SSSSttttaaaannnnddddaaaarrrrdddd (avec boîtier du convertisseur en aluminium):"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r15",
+        "distance": 0.40465760231018066,
+        "text_preview": "TABLE ROW: Diamètre\nnominal\n[pouce] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+      },
+      {
+        "page_number": 30,
+        "chunk_id": "cli_p30_t0_r26",
+        "distance": 0.4119623899459839,
+        "text_preview": "TABLE ROW: Diamètre\nnominal\nDN [mm] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r33",
+        "distance": 0.41652560234069824,
+        "text_preview": "TABLE ROW: Conditions de service = Teneur en gaz admissible\n(volume) |  = IFC 050: ≤ 3%"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r24",
+        "distance": 0.37227797508239746,
+        "text_preview": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF) |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r19",
+        "distance": 0.3871535658836365,
+        "text_preview": "TABLE ROW: Conditions de montage = Revêtement protecteur |  = Sur l'extérieur du débitmètre: brides, boîtier, convertisseur de mesure\n(version compacte) et / ou boîtier de raccordement (version intempéries)"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r27",
+        "distance": 0.3926038146018982,
+        "text_preview": "TABLE ROW: Conditions de service = Tenue au vide |  = Pour plus d'informations se référer à Tenue au vide à la page 20."
+      },
+      {
+        "page_number": 20,
+        "chunk_id": "cli_p20_t2_r1",
+        "distance": 0.39526575803756714,
+        "text_preview": "TABLE ROW: Diamètre = EEEEbbbboooonnnniiiitttteeee | Tenue au vide en psia à une température de process de ="
+      },
+      {
+        "page_number": 20,
+        "chunk_id": "cli_p20_t2_r5",
+        "distance": 0.39526575803756714,
+        "text_preview": "TABLE ROW: Diamètre = PPPPoooollllyyyypppprrrrooooppppyyyyllllèèèènnnneeee | Tenue au vide en psia à une température de process de ="
+      },
+      {
+        "page_number": 20,
+        "chunk_id": "cli_p20_t2_r7",
+        "distance": 0.39526575803756714,
+        "text_preview": "TABLE ROW: Diamètre = PPPPoooollllyyyyoooollllééééffffiiiinnnneeee | Tenue au vide en psia à une température de process de ="
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_c0",
+        "distance": 0.4209381937980652,
+        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c2",
+        "distance": 0.4325507879257202,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.4364469051361084,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.43670588731765747,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c3",
+        "distance": 0.4369298219680786,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
+      },
+      {
+        "page_number": 29,
+        "chunk_id": "cli_p29_c0",
+        "distance": 0.44063371419906616,
+        "text_preview": "MONTAGE 3\n29\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.10  Position de montage\n3.4  Montage\n3.4.1  Couples de serrage et pressions\nLes valeurs de pression et de couples de serrage maxi pour le débitmètre sont théoriques et\ncalculées pour des conditions d'exploit"
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c0",
+        "distance": 0.3932386040687561,
+        "text_preview": "Gamme de produits KROHNE\n• Débitmètres électromagnétiques\n• Débitmètres à section variable\n• Débitmètres à ultrasons\n• Débitmètres massiques\n• Débitmètres Vortex\n• Contrôleurs de débit\n• Transmetteurs de niveau\n• Transmetteurs de température\n• Capteurs de pression\n• Matériel d'analyse\n• Systèmes de "
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.39678454399108887,
+        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c1",
+        "distance": 0.3977673053741455,
+        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c2",
+        "distance": 0.3992242217063904,
+        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c3",
+        "distance": 0.40013939142227173,
+        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+      },
+      {
+        "page_number": 30,
+        "chunk_id": "cli_p30_c0",
+        "distance": 0.4007469415664673,
+        "text_preview": "3 MONTAGE\n30\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nDiamètre\nnominal\nDN [mm]\nPression\nnominale\nTirants\nCouple maxi [Nm] 1\nPolyoléfine\nPolypropylène\nEbonite\n25\nPN 40\n4 x M 12\n-\n22\n11\n32\nPN 40\n4 x M 16\n-\n37\n19\n40\nPN 40\n4 x M 16\n-\n43\n25\n50\nPN 40\n4 x M 16\n-\n55\n31\n65\n"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_c0",
+        "distance": 0.46178436279296875,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_c0",
+        "distance": 0.4839155077934265,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n14\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.2  Transactions commerciales\n2.2.1  OIML R49\nL'OPTIFLUX 2000 dispose d'un certificat de conformité à la recommandation internationale\nOIML R49.\nLe certificat a été délivré par l'institut de"
+      },
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c0",
+        "distance": 0.4878655672073364,
+        "text_preview": "Gamme de produits KROHNE\n• Débitmètres électromagnétiques\n• Débitmètres à section variable\n• Débitmètres à ultrasons\n• Débitmètres massiques\n• Débitmètres Vortex\n• Contrôleurs de débit\n• Transmetteurs de niveau\n• Transmetteurs de température\n• Capteurs de pression\n• Matériel d'analyse\n• Systèmes de "
+      },
+      {
+        "page_number": 28,
+        "chunk_id": "cli_p28_c0",
+        "distance": 0.49079179763793945,
+        "text_preview": "3 MONTAGE\n28\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.9  Purge d'air et forces de vide\nFigure 3-12: Purge d'air\n1  ≥ 5 m\n2  Point de purge d'air\nFigure 3-13: Vide\n1  ≥ 5 m"
+      },
+      {
+        "page_number": 30,
+        "chunk_id": "cli_p30_c0",
+        "distance": 0.49222785234451294,
+        "text_preview": "3 MONTAGE\n30\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nDiamètre\nnominal\nDN [mm]\nPression\nnominale\nTirants\nCouple maxi [Nm] 1\nPolyoléfine\nPolypropylène\nEbonite\n25\nPN 40\n4 x M 12\n-\n22\n11\n32\nPN 40\n4 x M 16\n-\n37\n19\n40\nPN 40\n4 x M 16\n-\n43\n25\n50\nPN 40\n4 x M 16\n-\n55\n31\n65\n"
+      },
+      {
+        "page_number": 22,
+        "chunk_id": "cli_p22_c0",
+        "distance": 0.5010517835617065,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n22\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nEN 1092-1\n•\nToutes les données indiquées dans les tableaux suivants se basent uniquement sur les\nversions standard du capteur de mesure\n•\nTout spécialement pour les capteurs de mesure de peti"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r16",
+        "distance": 0.3584200143814087,
+        "text_preview": "TABLE ROW: Précision de mesure = MID Annexe MI-001\n(Directive 2004/22/CE) |  = AAAAtttttttteeeessssttttaaaattttiiiioooonnnn CCCCEEEE ddddeeee ttttyyyyppppeeee sssseeeelllloooonnnn MMMMIIIIDDDD AAAAnnnnnnnneeeexxxxeeee MMMMIIII----000000001111"
+      },
+      {
+        "page_number": 30,
+        "chunk_id": "cli_p30_t0_r26",
+        "distance": 0.36727744340896606,
+        "text_preview": "TABLE ROW: Diamètre\nnominal\nDN [mm] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+      },
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t1_summary",
+        "distance": 0.3692208528518677,
+        "text_preview": "| diamètre du\ncapteur de mesure | Type de\nconvertisseur | Précision | Courbe |\n| --- | --- | --- | --- |\n| DN25...1200 /\n1...48\" | IFC 050 | 0,5% de la valeur mesurée, dessus de 0,5 m/s\nen-dessous de 0,5 m/s, écart ± 2,5 mm/s | 1 |\n| DN25...1200 /\n1...48\" | IFC 100 | 0,3% de la valeur mesurée + 1 mm"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r10",
+        "distance": 0.3702717423439026,
+        "text_preview": "TABLE ROW: Précision de mesure = Répétabilité |  = ±0,2% de la valeur mesurée, mimimum 1 mm/s"
+      },
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t1_r3",
+        "distance": 0.37081801891326904,
+        "text_preview": "TABLE ROW: diamètre du\ncapteur de mesure = DN1600...3000 /\n> 64\" | Type de\nconvertisseur = IFC 300 | Précision = ± 0,3% de la valeur mesurée + 2 mm/ s | Courbe = 2"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r15",
+        "distance": 0.3734254240989685,
+        "text_preview": "TABLE ROW: Diamètre\nnominal\n[pouce] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+      }
+    ]
+  },
+  "llm_meta": {
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "OPTIFLUX 2000",
+      "quote": "OPTIFLUX 2000",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"OPTIFLUX 2000\", \"confidence\": 0.95, \"quote\": \"OPTIFLUX 2000\"}",
+      "error": null
+    },
+    "categorie": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Le système de mesure comporte un capteur de mesure et un convertisseur de mesure.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Capteurs\", \"confidence\": 0.95, \"quote\": \"Le système de mesure comporte un capteur de mesure et un convertisseur de mesure.\"}",
+      "error": null
+    },
+    "typeMesure": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "Pression",
+      "quote": "Précision de mesure =  |  = Pression de service: 1bar / 14,5psi",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Pression\", \"confidence\": 0.95, \"quote\": \"Précision de mesure =  |  = Pression de service: 1bar / 14,5psi\"}",
+      "error": null
+    },
+    "technologie": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Capteur de mesure électromagnétique",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Electromagnetique\", \"confidence\": 0.95, \"quote\": \"Capteur de mesure électromagnétique\"}",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "DN25...1200 / 1...48\"",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": {\"min\": \"DN25...1200\", \"max\": \"1...48\\\"\", \"unite\": \"DN\"}, \"confidence\": 0.95, \"quote\": \"DN25...1200 / 1...48\\\"\"}",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "nbFils": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Il est même possible de renoncer aux chambres de mesure si la version en IP68 est combinée avec un revêtement spécial qui permet d’enterrer directement l’OPTIFLUX 2000.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": \"2\", \"confidence\": 0.95, \"quote\": \"Il est même possible de renoncer aux chambres de mesure si la version en IP68 est combinée avec un revêtement spécial qui permet d’enterrer directement l’OPTIFLUX 2000.\"}",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Observez les caractéristiques de tension indiquées sur la plaque signalétique !",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"220V AC\", \"confidence\": 0.95, \"quote\": \"Observez les caractéristiques de tension indiquées sur la plaque signalétique !\"}",
+      "error": null
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "communication": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "classe": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF)",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": false,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "allowed_value",
+      "raw": "{\"value\": \"B ou D FF\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: Conditions de service = AWWA\\n(classe B ou D FF)\"}",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "KROHNE",
+      "quote": "Mais KROHNE va bien plus loin. Nos services d’ingénierie étendus cherchent à mettre au point des solutions qui répondent aux spécifications non couvertes par notre gamme standard.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"KROHNE\", \"confidence\": 1.0, \"quote\": \"Mais KROHNE va bien plus loin. Nos services d’ingénierie étendus cherchent à mettre au point des solutions qui répondent aux spécifications non couvertes par notre gamme standard.\"}",
+      "error": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "OPTIFLUX 2000",
+      "quote": "OPTIFLUX 2000",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"OPTIFLUX 2000\", \"confidence\": 0.95, \"quote\": \"OPTIFLUX 2000\"}",
+      "error": null
+    },
+    "reference": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "TD OPTIFLUX 2000 R08 fr",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"4000089705\", \"confidence\": 0.95, \"quote\": \"TD OPTIFLUX 2000 R08 fr\"}",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.1,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.1, \"quote\": null}",
+      "error": null
+    }
+  }
+}
