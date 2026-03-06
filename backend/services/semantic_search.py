@@ -2,7 +2,7 @@
 Semantic search service.
 Queries ChromaDB with field-specific queries to find relevant document chunks.
 """
-from config import TOP_K_CHUNKS
+from config import TOP_K_CHUNKS, CHROMA_COLLECTION_NAME
 from models.schema import FIELD_DESCRIPTIONS
 from services.vector_store import query_chunks
 
@@ -24,6 +24,7 @@ def search_for_field(
     field_name: str,
     n_results: int = TOP_K_CHUNKS,
     doc_id: str | None = None,
+    collection_name: str = CHROMA_COLLECTION_NAME,
 ) -> list[dict]:
     """
     Search for chunks relevant to a specific form field.
@@ -73,14 +74,35 @@ def search_for_field(
             where_text = {"$and": conditions} if len(conditions) > 1 else conditions[0]
             
             for query in field_info["search_queries"]:
-                _merge_results(query_chunks(query, n_results=n_results, where=where_text))
+                _merge_results(
+                    query_chunks(
+                        query,
+                        n_results=n_results,
+                        where=where_text,
+                        collection_name=collection_name,
+                    )
+                )
 
         if len(all_results) < max(1, n_results // 2):
             for query in field_info["search_queries"]:
-                _merge_results(query_chunks(query, n_results=n_results, where=base_where))
+                _merge_results(
+                    query_chunks(
+                        query,
+                        n_results=n_results,
+                        where=base_where,
+                        collection_name=collection_name,
+                    )
+                )
     else:
         for query in field_info["search_queries"]:
-            _merge_results(query_chunks(query, n_results=n_results, where=base_where))
+            _merge_results(
+                query_chunks(
+                    query,
+                    n_results=n_results,
+                    where=base_where,
+                    collection_name=collection_name,
+                )
+            )
     
     # Sort by distance (lower = more relevant)
     sorted_results = sorted(all_results.values(), key=lambda r: r["distance"])
@@ -88,7 +110,11 @@ def search_for_field(
     return sorted_results[:n_results]
 
 
-def search_all_fields(doc_id: str | None = None) -> dict[str, list[dict]]:
+def search_all_fields(
+    doc_id: str | None = None,
+    collection_name: str = CHROMA_COLLECTION_NAME,
+    n_results: int = TOP_K_CHUNKS,
+) -> dict[str, list[dict]]:
     """
     Search for relevant chunks for ALL form fields.
     
@@ -97,5 +123,10 @@ def search_all_fields(doc_id: str | None = None) -> dict[str, list[dict]]:
     """
     results = {}
     for field_name in FIELD_DESCRIPTIONS:
-        results[field_name] = search_for_field(field_name, doc_id=doc_id)
+        results[field_name] = search_for_field(
+            field_name,
+            n_results=n_results,
+            doc_id=doc_id,
+            collection_name=collection_name,
+        )
     return results

@@ -597,7 +597,11 @@ def extract_all_fields(
 
     # Build the EquipmentSchema from extracted data
     extracted = _apply_cross_field_guards(extracted)
-    extracted = _post_extract_reretrieval_verification(extracted, field_chunks=field_chunks)
+    extracted = _post_extract_reretrieval_verification(
+        extracted,
+        field_chunks=field_chunks,
+        collection_name=collection_name,
+    )
 
     schema_data = {}
     for field_name, value in extracted.items():
@@ -651,6 +655,7 @@ def _top_result_supports_value(field_name: str, value, top_chunk: dict | None) -
 def _post_extract_reretrieval_verification(
     extracted: dict[str, object],
     field_chunks: dict[str, list[dict]] | None = None,
+    collection_name: str | None = None,
 ) -> dict[str, object]:
     """Re-query Chroma with the extracted value and ensure the top chunk supports it.
 
@@ -681,7 +686,12 @@ def _post_extract_reretrieval_verification(
             continue
 
         query = f"What is {qv}?"
-        results = query_chunks(query, n_results=1, where=where)
+        results = query_chunks(
+            query,
+            n_results=1,
+            where=where,
+            collection_name=collection_name,
+        )
         top = results[0] if results else None
         if _top_result_supports_value(field_name, value, top):
             verified[field_name] = value
@@ -696,6 +706,7 @@ def extract_all_fields_with_meta(
     min_confidence: float = 0.3,
     regex_results: dict[str, dict] | None = None,
     doc_ctx: DocumentContext | None = None,
+    collection_name: str | None = None,
 ) -> tuple[EquipmentSchema, dict[str, dict]]:
     from concurrent.futures import ThreadPoolExecutor
     from config import LLM_MAX_WORKERS

@@ -1,8 +1,7 @@
-"""
-Pydantic models for the equipment form schema and API responses.
-"""
+"""Pydantic models for the equipment form schema and API responses."""
+
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Any
 
 
 class PlageMesure(BaseModel):
@@ -66,6 +65,10 @@ class ExtractionResponse(BaseModel):
     data: Optional[EquipmentSchema] = None
     message: str = ""
     processing_time_seconds: Optional[float] = None
+    meta: Optional[dict[str, Any]] = None
+    evidence: Optional[dict[str, list[dict[str, Any]]]] = None
+    doc_context: Optional[dict[str, Any]] = None
+    timings_ms: Optional[dict[str, float]] = None
 
 
 # -- Field metadata for semantic search prompts ----------------------

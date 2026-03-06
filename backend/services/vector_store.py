@@ -29,6 +29,16 @@ def clear_collection(name: str = CHROMA_COLLECTION_NAME):
     return get_or_create_collection(name)
 
 
+def delete_collection(name: str) -> None:
+    """Best-effort delete of a ChromaDB collection by name."""
+    if not name:
+        return
+    try:
+        _client.delete_collection(name)
+    except Exception:
+        pass
+
+
 def store_chunks_batch(chunks: list, collection) -> None:
     """
     Embed and store a small batch of chunks into an already-open collection.

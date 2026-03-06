@@ -1,700 +1,701 @@
 {
-  "file": "backend/uploads/6_OPTIFLUX 2000.pdf",
+  "file": "backend/uploads/10_s71200.pdf",
   "collection": "pdf_chunks",
   "field_max_distance": null,
   "min_confidence": 0.3,
   "evidence": {
     "equipmentName": [
       {
-        "page_number": 32,
-        "chunk_id": "cli_p32_c0",
-        "distance": 0.46178436279296875,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.4121693968772888,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
       },
       {
-        "page_number": 24,
-        "chunk_id": "cli_p24_c0",
-        "distance": 0.4620918035507202,
-        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
+        "page_number": 6,
+        "chunk_id": "cli_p6_c1",
+        "distance": 0.4435626268386841,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
       },
       {
-        "page_number": 14,
-        "chunk_id": "cli_p14_c0",
-        "distance": 0.4790799021720886,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n14\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.2  Transactions commerciales\n2.2.1  OIML R49\nL'OPTIFLUX 2000 dispose d'un certificat de conformité à la recommandation internationale\nOIML R49.\nLe certificat a été délivré par l'institut de"
+        "page_number": 4,
+        "chunk_id": "cli_p4_c1",
+        "distance": 0.5095478892326355,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
       },
       {
-        "page_number": 17,
-        "chunk_id": "cli_p17_c0",
-        "distance": 0.49995970726013184,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n17\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nCaractéristiques d'écoulement certifiées MI-001\nDN\nPlage (R)\nQ3 / Q1\nDébit [m3/h]\nminimum Q1\nde transition Q2\npermanent Q3\nde surcharge Q4\n25\n400\n0,040\n0,064\n16\n20,0\n32\n400\n0,063\n0,100\n25\n31,"
+        "page_number": 4,
+        "chunk_id": "cli_p4_c3",
+        "distance": 0.5095775127410889,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
       },
       {
-        "page_number": 34,
-        "chunk_id": "cli_p34_c0",
-        "distance": 0.5028747320175171,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5107307434082031,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
       },
       {
-        "page_number": 8,
-        "chunk_id": "cli_p8_c1",
-        "distance": 0.5061143040657043,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n8\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.1  Caractéristiques techniques\n•\nLes données suivantes sont fournies pour les applications générales.\nSi vous avez une\napplication spécifique, veuillez contacter votre représentant local.\n•\n"
+        "page_number": 4,
+        "chunk_id": "cli_p4_c2",
+        "distance": 0.511184811592102,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
       }
     ],
     "categorie": [
       {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r13",
-        "distance": 0.3498174548149109,
-        "text_preview": "TABLE ROW: Raccordements process =  |  = Câble en option, blindage triple.\nLongueur maxi: 600 m / 1950 ft\n(selon la conductivité électrique et le capteur de mesure)"
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r47",
+        "distance": 0.397352933883667,
+        "text_preview": "TABLE ROW: ● as server = ● Interference immunity on signal cables acc. to IEC 61000-\n4-4 | Yes = Yes"
       },
       {
-        "page_number": 11,
-        "chunk_id": "cli_p11_t1_r26",
-        "distance": 0.3531172275543213,
-        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: acier inox, titane"
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r51",
+        "distance": 0.40161335468292236,
+        "text_preview": "TABLE ROW: ● as server = ● Interference immunity against high-frequency radiation\nacc. to IEC 61000-4-6 | Yes = Yes"
       },
       {
-        "page_number": 11,
-        "chunk_id": "cli_p11_t1_r32",
-        "distance": 0.3531172275543213,
-        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: acier inox, titane"
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r33",
+        "distance": 0.41008174419403076,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = automatic detection of transmission rate | 0.5 A = Yes"
       },
       {
-        "page_number": 8,
-        "chunk_id": "cli_p8_t1_r10",
-        "distance": 0.353946328163147,
-        "text_preview": "TABLE ROW: Système de mesure = Construction modulaire |  = Le système de mesure comporte un capteur de mesure et un convertisseur\nde mesure. Il est disponible en version compacte ou en version séparée.\nPour plus d'informations, consulter la documentation du convertisseur de\nmesure."
+        "page_number": 3,
+        "chunk_id": "cli_p3_c3",
+        "distance": 0.41064465045928955,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
       },
       {
-        "page_number": 11,
-        "chunk_id": "cli_p11_t1_r29",
-        "distance": 0.3540353775024414,
-        "text_preview": "TABLE ROW: Conditions de montage =  |  = En option: Hastelloy® C, titane, tantale"
+        "page_number": 3,
+        "chunk_id": "cli_p3_c2",
+        "distance": 0.41167259216308594,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
       },
       {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r5",
-        "distance": 0.3599786162376404,
-        "text_preview": "TABLE ROW: Conditions de service = Température ambiante |  = SSSSttttaaaannnnddddaaaarrrrdddd (avec boîtier du convertisseur en aluminium):"
+        "page_number": 3,
+        "chunk_id": "cli_p3_c1",
+        "distance": 0.41306132078170776,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
       }
     ],
     "typeMesure": [
       {
-        "page_number": 8,
-        "chunk_id": "cli_p8_t1_r9",
-        "distance": 0.33877187967300415,
-        "text_preview": "TABLE ROW: Système de mesure =  |  = Grande échelle de diamètres mais aussi disponible avec des diamètres,\nlongueurs et pressions nominales spécifiques au client."
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r24",
+        "distance": 0.3125656247138977,
+        "text_preview": "TABLE ROW: ● as server = Frequency measurement | Yes = Yes"
       },
       {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r28",
-        "distance": 0.34173011779785156,
-        "text_preview": "TABLE ROW: Conditions de service = Perte de pression |  = Négligeable"
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r20",
+        "distance": 0.3472926616668701,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Ambient temperature during storage/transportation | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
       },
       {
-        "page_number": 9,
-        "chunk_id": "cli_p9_t1_r10",
-        "distance": 0.35137468576431274,
-        "text_preview": "TABLE ROW: Précision de mesure = Répétabilité |  = ±0,2% de la valeur mesurée, mimimum 1 mm/s"
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r13",
+        "distance": 0.3495217561721802,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Ambient temperature during operation | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
       },
       {
-        "page_number": 21,
-        "chunk_id": "cli_p21_t1_r18",
-        "distance": 0.35320740938186646,
-        "text_preview": "TABLE ROW: VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee = 1 Cette valeur peut varier en fonction des presse-étoupe utilisés. | a = 88mm / 3.5\" ="
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r23",
+        "distance": 0.3879849910736084,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Air pressure acc. to IEC 60068-2-13 | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
       },
       {
-        "page_number": 9,
-        "chunk_id": "cli_p9_t1_r2",
-        "distance": 0.358806312084198,
-        "text_preview": "TABLE ROW: Précision de mesure =  |  = Pression de service: 1bar / 14,5psi"
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r36",
+        "distance": 0.3881707191467285,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = Interface types | 0.5 A ="
       },
       {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r22",
-        "distance": 0.35945314168930054,
-        "text_preview": "TABLE ROW: Raccordements process = Directive pour les\néquipements sous\npression |  = Directive: 97/23/CE"
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r37",
+        "distance": 0.40082114934921265,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = ● tested according to IEC 60068-2-27 | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 = Yes; IEC 68, Part 2-27 half-sine: strength of the shock 15 g (peak value),\nduration 11 ms"
       }
     ],
     "technologie": [
       {
-        "page_number": 11,
-        "chunk_id": "cli_p11_c0",
-        "distance": 0.4293142557144165,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
-      },
-      {
-        "page_number": 7,
-        "chunk_id": "cli_p7_c0",
-        "distance": 0.4370150566101074,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n7\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.3  Principe de mesure\nUn fluide conducteur coule à l'intérieur du tube de mesure isolé électriquement et y traverse un\nchamp magnétique.\nCe champ magnétique est généré par un courant qui traver"
-      },
-      {
-        "page_number": 1,
-        "chunk_id": "cli_p1_c0",
-        "distance": 0.44095486402511597,
-        "text_preview": "OPTIFLUX 2000\nOPTIFLUX 2000\nOPTIFLUX 2000\nOPTIFLUX 2000\nNotice technique\nNotice technique\nNotice technique\nNotice technique\nCapteur de mesure électromagnétique\n•   Pour toutes les applications eau et eaux usées\n• Large gamme d'homologations pour eaux potables\n• Construction robuste, entièrement soud"
-      },
-      {
-        "page_number": 34,
-        "chunk_id": "cli_p34_c0",
-        "distance": 0.4505467414855957,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
-      },
-      {
-        "page_number": 25,
-        "chunk_id": "cli_p25_c0",
-        "distance": 0.4526682496070862,
-        "text_preview": "MONTAGE 3\n25\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3  Conditions de montage\n3.3.1  Sections droites amont/aval\nPour éviter des distorsions de l'écoulement ou des tourbillons, (causés par des coudes et des\nsections en T), utiliser des sections de conduite droit"
-      },
-      {
-        "page_number": 12,
-        "chunk_id": "cli_p12_c4",
-        "distance": 0.4537380337715149,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n12\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nRaccordements process\nBride\nBride\nBride\nBride\nEN 1092-1\nDN25...3000 en PN 2,5...40\nASME\n1…24\" en 150 & 300 lb RF\nJIS\nDN25…1000 en 10...20 K\nAWWA\nDN700...2000 en 6...10 bar\nConception de la su"
-      }
-    ],
-    "plageMesure": [
-      {
-        "page_number": 11,
-        "chunk_id": "cli_p11_c0",
-        "distance": 0.32724928855895996,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
-      },
-      {
-        "page_number": 19,
-        "chunk_id": "cli_p19_c0",
-        "distance": 0.337896466255188,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n19\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.3  Incertitude de mesure\nChaque débitmètre est étalonné sous conditions de référence par comparaison directe des\nvolumes.\nLa performance du débitmètre est définie et documentée dans un cert"
-      },
-      {
-        "page_number": 24,
-        "chunk_id": "cli_p24_c0",
-        "distance": 0.33851683139801025,
-        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
-      },
-      {
-        "page_number": 34,
-        "chunk_id": "cli_p34_c0",
-        "distance": 0.34311461448669434,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.3  Référence virtuelle pour IFC 300 (versions C, W et F )\nL'option référence virtuelle sur le convertisseur de mesure IFC 300 permet l'isolation complète\ndu circuit de mesure.\nAvantages de la r"
-      },
-      {
-        "page_number": 32,
-        "chunk_id": "cli_p32_c0",
-        "distance": 0.34737974405288696,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
-      },
-      {
-        "page_number": 11,
-        "chunk_id": "cli_p11_c1",
-        "distance": 0.348996639251709,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nConditions de montage\nInstallation\nVeiller à ce que le capteur de mesure soit toujours entièrement rempli.\nPour plus d'informations se référer à Montage à la page 24.\nSens d'écoulement\nAller "
-      }
-    ],
-    "typeSignal": [
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r30",
-        "distance": 0.25572723150253296,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r29",
-        "distance": 0.2766719460487366,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r5",
-        "distance": 0.2823757529258728,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r14",
-        "distance": 0.2954326868057251,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = NEPSI |  = GYJ05234 / GYJ05237"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r26",
-        "distance": 0.3067593574523926,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = Revêtement polyoléfine : ACS, KTW (<60°C), DVGW-W270, WRAS (en\npréparation)"
-      },
-      {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r0",
-        "distance": 0.30742478370666504,
-        "text_preview": "TABLE ROW: Raccordements process = BBBBrrrriiiiddddeeee"
-      }
-    ],
-    "nbFils": [
-      {
-        "page_number": 29,
-        "chunk_id": "cli_p29_c0",
-        "distance": 0.4320191740989685,
-        "text_preview": "MONTAGE 3\n29\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.10  Position de montage\n3.4  Montage\n3.4.1  Couples de serrage et pressions\nLes valeurs de pression et de couples de serrage maxi pour le débitmètre sont théoriques et\ncalculées pour des conditions d'exploit"
-      },
-      {
-        "page_number": 24,
-        "chunk_id": "cli_p24_c0",
-        "distance": 0.448875367641449,
-        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c2",
-        "distance": 0.45918720960617065,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 27,
-        "chunk_id": "cli_p27_c0",
-        "distance": 0.46227145195007324,
-        "text_preview": "MONTAGE 3\n27\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.6  Déviation des brides\n3.3.7  Pompe\n3.3.8  Vanne de régulation\nDéviation maxi admissible pour les faces de brides de conduite :\nLmaxi - Lmini ≤ 0,5 mm / 0,02\"\nFigure 3-9: Déviation des brides\n1  Lmaxi\n2  Lm"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c3",
-        "distance": 0.4635171890258789,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c1",
-        "distance": 0.4644656777381897,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      }
-    ],
-    "alimentation": [
-      {
-        "page_number": 7,
-        "chunk_id": "cli_p7_c0",
-        "distance": 0.4112708568572998,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n7\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.3  Principe de mesure\nUn fluide conducteur coule à l'intérieur du tube de mesure isolé électriquement et y traverse un\nchamp magnétique.\nCe champ magnétique est généré par un courant qui traver"
-      },
-      {
-        "page_number": 32,
-        "chunk_id": "cli_p32_c0",
-        "distance": 0.45662015676498413,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
-      },
-      {
-        "page_number": 23,
-        "chunk_id": "cli_p23_c0",
-        "distance": 0.473294734954834,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n23\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nBrides ASME B16.5 / 150 lb\nBrides ASME B16.5 / 300 lb\nDiamètre\nnominal\n[pouces]\nDimensions [pouces]\nPoids approx.\n[lb]\nL\nH\nW\n1\"\n5,91\n5,39\n4,25\n7\n1½\"\n5,91\n6,10\n5,00\n11\n2\"\n7,87\n7,05\n5,98\n18\n3\"\n"
-      },
-      {
-        "page_number": 18,
-        "chunk_id": "cli_p18_c0",
-        "distance": 0.4856802225112915,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n18\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nVérification selon MI-001\nLa vérification selon MI-001 est réalisée avec les valeurs suivantes pour R, Q1, Q2 et Q3.\nVérification avec d'autres valeurs pour R et Q3 disponible sur demande.\nDN"
-      },
-      {
-        "page_number": 35,
-        "chunk_id": "cli_p35_c0",
-        "distance": 0.4929807186126709,
-        "text_preview": "NOTES 5\n35\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr"
-      },
-      {
-        "page_number": 28,
-        "chunk_id": "cli_p28_c0",
-        "distance": 0.49387550354003906,
-        "text_preview": "3 MONTAGE\n28\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.9  Purge d'air et forces de vide\nFigure 3-12: Purge d'air\n1  ≥ 5 m\n2  Point de purge d'air\nFigure 3-13: Vide\n1  ≥ 5 m"
-      }
-    ],
-    "reperage": [
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r34",
-        "distance": 0.4808870553970337,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = Résistance aux vibrations |  = CEI68-2-64"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r25",
-        "distance": 0.5072817802429199,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = Revêtement polypropylène: ACS, KIWA, KTW, NSF / ANSI standard 61,\nWRAS"
-      },
-      {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r9",
-        "distance": 0.5089815855026245,
-        "text_preview": "TABLE ROW: Raccordements process = CCCCââââbbbblllleeee ssssiiiiggggnnnnaaaallll (versions séparées uniquement)"
-      },
-      {
-        "page_number": 8,
-        "chunk_id": "cli_p8_t1_r0",
-        "distance": 0.5089928507804871,
-        "text_preview": "TABLE ROW: Système de mesure = Principe de mesure |  = Loi d'induction de Faraday"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r30",
-        "distance": 0.5130270719528198,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
-      },
-      {
-        "page_number": 9,
-        "chunk_id": "cli_p9_t1_r16",
-        "distance": 0.5139414072036743,
-        "text_preview": "TABLE ROW: Précision de mesure = MID Annexe MI-001\n(Directive 2004/22/CE) |  = AAAAtttttttteeeessssttttaaaattttiiiioooonnnn CCCCEEEE ddddeeee ttttyyyyppppeeee sssseeeelllloooonnnn MMMMIIIIDDDD AAAAnnnnnnnneeeexxxxeeee MMMMIIII----000000001111"
-      }
-    ],
-    "communication": [
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r30",
-        "distance": 0.24161195755004883,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = IP68 (NEMA 6P)"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r5",
-        "distance": 0.2682194709777832,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = VVVVeeeerrrrssssiiiioooonnnn ssssééééppppaaaarrrrééééeeee"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r29",
-        "distance": 0.26989197731018066,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee =  |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
-      },
-      {
-        "page_number": 13,
-        "chunk_id": "cli_p13_t1_r14",
-        "distance": 0.28232401609420776,
-        "text_preview": "TABLE ROW: ZZZZoooonnnneeeessss àààà aaaattttmmmmoooosssspppphhhhèèèèrrrreeee eeeexxxxpppplllloooossssiiiivvvveeee = NEPSI |  = GYJ05234 / GYJ05237"
-      },
-      {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r0",
-        "distance": 0.28727859258651733,
-        "text_preview": "TABLE ROW: Raccordements process = BBBBrrrriiiiddddeeee"
-      },
-      {
-        "page_number": 12,
-        "chunk_id": "cli_p12_t1_r16",
-        "distance": 0.28727859258651733,
-        "text_preview": "TABLE ROW: Raccordements process = CCCCEEEE"
-      }
-    ],
-    "classe": [
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r24",
-        "distance": 0.30204951763153076,
-        "text_preview": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF) |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
-      },
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r30",
-        "distance": 0.3672516345977783,
-        "text_preview": "TABLE ROW: Conditions de service = Condition physique |  = Liquides électroconducteurs"
-      },
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r5",
-        "distance": 0.4041430950164795,
-        "text_preview": "TABLE ROW: Conditions de service = Température ambiante |  = SSSSttttaaaannnnddddaaaarrrrdddd (avec boîtier du convertisseur en aluminium):"
-      },
-      {
-        "page_number": 31,
-        "chunk_id": "cli_p31_t1_r15",
-        "distance": 0.40465760231018066,
-        "text_preview": "TABLE ROW: Diamètre\nnominal\n[pouce] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
-      },
-      {
-        "page_number": 30,
-        "chunk_id": "cli_p30_t0_r26",
-        "distance": 0.4119623899459839,
-        "text_preview": "TABLE ROW: Diamètre\nnominal\nDN [mm] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
-      },
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r33",
-        "distance": 0.41652560234069824,
-        "text_preview": "TABLE ROW: Conditions de service = Teneur en gaz admissible\n(volume) |  = IFC 050: ≤ 3%"
-      }
-    ],
-    "sortiesAlarme": [
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r24",
-        "distance": 0.37227797508239746,
-        "text_preview": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF) |  = EEEEnnnn ooooppppttttiiiioooonnnn::::"
-      },
-      {
-        "page_number": 11,
-        "chunk_id": "cli_p11_t1_r19",
-        "distance": 0.3871535658836365,
-        "text_preview": "TABLE ROW: Conditions de montage = Revêtement protecteur |  = Sur l'extérieur du débitmètre: brides, boîtier, convertisseur de mesure\n(version compacte) et / ou boîtier de raccordement (version intempéries)"
-      },
-      {
-        "page_number": 10,
-        "chunk_id": "cli_p10_t1_r27",
-        "distance": 0.3926038146018982,
-        "text_preview": "TABLE ROW: Conditions de service = Tenue au vide |  = Pour plus d'informations se référer à Tenue au vide à la page 20."
-      },
-      {
-        "page_number": 20,
-        "chunk_id": "cli_p20_t2_r1",
-        "distance": 0.39526575803756714,
-        "text_preview": "TABLE ROW: Diamètre = EEEEbbbboooonnnniiiitttteeee | Tenue au vide en psia à une température de process de ="
-      },
-      {
-        "page_number": 20,
-        "chunk_id": "cli_p20_t2_r5",
-        "distance": 0.39526575803756714,
-        "text_preview": "TABLE ROW: Diamètre = PPPPoooollllyyyypppprrrrooooppppyyyyllllèèèènnnneeee | Tenue au vide en psia à une température de process de ="
-      },
-      {
-        "page_number": 20,
-        "chunk_id": "cli_p20_t2_r7",
-        "distance": 0.39526575803756714,
-        "text_preview": "TABLE ROW: Diamètre = PPPPoooollllyyyyoooollllééééffffiiiinnnneeee | Tenue au vide en psia à une température de process de ="
-      }
-    ],
-    "marque": [
-      {
-        "page_number": 24,
-        "chunk_id": "cli_p24_c0",
-        "distance": 0.4209381937980652,
-        "text_preview": "3 MONTAGE\n24\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.1  Fonction de l'appareil\nLe débitmètre électromagnétique est conçu exclusivement pour mesurer le débit de produits\nliquides conducteurs.\n3.2  Consignes de montage générales\n3.2.1  Vibrations\n3.2.2  Champ magn"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c2",
-        "distance": 0.4325507879257202,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c1",
-        "distance": 0.4364469051361084,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c0",
-        "distance": 0.43670588731765747,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 5,
-        "chunk_id": "cli_p5_c3",
-        "distance": 0.4369298219680786,
-        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n1.2  Options\nLa solution fiable pour l'industrie des eaux et des eaux usées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions standards à personnalisées\nVersions st"
-      },
-      {
-        "page_number": 29,
-        "chunk_id": "cli_p29_c0",
-        "distance": 0.44063371419906616,
-        "text_preview": "MONTAGE 3\n29\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.10  Position de montage\n3.4  Montage\n3.4.1  Couples de serrage et pressions\nLes valeurs de pression et de couples de serrage maxi pour le débitmètre sont théoriques et\ncalculées pour des conditions d'exploit"
-      }
-    ],
-    "modele": [
-      {
-        "page_number": 36,
-        "chunk_id": "cli_p36_c0",
-        "distance": 0.3932386040687561,
-        "text_preview": "Gamme de produits KROHNE\n• Débitmètres électromagnétiques\n• Débitmètres à section variable\n• Débitmètres à ultrasons\n• Débitmètres massiques\n• Débitmètres Vortex\n• Contrôleurs de débit\n• Transmetteurs de niveau\n• Transmetteurs de température\n• Capteurs de pression\n• Matériel d'analyse\n• Systèmes de "
+        "page_number": 2,
+        "chunk_id": "cli_p2_c1",
+        "distance": 0.477799654006958,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
         "page_number": 2,
         "chunk_id": "cli_p2_c0",
-        "distance": 0.39678454399108887,
-        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+        "distance": 0.4788011908531189,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
         "page_number": 2,
-        "chunk_id": "cli_p2_c1",
-        "distance": 0.3977673053741455,
-        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+        "chunk_id": "cli_p2_c7",
+        "distance": 0.48230260610580444,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
         "page_number": 2,
-        "chunk_id": "cli_p2_c2",
-        "distance": 0.3992242217063904,
-        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+        "chunk_id": "cli_p2_c4",
+        "distance": 0.48257482051849365,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
         "page_number": 2,
-        "chunk_id": "cli_p2_c3",
-        "distance": 0.40013939142227173,
-        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nOPTIFLUX 2000\n1  Caractéristiques produit\n3\n1.1  Solution fiable pour l'industrie des eaux et des eaux usées...........................................\n3\n1.2  Options............................................................."
+        "chunk_id": "cli_p2_c6",
+        "distance": 0.48281723260879517,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
-        "page_number": 30,
-        "chunk_id": "cli_p30_c0",
-        "distance": 0.4007469415664673,
-        "text_preview": "3 MONTAGE\n30\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nDiamètre\nnominal\nDN [mm]\nPression\nnominale\nTirants\nCouple maxi [Nm] 1\nPolyoléfine\nPolypropylène\nEbonite\n25\nPN 40\n4 x M 12\n-\n22\n11\n32\nPN 40\n4 x M 16\n-\n37\n19\n40\nPN 40\n4 x M 16\n-\n43\n25\n50\nPN 40\n4 x M 16\n-\n55\n31\n65\n"
+        "page_number": 2,
+        "chunk_id": "cli_p2_c5",
+        "distance": 0.4830635190010071,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.446438729763031,
+        "text_preview": "● adjustable\nYes\nDimensions\nWidth\n110 mm\nHeight\n100 mm\nDepth\n75 mm\nWeights\nWeight, approx.\n415 g\nlast modified:\n7/19/2022\n6ES72141AG400XB0\nPage 7/7\n6/21/2023"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.4496396780014038,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c1",
+        "distance": 0.4524163603782654,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.45247530937194824,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c2",
+        "distance": 0.4565213918685913,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c6",
+        "distance": 0.45897990465164185,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r21",
+        "distance": 0.27202361822128296,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = Number of analog outputs | 0.5 A = 0"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r12",
+        "distance": 0.29366564750671387,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = Number of analog inputs | 0.5 A = 2"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r8",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Forcing | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r12",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Traces | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r21",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Counter | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r40",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = EMC | Yes ="
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c4",
+        "distance": 0.46139460802078247,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c3",
+        "distance": 0.46146708726882935,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c2",
+        "distance": 0.4653319716453552,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.4664549231529236,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c1",
+        "distance": 0.47029346227645874,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.5077893137931824,
+        "text_preview": "● as server\nYes\n● as client\nYes\n● User data per job, max.\nSee online help (S7 communication, user data size)\nNumber of connections\n● overall\nPG Connections: 4 reserved / 4 max; HMI Connections: 12 reserved / 18 max;\nS7 Connections: 8 reserved / 14 max; Open User Connections: 8 reserved / 14\nmax; Web"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.4532276391983032,
+        "text_preview": "● as server\nYes\n● as client\nYes\n● User data per job, max.\nSee online help (S7 communication, user data size)\nNumber of connections\n● overall\nPG Connections: 4 reserved / 4 max; HMI Connections: 12 reserved / 18 max;\nS7 Connections: 8 reserved / 14 max; Open User Connections: 8 reserved / 14\nmax; Web"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.46141958236694336,
+        "text_preview": "Data sheet\n6ES7214-1AG40-0XB0\nSIMATIC S7-1200, CPU 1214C, compact CPU, DC/DC/DC, onboard I/O: 14 DI 24\nV DC; 10 DO 24 V DC; 2 AI 0-10 V DC, Power supply: DC 20.4-28.8V DC,\nProgram/data memory 100 KB\nGeneral information\nProduct type designation\nCPU 1214C DC/DC/DC\nFirmware version\nV4.5\nEngineering wit"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.47388744354248047,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.48403245210647583,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c1",
+        "distance": 0.48846715688705444,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c4",
+        "distance": 0.489285409450531,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r46",
+        "distance": 0.369300901889801,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = ● Media redundancy | 0.5 A = No"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r29",
+        "distance": 0.40844064950942993,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = ● 2-wire sensor | 0.5 A = Yes"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r37",
+        "distance": 0.41416680812835693,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = ● RJ 45 (Ethernet) | 0.5 A = Yes"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r33",
+        "distance": 0.41501832008361816,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = automatic detection of transmission rate | 0.5 A = Yes"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r54",
+        "distance": 0.41695523262023926,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = — Prioritized startup | 0.5 A = Yes"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r22",
+        "distance": 0.4190613627433777,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = Analog value generation for the inputs | 0.5 A ="
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_t0_r16",
+        "distance": 0.30014002323150635,
+        "text_preview": "TABLE ROW: — Activation/deactivation of IO Devices = Protocols (Ethernet) | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r8",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Forcing | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r12",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Traces | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r21",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = Counter | Yes ="
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r40",
+        "distance": 0.30039656162261963,
+        "text_preview": "TABLE ROW: ● as server = EMC | Yes ="
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_t0_r12",
+        "distance": 0.3103201389312744,
+        "text_preview": "TABLE ROW: — Activation/deactivation of IO Devices = PROFIsafe | Yes = No"
+      }
+    ],
+    "classe": [
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r1",
+        "distance": 0.28782737255096436,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = IP degree of protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 = IP20"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r0",
+        "distance": 0.29850125312805176,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Degree and class of protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r46",
+        "distance": 0.3014935255050659,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Know-how protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r50",
+        "distance": 0.3028097152709961,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = Access protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 ="
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r48",
+        "distance": 0.3065752387046814,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = ● Copy protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 = Yes"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_r49",
+        "distance": 0.3065752387046814,
+        "text_preview": "TABLE ROW: ● Limit class B, for use in residential areas = ● Block protection | Yes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011 = Yes"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r7",
+        "distance": 0.3426452875137329,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = ● Number of relay outputs | 0.5 A = 0"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_t0_r29",
+        "distance": 0.36681413650512695,
+        "text_preview": "TABLE ROW: ● as server = Number of alarm inputs | Yes = 4"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c1",
+        "distance": 0.3788619041442871,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c3",
+        "distance": 0.38305842876434326,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c2",
+        "distance": 0.3842278718948364,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c4",
+        "distance": 0.38678181171417236,
+        "text_preview": "● for signal \"1\" rated value\n0.5 A\n● for signal \"0\" residual current, max.\n0.1 mA\nOutput delay with resistive load\n● \"0\" to \"1\", max.\n1 µs\n● \"1\" to \"0\", max. 5 µs\nSwitching frequency\n● of the pulse outputs, with resistive load, max.\n100 kHz\nRelay outputs\n● Number of relay outputs\n0\nCable length\n● sh"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.512968897819519,
+        "text_preview": "● adjustable\nYes\nDimensions\nWidth\n110 mm\nHeight\n100 mm\nDepth\n75 mm\nWeights\nWeight, approx.\n415 g\nlast modified:\n7/19/2022\n6ES72141AG400XB0\nPage 7/7\n6/21/2023"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c1",
+        "distance": 0.5273840427398682,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c2",
+        "distance": 0.5275717973709106,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c3",
+        "distance": 0.5288883447647095,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5321471691131592,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c4",
+        "distance": 0.5353765487670898,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c0",
+        "distance": 0.48812854290008545,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c1",
+        "distance": 0.5055912733078003,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c2",
+        "distance": 0.506569504737854,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c1",
+        "distance": 0.5072925686836243,
+        "text_preview": "● Limit class B, for use in residential areas\nYes; When appropriate measures are used to ensure compliance with the limits\nfor Class B according to EN 55011\nDegree and class of protection\nIP degree of protection\nIP20\nStandards, approvals, certificates\nCE mark\nYes\nUL approval\nYes\ncULus\nYes\nFM approva"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c3",
+        "distance": 0.507530689239502,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5110011100769043,
+        "text_preview": "— Activation/deactivation of IO Devices\nYes\n— Number of IO Devices that can be simultaneously\nactivated/deactivated, max.\n8\n— Updating time\nThe minimum value of the update time also depends on the communication\ncomponent set for PROFINET IO, on the number of IO devices and the quantity\nof configured"
       }
     ],
     "reference": [
       {
-        "page_number": 32,
-        "chunk_id": "cli_p32_c0",
-        "distance": 0.46178436279296875,
-        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n4.1  Instructions de sécurité\n4.2  Mise à la terre\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation est\ncoupée.\nObservez les caractéristiques de tension"
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.4795847535133362,
+        "text_preview": "● as server\nYes\n● as client\nYes\n● User data per job, max.\nSee online help (S7 communication, user data size)\nNumber of connections\n● overall\nPG Connections: 4 reserved / 4 max; HMI Connections: 12 reserved / 18 max;\nS7 Connections: 8 reserved / 14 max; Open User Connections: 8 reserved / 14\nmax; Web"
       },
       {
-        "page_number": 14,
-        "chunk_id": "cli_p14_c0",
-        "distance": 0.4839155077934265,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n14\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n2.2  Transactions commerciales\n2.2.1  OIML R49\nL'OPTIFLUX 2000 dispose d'un certificat de conformité à la recommandation internationale\nOIML R49.\nLe certificat a été délivré par l'institut de"
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.4849649667739868,
+        "text_preview": "● as server\nYes\n● as client\nYes\n● User data per job, max.\nSee online help (S7 communication, user data size)\nNumber of connections\n● overall\nPG Connections: 4 reserved / 4 max; HMI Connections: 12 reserved / 18 max;\nS7 Connections: 8 reserved / 14 max; Open User Connections: 8 reserved / 14\nmax; Web"
       },
       {
-        "page_number": 36,
-        "chunk_id": "cli_p36_c0",
-        "distance": 0.4878655672073364,
-        "text_preview": "Gamme de produits KROHNE\n• Débitmètres électromagnétiques\n• Débitmètres à section variable\n• Débitmètres à ultrasons\n• Débitmètres massiques\n• Débitmètres Vortex\n• Contrôleurs de débit\n• Transmetteurs de niveau\n• Transmetteurs de température\n• Capteurs de pression\n• Matériel d'analyse\n• Systèmes de "
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.5069903135299683,
+        "text_preview": "● adjustable\nYes\nDimensions\nWidth\n110 mm\nHeight\n100 mm\nDepth\n75 mm\nWeights\nWeight, approx.\n415 g\nlast modified:\n7/19/2022\n6ES72141AG400XB0\nPage 7/7\n6/21/2023"
       },
       {
-        "page_number": 28,
-        "chunk_id": "cli_p28_c0",
-        "distance": 0.49079179763793945,
-        "text_preview": "3 MONTAGE\n28\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\n3.3.9  Purge d'air et forces de vide\nFigure 3-12: Purge d'air\n1  ≥ 5 m\n2  Point de purge d'air\nFigure 3-13: Vide\n1  ≥ 5 m"
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.5156721472740173,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
-        "page_number": 30,
-        "chunk_id": "cli_p30_c0",
-        "distance": 0.49222785234451294,
-        "text_preview": "3 MONTAGE\n30\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nDiamètre\nnominal\nDN [mm]\nPression\nnominale\nTirants\nCouple maxi [Nm] 1\nPolyoléfine\nPolypropylène\nEbonite\n25\nPN 40\n4 x M 12\n-\n22\n11\n32\nPN 40\n4 x M 16\n-\n37\n19\n40\nPN 40\n4 x M 16\n-\n43\n25\n50\nPN 40\n4 x M 16\n-\n55\n31\n65\n"
+        "page_number": 2,
+        "chunk_id": "cli_p2_c5",
+        "distance": 0.5166577100753784,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       },
       {
-        "page_number": 22,
-        "chunk_id": "cli_p22_c0",
-        "distance": 0.5010517835617065,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n22\nOPTIFLUX 2000\nwww.krohne.com\n02/2013 - 4000089705 - TD OPTIFLUX 2000 R08 fr\nEN 1092-1\n•\nToutes les données indiquées dans les tableaux suivants se basent uniquement sur les\nversions standard du capteur de mesure\n•\nTout spécialement pour les capteurs de mesure de peti"
+        "page_number": 2,
+        "chunk_id": "cli_p2_c6",
+        "distance": 0.5181306600570679,
+        "text_preview": "for word operations, typ. 1.7 µs; / instruction\nfor floating point arithmetic, typ.\n2.3 µs; / instruction\nCPU-blocks\nNumber of blocks (total)\nDBs, FCs, FBs, counters and timers.\nThe maximum number of addressable\nblocks ranges from 1 to 65535.\nThere is no restriction, the entire working\nmemory can be"
       }
     ],
     "dateCalibration": [
       {
-        "page_number": 9,
-        "chunk_id": "cli_p9_t1_r16",
-        "distance": 0.3584200143814087,
-        "text_preview": "TABLE ROW: Précision de mesure = MID Annexe MI-001\n(Directive 2004/22/CE) |  = AAAAtttttttteeeessssttttaaaattttiiiioooonnnn CCCCEEEE ddddeeee ttttyyyyppppeeee sssseeeelllloooonnnn MMMMIIIIDDDD AAAAnnnnnnnneeeexxxxeeee MMMMIIII----000000001111"
+        "page_number": 7,
+        "chunk_id": "cli_p7_t0_r6",
+        "distance": 0.3719014525413513,
+        "text_preview": "TABLE ROW: ● adjustable = last modified: 7/19/2022 | Yes ="
       },
       {
-        "page_number": 30,
-        "chunk_id": "cli_p30_t0_r26",
-        "distance": 0.36727744340896606,
-        "text_preview": "TABLE ROW: Diamètre\nnominal\nDN [mm] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.41733360290527344,
+        "text_preview": "● adjustable\nYes\nDimensions\nWidth\n110 mm\nHeight\n100 mm\nDepth\n75 mm\nWeights\nWeight, approx.\n415 g\nlast modified:\n7/19/2022\n6ES72141AG400XB0\nPage 7/7\n6/21/2023"
       },
       {
-        "page_number": 19,
-        "chunk_id": "cli_p19_t1_summary",
-        "distance": 0.3692208528518677,
-        "text_preview": "| diamètre du\ncapteur de mesure | Type de\nconvertisseur | Précision | Courbe |\n| --- | --- | --- | --- |\n| DN25...1200 /\n1...48\" | IFC 050 | 0,5% de la valeur mesurée, dessus de 0,5 m/s\nen-dessous de 0,5 m/s, écart ± 2,5 mm/s | 1 |\n| DN25...1200 /\n1...48\" | IFC 100 | 0,3% de la valeur mesurée + 1 mm"
+        "page_number": 7,
+        "chunk_id": "cli_p7_t0_summary",
+        "distance": 0.4288344383239746,
+        "text_preview": "| ● adjustable | Yes |\n| --- | --- |\n| Dimensions |  |\n| Width | 110 mm |\n| Height | 100 mm |\n| Depth | 75 mm |\n| Weights |  |\n| Weight, approx. | 415 g |\n| last modified: 7/19/2022 |  |"
       },
       {
-        "page_number": 9,
-        "chunk_id": "cli_p9_t1_r10",
-        "distance": 0.3702717423439026,
-        "text_preview": "TABLE ROW: Précision de mesure = Répétabilité |  = ±0,2% de la valeur mesurée, mimimum 1 mm/s"
+        "page_number": 7,
+        "chunk_id": "cli_p7_t0_r3",
+        "distance": 0.45229673385620117,
+        "text_preview": "TABLE ROW: ● adjustable = Depth | Yes = 75 mm"
       },
       {
-        "page_number": 19,
-        "chunk_id": "cli_p19_t1_r3",
-        "distance": 0.37081801891326904,
-        "text_preview": "TABLE ROW: diamètre du\ncapteur de mesure = DN1600...3000 /\n> 64\" | Type de\nconvertisseur = IFC 300 | Précision = ± 0,3% de la valeur mesurée + 2 mm/ s | Courbe = 2"
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_r25",
+        "distance": 0.45462191104888916,
+        "text_preview": "TABLE ROW: ● for signal \"1\" rated value = ● Integration time, parameterizable | 0.5 A = Yes"
       },
       {
-        "page_number": 31,
-        "chunk_id": "cli_p31_t1_r15",
-        "distance": 0.3734254240989685,
-        "text_preview": "TABLE ROW: Diamètre\nnominal\n[pouce] = 1 Les valeurs spécifiées pour les couples de serrage dépendent de variables (température, matériau des\ntirants, matériau des joints, lubrifiants, etc.) qui ne peuvent pas être contrôlées par le fabricant. Ces va-\nleurs ne sont donc fournies qu'à titre indicatif."
+        "page_number": 2,
+        "chunk_id": "cli_p2_t0_r19",
+        "distance": 0.4638864994049072,
+        "text_preview": "TABLE ROW: for word operations, typ. = ● Hardware clock (real-time) | 1.7 µs; / instruction = Yes"
       }
     ]
   },
   "llm_meta": {
-    "equipmentName": {
-      "accepted": true,
-      "confidence": 0.95,
-      "value": "OPTIFLUX 2000",
-      "quote": "OPTIFLUX 2000",
-      "source": "llm",
-      "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": true
-      },
-      "rejection_reason": null,
-      "raw": "{\"value\": \"OPTIFLUX 2000\", \"confidence\": 0.95, \"quote\": \"OPTIFLUX 2000\"}",
-      "error": null
-    },
     "categorie": {
       "accepted": false,
-      "confidence": 0.95,
+      "confidence": 0.0,
       "value": null,
-      "quote": "Le système de mesure comporte un capteur de mesure et un convertisseur de mesure.",
-      "source": "llm",
+      "quote": null,
+      "source": "doc_type_gate",
       "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": false,
-        "semantic_guard": true,
-        "quote_in_context": true
+        "applicable": false
       },
-      "rejection_reason": "quote_supported",
-      "raw": "{\"value\": \"Capteurs\", \"confidence\": 0.95, \"quote\": \"Le système de mesure comporte un capteur de mesure et un convertisseur de mesure.\"}",
-      "error": null
+      "rejection_reason": "inapplicable_for_doc_type"
     },
     "typeMesure": {
-      "accepted": true,
-      "confidence": 0.95,
-      "value": "Pression",
-      "quote": "Précision de mesure =  |  = Pression de service: 1bar / 14,5psi",
-      "source": "llm",
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
       "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": true
+        "applicable": false
       },
-      "rejection_reason": null,
-      "raw": "{\"value\": \"Pression\", \"confidence\": 0.95, \"quote\": \"Précision de mesure =  |  = Pression de service: 1bar / 14,5psi\"}",
-      "error": null
+      "rejection_reason": "inapplicable_for_doc_type"
     },
     "technologie": {
       "accepted": false,
-      "confidence": 0.95,
+      "confidence": 0.0,
       "value": null,
-      "quote": "Capteur de mesure électromagnétique",
-      "source": "llm",
+      "quote": null,
+      "source": "doc_type_gate",
       "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": false,
-        "semantic_guard": true,
-        "quote_in_context": true
+        "applicable": false
       },
-      "rejection_reason": "quote_supported",
-      "raw": "{\"value\": \"Electromagnetique\", \"confidence\": 0.95, \"quote\": \"Capteur de mesure électromagnétique\"}",
-      "error": null
+      "rejection_reason": "inapplicable_for_doc_type"
     },
     "plageMesure": {
       "accepted": false,
-      "confidence": 0.95,
+      "confidence": 0.0,
       "value": null,
-      "quote": "DN25...1200 / 1...48\"",
+      "quote": null,
+      "source": "doc_type_gate",
+      "checks": {
+        "applicable": false
+      },
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "classe": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
+      "checks": {
+        "applicable": false
+      },
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
+      "checks": {
+        "applicable": false
+      },
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
+      "checks": {
+        "applicable": false
+      },
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "PROFINET IO Device",
+      "quote": "PROFINET IO Device",
       "source": "llm",
       "checks": {
         "non_null": true,
@@ -703,10 +704,10 @@
         "allowed_value": true,
         "quote_supported": true,
         "semantic_guard": true,
-        "quote_in_context": false
+        "quote_in_context": true
       },
-      "rejection_reason": "quote_in_context",
-      "raw": "{\"value\": {\"min\": \"DN25...1200\", \"max\": \"1...48\\\"\", \"unite\": \"DN\"}, \"confidence\": 0.95, \"quote\": \"DN25...1200 / 1...48\\\"\"}",
+      "rejection_reason": null,
+      "raw": "{\"value\": \"PROFINET IO Device\", \"confidence\": 0.95, \"quote\": \"PROFINET IO Device\"}",
       "error": null
     },
     "typeSignal": {
@@ -732,26 +733,26 @@
       "accepted": false,
       "confidence": 0.95,
       "value": null,
-      "quote": "Il est même possible de renoncer aux chambres de mesure si la version en IP68 est combinée avec un revêtement spécial qui permet d’enterrer directement l’OPTIFLUX 2000.",
+      "quote": "● Number of relay outputs\n● Number of relay outputs\n0",
       "source": "llm",
       "checks": {
         "non_null": true,
         "min_confidence": true,
         "expected_type": true,
-        "allowed_value": true,
+        "allowed_value": false,
         "quote_supported": true,
         "semantic_guard": true,
-        "quote_in_context": false
+        "quote_in_context": true
       },
-      "rejection_reason": "quote_in_context",
-      "raw": "{\"value\": \"2\", \"confidence\": 0.95, \"quote\": \"Il est même possible de renoncer aux chambres de mesure si la version en IP68 est combinée avec un revêtement spécial qui permet d’enterrer directement l’OPTIFLUX 2000.\"}",
+      "rejection_reason": "allowed_value",
+      "raw": "{\"value\": \"0\", \"confidence\": 0.95, \"quote\": \"● Number of relay outputs\\n● Number of relay outputs\\n0\"}",
       "error": null
     },
     "alimentation": {
       "accepted": false,
-      "confidence": 0.95,
+      "confidence": 1.0,
       "value": null,
-      "quote": "Observez les caractéristiques de tension indiquées sur la plaque signalétique !",
+      "quote": "Power supply: DC 20.4-28.8V DC,",
       "source": "llm",
       "checks": {
         "non_null": true,
@@ -763,7 +764,7 @@
         "quote_in_context": true
       },
       "rejection_reason": "quote_supported",
-      "raw": "{\"value\": \"220V AC\", \"confidence\": 0.95, \"quote\": \"Observez les caractéristiques de tension indiquées sur la plaque signalétique !\"}",
+      "raw": "{\"value\": \"24 V DC\", \"confidence\": 1.0, \"quote\": \"Power supply: DC 20.4-28.8V DC,\"}",
       "error": null
     },
     "reperage": {
@@ -782,124 +783,29 @@
         "quote_in_context": false
       },
       "rejection_reason": "non_null",
-      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "raw": "{}",
       "error": null
     },
     "communication": {
-      "accepted": false,
-      "confidence": 0.0,
-      "value": null,
-      "quote": null,
-      "source": "llm",
-      "checks": {
-        "non_null": false,
-        "min_confidence": false,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": false
-      },
-      "rejection_reason": "non_null",
-      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
-      "error": null
-    },
-    "classe": {
-      "accepted": false,
+      "accepted": true,
       "confidence": 0.95,
-      "value": null,
-      "quote": "TABLE ROW: Conditions de service = AWWA\n(classe B ou D FF)",
+      "value": "Ethernet",
+      "quote": "TABLE ROW: — Activation/deactivation of IO Devices = Protocols (Ethernet) | Yes =",
       "source": "llm",
       "checks": {
         "non_null": true,
         "min_confidence": true,
         "expected_type": true,
-        "allowed_value": false,
+        "allowed_value": true,
         "quote_supported": true,
         "semantic_guard": true,
         "quote_in_context": true
       },
-      "rejection_reason": "allowed_value",
-      "raw": "{\"value\": \"B ou D FF\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: Conditions de service = AWWA\\n(classe B ou D FF)\"}",
-      "error": null
-    },
-    "sortiesAlarme": {
-      "accepted": false,
-      "confidence": 0.0,
-      "value": null,
-      "quote": null,
-      "source": "llm",
-      "checks": {
-        "non_null": false,
-        "min_confidence": false,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": false
-      },
-      "rejection_reason": "non_null",
-      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Ethernet\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: — Activation/deactivation of IO Devices = Protocols (Ethernet) | Yes =\"}",
       "error": null
     },
     "marque": {
-      "accepted": true,
-      "confidence": 1.0,
-      "value": "KROHNE",
-      "quote": "Mais KROHNE va bien plus loin. Nos services d’ingénierie étendus cherchent à mettre au point des solutions qui répondent aux spécifications non couvertes par notre gamme standard.",
-      "source": "llm",
-      "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": true
-      },
-      "rejection_reason": null,
-      "raw": "{\"value\": \"KROHNE\", \"confidence\": 1.0, \"quote\": \"Mais KROHNE va bien plus loin. Nos services d’ingénierie étendus cherchent à mettre au point des solutions qui répondent aux spécifications non couvertes par notre gamme standard.\"}",
-      "error": null
-    },
-    "modele": {
-      "accepted": true,
-      "confidence": 0.95,
-      "value": "OPTIFLUX 2000",
-      "quote": "OPTIFLUX 2000",
-      "source": "llm",
-      "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": true,
-        "semantic_guard": true,
-        "quote_in_context": true
-      },
-      "rejection_reason": null,
-      "raw": "{\"value\": \"OPTIFLUX 2000\", \"confidence\": 0.95, \"quote\": \"OPTIFLUX 2000\"}",
-      "error": null
-    },
-    "reference": {
-      "accepted": false,
-      "confidence": 0.95,
-      "value": null,
-      "quote": "TD OPTIFLUX 2000 R08 fr",
-      "source": "llm",
-      "checks": {
-        "non_null": true,
-        "min_confidence": true,
-        "expected_type": true,
-        "allowed_value": true,
-        "quote_supported": false,
-        "semantic_guard": true,
-        "quote_in_context": true
-      },
-      "rejection_reason": "quote_supported",
-      "raw": "{\"value\": \"4000089705\", \"confidence\": 0.95, \"quote\": \"TD OPTIFLUX 2000 R08 fr\"}",
-      "error": null
-    },
-    "dateCalibration": {
       "accepted": false,
       "confidence": 0.1,
       "value": null,
@@ -916,6 +822,44 @@
       },
       "rejection_reason": "non_null",
       "raw": "{\"value\": null, \"confidence\": 0.1, \"quote\": null}",
+      "error": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "CM 1243-5 (master) or CM 1242-5 (slave)",
+      "quote": "PROFIBUS\nYes; CM 1243-5 (master) or CM 1242-5 (slave) required",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"CM 1243-5 (master) or CM 1242-5 (slave)\", \"confidence\": 0.95, \"quote\": \"PROFIBUS\\nYes; CM 1243-5 (master) or CM 1242-5 (slave) required\"}",
+      "error": null
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "6ES72141AG400XB0",
+      "quote": "6ES72141AG400XB0",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"6ES72141AG400XB0\", \"confidence\": 1.0, \"quote\": \"6ES72141AG400XB0\"}",
       "error": null
     }
   }

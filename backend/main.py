@@ -1,8 +1,5 @@
-"""
-PDF Extractor Backend - FastAPI Application
-Main entry point for the PDF extraction pipeline (streaming version).
-"""
-import hashlib
+"""PDF Extractor Backend - FastAPI Application."""
+
 import os
 import time
 import uuid
@@ -13,24 +10,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from config import (
     UPLOAD_DIR,
     CHROMA_COLLECTION_NAME,
-    ENABLE_VISION_OCR,
-    VISION_OCR_ONLY_IF_NO_TEXT,
-    VISION_OCR_MAX_PAGES,
-    VISION_OCR_TEXT_CHAR_THRESHOLD,
-    VISION_OCR_AUTO_MIXED_PAGES,
-    VISION_OCR_TEXT_AREA_RATIO_MAX,
-    VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN,
-    VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN,
-    VISION_OCR_DRAWING_COUNT_MIN,
+    TEXT_MODEL,
+    EMBEDDING_MODEL,
+    TOP_K_CHUNKS,
+    MIN_EXTRACT_CONFIDENCE,
+    ENABLE_REGEX_EXTRACTION,
 )
-from models.schema import ExtractionResponse, EquipmentSchema
-from services.pdf_parser import open_pdf, iter_pages, render_page_image
+from models.schema import ExtractionResponse
+from services.pdf_parser import open_pdf, iter_pages
 from services.chunker import chunk_text, make_table_chunks
-from services.vector_store import clear_collection, store_chunks_batch, document_is_indexed
+from services.vector_store import clear_collection, delete_collection, store_chunks_batch
 from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
-from services.vision_ocr import extract_text_from_page_image_base64
 from services.document_classifier import classify_document
 
 
@@ -55,12 +47,28 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.get("/")
 async def root():
-    """Health check endpoint."""
-    return {"status": "ok", "message": "PDF Extractor API is running (streaming mode)"}
+    return {"status": "ok", "message": "PDF Extractor API"}
+
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "ok",
+        "text_model": TEXT_MODEL,
+        "embedding_model": EMBEDDING_MODEL,
+    }
 
 
 @app.post("/extract", response_model=ExtractionResponse)
-async def extract_from_pdf(file: UploadFile = File(...)):
+async def extract_from_pdf(
+    file: UploadFile = File(...),
+    min_confidence: float = MIN_EXTRACT_CONFIDENCE,
+    top_k_chunks: int = TOP_K_CHUNKS,
+    field_max_distance: float | None = None,
+    enable_regex: bool = ENABLE_REGEX_EXTRACTION,
+    return_evidence: bool = True,
+    return_meta: bool = True,
+):
     """
     Streaming extraction pipeline:
     1. Save uploaded PDF
@@ -73,181 +81,187 @@ async def extract_from_pdf(file: UploadFile = File(...)):
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are supported")
 
-    start_time = time.time()
+    t_start = time.time()
     file_path = None
+    collection_name = None
+    doc_id = None
 
     try:
         # -- Step 1: Save the uploaded PDF -------------------------
+        t0 = time.time()
         content = await file.read()
-        # Stable doc_id so we can detect re-uploads of the same PDF.
-        doc_id = hashlib.sha256(content).hexdigest()[:12]
+        doc_id = uuid.uuid4().hex[:12]
         file_path = os.path.join(UPLOAD_DIR, f"{doc_id}_{file.filename}")
         with open(file_path, "wb") as f:
             f.write(content)
+        t_save_ms = (time.time() - t0) * 1000.0
 
         print(f"\n{'='*60}")
         print(f"  Processing: {file.filename} ({len(content)} bytes)")
         print(f"{'='*60}")
 
         # -- Step 2: Open PDF (streaming) --------------------------
+        t0 = time.time()
         pdf = open_pdf(file_path)
-        print(f"\n[2/5] Opened PDF: {pdf.total_pages} pages")
+        t_open_ms = (time.time() - t0) * 1000.0
 
-        # -- Step 3: Index into Chroma (ONLY if not already indexed) --
+        # -- Step 3: Index into Chroma (per-request isolated collection) --
+        t0 = time.time()
         full_text_parts: list[str] = []
-        if document_is_indexed(doc_id, CHROMA_COLLECTION_NAME):
-            print(f"\n[3/5] Skipping indexing: doc_id {doc_id} already in Chroma")
-        else:
-            print(f"\n[3/5] Streaming pages (chunk + embed + store)...")
-            collection = clear_collection(CHROMA_COLLECTION_NAME)
-            total_chunks = 0
-            chunk_index_counter = 0
-            ocr_pages_done = 0
+        collection_name = f"{CHROMA_COLLECTION_NAME}_{doc_id}"
+        collection = clear_collection(collection_name)
+        total_chunks = 0
+        chunk_index_counter = 0
 
-            for page in iter_pages(pdf):
-                page_text = (page.text or "").strip()
+        for page in iter_pages(pdf):
+            page_text = (page.text or "").strip()
+            if not page_text:
+                continue
 
-                # Optionally OCR page images (for scanned/image-based PDFs).
-                ocr_text = ""
-                text_len = len(page_text)
-                below_threshold = text_len < VISION_OCR_TEXT_CHAR_THRESHOLD
-                auto_mixed = bool(
-                    VISION_OCR_AUTO_MIXED_PAGES
-                    and page.has_images
-                    and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
-                    and (getattr(page, "max_image_area_ratio", 0.0) >= VISION_OCR_MAX_IMAGE_AREA_RATIO_MIN)
-                )
-                auto_vector = bool(
-                    VISION_OCR_AUTO_MIXED_PAGES
-                    and (getattr(page, "text_area_ratio", 0.0) <= VISION_OCR_TEXT_AREA_RATIO_MAX)
-                    and (
-                        (getattr(page, "max_drawing_area_ratio", 0.0) >= VISION_OCR_MAX_DRAWING_AREA_RATIO_MIN)
-                        or (getattr(page, "drawing_count", 0) >= VISION_OCR_DRAWING_COUNT_MIN)
-                    )
-                )
-                should_ocr = bool(
-                    ENABLE_VISION_OCR
-                    and ocr_pages_done < VISION_OCR_MAX_PAGES
-                    and (
-                        (not page_text)  # scanned page
-                        or auto_mixed  # mixed page with large image blocks
-                        or auto_vector  # vector-drawing-dominant page (no embedded images)
-                        or (not VISION_OCR_ONLY_IF_NO_TEXT and below_threshold)  # legacy threshold mode
-                    )
-                )
-                if should_ocr:
-                    try:
-                        img_b64 = render_page_image(pdf.file_path, page.page_number)
-                        ocr_text = extract_text_from_page_image_base64(img_b64)
-                        if ocr_text.strip():
-                            ocr_pages_done += 1
-                    except Exception as e:
-                        print(f"[OCR] Failed page {page.page_number}: {e}")
+            full_text_parts.append(page_text)
 
-                if not page_text and not ocr_text.strip():
-                    continue
+            text_chunks = chunk_text(
+                text=page_text,
+                page_number=page.page_number,
+                has_images=page.has_images,
+                doc_id=doc_id,
+            )
 
-                # Keep full_text for regex/LLM extraction free of table artifacts.
-                if page_text:
-                    full_text_parts.append(page_text)
-                if ocr_text.strip():
-                    full_text_parts.append("[OCR]\n" + ocr_text.strip())
-
-                text_chunks = []
-                if page_text:
-                    text_chunks = chunk_text(
-                        text=page_text,
-                        page_number=page.page_number,
-                        has_images=page.has_images,
-                        doc_id=doc_id,
-                    )
-
-                ocr_chunks = []
-                if ocr_text.strip():
-                    ocr_chunks = chunk_text(
-                        text=("[OCR]\n" + ocr_text.strip()),
-                        page_number=page.page_number,
-                        has_images=page.has_images,
-                        doc_id=doc_id,
-                    )
-                    for c in ocr_chunks:
-                        c.chunk_type = "ocr"
-                        c.chunk_id = f"{c.chunk_id}_ocr"
-
-                table_chunks: list = []
-                if getattr(page, "tables_structured", None):
-                    for ti, t in enumerate(page.tables_structured):
-                        table_chunks.extend(
-                            make_table_chunks(
-                                doc_id=doc_id,
-                                page_number=page.page_number,
-                                table_index=ti,
-                                table_markdown=t.get("markdown", ""),
-                                row_texts=t.get("row_texts", []) or [],
-                                chunk_index_start=chunk_index_counter + 1000,
-                            )
+            table_chunks: list = []
+            if getattr(page, "tables_structured", None):
+                for ti, t in enumerate(page.tables_structured):
+                    table_chunks.extend(
+                        make_table_chunks(
+                            doc_id=doc_id,
+                            page_number=page.page_number,
+                            table_index=ti,
+                            table_markdown=t.get("markdown", ""),
+                            row_texts=t.get("row_texts", []) or [],
+                            chunk_index_start=chunk_index_counter + 1000,
                         )
-                elif page.tables:
-                    # Fallback: store existing table-like strings as table chunks.
-                    for ti, table_text in enumerate(page.tables):
-                        table_chunks.extend(
-                            make_table_chunks(
-                                doc_id=doc_id,
-                                page_number=page.page_number,
-                                table_index=ti,
-                                table_markdown=("[TABLE DATA]\n" + table_text),
-                                row_texts=[],
-                                chunk_index_start=chunk_index_counter + 1000,
-                            )
+                    )
+            elif page.tables:
+                for ti, table_text in enumerate(page.tables):
+                    table_chunks.extend(
+                        make_table_chunks(
+                            doc_id=doc_id,
+                            page_number=page.page_number,
+                            table_index=ti,
+                            table_markdown=("[TABLE DATA]\n" + table_text),
+                            row_texts=[],
+                            chunk_index_start=chunk_index_counter + 1000,
                         )
+                    )
 
-                chunks = text_chunks + ocr_chunks + table_chunks
+            chunks = text_chunks + table_chunks
 
-                if chunks:
-                    store_chunks_batch(chunks, collection)
-                    total_chunks += len(chunks)
-                    chunk_index_counter += 1
+            if chunks:
+                store_chunks_batch(chunks, collection)
+                total_chunks += len(chunks)
+                chunk_index_counter += 1
 
-            print(f"  -> {total_chunks} chunks indexed")
+        t_index_ms = (time.time() - t0) * 1000.0
 
         # -- Step 4: Semantic search --------------------------------
-        print(f"\n[4/5] Semantic search...")
-        field_chunks = search_all_fields(doc_id=doc_id)
+        t0 = time.time()
+        field_chunks = search_all_fields(
+            doc_id=doc_id,
+            collection_name=collection_name,
+            n_results=top_k_chunks,
+        )
+        if field_max_distance is not None:
+            filtered = {}
+            for field_name, chunks in field_chunks.items():
+                filtered[field_name] = [c for c in (chunks or []) if c.get("distance", 1.0) <= field_max_distance]
+            field_chunks = filtered
+        t_retrieve_ms = (time.time() - t0) * 1000.0
+
+        evidence = None
+        if return_evidence:
+            evidence = {}
+            for field_name, chunks in field_chunks.items():
+                evidence[field_name] = [
+                    {
+                        "page_number": (c.get("metadata") or {}).get("page_number"),
+                        "chunk_id": (c.get("metadata") or {}).get("chunk_id"),
+                        "distance": c.get("distance"),
+                        "text_preview": (c.get("text") or "")[:300],
+                    }
+                    for c in (chunks or [])
+                ]
 
         # -- Step 5: LLM extraction --------------------------------
-        print(f"\n[5/5] Extracting with LLM...")
+        t0 = time.time()
         full_text = "\n\n".join(full_text_parts)
         if not full_text.strip():
             full_text = "\n\n".join([(p.text or "") for p in iter_pages(pdf)])
-        regex_results = extract_with_regex(full_text)
-        doc_ctx = classify_document(full_text)
-        print(f"[DOC] doc_type={doc_ctx.doc_type} conf={doc_ctx.confidence:.2f} ({doc_ctx.rationale})")
-        equipment, _meta = extract_all_fields_with_meta(field_chunks, regex_results=regex_results, doc_ctx=doc_ctx)
 
-        elapsed = time.time() - start_time
-        print(f"\n{'='*60}")
-        print(f"  Done in {elapsed:.1f}s")
-        print(f"{'='*60}")
+        regex_results = {}
+        if enable_regex:
+            regex_results = extract_with_regex(full_text)
+
+        doc_ctx = classify_document(full_text)
+        equipment, meta = extract_all_fields_with_meta(
+            field_chunks,
+            min_confidence=min_confidence,
+            regex_results=regex_results,
+            doc_ctx=doc_ctx,
+            collection_name=collection_name,
+        )
+        t_llm_ms = (time.time() - t0) * 1000.0
+
+        timings_ms = {
+            "save": round(t_save_ms, 2),
+            "open_pdf": round(t_open_ms, 2),
+            "index": round(t_index_ms, 2),
+            "retrieve": round(t_retrieve_ms, 2),
+            "llm": round(t_llm_ms, 2),
+            "total": round((time.time() - t_start) * 1000.0, 2),
+        }
+
+        doc_context = {
+            "doc_id": doc_id,
+            "doc_type": getattr(doc_ctx, "doc_type", None),
+            "confidence": float(getattr(doc_ctx, "confidence", 0.0) or 0.0),
+            "rationale": getattr(doc_ctx, "rationale", None),
+        }
 
         try:
-            os.remove(file_path)
+            if file_path and os.path.exists(file_path):
+                os.remove(file_path)
+        except Exception:
+            pass
+
+        try:
+            if collection_name:
+                delete_collection(collection_name)
         except Exception:
             pass
 
         return ExtractionResponse(
             success=True,
             data=equipment,
-            message=f"Extracted from {pdf.total_pages} pages in {elapsed:.1f}s",
-            processing_time_seconds=round(elapsed, 2),
+            message=f"Extracted from {pdf.total_pages} pages",
+            processing_time_seconds=round(time.time() - t_start, 2),
+            meta=(meta if return_meta else None),
+            evidence=evidence,
+            doc_context=doc_context,
+            timings_ms=timings_ms,
         )
 
     except Exception as e:
-        elapsed = time.time() - start_time
+        elapsed = time.time() - t_start
         print(f"\n[ERROR] {e}")
 
         try:
             if file_path and os.path.exists(file_path):
                 os.remove(file_path)
+        except Exception:
+            pass
+
+        try:
+            if collection_name:
+                delete_collection(collection_name)
         except Exception:
             pass
 
