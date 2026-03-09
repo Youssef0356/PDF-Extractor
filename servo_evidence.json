@@ -1,0 +1,727 @@
+{
+  "file": "backend/uploads/0698a3d4_6_servo e83104fr.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": null,
+  "min_confidence": 0.3,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c0",
+        "distance": 0.6022734642028809,
+        "text_preview": "2-1\nMarquages sur l’appareil\n2\t Marquages sur l’appareil\n2.1\t Plaque signalétique du servomoteur\nLa plaque signalétique est collée sur le couvercle.\nElle contient toutes les données nécessaires\nà l’identification de l’appareil :\n1\nNuméro de type\n2\nPays d’origine\n3\nVar-ID\n4\nNuméro de série\n5\nSurface "
+      },
+      {
+        "page_number": 61,
+        "chunk_id": "cli_p61_c0",
+        "distance": 0.6125382781028748,
+        "text_preview": "15-1\nAnnexe\n15\tAnnexe\n15.1\tCouples de serrage, lubrifiants et outillage\nVoir u AB 0100 pour l’outillage, les couples de serrage et les lubrifiants\n15.2\tPièces de rechange\n1\nCouvercle supérieur\n2\nCouvercle inférieur\n4\nMembrane\n5\nAssiette de membrane\n7\nTige de servomoteur\n8\nÉcrou crénelé\n9\nÉcrou hexag"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.6304797530174255,
+        "text_preview": "Sommaire\n1\nConsignes de sécurité et mesures de protection............................................1-1\n1.1\nRemarques relatives à d’éventuelles blessures graves......................................1-3\n1.2\nRemarques relatives à d’éventuelles blessures................................................"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_c0",
+        "distance": 0.6578304767608643,
+        "text_preview": "3-5\nConception et fonctionnement\nDispositif de préhension\nUn outillage spécial est disponible pour\nsoulever les servomoteurs pneumatiques\nd’une surface de 355v2 cm²,\ncf. u AB 0100.\nInterface pour la détection de course\n(asservissement) selon DIN EN 60534-6-1\nIl est possible de raccorder différents\na"
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 15,
+        "chunk_id": "cli_p15_c9",
+        "distance": 0.5245800018310547,
+        "text_preview": "3-3\nConception et fonctionnement\n3.3\t Sens d’action\nLe sens d’action est défini par la\nconfiguration des ressorts (A10) et de\nl’assiette de membrane (A5).\nDans le sens d’action où la tige sort\n(« sens d’action TS »), le raccord de pression\nde commande est alimenté en air comprimé\npar le couvercle in"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_c0",
+        "distance": 0.5292329788208008,
+        "text_preview": "3-4\nConception et fonctionnement\nde l’emplacement des ressorts dans la\nchambre de membrane inférieure ou\nsupérieure.\nExécution avec commande manuelle :\nen fonctionnement manuel (commande\nmanuelle hors position neutre), la vanne\nn’atteint pas la position de sécurité en cas\nde coupure de l’alimentatio"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_c5",
+        "distance": 0.530449628829956,
+        "text_preview": "3-4\nConception et fonctionnement\nde l’emplacement des ressorts dans la\nchambre de membrane inférieure ou\nsupérieure.\nExécution avec commande manuelle :\nen fonctionnement manuel (commande\nmanuelle hors position neutre), la vanne\nn’atteint pas la position de sécurité en cas\nde coupure de l’alimentatio"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_c4",
+        "distance": 0.5329527854919434,
+        "text_preview": "3-4\nConception et fonctionnement\nde l’emplacement des ressorts dans la\nchambre de membrane inférieure ou\nsupérieure.\nExécution avec commande manuelle :\nen fonctionnement manuel (commande\nmanuelle hors position neutre), la vanne\nn’atteint pas la position de sécurité en cas\nde coupure de l’alimentatio"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r2",
+        "distance": 0.42887723445892334,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,6…3,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 6 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.4345162510871887,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r0",
+        "distance": 0.45210814476013184,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,2…1,0 bar | Position de\nsécurité = Tige entre par\nmanque d’air\n(TE) | Pression\nd’alimenta-\ntion max. = 4 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_summary",
+        "distance": 0.45905107259750366,
+        "text_preview": "| Plage de\npression\nnominale | Position de\nsécurité | Pression\nd’alimenta-\ntion max. |\n| --- | --- | --- |\n| 0,2…1,0 bar | Tige entre par\nmanque d’air\n(TE) | 4 bar |\n| 0,4…2,0 bar |  | 5 bar |\n| 0,6…3,0 bar |  | 6 bar |"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c5",
+        "distance": 0.6087163686752319,
+        "text_preview": "7-1\nFonctionnement\n7\t Fonctionnement\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque de blessure dû à la sortie de l’air\nd’échappement !\nLe servomoteur est un appareil pneum"
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c6",
+        "distance": 0.610397219657898,
+        "text_preview": "7-1\nFonctionnement\n7\t Fonctionnement\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque de blessure dû à la sortie de l’air\nd’échappement !\nLe servomoteur est un appareil pneum"
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c7",
+        "distance": 0.6107956767082214,
+        "text_preview": "7-1\nFonctionnement\n7\t Fonctionnement\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque de blessure dû à la sortie de l’air\nd’échappement !\nLe servomoteur est un appareil pneum"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_c2",
+        "distance": 0.6119046807289124,
+        "text_preview": "1-6\nConsignes de sécurité et mesures de protection\n1.3\t Remarques relatives à d’éventuels dommages matériels\nATTENTION\n!\nEndommagement du servomoteur dû à une fixation non conforme du dispositif\nd’arrimage !\nÎ Ne pas fixer le dispositif d’arrimage supportant la charge à la commande manuelle\nni à la "
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r2",
+        "distance": 0.4708816409111023,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,6…3,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 6 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.47618567943573,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_r0",
+        "distance": 0.48343199491500854,
+        "text_preview": "TABLE ROW: Matériau de la\nmembrane = NBR 1) | Plage de température = -31…+194 °F\n-35…+90 °C"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_summary",
+        "distance": 0.49116575717926025,
+        "text_preview": "| Plage de\npression\nnominale | Position de\nsécurité | Pression\nd’alimenta-\ntion max. |\n| --- | --- | --- |\n| 0,2…1,0 bar | Tige entre par\nmanque d’air\n(TE) | 4 bar |\n| 0,4…2,0 bar |  | 5 bar |\n| 0,6…3,0 bar |  | 6 bar |"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t0_summary",
+        "distance": 0.5741033554077148,
+        "text_preview": "[TABLE DATA]\nH'\nHa | a1\na | Ha\nØD2\nØd | ØD2\nØd"
+      },
+      {
+        "page_number": 52,
+        "chunk_id": "cli_p52_c0",
+        "distance": 0.62413489818573,
+        "text_preview": "10-2\nMise hors service\nPour mettre le servomoteur hors service\nen vue de la réalisation de travaux de\nmaintenance ou de son démontage,\nsuivre les étapes ci-dessous :\n1.\nMettre la vanne hors service,\ncf. documentation de la vanne\nconcernée.\n2. Couper l’alimentation pneumatique\nauxiliaire afin de dépr"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.6251449584960938,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "cli_p51_c0",
+        "distance": 0.6308981776237488,
+        "text_preview": "10-1\nMise hors service\n10\tMise hors service\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque d’éclatement en cas d’ouverture\nnon conforme des pièces et appareils\nsous pressio"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 30,
+        "chunk_id": "cli_p30_c0",
+        "distance": 0.620507538318634,
+        "text_preview": "5-6\nMontage\n5.2.2\nMise en place du\nraccord pneumatique\nAvant de raccorder l’alimentation\npneumatique, déterminer le début et la fin\nde la plage de pression.\n−\t Le début de la plage de pression\ncorrespond à la valeur minimale de\nla plage de pression nominale ou de\nla plage de fonctionnement (avec les"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_c0",
+        "distance": 0.6491245627403259,
+        "text_preview": "4-1\nLivraison et transport sur le site d’installation\n4\t Livraison et transport\nsur le site d’installation\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\n4.1\t Acceptation de la li"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_c3",
+        "distance": 0.6609981060028076,
+        "text_preview": "4-1\nLivraison et transport sur le site d’installation\n4\t Livraison et transport\nsur le site d’installation\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\n4.1\t Acceptation de la li"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_c2",
+        "distance": 0.6618536710739136,
+        "text_preview": "4-1\nLivraison et transport sur le site d’installation\n4\t Livraison et transport\nsur le site d’installation\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\n4.1\t Acceptation de la li"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 52,
+        "chunk_id": "cli_p52_c0",
+        "distance": 0.6342335343360901,
+        "text_preview": "10-2\nMise hors service\nPour mettre le servomoteur hors service\nen vue de la réalisation de travaux de\nmaintenance ou de son démontage,\nsuivre les étapes ci-dessous :\n1.\nMettre la vanne hors service,\ncf. documentation de la vanne\nconcernée.\n2. Couper l’alimentation pneumatique\nauxiliaire afin de dépr"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_c0",
+        "distance": 0.6364336013793945,
+        "text_preview": "7-2\nFonctionnement\n7.2\t Fonction Tout ou Rien\nEn fonction Tout ou Rien, la pression\nd’alimentation doit être limitée selon la\nplage de pression nominale/plage de\nfonctionnement du servomoteur.\nLa plaque\nsignalétique indique la plage de pression\nnominale/plage de fonctionnement valide\npermettant de p"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "cli_p51_c11",
+        "distance": 0.6376902461051941,
+        "text_preview": "10-1\nMise hors service\n10\tMise hors service\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque d’éclatement en cas d’ouverture\nnon conforme des pièces et appareils\nsous pressio"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "cli_p51_c12",
+        "distance": 0.6388447284698486,
+        "text_preview": "10-1\nMise hors service\n10\tMise hors service\nLes travaux décrits dans ce chapitre doivent\nimpérativement être réalisés par un personnel\ncompétent qui dispose des qualifications\nrequises pour la tâche en question.\nRisque d’éclatement en cas d’ouverture\nnon conforme des pièces et appareils\nsous pressio"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t0_summary",
+        "distance": 0.5784816741943359,
+        "text_preview": "[TABLE DATA]\nH'\nHa | a1\na | Ha\nØD2\nØd | ØD2\nØd"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c0",
+        "distance": 0.5879964232444763,
+        "text_preview": "2-1\nMarquages sur l’appareil\n2\t Marquages sur l’appareil\n2.1\t Plaque signalétique du servomoteur\nLa plaque signalétique est collée sur le couvercle.\nElle contient toutes les données nécessaires\nà l’identification de l’appareil :\n1\nNuméro de type\n2\nPays d’origine\n3\nVar-ID\n4\nNuméro de série\n5\nSurface "
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t0_summary",
+        "distance": 0.6259722709655762,
+        "text_preview": "| 5 |\n| --- |\n| 13 |"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t1_r0",
+        "distance": 0.6567680239677429,
+        "text_preview": "TABLE ROW: Type de\nservo-\nmoteur =  | Surface\ndu servo-\nmoteur\nen cm² =  | Accessoire pour = montage\nd’un côté\n(n° matériel) |  = montage des\ndeux côtés\n(n° article)"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_r1",
+        "distance": 0.6376631259918213,
+        "text_preview": "TABLE ROW: Matériau de la\nmembrane = EPDM 2) | Plage de température = -58…+248 °F\n-50…+120 °C"
+      },
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t0_summary",
+        "distance": 0.6480767726898193,
+        "text_preview": "[TABLE DATA]\nH'\nHa | a1\na | Ha\nØD2\nØd | ØD2\nØd"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t0_r2",
+        "distance": 0.6517971754074097,
+        "text_preview": "TABLE ROW: Défaut =  | Cause possible = La pression de commande\nn’est pas raccordée à la\nbonne chambre. | Solution = Voir section « Pilotage de la pression de\ncommande » au chap. « Conception et\nfonctionnement »."
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.667823314666748,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      }
+    ],
+    "classeProtection": [
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_r0",
+        "distance": 0.5857321619987488,
+        "text_preview": "TABLE ROW: Matériau de la\nmembrane = NBR 1) | Plage de température = -31…+194 °F\n-35…+90 °C"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_r1",
+        "distance": 0.5990362763404846,
+        "text_preview": "TABLE ROW: Matériau de la\nmembrane = EPDM 2) | Plage de température = -58…+248 °F\n-50…+120 °C"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_summary",
+        "distance": 0.6171197891235352,
+        "text_preview": "| Matériau de la\nmembrane | Plage de température |\n| --- | --- |\n| NBR 1) | -31…+194 °F\n-35…+90 °C |\n| EPDM 2) | -58…+248 °F\n-50…+120 °C |\n| PVMQ | -76…+194 °F\n-60…+90 °C |"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t0_r2",
+        "distance": 0.6247241497039795,
+        "text_preview": "TABLE ROW: Matériau de la\nmembrane = PVMQ | Plage de température = -76…+194 °F\n-60…+90 °C"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.6183149814605713,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t0_r4",
+        "distance": 0.6208983659744263,
+        "text_preview": "TABLE ROW: Défaut = La tige de servomoteur\nne parcourt pas la\ncourse complète. | Cause possible = La limitation de course est\nactive. | Solution = Voir section « Réglage de la limitation de course »\nau chap. « Mise en service »."
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_t0_r0",
+        "distance": 0.6331599950790405,
+        "text_preview": "TABLE ROW: Sens d’action = TS | Butée min. = 0…125 % | Butée max. = 50…125 %"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r2",
+        "distance": 0.6350966691970825,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,6…3,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 6 bar"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 68,
+        "chunk_id": "cli_p68_c0",
+        "distance": 0.6058880090713501,
+        "text_preview": "2021-01-18 · French/Français\nSAMSON RÉGULATION S.A.S.\n1, rue Jean Corona\n69120 Vaulx-en-Velin, France\nTéléphone : +33 (0)4 72 04 75 00\nfrance@samsongroup.com · www.samsongroup.com\nAgences régionales :\nNanterre (92) · Vaulx-en-Velin (69)\nMérignac (33) · Cernay (68)\nLille (59) · Marseille (13)\nSaint-H"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.6192173957824707,
+        "text_preview": "1-1\nConsignes de sécurité et mesures de protection\n1\t Consignes de sécurité et mesures de protection\nUtilisation conforme\nLes servomoteurs SAMSON type 3271 et type 3277 sont conçus pour actionner une vanne\nlinéaire.\nAssociés à la vanne, les servomoteurs servent à couper l’arrivée de liquides,\ngaz ou"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.6226216554641724,
+        "text_preview": "1-1\nConsignes de sécurité et mesures de protection\n1\t Consignes de sécurité et mesures de protection\nUtilisation conforme\nLes servomoteurs SAMSON type 3271 et type 3277 sont conçus pour actionner une vanne\nlinéaire.\nAssociés à la vanne, les servomoteurs servent à couper l’arrivée de liquides,\ngaz ou"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.6370344161987305,
+        "text_preview": "Remarques concernant les instructions de montage et de mise en service\nCette notice de montage et de mise en service contient des instructions afin d‘assurer un\nmontage et une mise en service de l‘appareil en toute sécurité.\nIl est impératif de respecter\nces instructions lors de l‘utilisation et la "
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.3507470488548279,
+        "text_preview": "Traduction du document original\nÉdition Août 2020\nServomoteurs pneumatiques types 3271 et 3277\nSurface du servomoteur : 355v2 cm²\nServomoteur pneumatique type 3277"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_c0",
+        "distance": 0.367314875125885,
+        "text_preview": "3-2\nConception et fonctionnement\n3.2\t Type 3277\nLe sens d’action correspond à celui du\ntype 3271.\nPour le type 3277, l’exécution\ndu servomoteur comprend une arcade\nsupplémentaire sur le couvercle\ninférieur (A2), cf.\nFig. 3-2. Cette arcade\npermet d’intégrer un positionneur et/ou un\ncontact de positio"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_c2",
+        "distance": 0.3959963321685791,
+        "text_preview": "3-1\nConception et fonctionnement\n3\t Conception et fonctionnement\nLes servomoteurs SAMSON type 3271 et\ntype 3277 d’une surface 1) de 355v2 cm²\nsont montés sur les vannes linéaires des\nséries 240, 250, 280 et 290.\n3.1\t Type 3271\nLe servomoteur se compose principalement des\ndeux couvercles (A1, A2), de"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "cli_p18_c0",
+        "distance": 0.40403127670288086,
+        "text_preview": "3-6\nConception et fonctionnement\nTableau 3-1 :  Dimensions en mm et poids en kg\nServomoteur\nType\n3271\n3277\nSurface du\nservomoteur\ncm²\n355v2\nHauteur\nH’\n121\n121\nHa\n15\n15\nH4nomTS\n90\n90\nH4maxTS\n93\n93\nH4maxTE\n96\n96\nH5\n–\n101\nLimitation\nde course\nH8\n115\n115\nDiamètre\nØD\n280\n280\nØD2\n16\n16\nØd (filetage)\nM30 ×"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 50,
+        "chunk_id": "cli_p50_c0",
+        "distance": 0.6490894556045532,
+        "text_preview": "9-10\nMaintenance et conversion\nA4\nMembrane\nA15\nÉcrou à embase\nA5\nAssiette de\nmembrane\nA35\nFouloir\nA7\nTige de\nservomoteur\nA15\nA5\nA7\nA35\nA4\nFig.\n9-5 :\tOrdre des pièces dans\nle sens d’action TS\n9.6\t Commande de pièces\nde rechange et\nde consommables\nContacter une agence SAMSON ou le\nservice après-vente "
+      },
+      {
+        "page_number": 61,
+        "chunk_id": "cli_p61_c0",
+        "distance": 0.6543323397636414,
+        "text_preview": "15-1\nAnnexe\n15\tAnnexe\n15.1\tCouples de serrage, lubrifiants et outillage\nVoir u AB 0100 pour l’outillage, les couples de serrage et les lubrifiants\n15.2\tPièces de rechange\n1\nCouvercle supérieur\n2\nCouvercle inférieur\n4\nMembrane\n5\nAssiette de membrane\n7\nTige de servomoteur\n8\nÉcrou crénelé\n9\nÉcrou hexag"
+      },
+      {
+        "page_number": 57,
+        "chunk_id": "cli_p57_c0",
+        "distance": 0.6775960326194763,
+        "text_preview": "13-1\nÉlimination\n13\tÉlimination Î Observer les réglementations locales,\nnationales et internationales lors de\nl’élimination du produit.\nÎ Ne pas jeter les pièces, lubrifiants et\nsubstances dangereuses parmi les\nordures ménagères."
+      },
+      {
+        "page_number": 62,
+        "chunk_id": "cli_p62_c0",
+        "distance": 0.6823104619979858,
+        "text_preview": "15-2\n21\n25\n23\n8\n41\n2\n40\n35\n4\n5\n10\n7\n9\n37\n15\n76\n78\n77\n70\n73\n58\n68\n58\n69\n51\n57\n67\n58\n68\n58\n75\n27\n31\n29\n11\n75\n40\n65\n64\n55\n8\n59\n62\n54\n51\n50\n7\n9\n7\n37\n9\n15\n20\n22\n16\n100\n101\n1\n37\n15\n50\n40\n42\n32\n25\n21\n43\n48\n60\n66\n52\n47\n67\n69\n51\n57\n58\n68\n58\n68\n160*\n161*\nType 3271"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r2",
+        "distance": 0.6080182790756226,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,6…3,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 6 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r1",
+        "distance": 0.608144998550415,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,4…2,0 bar | Position de\nsécurité =  | Pression\nd’alimenta-\ntion max. = 5 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_r0",
+        "distance": 0.6145070195198059,
+        "text_preview": "TABLE ROW: Plage de\npression\nnominale = 0,2…1,0 bar | Position de\nsécurité = Tige entre par\nmanque d’air\n(TE) | Pression\nd’alimenta-\ntion max. = 4 bar"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_summary",
+        "distance": 0.62364661693573,
+        "text_preview": "| Plage de\npression\nnominale | Position de\nsécurité | Pression\nd’alimenta-\ntion max. |\n| --- | --- | --- |\n| 0,2…1,0 bar | Tige entre par\nmanque d’air\n(TE) | 4 bar |\n| 0,4…2,0 bar |  | 5 bar |\n| 0,6…3,0 bar |  | 6 bar |"
+      }
+    ]
+  },
+  "llm_meta": {
+    "typeMesure": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Pression",
+      "quote": "Pression",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Pression\", \"confidence\": 1.0, \"quote\": \"Pression\"}",
+      "error": null
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "Samson",
+      "quote": "SAMSON",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "equipmentName": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "type 3271",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": false
+      },
+      "rejection_reason": "sane_value",
+      "raw": "{\"value\": \"3271\", \"confidence\": 0.95, \"quote\": \"type 3271\"}",
+      "error": null
+    },
+    "categorie": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Exécution avec commande manuelle…La vanne s’ouvre quand la pression de commande augmente suffisamment pour contrer la force des ressorts.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Control valve\", \"confidence\": 0.95, \"quote\": \"Exécution avec commande manuelle…La vanne s’ouvre quand la pression de commande augmente suffisamment pour contrer la force des ressorts.\"}",
+      "error": null
+    },
+    "technologie": {
+      "accepted": true,
+      "confidence": 0.99,
+      "value": "Pneumatique",
+      "quote": "Le servomoteur est un appareil pneumatique.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Pneumatique\", \"confidence\": 0.99, \"quote\": \"Le servomoteur est un appareil pneumatique.\"}",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "-35…+90 °C",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": {\"min\": -35, \"max\": 90, \"unite\": \"°C\"}, \"confidence\": 0.95, \"quote\": \"-35…+90 °C\"}",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "10-2",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": false,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": "allowed_value",
+      "raw": "{\"value\": \"10-2\", \"confidence\": 0.95, \"quote\": \"10-2\"}",
+      "error": null
+    },
+    "nbFils": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "Î Éliminer l’emballage conformément aux dispositions locales. Pour cela, trier les matériaux d’emballage par type afin de les recycler.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"4 fils\", \"confidence\": 0.95, \"quote\": \"Î Éliminer l’emballage conformément aux dispositions locales. Pour cela, trier les matériaux d’emballage par type afin de les recycler.\"}",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "alimentation pneumatique auxiliaire",
+      "quote": "l’alimentation pneumatique auxiliaire",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"alimentation pneumatique auxiliaire\", \"confidence\": 0.95, \"quote\": \"l’alimentation pneumatique auxiliaire\"}",
+      "error": null
+    },
+    "reperage": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "3271",
+      "quote": "Plaque signalétique du servomoteur type 3271",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"3271\", \"confidence\": 0.95, \"quote\": \"Plaque signalétique du servomoteur type 3271\"}",
+      "error": null
+    },
+    "communication": {
+      "accepted": false,
+      "confidence": 0.9,
+      "value": null,
+      "quote": "HART",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": \"HART\", \"confidence\": 0.9, \"quote\": \"HART\"}",
+      "error": null
+    },
+    "classeProtection": {
+      "accepted": false,
+      "confidence": 0.9,
+      "value": null,
+      "quote": "NEMA 4X",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": \"NEMA 4X\", \"confidence\": 0.9, \"quote\": \"NEMA 4X\"}",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "min_confidence",
+      "raw": "{\"value\": [], \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "modele": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "type 3271",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": false
+      },
+      "rejection_reason": "sane_value",
+      "raw": "{\"value\": \"3271\", \"confidence\": 0.95, \"quote\": \"type 3271\"}",
+      "error": null
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "76",
+      "quote": "76",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true,
+        "sane_value": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"76\", \"confidence\": 0.95, \"quote\": \"76\"}",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.9,
+      "value": null,
+      "quote": "12 mois",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false,
+        "sane_value": true
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": \"12 mois\", \"confidence\": 0.9, \"quote\": \"12 mois\"}",
+      "error": null
+    }
+  }
+}

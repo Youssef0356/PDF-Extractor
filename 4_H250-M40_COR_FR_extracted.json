@@ -2,11 +2,11 @@
   "equipmentName": "H250 M40",
   "categorie": "Débitmètre",
   "typeMesure": null,
-  "technologie": "18",
+  "technologie": null,
   "plageMesure": {
-    "min": 10.0,
-    "max": 100.0,
-    "unite": "l/h"
+    "min": -196.0,
+    "max": 300.0,
+    "unite": "°C"
   },
   "typeSignal": null,
   "nbFils": null,
@@ -15,8 +15,8 @@
   "communication": "Foundation Fieldbus",
   "classeProtection": "IP69K",
   "sortiesAlarme": null,
-  "marque": "18",
-  "modele": "7.7",
+  "marque": null,
+  "modele": null,
   "reference": "4000685703",
   "dateCalibration": null
 }

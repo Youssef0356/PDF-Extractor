@@ -128,6 +128,8 @@ def query_chunks(
     formatted = []
     if results["documents"] and results["documents"][0]:
         for i, doc in enumerate(results["documents"][0]):
+            if not isinstance(doc, str) or len(doc.strip()) < 20:
+                continue
             formatted.append({
                 "text": doc,
                 "metadata": results["metadatas"][0][i] if results["metadatas"] else {},

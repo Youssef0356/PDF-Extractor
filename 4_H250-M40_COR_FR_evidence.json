@@ -134,34 +134,34 @@
     ],
     "plageMesure": [
       {
-        "page_number": 10,
-        "chunk_id": "cli_p10_c0",
-        "distance": 0.569010853767395,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n10\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nTempératures ambiantes mini Tamb. avec composants électriques\nTempératures H250/M40 - avec composants électriques [°C]\nTempératures maxi du produit H250/M40 - avec composants électriques [°F]\n1 en cas "
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r11",
+        "distance": 0.44499731063842773,
+        "text_preview": "TABLE ROW: Système de mesure = Température de service TS maxi |  = -196..+300°C / -321...+572°F\nselon la version (voir plaque signalétique)"
       },
       {
-        "page_number": 23,
-        "chunk_id": "cli_p23_c0",
-        "distance": 0.668665885925293,
-        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n23\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nH250H - Position de montage horizontale\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pou"
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r1",
+        "distance": 0.4835866689682007,
+        "text_preview": "TABLE ROW: Système de mesure = Fonction / Principe de mesure |  = Principe de mesure à section variable"
       },
       {
-        "page_number": 22,
-        "chunk_id": "cli_p22_c0",
-        "distance": 0.6690545082092285,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n22\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nH250H - Position de montage horizontale\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pou"
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r5",
+        "distance": 0.48789840936660767,
+        "text_preview": "TABLE ROW: Système de mesure = Précision de mesure"
       },
       {
-        "page_number": 24,
-        "chunk_id": "cli_p24_c0",
-        "distance": 0.671485185623169,
-        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n24\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nH250U - Position de montage verticale\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pour mesures de gaz :\nCondition de référence pour "
+        "page_number": 17,
+        "chunk_id": "cli_p17_t3_r0",
+        "distance": 0.493557333946228,
+        "text_preview": "TABLE ROW: Température de process maxi (cid:23) =  | +70°C / +158°F = Pression de service mini | +150°C / +302°F =  | +250°C / +482°F ="
       },
       {
-        "page_number": 28,
-        "chunk_id": "cli_p28_c0",
-        "distance": 0.6727994680404663,
-        "text_preview": "3 MONTAGE\n28\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nDistance mini entre les appareils\nEn cas de montage de plusieurs appareils côte à côte, assurer une distance mini de > 300 mm\nentre deux appareils.\nAccorder un soin particulier à la position de montage du H250H avec sens\n"
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r8",
+        "distance": 0.4989338517189026,
+        "text_preview": "TABLE ROW: Sortie binaire = P\nmaxi |  = 500 mW"
       }
     ],
     "typeSignal": [
@@ -530,7 +530,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"H250 M40\", \"confidence\": 0.95, \"quote\": \"H250 M40\"}",
@@ -548,7 +549,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"débitmètre\", \"confidence\": 0.95, \"quote\": \"débitmètre\"}",
@@ -566,16 +568,17 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": false,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": "quote_supported",
       "raw": "{\"value\": \"débit\", \"confidence\": 0.95, \"quote\": \"Mesure de débit de liquides, gaz et vapeurs\"}",
       "error": null
     },
     "technologie": {
-      "accepted": true,
+      "accepted": false,
       "confidence": 0.95,
-      "value": "18",
+      "value": null,
       "quote": "18",
       "source": "llm",
       "checks": {
@@ -584,9 +587,10 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": false
       },
-      "rejection_reason": null,
+      "rejection_reason": "sane_value",
       "raw": "{\"value\": \"18\", \"confidence\": 0.95, \"quote\": \"18\"}",
       "error": null
     },
@@ -594,11 +598,11 @@
       "accepted": true,
       "confidence": 0.95,
       "value": {
-        "min": 10,
-        "max": 100,
-        "unite": "l/h"
+        "min": -196,
+        "max": 300,
+        "unite": "°C"
       },
-      "quote": "Plage de mesure : 10 : 1",
+      "quote": "-196..+300°C",
       "source": "llm",
       "checks": {
         "non_null": true,
@@ -606,15 +610,16 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
-      "raw": "{\"value\": {\"min\": 10, \"max\": 100, \"unite\": \"l/h\"}, \"confidence\": 0.95, \"quote\": \"Plage de mesure : 10 : 1\"}",
+      "raw": "{\"value\": {\"min\": -196, \"max\": 300, \"unite\": \"°C\"}, \"confidence\": 0.95, \"quote\": \"-196..+300°C\"}",
       "error": null
     },
     "typeSignal": {
       "accepted": false,
-      "confidence": 0.7,
+      "confidence": 0.6,
       "value": null,
       "quote": "Sortie binaire",
       "source": "llm",
@@ -624,17 +629,18 @@
         "expected_type": true,
         "allowed_value": false,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": "allowed_value",
-      "raw": "{\"value\": \"Sortie binaire\", \"confidence\": 0.7, \"quote\": \"Sortie binaire\"}",
+      "raw": "{\"value\": \"Sortie binaire\", \"confidence\": 0.6, \"quote\": \"Sortie binaire\"}",
       "error": null
     },
     "nbFils": {
       "accepted": false,
       "confidence": 0.95,
       "value": null,
-      "quote": "Raccordement électrique des détecteurs de seuil\nModule à détecteurs de seuils\n1  Contact Min.\n2  Contact Max. 3  Vis d’arrêt\n4  Aiguille de contact MAX",
+      "quote": "Raccordement électrique des détecteurs de seuil\nModule à détecteurs de seuils\n1  Contact Min.\n2  Contact Max.\n3  Vis d’arrêt\n4  Aiguille de contact MAX",
       "source": "llm",
       "checks": {
         "non_null": true,
@@ -642,10 +648,11 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": false,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": "quote_supported",
-      "raw": "{\"value\": \"2 fils\", \"confidence\": 0.95, \"quote\": \"Raccordement électrique des détecteurs de seuil\\nModule à détecteurs de seuils\\n1  Contact Min.\\n2  Contact Max. 3  Vis d’arrêt\\n4  Aiguille de contact MAX\"}",
+      "raw": "{\"value\": \"2 fils\", \"confidence\": 0.95, \"quote\": \"Raccordement électrique des détecteurs de seuil\\nModule à détecteurs de seuils\\n1  Contact Min.\\n2  Contact Max.\\n3  Vis d’arrêt\\n4  Aiguille de contact MAX\"}",
       "error": null
     },
     "alimentation": {
@@ -660,7 +667,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"14 V CC et 30 V CC\", \"confidence\": 0.95, \"quote\": \"La tension d'alimentation doit être située entre 14 V CC et 30 V CC.\"}",
@@ -678,7 +686,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": false
+        "quote_in_context": false,
+        "sane_value": true
       },
       "rejection_reason": "non_null",
       "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
@@ -696,7 +705,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"FOUNDATION Fieldbus\", \"confidence\": 0.95, \"quote\": \"Interface FOUNDATION FIELDBUS\"}",
@@ -714,7 +724,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"IP69K\", \"confidence\": 0.95, \"quote\": \"IP69K selon DIN40050-9\"}",
@@ -732,16 +743,17 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": false,
-        "quote_in_context": false
+        "quote_in_context": false,
+        "sane_value": true
       },
       "rejection_reason": "min_confidence",
       "raw": "{\"value\": [{\"nomAlarme\": \"Courant de signalisation\", \"typeAlarme\": \"Haut\", \"seuilAlarme\": 3, \"uniteAlarme\": \"mA\", \"relaisAssocie\": \"> 3 mA\"}]\n}",
       "error": null
     },
     "marque": {
-      "accepted": true,
+      "accepted": false,
       "confidence": 0.95,
-      "value": "18",
+      "value": null,
       "quote": "18",
       "source": "llm",
       "checks": {
@@ -750,16 +762,17 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": false
       },
-      "rejection_reason": null,
+      "rejection_reason": "sane_value",
       "raw": "{\"value\": \"18\", \"confidence\": 0.95, \"quote\": \"18\"}",
       "error": null
     },
     "modele": {
-      "accepted": true,
-      "confidence": 0.99,
-      "value": "7.7",
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
       "quote": "7,7",
       "source": "llm",
       "checks": {
@@ -768,10 +781,11 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": false
       },
-      "rejection_reason": null,
-      "raw": "{\"value\": \"7.7\", \"confidence\": 0.99, \"quote\": \"7,7\"}",
+      "rejection_reason": "sane_value",
+      "raw": "{\n  \"value\": \"7.7\",\n  \"confidence\": 1.0,\n  \"quote\": \"7,7\"\n}",
       "error": null
     },
     "reference": {
@@ -786,7 +800,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": true
+        "quote_in_context": true,
+        "sane_value": true
       },
       "rejection_reason": null,
       "raw": "{\"value\": \"4000685703\", \"confidence\": 0.95, \"quote\": \"4000685703\"}",
@@ -804,7 +819,8 @@
         "expected_type": true,
         "allowed_value": true,
         "quote_supported": true,
-        "quote_in_context": false
+        "quote_in_context": false,
+        "sane_value": true
       },
       "rejection_reason": "non_null",
       "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",

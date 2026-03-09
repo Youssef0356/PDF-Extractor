@@ -1,0 +1,18 @@
+{
+  "equipmentName": null,
+  "categorie": null,
+  "typeMesure": "Pression",
+  "technologie": "Pneumatique",
+  "plageMesure": null,
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": "alimentation pneumatique auxiliaire",
+  "reperage": "3271",
+  "communication": null,
+  "classeProtection": null,
+  "sortiesAlarme": null,
+  "marque": "Samson",
+  "modele": null,
+  "reference": "76",
+  "dateCalibration": null
+}

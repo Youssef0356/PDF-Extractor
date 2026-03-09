@@ -304,7 +304,7 @@ def _extract_categorie(text: str) -> Optional[dict]:
     """Extract equipment category ONLY if explicitly labeled in the document."""
     patterns = [
         re.compile(
-            r"(?:Cat(?:égorie|egorie)|Category|Type\s+d['’]?instrument)\s*[:=]\s*(Transmetteur|Actionneur|Autre)",
+            r"(?:Cat(?:égorie|egorie)|Category|Type\s+d['’]?instrument)\s*[:=]\s*([^\n]{3,80})",
             re.IGNORECASE,
         ),
     ]
@@ -312,10 +312,9 @@ def _extract_categorie(text: str) -> Optional[dict]:
     for pat in patterns:
         m = pat.search(text)
         if m:
-            value = m.group(1)
-            # Normalize capitalization to match allowed values.
-            canonical = value[0].upper() + value[1:].lower()
-            return {"value": canonical, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
+            value = m.group(1).strip()
+            value = re.sub(r"\s+", " ", value)
+            return {"value": value, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
 
     return None
 

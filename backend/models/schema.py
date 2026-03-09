@@ -26,7 +26,20 @@ class EquipmentSchema(BaseModel):
     categorie: Optional[str] = Field(
         None,
         description=(
-            "Transmetteur | Débitmètre | Capteurs | Actionneur | Automate | IHM | Autre"
+            "Pressure transmitter | Pressure gauge | Differential pressure transmitter | "
+            "Temperature transmitter | Temperature sensor | Temperature indicator | "
+            "Flowmeter | Electromagnetic flowmeter | Coriolis flowmeter | Vortex flowmeter | Ultrasonic flowmeter | "
+            "Variable area flowmeter | Turbine flowmeter | Positive displacement meter | Pitot tube / annubar | Orifice plate | "
+            "Level transmitter | Level switch | Radar level sensor | Ultrasonic level sensor | Float level switch | Capacitive level sensor | "
+            "Vibrating fork / tuning fork | Density meter | Viscosity meter | "
+            "pH sensor / transmitter | Conductivity sensor | Dissolved oxygen sensor | Turbidity sensor | Gas analyzer | Flame detector | Gas detector | "
+            "Moisture analyzer | Particle counter | Chromatograph | "
+            "Control valve | Valve positioner | Pneumatic actuator | Electric actuator | Solenoid valve | Safety relief valve | Butterfly valve | "
+            "Pump | Variable speed drive | "
+            "PLC | DCS controller | PID controller | Remote I/O | Safety system (SIS) | "
+            "HMI panel | Field indicator | Paperless recorder | SCADA / RTU | "
+            "Signal isolator / barrier | Power supply | Signal converter | "
+            "Weighing system | Vibration sensor | Position sensor | Speed sensor | Torque sensor | Noise / acoustic sensor | Autre"
         ),
     )
 
@@ -134,16 +147,79 @@ FIELD_DESCRIPTIONS: dict[str, dict] = {
 
     "categorie": {
         "description": (
-            "Category of the equipment. "
-            "One of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre"
+            "Category of the equipment. Pick ONE exact taxonomy label. "
+            "Use Autre only if none fits."
         ),
-        # FIXED: added Débitmètre — was missing, caused flow meters to always return null.
-        "allowed_values": ["Transmetteur", "Débitmètre", "Capteurs", "Actionneur", "Automate", "IHM", "Autre"],
+        "allowed_values": [
+            "Pressure transmitter",
+            "Pressure gauge",
+            "Differential pressure transmitter",
+            "Temperature transmitter",
+            "Temperature sensor",
+            "Temperature indicator",
+            "Flowmeter",
+            "Electromagnetic flowmeter",
+            "Coriolis flowmeter",
+            "Vortex flowmeter",
+            "Ultrasonic flowmeter",
+            "Variable area flowmeter",
+            "Turbine flowmeter",
+            "Positive displacement meter",
+            "Pitot tube / annubar",
+            "Orifice plate",
+            "Level transmitter",
+            "Level switch",
+            "Radar level sensor",
+            "Ultrasonic level sensor",
+            "Float level switch",
+            "Capacitive level sensor",
+            "Vibrating fork / tuning fork",
+            "Density meter",
+            "Viscosity meter",
+            "pH sensor / transmitter",
+            "Conductivity sensor",
+            "Dissolved oxygen sensor",
+            "Turbidity sensor",
+            "Gas analyzer",
+            "Flame detector",
+            "Gas detector",
+            "Moisture analyzer",
+            "Particle counter",
+            "Chromatograph",
+            "Control valve",
+            "Valve positioner",
+            "Pneumatic actuator",
+            "Electric actuator",
+            "Solenoid valve",
+            "Safety relief valve",
+            "Butterfly valve",
+            "Pump",
+            "Variable speed drive",
+            "PLC",
+            "DCS controller",
+            "PID controller",
+            "Remote I/O",
+            "Safety system (SIS)",
+            "HMI panel",
+            "Field indicator",
+            "Paperless recorder",
+            "SCADA / RTU",
+            "Signal isolator / barrier",
+            "Power supply",
+            "Signal converter",
+            "Weighing system",
+            "Vibration sensor",
+            "Position sensor",
+            "Speed sensor",
+            "Torque sensor",
+            "Noise / acoustic sensor",
+            "Autre",
+        ],
         "search_queries": [
-            "instrument type transmitter flowmeter sensor",
-            "débitmètre transmetteur capteur actionneur automate IHM",
+            "instrument type category equipment",
+            "transmitter gauge flowmeter level switch valve actuator PLC HMI",
             "type d'instrument catégorie équipement",
-            "plc controller hmi panel",
+            "control valve positioner actuator pneumatic electric",
             "variable area flowmeter rotameter",
         ],
     },
@@ -323,7 +399,7 @@ FIELD_DESCRIPTIONS: dict[str, dict] = {
         "allowed_values": None,
         "search_queries": [
             "manufacturer brand fabricant marque",
-            "Siemens Krohne Endress Hauser Yokogawa ABB Emerson",
+            "Siemens Krohne Endress Hauser Yokogawa ABB Emerson SAMSON",
             "constructeur fournisseur",
         ],
     },
@@ -335,6 +411,7 @@ FIELD_DESCRIPTIONS: dict[str, dict] = {
             "model designation modèle",
             "product family series",
             "type désignation produit",
+            "type 3271 servomoteur",
         ],
     },
 
