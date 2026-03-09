@@ -1,22 +1,22 @@
 {
-  "equipmentName": null,
-  "categorie": null,
+  "equipmentName": "H250 M40",
+  "categorie": "Débitmètre",
   "typeMesure": null,
-  "technologie": null,
+  "technologie": "18",
   "plageMesure": {
-    "min": null,
-    "max": null,
-    "unite": null
+    "min": 10.0,
+    "max": 100.0,
+    "unite": "l/h"
   },
   "typeSignal": null,
-  "nbFils": "2 fils",
-  "alimentation": null,
+  "nbFils": null,
+  "alimentation": "14 V CC et 30 V CC",
   "reperage": null,
-  "communication": null,
-  "classeProtection": "IP66/68",
-  "sortiesAlarme": [],
-  "marque": "Krohne",
-  "modele": "H250 M40",
-  "reference": "10/2015 - 4000685703 - TD H250-M40 R03 fr",
+  "communication": "Foundation Fieldbus",
+  "classeProtection": "IP69K",
+  "sortiesAlarme": null,
+  "marque": "18",
+  "modele": "7.7",
+  "reference": "4000685703",
   "dateCalibration": null
 }

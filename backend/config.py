@@ -4,8 +4,14 @@ Configuration for the PDF Extractor backend.
 import os
 
 # -- Ollama Models --------------------------------------------------
-TEXT_MODEL = "qwen3.5:2b"         
-EMBEDDING_MODEL = "qwen3-embedding:0.6b" # Embedding model
+TEXT_MODEL = "gemma3:4b"         
+EMBEDDING_MODEL = "embeddinggemma" # Embedding model
+
+# -- Reranker (optional) -------------------------------------------
+ENABLE_RERANKING = True
+RERANKER_MODEL = "dengcao/Qwen3-Reranker-0.6B:Q8_0"
+RERANK_CANDIDATES = 20
+RERANK_BATCH_SIZE = 8
 
 # -- Extraction Policy ----------------------------------------------
 # If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).

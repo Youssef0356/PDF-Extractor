@@ -41,6 +41,18 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         "GOOD: 'Endress+Hauser' | BAD: 'SITRANS', 'Series 3000'"
     ),
 
+    "marque": (
+        'Extract the manufacturer / brand name (company) as printed in the document (e.g. "KROHNE", "Siemens").\n'
+        'NEVER return numbers (page numbers, section numbers, years, order codes).\n'
+        'If the only candidates are numbers or codes, return null.'
+    ),
+
+    "modele": (
+        'Extract the model designation (e.g. "H250 M40", "SITRANS P320").\n'
+        'NEVER return pure numbers like "18" or "7.7" (these are almost always page/section numbers).\n'
+        'If multiple model strings appear, prefer the one repeated in headers/cover (often near the top of pages).'
+    ),
+
     "categorie": (
         'Classify the equipment into ONE of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre.\n'
         'Rules:\n'
@@ -70,6 +82,7 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         'Common examples: Electromagnetique, Piezo-resistif, Ultrasonique, Coriolis, Vortex, '
         'Radar, Capacitif, Pneumatique, Hydraulique, Section variable (flotteur), TFT Tactile, Autre.\n'
         'For variable-area / rotameter / float-tube devices → "Section variable (flotteur)"\n'
+        'NEVER return numbers (page/section numbers like "18"). If the principle is not stated, return null.\n'
         "GOOD: 'Section variable (flotteur)', 'Electromagnetique', 'Coriolis' | BAD: 'float principle', 'variable area flowmeter'"
     ),
 
@@ -87,6 +100,7 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         '  - CRITICAL: Ignore rangeability / turndown ratios (e.g. "100 : 1", "10:1"). DO NOT extract min=1, max=100. Return null if no true measurement range (like 0 to 10 m3/h) is given.\n'
         '  - Never use "1" or "ratio" as a unit. Units must be physical (e.g., m3/h, bar, °C).\n'
         '  - Ignore: time delays (ms/µs), supply voltages, and ratios.\n'
+        '  - The quote MUST contain the unit AND the numeric bounds you return (e.g. "10 ... 100 l/h").\n'
         'BAD: {"min": 1, "max": 100, "unite": "1"} ← Ratios are NOT ranges.\n'
         'BAD: {"min": 0, "max": 20, "unite": "ms"} ← this is a time delay'
     ),
@@ -226,6 +240,13 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
         return {"value": None, "confidence": 0.0, "quote": None}
 
     prompt = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a precise data extractor. Always respond with valid JSON only. No markdown, no explanation.",
+        },
+        {"role": "user", "content": prompt},
+    ]
     last_error: Exception | None = None
 
     for attempt in range(1, 4):
@@ -233,7 +254,7 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
             try:
                 response = ollama_client.chat(
                     model=TEXT_MODEL,
-                    messages=[{"role": "user", "content": prompt}],
+                    messages=messages,
                     options={"temperature": 0.1},
                     format="json",
                     keep_alive="10m",
@@ -241,7 +262,7 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
             except TypeError:
                 response = ollama_client.chat(
                     model=TEXT_MODEL,
-                    messages=[{"role": "user", "content": prompt}],
+                    messages=messages,
                     options={"temperature": 0.1},
                     keep_alive="10m",
                 )
@@ -418,9 +439,48 @@ def _is_expected_type(field_name: str, value) -> bool:
     return isinstance(value, str)
 
 
+def _is_numericish_string(s: str) -> bool:
+    v = (s or "").strip()
+    if not v:
+        return False
+    # Allow common separators but require at least one digit and no letters.
+    has_digit = any(ch.isdigit() for ch in v)
+    has_alpha = any(ch.isalpha() for ch in v)
+    return has_digit and not has_alpha
+
+
+def _field_sanity_check(field_name: str, value, quote: str | None) -> bool:
+    """Extra guardrails for common failure modes (page numbers, ratios, etc.)."""
+    if value is None:
+        return True
+
+    if field_name in {"marque", "modele", "technologie"}:
+        if isinstance(value, str) and _is_numericish_string(value):
+            return False
+
+    if field_name == "plageMesure" and isinstance(value, dict):
+        q = (quote or "").lower()
+        unite = str(value.get("unite") or "").strip().lower()
+        vmin = value.get("min")
+        vmax = value.get("max")
+
+        # Reject the classic ratio confusion: "10 : 1", "100:1", etc.
+        if ":" in q:
+            # Only accept if the quote also contains the returned unit and both bounds.
+            if unite and unite not in q:
+                return False
+            if vmin is not None and str(vmin) not in (quote or ""):
+                return False
+            if vmax is not None and str(vmax) not in (quote or ""):
+                return False
+
+    return True
+
+
 # Fields where the allowed_values list is a soft hint, not a hard constraint.
 # The LLM may return valid values not in the list (e.g. "Débitmètre" for categorie).
 _OPEN_FIELDS = {"categorie", "technologie", "typeMesure", "communication"}
+
 
 def _is_value_allowed(field_name: str, value) -> bool:
     if not ACCURACY_FIRST: return True
@@ -549,6 +609,7 @@ def _run_llm_fields(
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote),
                 "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
+                "sane_value": _field_sanity_check(field_name, value, quote),
             }
             ok = all(checks.values())
             rejection = next((k for k, v in checks.items() if not v), None) if not ok else None
