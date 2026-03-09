@@ -1,0 +1,22 @@
+{
+  "equipmentName": null,
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": null,
+  "plageMesure": {
+    "min": null,
+    "max": null,
+    "unite": null
+  },
+  "typeSignal": null,
+  "nbFils": "2 fils",
+  "alimentation": null,
+  "reperage": null,
+  "communication": null,
+  "classeProtection": "IP66/68",
+  "sortiesAlarme": [],
+  "marque": "Krohne",
+  "modele": "H250 M40",
+  "reference": "10/2015 - 4000685703 - TD H250-M40 R03 fr",
+  "dateCalibration": null
+}

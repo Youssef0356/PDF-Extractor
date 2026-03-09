@@ -1,0 +1,26 @@
+{
+  "equipmentName": "H250 M40",
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": null,
+  "plageMesure": null,
+  "typeSignal": null,
+  "nbFils": "2 fils",
+  "alimentation": null,
+  "reperage": null,
+  "communication": null,
+  "classe": null,
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "ESK4 / ESK4A",
+      "typeAlarme": "Courant",
+      "seuilAlarme": 3.0,
+      "uniteAlarme": "mA",
+      "relaisAssocie": "B1"
+    }
+  ],
+  "marque": "KROHNE Messtechnik",
+  "modele": null,
+  "reference": "4000685703",
+  "dateCalibration": null
+}

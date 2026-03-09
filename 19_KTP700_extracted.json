@@ -1,0 +1,30 @@
+{
+  "equipmentName": "6AV2123-2GB03-0AX0",
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": null,
+  "plageMesure": {
+    "min": 0.0,
+    "max": 50.0,
+    "unite": "%"
+  },
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": null,
+  "reperage": null,
+  "communication": "Ethernet",
+  "classe": null,
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "Avertisseur sonore",
+      "typeAlarme": "Avertisseur sonore",
+      "seuilAlarme": null,
+      "uniteAlarme": null,
+      "relaisAssocie": "Oui"
+    }
+  ],
+  "marque": "Modicon",
+  "modele": "6AV2123-2GB03-0AX0",
+  "reference": "6AV2123-2GB03-0AX0",
+  "dateCalibration": null
+}

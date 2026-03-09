@@ -1,0 +1,922 @@
+{
+  "file": "backend/uploads/1_differentiel sitransp_p320_p420_fi01_en.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": null,
+  "min_confidence": 0.3,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.4156409502029419,
+        "text_preview": "1/114\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nNameplates\nNameplate\nThe nameplate with the article no. and other important informa-\ntion, such as design details and technical data, is located on the\ncover over "
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c0",
+        "distance": 0.4235072135925293,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code."
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c1",
+        "distance": 0.44119715690612793,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code.\nFactory certificates\nQuality inspection certificate (Five-step factory\nc"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_c0",
+        "distance": 0.4544791579246521,
+        "text_preview": "1/174\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor differential pressure and flow\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainless "
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c2",
+        "distance": 0.4555009603500366,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code.\nFactory certificates\nQuality inspection certificate (Five-step factory\nc"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_c0",
+        "distance": 0.46007388830184937,
+        "text_preview": "1/132\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (differential pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal"
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.2506248950958252,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c5",
+        "distance": 0.2567054033279419,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c6",
+        "distance": 0.25986582040786743,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c4",
+        "distance": 0.25996291637420654,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c1",
+        "distance": 0.2606097459793091,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c7",
+        "distance": 0.26129889488220215,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t1_r0",
+        "distance": 0.1931304931640625,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (pressure series) =  |  = Gauge pressure"
+      },
+      {
+        "page_number": 71,
+        "chunk_id": "cli_p71_t1_r13",
+        "distance": 0.20328640937805176,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = Li = 0.24H/Ci = 3.29nF"
+      },
+      {
+        "page_number": 71,
+        "chunk_id": "cli_p71_t1_r27",
+        "distance": 0.20328640937805176,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = Li = 0.24H/Ci = 3.29nF"
+      },
+      {
+        "page_number": 15,
+        "chunk_id": "cli_p15_t1_r0",
+        "distance": 0.20394361019134521,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (differential pressure series) =  |  = Gauge pressure"
+      },
+      {
+        "page_number": 68,
+        "chunk_id": "cli_p68_t1_r0",
+        "distance": 0.20597320795059204,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = Level"
+      },
+      {
+        "page_number": 68,
+        "chunk_id": "cli_p68_t1_r11",
+        "distance": 0.20597320795059204,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = HART"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c1",
+        "distance": 0.42793935537338257,
+        "text_preview": "1/116\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Function\nAdjustable parameters and diagnostics\nSITRANS P320/P420 with HART communication\nAvailable physical units of display for SITRANS P320/P420\nFor more device"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c2",
+        "distance": 0.43155890703201294,
+        "text_preview": "1/116\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Function\nAdjustable parameters and diagnostics\nSITRANS P320/P420 with HART communication\nAvailable physical units of display for SITRANS P320/P420\nFor more device"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c1",
+        "distance": 0.43577927350997925,
+        "text_preview": "1/113\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nPressure transmitters for differential pressure and flow\nMeasured variables:\n• Differential pressure\n• Small positive or negative overpressure\n• Flow q ~ p (toge"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c0",
+        "distance": 0.44329899549484253,
+        "text_preview": "1/113\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nPressure transmitters for differential pressure and flow\nMeasured variables:\n• Differential pressure\n• Small positive or negative overpressure\n• Flow q ~ p (toge"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c2",
+        "distance": 0.44384288787841797,
+        "text_preview": "1/113\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nPressure transmitters for differential pressure and flow\nMeasured variables:\n• Differential pressure\n• Small positive or negative overpressure\n• Flow q ~ p (toge"
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c3",
+        "distance": 0.44474220275878906,
+        "text_preview": "1/113\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nPressure transmitters for differential pressure and flow\nMeasured variables:\n• Differential pressure\n• Small positive or negative overpressure\n• Flow q ~ p (toge"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c1",
+        "distance": 0.39497649669647217,
+        "text_preview": "1/118\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nMeasuring accuracy\nReference conditions\n• According to EN 60770-1\n• Rising characteristic curve\n• Start of scale value 0 bar/kPa/psi\n• Seal diaphrag"
+      },
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.3978760242462158,
+        "text_preview": "1/118\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nMeasuring accuracy\nReference conditions\n• According to EN 60770-1\n• Rising characteristic curve\n• Start of scale value 0 bar/kPa/psi\n• Seal diaphrag"
+      },
+      {
+        "page_number": 46,
+        "chunk_id": "cli_p46_c0",
+        "distance": 0.39973747730255127,
+        "text_preview": "1/157\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor absolute pressure (differential pressure series)\n1\nConformity error at limit point setting, including hys-\nteresis and repeatability\nMeasuring span ratio r (spread, Turn-Down)\nr = max"
+      },
+      {
+        "page_number": 26,
+        "chunk_id": "cli_p26_c0",
+        "distance": 0.4104316830635071,
+        "text_preview": "1/137\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\nGauge pressure measuring accuracy, with flush-\nmounted diaphragm\nReference conditions\n• According to EN 60770-1\n• Rising charact"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c3",
+        "distance": 0.41092079877853394,
+        "text_preview": "1/117\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Technical specifications\nSITRANS P320 / SITRANS P420 for gauge pressure (pressure series)\nInput\nMeasured variable\nGauge pressure\nSpan (infinitely a"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_c2",
+        "distance": 0.4110199213027954,
+        "text_preview": "1/117\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Technical specifications\nSITRANS P320 / SITRANS P420 for gauge pressure (pressure series)\nInput\nMeasured variable\nGauge pressure\nSpan (infinitely a"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r24",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: A00 = B13"
+      },
+      {
+        "page_number": 42,
+        "chunk_id": "cli_p42_t2_r29",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: D10 = E49"
+      },
+      {
+        "page_number": 43,
+        "chunk_id": "cli_p43_t1_r5",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: E80 = H02"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t1_r30",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: A00 = C11"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t2_r20",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: D10 = E24"
+      },
+      {
+        "page_number": 64,
+        "chunk_id": "cli_p64_t1_r0",
+        "distance": 0.218256413936615,
+        "text_preview": "TABLE ROW: E80 = E81"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c0",
+        "distance": 0.46461915969848633,
+        "text_preview": "1/147\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\nThreaded connection G¾\", G1\" and G2\" acc. to DIN 3852\nOrder\ncode\nDN\nPN\nD\nH2\nR11\n¾\"\n63\n37 mm (1.5\")\nApprox.\n45 mm (1.8\")\nR12\n1\"\n"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_c0",
+        "distance": 0.4681028723716736,
+        "text_preview": "1/124\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Selection and ordering data\nMounting bracket\nSteel, galvanized\nH01\nStainless steel 1.4301/304\nH02\nStainless steel 1.4404/316L\nH03\nFlange connection"
+      },
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c1",
+        "distance": 0.46889734268188477,
+        "text_preview": "1/147\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\nThreaded connection G¾\", G1\" and G2\" acc. to DIN 3852\nOrder\ncode\nDN\nPN\nD\nH2\nR11\n¾\"\n63\n37 mm (1.5\")\nApprox.\n45 mm (1.8\")\nR12\n1\"\n"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c0",
+        "distance": 0.4697117805480957,
+        "text_preview": "1/123\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainles"
+      },
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c2",
+        "distance": 0.46974921226501465,
+        "text_preview": "1/147\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\nThreaded connection G¾\", G1\" and G2\" acc. to DIN 3852\nOrder\ncode\nDN\nPN\nD\nH2\nR11\n¾\"\n63\n37 mm (1.5\")\nApprox.\n45 mm (1.8\")\nR12\n1\"\n"
+      },
+      {
+        "page_number": 36,
+        "chunk_id": "cli_p36_c4",
+        "distance": 0.4705759882926941,
+        "text_preview": "1/147\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge and absolute pressure, flush-mounted diaphragm\n1\nThreaded connection G¾\", G1\" and G2\" acc. to DIN 3852\nOrder\ncode\nDN\nPN\nD\nH2\nR11\n¾\"\n63\n37 mm (1.5\")\nApprox.\n45 mm (1.8\")\nR12\n1\"\n"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c0",
+        "distance": 0.394636869430542,
+        "text_preview": "1/120\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nAuxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ..."
+      },
+      {
+        "page_number": 47,
+        "chunk_id": "cli_p47_c0",
+        "distance": 0.4081924557685852,
+        "text_preview": "1/158\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor absolute pressure (differential pressure series)\n1\nDisplays and controls\nKeys\n4 keys for operation directly on the device\nDisplay\n• With or without integrated display (optional)\n• Cov"
+      },
+      {
+        "page_number": 68,
+        "chunk_id": "cli_p68_c1",
+        "distance": 0.4354272484779358,
+        "text_preview": "1/179\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n■Technical specifications\nSITRANS P320 / SITRANS P420 for level\nInput\nMeasured variable\nLevel\nSpan (infinitely adjustable) and maximum operating\npressure (pursuant to Pressure"
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c0",
+        "distance": 0.43601661920547485,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code."
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c1",
+        "distance": 0.4385882616043091,
+        "text_preview": "1/120\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nAuxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ...\n45 V DC\n10.5 ... 30 V DC in intrinsically safe mode\nRipple\nUSS  0.2 V (47 … 12"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_c3",
+        "distance": 0.438850998878479,
+        "text_preview": "1/120\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\nAuxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ...\n45 V DC\n10.5 ... 30 V DC in intrinsically safe mode\nRipple\nUSS  0.2 V (47 … 12"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 77,
+        "chunk_id": "cli_p77_t1_r5",
+        "distance": 0.4567652940750122,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = A |  = 4"
+      },
+      {
+        "page_number": 76,
+        "chunk_id": "cli_p76_t1_r15",
+        "distance": 0.4616016149520874,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = 1 |  = L |  = B"
+      },
+      {
+        "page_number": 76,
+        "chunk_id": "cli_p76_t1_r17",
+        "distance": 0.4616016149520874,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = 1 |  = L |  = F"
+      },
+      {
+        "page_number": 76,
+        "chunk_id": "cli_p76_t1_r25",
+        "distance": 0.4616016149520874,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = 1 |  = P |  = F"
+      },
+      {
+        "page_number": 76,
+        "chunk_id": "cli_p76_t1_r29",
+        "distance": 0.4616016149520874,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = 1 |  = Q |  = F"
+      },
+      {
+        "page_number": 76,
+        "chunk_id": "cli_p76_t1_r31",
+        "distance": 0.4616016149520874,
+        "text_preview": "TABLE ROW: Selection and Ordering data Article No. Order\ncode =  |  = 1 |  = R |  = B"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r24",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: A00 = B13"
+      },
+      {
+        "page_number": 42,
+        "chunk_id": "cli_p42_t2_r29",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: D10 = E49"
+      },
+      {
+        "page_number": 43,
+        "chunk_id": "cli_p43_t1_r5",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: E80 = H02"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t1_r30",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: A00 = C11"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t2_r20",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: D10 = E24"
+      },
+      {
+        "page_number": 64,
+        "chunk_id": "cli_p64_t1_r0",
+        "distance": 0.2046370506286621,
+        "text_preview": "TABLE ROW: E80 = E81"
+      }
+    ],
+    "classe": [
+      {
+        "page_number": 27,
+        "chunk_id": "cli_p27_t1_r3",
+        "distance": 0.3515080213546753,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge and absolute pressure, with flush-mounted diaphragm =  |  = Observe the temperature class in areas subject to explosion hazard."
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r4",
+        "distance": 0.35410141944885254,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (pressure series) =  |  = Observe the temperature class in areas subject to explosion hazard."
+      },
+      {
+        "page_number": 71,
+        "chunk_id": "cli_p71_t1_r12",
+        "distance": 0.3699573874473572,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = To certified intrinsically safe circuits with peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 71,
+        "chunk_id": "cli_p71_t1_r26",
+        "distance": 0.3704579472541809,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 71,
+        "chunk_id": "cli_p71_t1_r33",
+        "distance": 0.3704579472541809,
+        "text_preview": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t1_r23",
+        "distance": 0.3717532157897949,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (differential pressure series) =  |  = Observe the temperature class in areas subject to explosion hazard."
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r31",
+        "distance": 0.4444054365158081,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (pressure series) =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r5",
+        "distance": 0.4444054365158081,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (pressure series) =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r17",
+        "distance": 0.4456624984741211,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (pressure series) =  |  = To certified intrinsically safe circuits with peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t1_r28",
+        "distance": 0.4526333808898926,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (differential pressure series) =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "cli_p18_t1_r8",
+        "distance": 0.4526333808898926,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (differential pressure series) =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "cli_p18_t1_r15",
+        "distance": 0.4526333808898926,
+        "text_preview": "TABLE ROW: SITRANS P320 / SITRANSP420 for gauge pressure (differential pressure series) =  |  = To certified intrinsically safe circuits with the peak values:\nUi = 30V, Ii = 101mA, Pi = 760mW\nUi = 29V, Ii = 110mA, Pi = 800mW"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c0",
+        "distance": 0.46867525577545166,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code."
+      },
+      {
+        "page_number": 73,
+        "chunk_id": "cli_p73_c0",
+        "distance": 0.5104358196258545,
+        "text_preview": "1/184\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n■Selection and ordering data\nArticle No.\nPressure transmitters for level\nSITRANS P320\n7MF 0 3 6 7 - 77777 - 7777\nSITRANS P420\n7MF 0 4 6 7 - 77777 - 7777\nClick on the Article n"
+      },
+      {
+        "page_number": 72,
+        "chunk_id": "cli_p72_c0",
+        "distance": 0.5134420394897461,
+        "text_preview": "1/183\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n1) Specification only applies to the basic unit.\nThe remote seal error must be considered additively.\n2) Han 8D is identical to Han 8U.\n• Explosion protection acc. to FM\nAvail"
+      },
+      {
+        "page_number": 70,
+        "chunk_id": "cli_p70_c0",
+        "distance": 0.5214650630950928,
+        "text_preview": "1/181\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nDesign\nWeight\n• According to EN (pressure transmitter with mount-\ning flange, without tube)\n• According to ASME (pressure transmitter with\nmounting flange, without tube)\nMater"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_c0",
+        "distance": 0.5244585275650024,
+        "text_preview": "1/174\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor differential pressure and flow\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainless "
+      },
+      {
+        "page_number": 70,
+        "chunk_id": "cli_p70_c1",
+        "distance": 0.5261400938034058,
+        "text_preview": "1/181\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nDesign\nWeight\n• According to EN (pressure transmitter with mount-\ning flange, without tube)\n• According to ASME (pressure transmitter with\nmounting flange, without tube)\nMater"
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c0",
+        "distance": 0.43601661920547485,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code."
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_c0",
+        "distance": 0.4630553722381592,
+        "text_preview": "1/114\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\nNameplates\nNameplate\nThe nameplate with the article no. and other important informa-\ntion, such as design details and technical data, is located on the\ncover over "
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c1",
+        "distance": 0.4648277759552002,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code.\nFactory certificates\nQuality inspection certificate (Five-step factory\nc"
+      },
+      {
+        "page_number": 78,
+        "chunk_id": "cli_p78_c2",
+        "distance": 0.4748634696006775,
+        "text_preview": "1/189\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\nSelection and Ordering data\nOrder code\nFurther designs\nAdd \"-Z\" to Article No. and specify Order code.\nFactory certificates\nQuality inspection certificate (Five-step factory\nc"
+      },
+      {
+        "page_number": 73,
+        "chunk_id": "cli_p73_c0",
+        "distance": 0.4799068570137024,
+        "text_preview": "1/184\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n■Selection and ordering data\nArticle No.\nPressure transmitters for level\nSITRANS P320\n7MF 0 3 6 7 - 77777 - 7777\nSITRANS P420\n7MF 0 4 6 7 - 77777 - 7777\nClick on the Article n"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_c0",
+        "distance": 0.4860128164291382,
+        "text_preview": "1/112\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nTechnical description\n1\n■Overview\nSITRANS P320/P420 pressure transmitters are digital pressure\ntransmitters featuring extensive user-friendliness and high accu-\nracy.\nThe parameter assign"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 74,
+        "chunk_id": "cli_p74_c0",
+        "distance": 0.37024515867233276,
+        "text_preview": "1/185\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor level\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainless steel\nA02\nStainless steel"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_c0",
+        "distance": 0.3860297203063965,
+        "text_preview": "1/174\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor differential pressure and flow\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainless "
+      },
+      {
+        "page_number": 50,
+        "chunk_id": "cli_p50_c0",
+        "distance": 0.4041440486907959,
+        "text_preview": "1/161\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor absolute pressure (differential pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMe"
+      },
+      {
+        "page_number": 42,
+        "chunk_id": "cli_p42_c0",
+        "distance": 0.40640103816986084,
+        "text_preview": "1/153\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor absolute pressure (pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStain"
+      },
+      {
+        "page_number": 21,
+        "chunk_id": "cli_p21_c0",
+        "distance": 0.4079090356826782,
+        "text_preview": "1/132\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (differential pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c0",
+        "distance": 0.4089277982711792,
+        "text_preview": "1/123\nPressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420\nfor gauge pressure (pressure series)\n1\n■Selection and ordering data\nOptions\nOrder code\nAdd \"-Z\" to article no. and specify order code.\nCable glands included\nPlastic\nA00\nMetal\nA01\nStainles"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r24",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: A00 = B13"
+      },
+      {
+        "page_number": 42,
+        "chunk_id": "cli_p42_t2_r29",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: D10 = E49"
+      },
+      {
+        "page_number": 43,
+        "chunk_id": "cli_p43_t1_r5",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: E80 = H02"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t1_r30",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: A00 = C11"
+      },
+      {
+        "page_number": 63,
+        "chunk_id": "cli_p63_t2_r20",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: D10 = E24"
+      },
+      {
+        "page_number": 64,
+        "chunk_id": "cli_p64_t1_r0",
+        "distance": 0.34868794679641724,
+        "text_preview": "TABLE ROW: E80 = E81"
+      }
+    ]
+  },
+  "llm_meta": {
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "SITRANS P320/P420",
+      "quote": "Pressure Measurement\nTransmitters for applications with advanced requirements (Advanced)\nSITRANS P320/P420",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"SITRANS P320/P420\", \"confidence\": 0.95, \"quote\": \"Pressure Measurement\\nTransmitters for applications with advanced requirements (Advanced)\\nSITRANS P320/P420\"}",
+      "error": null
+    },
+    "categorie": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "Infinitely adjustable spans from 0.01 bar to 700 bar (0.15 psi to 10153 psi)",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": false,
+        "allowed_value": false,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "expected_type",
+      "raw": "{\"value\": {\"min\": 0.01, \"max\": 700, \"unite\": \"bar\"}, \"confidence\": 1.0, \"quote\": \"Infinitely adjustable spans from 0.01 bar to 700 bar (0.15 psi to 10153 psi)\"}",
+      "error": null
+    },
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = Level",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Level\", \"confidence\": 0.95, \"quote\": \"TABLE ROW: SITRANSP320 / SITRANSP420 for level =  |  = Level\"}",
+      "error": null
+    },
+    "technologie": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "The measuring cell is prevented from rotating by a locking screw (5).",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Electronique\", \"confidence\": 0.95, \"quote\": \"The measuring cell is prevented from rotating by a locking screw (5).\"}",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "8.3 ... 250 mbar",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": {\"min\": 8.3, \"max\": 250, \"unite\": \"mbar\"}, \"confidence\": 1.0, \"quote\": \"8.3 ... 250 mbar\"}",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "nbFils": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": "Threaded connection G¾\", G1\" and G2\" acc. to DIN 3852",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": false,
+        "expected_type": false,
+        "allowed_value": false,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "min_confidence",
+      "raw": "{\"value\": {\"min\": null, \"max\": null, \"unite\": \"mm\"}, \"confidence\": 0.0, \"quote\": \"Threaded connection G¾\\\", G1\\\" and G2\\\" acc. to DIN 3852\"}",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": false,
+      "confidence": 1.0,
+      "value": null,
+      "quote": "Auxiliary power UH\nTerminal voltage on pressure transmitter\n10.5 ...\n45 V DC\n10.5 ... 30 V DC in intrinsically safe mode",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": false,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "allowed_value",
+      "raw": "{\"value\": \"45 V DC\", \"confidence\": 1.0, \"quote\": \"Auxiliary power UH\\nTerminal voltage on pressure transmitter\\n10.5 ...\\n45 V DC\\n10.5 ... 30 V DC in intrinsically safe mode\"}",
+      "error": null
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "communication": {
+      "accepted": false,
+      "confidence": 0.95,
+      "value": null,
+      "quote": "E80 = E81",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"Modbus TCP\", \"confidence\": 0.95, \"quote\": \"E80 = E81\"}",
+      "error": null
+    },
+    "classe": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 1.0,
+      "value": "SITRANS P320/P420",
+      "quote": "SITRANS P320/P420",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"SITRANS P320/P420\", \"confidence\": 1.0, \"quote\": \"SITRANS P320/P420\"}",
+      "error": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "SITRANS P320/P420",
+      "quote": "SITRANS P320/P420",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"SITRANS P320/P420\", \"confidence\": 0.95, \"quote\": \"SITRANS P320/P420\"}",
+      "error": null
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 0.95,
+      "value": "SITRANS P320/P420",
+      "quote": "SITRANS P320/P420",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"SITRANS P320/P420\", \"confidence\": 0.95, \"quote\": \"SITRANS P320/P420\"}",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "semantic_guard": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    }
+  }
+}

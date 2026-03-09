@@ -4,17 +4,17 @@ Configuration for the PDF Extractor backend.
 import os
 
 # -- Ollama Models --------------------------------------------------
-TEXT_MODEL = "gemma3:4b"         # Using VL model for text too (handles both)
-EMBEDDING_MODEL = "nomic-embed-text" # Embedding model
+TEXT_MODEL = "qwen3.5:2b"         
+EMBEDDING_MODEL = "qwen3-embedding:0.6b" # Embedding model
 
 # -- Extraction Policy ----------------------------------------------
 # If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).
 ACCURACY_FIRST = True
 
-MIN_EXTRACT_CONFIDENCE = 0.7
+MIN_EXTRACT_CONFIDENCE = 0.5
 
 # -- Chunking ------------------------------------------------------
-CHUNK_SIZE = 350          # tokens (~375 words)
+CHUNK_SIZE = 400          # tokens (~375 words)
 CHUNK_OVERLAP = 80       # 20% overlap
 CHARS_PER_TOKEN = 4       # approximate characters per token
 
@@ -24,7 +24,7 @@ CHROMA_COLLECTION_NAME = "pdf_chunks"
 
 # -- PDF Processing -------------------------------------------------
 IMAGE_DPI = 300           # DPI for rendering PDF pages as images
-TOP_K_CHUNKS = 6         # Number of chunks to retrieve per field
+TOP_K_CHUNKS = 5         # Number of chunks to retrieve per field
 
 
 # -- Server ---------------------------------------------------------

@@ -6,118 +6,228 @@ import json
 import ollama as ollama_client
 import re
 import time
+from datetime import datetime
 
 from config import ACCURACY_FIRST, TEXT_MODEL
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
 from services.document_classifier import DocumentContext
 
 
-def _build_extraction_prompt(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> str:
-    """Build a prompt for extracting a specific field value."""
+# ---------------------------------------------------------------------------
+# Per-field prompt rules + few-shot examples
+# ---------------------------------------------------------------------------
+
+FIELD_PROMPT_RULES: dict[str, str] = {
+    "equipmentName": (
+        'Extract ONLY the commercial product name — the human-readable marketing name printed on the cover '
+        'or title page (e.g. "SITRANS P320", "OPTIFLUX 2000", "SIMATIC S7-1200", "LOGO! 8").\n'
+        'NEVER return part/order/article numbers (patterns: 6AV…, 6ES7…, 7MF…, alphanumeric codes with hyphens).\n'
+        'If multiple names appear, pick the PRIMARY product the document is about.\n'
+        'If only an order number exists with no commercial name → null.\n'
+        "GOOD: 'SITRANS P320' | BAD: '6ES7 153-1AA00-0XB0', 'Pressure Transmitter'"
+    ),
+
+    "reference": (
+        'Extract the manufacturer part number / order number / article number '
+        '(e.g. "6ES7 315-2EH14-0AB0", "7MF4433-1DA02", "FMR51-AAACBMJF2A4").\n'
+        'This is the alphanumeric code used to order the product — NOT the commercial name.\n'
+        "GOOD: '6ES7 315-2EH14-0AB0' | BAD: 'SIMATIC S7-300', 'transmitter'"
+    ),
+
+    "fabricant": (
+        'Extract the manufacturer / brand name as printed in the document '
+        '(e.g. "Siemens", "Endress+Hauser", "Krohne", "Yokogawa", "ABB", "Emerson").\n'
+        'Return only the company name, not a product family.\n'
+        "GOOD: 'Endress+Hauser' | BAD: 'SITRANS', 'Series 3000'"
+    ),
+
+    "categorie": (
+        'Classify the equipment into ONE of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre.\n'
+        'Rules:\n'
+        '  - Flow meters (débitmètres, variable area, Coriolis, vortex, electromagnetic flow) → Débitmètre\n'
+        '  - Pressure/level/temp transmitters with 4-20mA output → Transmetteur\n'
+        '  - PLCs/CPUs/controllers → Automate\n'
+        '  - Touchscreens/HMI panels → IHM\n'
+        '  - Passive sensors without signal conditioning → Capteurs\n'
+        '  - Valves/positioners/actuators → Actionneur\n'
+        "GOOD: 'Débitmètre' (for H250 M40), 'Transmetteur' (for SITRANS P320) | BAD: 'flowmeter', 'capteur de débit'"
+    ),
+
+    "typeMesure": (
+        'Extract the physical quantity being measured. Use ONE of: Pression, Debit, Niveau, Temperature, Autre.\n'
+        'Match regardless of language:\n'
+        '  flow/débit/durchfluss → Debit\n'
+        '  pressure/pression/druck → Pression\n'
+        '  level/niveau/füllstand → Niveau\n'
+        '  temperature/température/temperatur → Temperature\n'
+        'A flow meter (débitmètre) always measures Debit.\n'
+        "GOOD: 'Debit' | BAD: 'flow measurement', 'débit de liquides'"
+    ),
+
+    "technologie": (
+        'Extract the measurement/actuation technology principle EXACTLY as described in the document.\n'
+        'Do not translate or reformat — return a short French or bilingual label.\n'
+        'Common examples: Electromagnetique, Piezo-resistif, Ultrasonique, Coriolis, Vortex, '
+        'Radar, Capacitif, Pneumatique, Hydraulique, Section variable (flotteur), TFT Tactile, Autre.\n'
+        'For variable-area / rotameter / float-tube devices → "Section variable (flotteur)"\n'
+        "GOOD: 'Section variable (flotteur)', 'Electromagnetique', 'Coriolis' | BAD: 'float principle', 'variable area flowmeter'"
+    ),
+
+    "typeSignal": (
+        'Extract the output signal type (e.g. "4-20mA", "0-20mA", "0-10V", "HART", "Profibus PA").\n'
+        'Normalise to compact form: "4-20mA", "0-10V", etc.\n'
+        'If multiple signals exist, return the PRIMARY/analog output.\n'
+        "GOOD: '4-20mA' | BAD: '4 to 20 milliampere', 'analog output'"
+    ),
+
+    "plageMesure": (
+        'Extract the measuring range as {min, max, unite}.\n'
+        'Rules:\n'
+        '  - For numeric ranges: min and max are numbers, unite is the unit string.\n'
+        '  - CRITICAL: Ignore rangeability / turndown ratios (e.g. "100 : 1", "10:1"). DO NOT extract min=1, max=100. Return null if no true measurement range (like 0 to 10 m3/h) is given.\n'
+        '  - Never use "1" or "ratio" as a unit. Units must be physical (e.g., m3/h, bar, °C).\n'
+        '  - Ignore: time delays (ms/µs), supply voltages, and ratios.\n'
+        'BAD: {"min": 1, "max": 100, "unite": "1"} ← Ratios are NOT ranges.\n'
+        'BAD: {"min": 0, "max": 20, "unite": "ms"} ← this is a time delay'
+    ),
+
+    "alimentation": (
+        'Extract the supply voltage/power specification as printed '
+        '(e.g. "24V DC", "220V AC", "10.5…30V DC", "85…264V AC").\n'
+        'Normalise: Vdc→V DC, VAC→V AC.\n'
+        "GOOD: '24V DC' | BAD: 'loop powered', 'external supply'"
+    ),
+
+    "nbFils": (
+        'Extract the number of wires for the electrical connection (e.g. "2 fils", "4 fils").\n'
+        '2-wire/2 fils/loop-powered → "2 fils" | 4-wire/4 fils → "4 fils".\n'
+        "GOOD: '2 fils' | BAD: '2-wire transmitter', 'loop'"
+    ),
+
+    "communication": (
+        'Extract the digital communication protocol if present '
+        '(e.g. "HART", "PROFIBUS DP", "Profibus PA", "Foundation Fieldbus", "Profinet", '
+        '"Modbus RTU", "Modbus TCP", "RS-485", "Ethernet").\n'
+        'If the device has no digital protocol (analog only), return null.\n'
+        "GOOD: 'HART' | BAD: '4-20mA with HART option', 'serial'"
+    ),
+
+    "classeProtection": (
+        'Extract the IP/NEMA protection class exactly as written (e.g. "IP67", "IP68", "NEMA 4X").\n'
+        'If multiple IP ratings appear, return the highest one.\n'
+        "GOOD: 'IP67' | BAD: 'dust-proof', 'weatherproof'"
+    ),
+
+    "classificationZone": (
+        'Extract the hazardous area / ATEX / IECEx classification as printed '
+        '(e.g. "II 2G Ex d IIC T6", "ATEX Zone 1", "IECEx Zone 0").\n'
+        'Return null if the device is not certified for hazardous areas.\n'
+        "GOOD: 'II 2G Ex d IIC T6' | BAD: 'approved', 'certified'"
+    ),
+
+    "reperage": (
+        'Extract the tag number / instrument tag used on the P&ID or plant '
+        '(e.g. "FT-101", "PT-202A", "LT_003").\n'
+        'This is a site-specific identifier, NOT a manufacturer model number.\n'
+        "GOOD: 'FT-101' | BAD: '6ES7 315', 'SITRANS P320'"
+    ),
+
+    "dateCalibration": (
+        'Extract the CALIBRATION INTERVAL (how often), NOT a specific calendar date.\n'
+        'Return format: "<N> mois" (e.g. "3 mois", "12 mois", "6 mois").\n'
+        'Convert: quarterly→"3 mois", monthly→"1 mois", annually→"12 mois", every 2 years→"24 mois".\n'
+        'If only a table of past calibration dates appears with no stated interval, compute the gap between dates.\n'
+        'Do NOT return certificate numbers (e.g. IEC 60770-2) or specific dates.\n'
+        "GOOD: '12 mois' | BAD: '2024-03-15', 'IEC 60770-2', 'annual calibration required'"
+    ),
+
+    "sortiesAlarme": (
+        'Extract alarm/relay outputs as a list ONLY if alarm names, thresholds, AND units are ALL explicitly stated.\n'
+        'Each object: {"nomAlarme": "<name>", "typeAlarme": "<Haut|Bas|Défaut>", '
+        '"seuilAlarme": <number>, "uniteAlarme": "<unit>", "relaisAssocie": "<relay>"}\n'
+        'ANTI-HALLUCINATION — nomAlarme and seuilAlarme must be explicit in the document, never guessed.\n'
+        'DO NOT extract fault signal currents (e.g., "Courant de signalisation", 1.0mA, 3.6 mA, 22 mA) as alarm outputs. Alarms must be physical relay or switch outputs, not 4-20mA loop fault states.\n'
+        'If the document only mentions detector type (e.g. "NAMUR") with no thresholds → return null.\n'
+        'GOOD: [{"nomAlarme": "High Flow", "typeAlarme": "Haut", "seuilAlarme": 100, "uniteAlarme": "m3/h", "relaisAssocie": "R1"}]\n'
+        'BAD: [{"nomAlarme": "Courant de signalisation", "seuilAlarme": 3.0, "uniteAlarme": "mA"}] ← Incorrect fault current'
+    ),
+}
+
+
+def _build_extraction_prompt(
+    field_name: str,
+    chunks: list[dict],
+    doc_ctx: DocumentContext | None = None,
+) -> str:
+    """Build a focused, example-driven prompt for a single field."""
     field_info = FIELD_DESCRIPTIONS.get(field_name, {})
     description = field_info.get("description", field_name)
     allowed = field_info.get("allowed_values")
-    
-    # Combine chunk texts
-    context = "\n---\n".join([c["text"] for c in chunks])
-    
+
+    context = "\n---\n".join(c["text"] for c in chunks)
+
     allowed_str = ""
     if allowed:
         allowed_str = (
-            "\nPreferred canonical values (choose one of these IF it exactly matches the PDF text): "
-            + ", ".join(allowed)
-            + "\nIf the PDF contains an explicit value for this field but it is NOT in the canonical list, "
-            + "return the exact PDF value verbatim (do not force it into the list)."
+            f"\nPreferred values (use one of these if it matches the document): {', '.join(allowed)}. "
+            "If the document has a value not in this list, return the exact document value."
         )
-    
+
     doc_ctx_str = ""
-    if doc_ctx is not None:
+    if doc_ctx:
         doc_ctx_str = (
-            f"\nDocument context:\n"
-            f"- doc_type: {doc_ctx.doc_type}\n"
-            f"- classifier_confidence: {doc_ctx.confidence}\n"
-            f"- rationale: {doc_ctx.rationale}\n"
+            f"\nDocument type: {doc_ctx.doc_type} "
+            f"(confidence: {doc_ctx.confidence:.2f}) — {doc_ctx.rationale}\n"
         )
 
-    equipment_name_rule = ""
-    if field_name == "equipmentName":
-        equipment_name_rule = (
-            "- For \"equipmentName\": this is the COMMERCIAL product name only (human-readable). "
-            "Do NOT return part numbers / order numbers / references (e.g., strings like 6AV..., 6ES7..., 7MF...). "
-            "If you only see a reference/order number and no explicit commercial name, return null.\n"
-        )
+    field_rule = FIELD_PROMPT_RULES.get(field_name, "")
+    field_rule_block = f"\nField rules:\n{field_rule}\n" if field_rule else ""
 
-    prompt = f"""You are an industrial document analyzer specializing in equipment datasheets.
+    # Response format hint
+    if field_name == "plageMesure":
+        fmt = '{"value": {"min": <number|null>, "max": <number|null>, "unite": "<unit|null>"}, "confidence": 0.0-1.0, "quote": "<verbatim text>"}'
+    elif field_name == "sortiesAlarme":
+        fmt = '{"value": [{"nomAlarme": "...", "typeAlarme": "...", "seuilAlarme": <number>, "uniteAlarme": "...", "relaisAssocie": "..."}], "confidence": 0.0-1.0, "quote": "<verbatim text>"}'
+    else:
+        fmt = '{"value": "<extracted value or null>", "confidence": 0.0-1.0, "quote": "<verbatim text or null>"}'
+
+    return f"""You are an industrial equipment datasheet analyzer.
 {doc_ctx_str}
-
-Given the following document excerpts, extract the value for the field "{field_name}".
-Field description: {description}{allowed_str}
-
+Extract the field "{field_name}" from the document excerpts below.
+Description: {description}{allowed_str}
+{field_rule_block}
 Document excerpts:
 \"\"\"
 {context}
 \"\"\"
 
-IMPORTANT RULES:
-- Extract ONLY the value for "{field_name}" if it is EXPLICITLY stated in the excerpts.
-- DO NOT guess, infer, or use general knowledge.
-- If the exact value is not explicitly stated or is ambiguous, you MUST respond with null.
-- For the "categorie" field: extract it ONLY if the category word is explicitly written in the excerpts (e.g., "Transmetteur" / "Actionneur"). Otherwise return null.
-{equipment_name_rule}- Apply domain constraints:
-  - If typeMesure is Pression: units must be consistent with pressure (bar, Pa, psi, kPa, MPa, mbar). Never return flow units (m³/h, L/h).
-  - If technologie is Ultrasonique: typeSignal is probably an electrical signal (e.g., 4-20mA or voltage) and should not be a communication protocol.
-- For the "plageMesure" field, extract min, max, and unit separately.
-- For the "plageMesure" field: ONLY accept physical measurement ranges with real units (e.g., m3/h, l/h, bar, °C, %). If the excerpt is about a ratio like "10:1" / "100:1" (rangeability / turndown / plage étendue), you MUST return null.
-- For "sortiesAlarme", extract all alarm entries as a list.
-- Respond with ONLY valid JSON, no other text.
-- If you return a non-null value, you MUST also return a "quote" copied verbatim from the excerpts that supports the value.
-- The quote MUST be an exact substring of the excerpts (do not paraphrase).
-- DO NOT use "..." or "…" in the quote. If you cannot copy a fully verbatim quote, return null.
+RULES:
+- Only extract if the value is EXPLICITLY stated or unambiguously implied.
+- "quote" must be a verbatim substring copied from the excerpts above — no paraphrasing, no ellipses.
+- If the value is not found, return {{"value": null, "confidence": 0.0, "quote": null}}.
+- Respond with ONLY a JSON object. No explanation, no markdown.
 
-Response format:
-{{"value": <extracted_value>, "confidence": <number between 0.0 and 1.0>, "quote": <string or null>}}
+Response format: {fmt}
 
-For plageMesure, use:
-{{"value": {{"min": <number or null>, "max": <number or null>, "unite": "<unit or null>"}}, "confidence": <0.0-1.0>, "quote": <string or null>}}
-
-For sortiesAlarme, use:
-{{"value": [{{"nomAlarme": "<name>", "typeAlarme": "<type>", "seuilAlarme": <number>, "uniteAlarme": "<unit>", "relaisAssocie": "<relay>"}}], "confidence": <0.0-1.0>, "quote": <string or null>}}
-
-Your JSON response:"""
-    
-    return prompt
+JSON:"""
 
 
 def _build_strict_json_prompt(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> str:
-    """A stricter prompt variant used when the model drifts away from JSON."""
     base = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
-    return (
-        base
-        + "\n\nSTRICT MODE: Output MUST be a single JSON object and MUST start with '{' and end with '}'. "
-        + "Do not output any other characters before or after the JSON."
-    )
+    return base + "\n\nSTRICT: Output MUST start with '{{' and end with '}}'. No other characters."
 
+
+# ---------------------------------------------------------------------------
+# Core extraction
+# ---------------------------------------------------------------------------
 
 def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext | None = None) -> dict:
-    """
-    Extract a single field value using the LLM.
-    
-    Args:
-        field_name: The form field to extract.
-        chunks: Relevant document chunks from semantic search.
-        
-    Returns:
-        Dict with 'value' and 'confidence'.
-    """
-    if not _field_applicable(field_name, doc_ctx):
-        return {"value": None, "confidence": 0.0, "quote": None}
-
-    if not chunks:
+    if not _field_applicable(field_name, doc_ctx) or not chunks:
         return {"value": None, "confidence": 0.0, "quote": None}
 
     prompt = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
-
     last_error: Exception | None = None
+
     for attempt in range(1, 4):
         try:
             try:
@@ -126,116 +236,237 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
                     messages=[{"role": "user", "content": prompt}],
                     options={"temperature": 0.1},
                     format="json",
-                    keep_alive="10m",  # Keep model in VRAM for 10 minutes
+                    keep_alive="10m",
                 )
             except TypeError:
                 response = ollama_client.chat(
                     model=TEXT_MODEL,
                     messages=[{"role": "user", "content": prompt}],
                     options={"temperature": 0.1},
-                    keep_alive="10m",  # Keep model in VRAM for 10 minutes
+                    keep_alive="10m",
                 )
 
             raw = response["message"]["content"].strip()
             result = _parse_llm_json(raw)
 
-            # If the model drifted away from JSON, retry once with a stricter instruction.
-            if attempt < 3 and (result.get("value") is None and (not raw.lstrip().startswith("{") or not raw.rstrip().endswith("}"))):
+            if attempt < 3 and result.get("value") is None and not (raw.lstrip().startswith("{") and raw.rstrip().endswith("}")):
                 prompt = _build_strict_json_prompt(field_name, chunks, doc_ctx=doc_ctx)
-                raise ValueError("LLM did not return JSON; retrying with strict JSON prompt")
+                raise ValueError("LLM did not return JSON; retrying with strict prompt")
 
-            result["_raw"] = raw[:1200]
-            if "quote" not in result:
-                result["quote"] = None
-            if "confidence" not in result:
-                result["confidence"] = 0.0
-            if "value" not in result:
-                result["value"] = None
+            result.setdefault("_raw", raw[:1200])
+            result.setdefault("quote", None)
+            result.setdefault("confidence", 0.0)
+            result.setdefault("value", None)
             return result
 
         except Exception as e:
             last_error = e
-            wait_s = 2 * attempt
-            print(f"[LLM] Error extracting '{field_name}' (attempt {attempt}/3): {e}")
+            print(f"[LLM] Error '{field_name}' (attempt {attempt}/3): {e}")
             if attempt < 3:
-                time.sleep(wait_s)
+                time.sleep(2 * attempt)
 
-    print(f"[LLM] Giving up extracting '{field_name}' after 3 attempts: {last_error}")
-    return {"value": None, "confidence": 0.0, "quote": None, "_raw": None, "_error": str(last_error) if last_error else None}
+    print(f"[LLM] Giving up '{field_name}': {last_error}")
+    return {"value": None, "confidence": 0.0, "quote": None, "_error": str(last_error) if last_error else None}
 
+
+# ---------------------------------------------------------------------------
+# Validation helpers  (lean — trust the LLM + quote anchor)
+# ---------------------------------------------------------------------------
 
 def _field_applicable(field_name: str, doc_ctx: DocumentContext | None) -> bool:
-    """Return False when a field should be forced null for a given document type."""
-    if doc_ctx is None:
+    return True  # Extend with doc_type gates if needed
+
+
+def _quote_in_context(quote: str | None, chunks: list[dict]) -> bool:
+    if not quote or "..." in quote or "…" in quote:
+        return False
+    context = "\n---\n".join(c.get("text", "") for c in chunks)
+    q = quote.strip()
+    if q in context:
         return True
+    # Normalised whitespace fallback
+    def _norm(s): return re.sub(r"\s+", " ", s).strip().lower()
+    return bool(q) and _norm(q) in _norm(context)
 
-    # For HMI manuals/spec sheets, these schema fields (instrument taxonomy) are usually inapplicable.
-    if doc_ctx.doc_type == "hmi_manual":
-        if field_name in {"categorie", "typeMesure", "technologie", "plageMesure", "sortiesAlarme", "dateCalibration", "classe"}:
-            return False
 
+def _value_supported_by_quote(value, quote: str | None) -> bool:
+    """Lightweight lexical check: extracted value should appear in the quote."""
+    if value is None:
+        return True
+    if not quote:
+        return False
+    if isinstance(value, str):
+        v = value.strip().lower()
+        q = quote.lower()
+        # Try direct substring, then compact (strip non-alnum)
+        if v in q:
+            return True
+        vc = re.sub(r"[^a-z0-9]", "", v)
+        qc = re.sub(r"[^a-z0-9]", "", q)
+        return bool(vc) and vc in qc
+    # For dicts/lists just trust quote presence
     return True
 
 
+def _normalize_value(field_name: str, value):
+    """Minimal normalization — canonical casing and alias resolution only."""
+    if value is None:
+        return None
+
+    # Unwrap single-key dicts the model sometimes returns
+    if isinstance(value, dict) and field_name not in ("plageMesure", "sortiesAlarme"):
+        if field_name in value:
+            value = value[field_name]
+        elif len(value) == 1:
+            value = next(iter(value.values()))
+
+    if not isinstance(value, str):
+        return value
+
+    v = value.strip()
+    vl = v.lower()
+
+    ALIAS: dict[str, dict[str, str]] = {
+        "categorie": {
+            "transmitter": "Transmetteur", "transmetteur": "Transmetteur",
+            "débitmètre": "Débitmètre", "debitmetre": "Débitmètre", "flowmeter": "Débitmètre",
+            "flow meter": "Débitmètre", "compteur": "Débitmètre", "rotameter": "Débitmètre",
+            "capteur": "Capteurs", "capteurs": "Capteurs", "sensor": "Capteurs", "sensors": "Capteurs",
+            "actionneur": "Actionneur", "actuator": "Actionneur",
+            "automate": "Automate", "plc": "Automate", "cpu": "Automate",
+            "ihm": "IHM", "hmi": "IHM",
+            "autre": "Autre", "other": "Autre",
+        },
+        "typeMesure": {
+            "pression": "Pression", "pressure": "Pression", "druck": "Pression",
+            "debit": "Debit", "débit": "Debit", "flow": "Debit", "durchfluss": "Debit",
+            "niveau": "Niveau", "level": "Niveau", "füllstand": "Niveau",
+            "temperature": "Temperature", "température": "Temperature", "temperatur": "Temperature",
+            "autre": "Autre", "other": "Autre",
+        },
+        "communication": {
+            "profibus dp": "PROFIBUS DP", "profibus": "PROFIBUS DP",
+            "profibus pa": "Profibus PA",
+            "foundation fieldbus": "Foundation Fieldbus", "fieldbus": "Foundation Fieldbus",
+            "profinet": "Profinet", "ethernet": "Ethernet",
+            "rs-232": "RS-232", "rs232": "RS-232",
+            "rs-485": "RS-485", "rs485": "RS-485",
+            "modbus tcp": "Modbus TCP", "modbus tcp/ip": "Modbus TCP/IP",
+            "modbus rtu": "Modbus RTU", "hart": "HART",
+        },
+        "technologie": {
+            "électromagnétique": "Electromagnetique", "electromagnetique": "Electromagnetique", "electromagnetic": "Electromagnetique",
+            "magnetique": "Magnetique", "magnétique": "Magnetique",
+            "hydraulique": "Hydraulique", "pneumatique": "Pneumatique",
+            "numérique": "Numerique", "numerique": "Numerique", "digital": "Numerique",
+            "piezo-resistif": "Piezo-resistif", "piézo-résistif": "Piezo-resistif",
+            "electronique": "Electronique", "électronique": "Electronique",
+            "tft tactile": "TFT Tactile", "autre": "Autre", "other": "Autre",
+        },
+        "nbFils": {
+            "2 fils": "2 fils", "2-wire": "2 fils", "two-wire": "2 fils", "2wire": "2 fils", "2": "2 fils",
+            "4 fils": "4 fils", "4-wire": "4 fils", "four-wire": "4 fils", "4wire": "4 fils", "4": "4 fils",
+        },
+    }
+
+    if field_name in ALIAS:
+        mapped = ALIAS[field_name].get(vl)
+        if mapped:
+            return mapped
+
+    # typeSignal normalisation
+    if field_name == "typeSignal":
+        v = v.replace("…", "-").replace("–", "-").replace("...", "-")
+        compact = re.sub(r"\s+", "", v).lower()
+        MAP = {"4-20ma": "4-20mA", "4-20": "4-20mA", "0-20ma": "0-20mA",
+               "0-10v": "0-10V", "0-5v": "0-5V"}
+        return MAP.get(compact, v)
+
+    # alimentation normalisation
+    if field_name == "alimentation":
+        v = v.replace("Vdc", "V DC").replace("VDC", "V DC").replace("Vac", "V AC").replace("VAC", "V AC")
+        compact = re.sub(r"\s+", "", v).lower()
+        if compact == "24vdc": return "24V DC"
+        if compact == "220vac": return "220V AC"
+        return v
+
+    # dateCalibration: ensure "<N> mois" format
+    if field_name == "dateCalibration":
+        m = re.search(r"\b(\d{1,3})\s*(mois|month|months|an|ans|year|years|jour|day|days)\b", vl)
+        if m:
+            n, unit = int(m.group(1)), m.group(2)
+            if unit in {"an", "ans", "year", "years"}: n *= 12
+            if unit in {"jour", "day", "days"}: return f"{n} jours"
+            return f"{n} mois"
+        ADVERBS = {
+            "trimestriel": "3 mois", "quarterly": "3 mois",
+            "mensuel": "1 mois", "monthly": "1 mois",
+            "annuel": "12 mois", "annually": "12 mois", "yearly": "12 mois",
+        }
+        for kw, canonical in ADVERBS.items():
+            if kw in vl:
+                return canonical
+        return v
+
+    return v
+
+
+def _is_expected_type(field_name: str, value) -> bool:
+    if value is None: return True
+    if field_name == "plageMesure": return isinstance(value, dict)
+    if field_name == "sortiesAlarme": return isinstance(value, list)
+    return isinstance(value, str)
+
+
+# Fields where the allowed_values list is a soft hint, not a hard constraint.
+# The LLM may return valid values not in the list (e.g. "Débitmètre" for categorie).
+_OPEN_FIELDS = {"categorie", "technologie", "typeMesure", "communication"}
+
+def _is_value_allowed(field_name: str, value) -> bool:
+    if not ACCURACY_FIRST: return True
+    if field_name in _OPEN_FIELDS: return True   # open-ended: don't block valid extractions
+    allowed = FIELD_DESCRIPTIONS.get(field_name, {}).get("allowed_values")
+    if value is None or not allowed: return True
+    return isinstance(value, str) and value in allowed
+
+
 def _parse_llm_json(raw: str) -> dict:
-    """Parse JSON from LLM response, handling common formatting issues."""
     if not raw:
         return {"value": None, "confidence": 0.0, "quote": None}
 
-    # Strip markdown code block markers if present
+    # Strip markdown fences
     if raw.startswith("```"):
-        lines = raw.split("\n")
-        lines = [l for l in lines if not l.strip().startswith("```")]
-        raw = "\n".join(lines)
+        raw = "\n".join(l for l in raw.split("\n") if not l.strip().startswith("```"))
 
-    def _extract_first_json_object(text: str) -> str | None:
-        s = text or ""
-        start = s.find("{")
-        if start < 0:
-            return None
-
-        depth = 0
-        in_str = False
-        esc = False
-        for i in range(start, len(s)):
-            ch = s[i]
-
+    def _first_json_obj(text: str) -> str | None:
+        start = text.find("{")
+        if start < 0: return None
+        depth = in_str = esc = False
+        for i in range(start, len(text)):
+            ch = text[i]
             if in_str:
-                if esc:
-                    esc = False
-                    continue
-                if ch == "\\":
-                    esc = True
-                    continue
-                if ch == '"':
-                    in_str = False
+                if esc: esc = False; continue
+                if ch == "\\": esc = True; continue
+                if ch == '"': in_str = False
                 continue
-
-            if ch == '"':
-                in_str = True
-                continue
-
-            if ch == "{":
-                depth += 1
+            if ch == '"': in_str = True; continue
+            if ch == "{": depth += 1
             elif ch == "}":
                 depth -= 1
-                if depth == 0:
-                    return s[start : i + 1]
-
+                if depth == 0: return text[start:i + 1]
         return None
 
     try:
         parsed = json.loads(raw)
     except json.JSONDecodeError:
-        extracted = _extract_first_json_object(raw)
+        extracted = _first_json_obj(raw)
         if extracted:
-            try:
-                parsed = json.loads(extracted)
+            try: parsed = json.loads(extracted)
             except json.JSONDecodeError:
-                print(f"[LLM] JSON parse failed (showing first 240 chars): {raw[:240]!r}")
+                print(f"[LLM] JSON parse failed: {raw[:240]!r}")
                 return {"value": None, "confidence": 0.0, "quote": None}
         else:
-            print(f"[LLM] JSON parse failed (no '{{' found; first 240 chars): {raw[:240]!r}")
+            print(f"[LLM] No JSON object found: {raw[:240]!r}")
             return {"value": None, "confidence": 0.0, "quote": None}
 
     if not isinstance(parsed, dict):
@@ -247,458 +478,93 @@ def _parse_llm_json(raw: str) -> dict:
     return parsed
 
 
-def _normalize_value(field_name: str, value):
-    if value is None:
-        return None
+# ---------------------------------------------------------------------------
+# Cross-field guard  (minimal — only clearly wrong cases)
+# ---------------------------------------------------------------------------
 
-    # Some models may return a dict for scalar fields, e.g. {"categorie": "Transmetteur"}.
-    # Coerce to the inner scalar when possible.
-    if isinstance(value, dict):
-        if field_name in value and not isinstance(value[field_name], (dict, list)):
-            value = value[field_name]
-        elif len(value) == 1:
-            only_val = next(iter(value.values()))
-            if not isinstance(only_val, (dict, list)):
-                value = only_val
+def _apply_cross_field_guards(extracted: dict) -> dict:
+    out = dict(extracted)
 
-        # Some models return range-like objects for scalar string fields, e.g.
-        # {"min": "SITRANS P320", "max": "SITRANS P320", "unit": "..."}.
-        # If min/max are identical scalars, unwrap to that scalar.
-        if isinstance(value, dict):
-            min_v = value.get("min")
-            max_v = value.get("max")
-            if min_v is not None and max_v is not None and min_v == max_v and not isinstance(min_v, (dict, list)):
-                value = min_v
+    # equipmentName must not look like an order number
+    eq = out.get("equipmentName")
+    ref = out.get("reference")
+    if isinstance(eq, str):
+        is_ref_pattern = bool(re.match(r"^(6AV|6ES7|7MF)\b", eq, re.I)) or (
+            bool(re.fullmatch(r"[A-Z0-9\-_/\.]{8,}", eq.upper()))
+            and any(c.isdigit() for c in eq)
+            and any(c.isalpha() for c in eq)
+        )
+        if is_ref_pattern or (isinstance(ref, str) and eq.strip() == ref.strip()):
+            out.pop("equipmentName", None)
 
-    if field_name == "typeSignal" and isinstance(value, str):
-        v = value.strip()
-        v = v.replace("…", "-").replace("–", "-").replace("...", "-")
-        compact = v.replace(" ", "").lower()
-        if compact in {"4-20ma", "4-20"}:
-            return "4-20mA"
-        if compact in {"0-20ma", "0-20"}:
-            return "0-20mA"
-        if compact in {"0-10v", "0-10"}:
-            return "0-10V"
-        if compact in {"0-5v", "0-5"}:
-            return "0-5V"
-        return v
+    # plageMesure unit must match typeMesure (pressure → pressure unit)
+    if out.get("typeMesure") == "Pression" and isinstance(out.get("plageMesure"), dict):
+        unite = (out["plageMesure"].get("unite") or "").strip().lower()
+        if unite not in {"bar", "pa", "psi", "kpa", "mpa", "mbar", "mmhg", "mmh2o", "inhg"}:
+            out.pop("plageMesure", None)
 
-    if field_name == "typeMesure" and isinstance(value, str):
-        v = value.strip()
-        v_l = v.lower()
-        if v_l in {"debit", "débit", "flow"}:
-            return "Debit"
-        if v_l in {"niveau", "level"}:
-            return "Niveau"
-        if v_l in {"pression", "pressure"}:
-            return "Pression"
-        if v_l in {"temperature", "température", "temperature."}:
-            return "Temperature"
-        if v_l in {"autre", "other", "n/a", "na"}:
-            return "Autre"
-        return v
+    # plageMesure unit must not be a ratio
+    if isinstance(out.get("plageMesure"), dict):
+        unite = (out["plageMesure"].get("unite") or "").strip()
+        if ":" in unite or unite.replace(".", "").isdigit():
+            out.pop("plageMesure", None)
 
-    if field_name == "categorie" and isinstance(value, str):
-        v = value.strip()
-        v_l = v.lower()
-        mapping = {
-            "transmetteur": "Transmetteur",
-            "transmitter": "Transmetteur",
-            "actionneur": "Actionneur",
-            "actuator": "Actionneur",
-            "capteurs": "Capteurs",
-            "capteur": "Capteurs",
-            "sensor": "Capteurs",
-            "sensors": "Capteurs",
-            "automate": "Automate",
-            "plc": "Automate",
-            "cpu": "Automate",
-            "ihm": "IHM",
-            "hmi": "IHM",
-            "autre": "Autre",
-            "other": "Autre",
-        }
-        return mapping.get(v_l, v)
-
-    if field_name == "technologie" and isinstance(value, str):
-        v = value.strip()
-        v_l = v.lower()
-        mapping = {
-            "électromagnétique": "Electromagnetique",
-            "electromagnetique": "Electromagnetique",
-            "magnetique": "Magnetique",
-            "magnétique": "Magnetique",
-            "hydraulique": "Hydraulique",
-            "pneumatique": "Pneumatique",
-            "numérique": "Numerique",
-            "numerique": "Numerique",
-            "piezo-resistif": "Piezo-resistif",
-            "piézo-résistif": "Piezo-resistif",
-            "electronique": "Electronique",
-            "électronique": "Electronique",
-            "section variable": "Section variable",
-            "tft tactile": "TFT Tactile",
-            "tft tactile lcd": "TFT Tactile",
-            "tactile lcd": "Tactile LCD",
-            "autre": "Autre",
-            "other": "Autre",
-        }
-        return mapping.get(v_l, v)
-
-    if field_name == "alimentation" and isinstance(value, str):
-        v = value.strip()
-        v = v.replace("Vdc", "V DC").replace("VDC", "V DC")
-        v = v.replace("Vac", "V AC").replace("VAC", "V AC")
-        compact = v.replace(" ", "").lower()
-        if compact == "24vdc":
-            return "24V DC"
-        if compact == "220vac":
-            return "220V AC"
-        return v
-
-    if field_name == "nbFils":
-        if isinstance(value, int):
-            return str(value)
-        if isinstance(value, str):
-            v = value.strip()
-            v_l = v.lower()
-            if v_l in {"2 fils", "2-wire", "two-wire", "2wire"}:
-                return "2 fils"
-            if v_l in {"4 fils", "4-wire", "four-wire", "4wire"}:
-                return "4 fils"
-            if v_l in {"1", "2", "4"}:
-                return v_l
-            return v
-
-    if field_name == "communication" and isinstance(value, str):
-        v = value.strip()
-        v_l = v.lower()
-        mapping = {
-            "profibus dp": "PROFIBUS DP",
-            "profibus": "PROFIBUS DP",
-            "profibus pa": "Profibus PA",
-            "foundation fieldbus": "Foundation Fieldbus",
-            "fieldbus": "Foundation Fieldbus",
-            "profinet": "Profinet",
-            "ethernet": "Ethernet",
-            "rs-232": "RS-232",
-            "rs232": "RS-232",
-            "rs-485": "RS-485",
-            "rs485": "RS-485",
-            "modbus tcp": "Modbus TCP",
-            "modbus tcp/ip": "Modbus TCP/IP",
-            "modbus tcpip": "Modbus TCP/IP",
-            "modbus rtu": "Modbus RTU",
-            "hart": "HART",
-            "mitsubishi mc tcp/ip": "Mitsubishi MC TCP/IP",
-        }
-        return mapping.get(v_l, v)
-
-    return value
+    return out
 
 
-def _is_value_allowed(field_name: str, value) -> bool:
-    if not ACCURACY_FIRST:
-        return True
+# ---------------------------------------------------------------------------
+# Main extraction entry points
+# ---------------------------------------------------------------------------
 
-    field_info = FIELD_DESCRIPTIONS.get(field_name, {})
-    allowed = field_info.get("allowed_values")
-    if value is None or not allowed:
-        return True
-
-    if isinstance(value, str):
-        return value in allowed
-    return False
-
-
-def _is_expected_type(field_name: str, value) -> bool:
-    if value is None:
-        return True
-    if field_name == "plageMesure":
-        return isinstance(value, dict)
-    if field_name == "sortiesAlarme":
-        return isinstance(value, list)
-    return isinstance(value, str)
-
-
-def _quote_in_context(quote: str | None, chunks: list[dict]) -> bool:
-    if not quote or not isinstance(quote, str) or not quote.strip():
-        return False
-
-    # Quotes containing ellipses are not verbatim and should not be accepted.
-    if "..." in quote or "…" in quote:
-        return False
-
-    context = "\n---\n".join([(c.get("text") or "") for c in chunks])
-    if not context:
-        return False
-
-    q = quote.strip()
-    if q in context:
-        return True
-
-    def _norm(s: str) -> str:
-        # Normalize whitespace for robust matching, but keep content strict.
-        s = s.replace("\r\n", "\n").replace("\r", "\n")
-        s = re.sub(r"\s+", " ", s)
-        return s.strip().lower()
-
-    qn = _norm(q)
-    cn = _norm(context)
-
-    # If the model copied a multi-line quote, it may not appear as one contiguous substring
-    # because of line breaks or repeated headers. We still want verbatim behavior, so we
-    # only accept if each non-empty line appears in the context *in order*.
-    if "\n" in q:
-        parts = [p.strip() for p in q.splitlines() if p.strip()]
-        if not parts:
-            return False
-
-        pos = 0
-        for p in parts:
-            pn = _norm(p)
-            if not pn:
-                continue
-            idx = cn.find(pn, pos)
-            if idx < 0:
-                return False
-            pos = idx + len(pn)
-        return True
-
-    return bool(qn) and qn in cn
-
-
-def _value_supported_by_quote(value, quote: str | None) -> bool:
-    if value is None:
-        return True
-    if not quote or not isinstance(quote, str) or not quote.strip():
-        return False
-
-    # Pure lexical support check.
-    # (Semantic correctness is handled separately in _passes_semantic_guard.)
-    return _basic_value_supported_by_quote(value, quote)
-
-
-def _basic_value_supported_by_quote(value, quote: str) -> bool:
-    """Original lexical support check, extracted so we can add semantic guards on top."""
-    if isinstance(value, str):
-        v = value.strip().lower()
-        q = quote.lower()
-        if v and v in q:
-            return True
-        v_compact = "".join(ch for ch in v if ch.isalnum())
-        q_compact = "".join(ch for ch in q if ch.isalnum())
-        return bool(v_compact) and v_compact in q_compact
-    return True
-
-
-def _passes_semantic_guard(field_name: str, value, quote: str | None) -> bool:
-    """Extra field-specific checks to prevent semantically wrong but text-supported values."""
-    if value is None:
-        return True
-
-    q = (quote or "").strip()
-    ql = q.lower()
-
-    if field_name == "dateCalibration":
-        # Accept only if quote contains calibration intent.
-        # Reject common doc metadata.
-        if any(k in ql for k in ["last modified", "modified", "revision", "rev.", "édition", "edition", "version", "published"]):
-            return False
-        return any(k in ql for k in ["calibration", "calibrated", "étalonn", "etalonn", "certificate", "certificat"])
-
-    if field_name == "plageMesure":
-        if not isinstance(value, dict):
-            return False
-        # Reject timing/delay contexts (ms/us) unless it's explicitly a measuring range.
-        # PLC datasheets frequently contain "input delay" and similar.
-        if any(k in ql for k in ["delay", "time", "cycle", "bit operation", "input delay", "output delay", "cpu", "reaction time"]):
-            return False
-        if any(u in ql for u in [" ms", "µs", " us"]):
-            # If the quote is in time units, treat as non-measurement range.
-            return False
-        # Reject rangeability ratios and rangeability contexts being misread as a measuring range.
-        if re.search(r"\b\d+\s*:\s*\d+\b", ql):
-            return False
-        if "rangeability" in ql or "turndown" in ql:
-            return False
-        return True
-
-    if field_name == "reperage":
-        if not isinstance(value, str):
-            return False
-        # Reperage should look like a tag/label, not an electrical characteristic.
-        # Reject if quote looks like current/voltage spec.
-        if any(u in ql for u in ["ma", " a", " v", " ohm", "residual current", "current"]):
-            return False
-        return True
-
-    return True
-
-
-def extract_all_fields(
+def _run_llm_fields(
+    llm_fields: dict[str, list[dict]],
     field_chunks: dict[str, list[dict]],
-    min_confidence: float = 0.3,
-    doc_ctx: DocumentContext | None = None,
-) -> EquipmentSchema:
-    """
-    Extract all form fields from the document in parallel.
-    
-    Args:
-        field_chunks: Dict mapping field_name -> relevant chunks
-                     (from semantic_search.search_all_fields).
-        min_confidence: Minimum confidence threshold required to accept a field value.
-        
-    Returns:
-        Populated EquipmentSchema.
-    """
+    min_confidence: float,
+    doc_ctx: DocumentContext | None,
+) -> tuple[dict, dict]:
+    """Extract fields via LLM in parallel; return (extracted, meta)."""
     from concurrent.futures import ThreadPoolExecutor
     from config import LLM_MAX_WORKERS
-    
-    extracted = {}
-    
-    def process_field(field_name, chunks):
-        print(f"  [LLM] START: {field_name} (from {len(chunks)} chunks)...")
-        start_time = time.time()
+
+    extracted: dict = {}
+    meta: dict = {}
+
+    def process(field_name, chunks):
+        t0 = time.time()
+        print(f"  [LLM] START: {field_name} ({len(chunks)} chunks)…")
         result = extract_field(field_name, chunks, doc_ctx=doc_ctx)
-        elapsed = time.time() - start_time
-        print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
+        print(f"  [LLM] FINISH: {field_name} in {time.time()-t0:.1f}s")
         return field_name, result
 
-    # Run extractions in parallel
     with ThreadPoolExecutor(max_workers=LLM_MAX_WORKERS) as executor:
-        futures = [
-            executor.submit(process_field, name, chunks) 
-            for name, chunks in field_chunks.items()
-        ]
-        
-        for future in futures:
-            field_name, result = future.result()
+        for field_name, result in (f.result() for f in [executor.submit(process, n, c) for n, c in llm_fields.items()]):
             value = _normalize_value(field_name, result.get("value"))
-            confidence = result.get("confidence")
-            if confidence is None:
-                confidence = 0.0
+            confidence = float(result.get("confidence") or 0.0)
             quote = result.get("quote")
 
-            ok = (
-                value is not None
-                and confidence >= min_confidence
-                and _is_value_allowed(field_name, value)
-                and _value_supported_by_quote(value, quote)
-                and _passes_semantic_guard(field_name, value, quote)
-                and _quote_in_context(quote, field_chunks.get(field_name, []))
-            )
+            checks = {
+                "non_null": value is not None,
+                "min_confidence": confidence >= min_confidence,
+                "expected_type": _is_expected_type(field_name, value),
+                "allowed_value": _is_value_allowed(field_name, value),
+                "quote_supported": _value_supported_by_quote(value, quote),
+                "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
+            }
+            ok = all(checks.values())
+            rejection = next((k for k, v in checks.items() if not v), None) if not ok else None
+
+            meta[field_name] = {
+                "accepted": ok, "confidence": confidence, "value": value if ok else None,
+                "quote": quote, "source": "llm", "checks": checks,
+                "rejection_reason": rejection, "raw": result.get("_raw"), "error": result.get("_error"),
+            }
             if ok:
                 extracted[field_name] = value
-                print(f"  [OK] {field_name} = {value}")
+                print(f"  [OK]   {field_name} = {value!r}")
             else:
-                print(f"  [MISS] {field_name} (conf: {confidence})")
+                print(f"  [MISS] {field_name} (reason: {rejection}, conf: {confidence:.2f})")
 
-    # Build the EquipmentSchema from extracted data
-    extracted = _apply_cross_field_guards(extracted)
-    extracted = _post_extract_reretrieval_verification(
-        extracted,
-        field_chunks=field_chunks,
-        collection_name=collection_name,
-    )
-
-    schema_data = {}
-    for field_name, value in extracted.items():
-        if field_name == "plageMesure" and isinstance(value, dict):
-            schema_data["plageMesure"] = value
-        elif field_name == "sortiesAlarme" and isinstance(value, list):
-            schema_data["sortiesAlarme"] = value
-        else:
-            schema_data[field_name] = value
-    
-    return EquipmentSchema(**schema_data)
-
-
-def _normalize_for_query(field_name: str, value) -> str:
-    if value is None:
-        return ""
-    if isinstance(value, str):
-        return value
-    if field_name == "plageMesure" and isinstance(value, dict):
-        min_v = value.get("min")
-        max_v = value.get("max")
-        unite = value.get("unite")
-        return f"{min_v} {unite} {max_v}"
-    if field_name == "sortiesAlarme" and isinstance(value, list):
-        names = []
-        for a in value:
-            if isinstance(a, dict) and a.get("nomAlarme"):
-                names.append(str(a.get("nomAlarme")))
-        return " ".join(names)
-    return str(value)
-
-
-def _top_result_supports_value(field_name: str, value, top_chunk: dict | None) -> bool:
-    if value is None:
-        return True
-    if not top_chunk:
-        return False
-
-    text = (top_chunk.get("text") or "")
-    if not text:
-        return False
-
-    # Reuse the existing lexical support check against the chunk text.
-    if not _basic_value_supported_by_quote(value, text):
-        return False
-
-    # Minimal semantic guard as a second pass.
-    return _passes_semantic_guard(field_name, value, text)
-
-
-def _post_extract_reretrieval_verification(
-    extracted: dict[str, object],
-    field_chunks: dict[str, list[dict]] | None = None,
-    collection_name: str | None = None,
-) -> dict[str, object]:
-    """Re-query Chroma with the extracted value and ensure the top chunk supports it.
-
-    If the top result does not support the value, mark the field as suspicious and drop it.
-    """
-    try:
-        from services.vector_store import query_chunks
-    except Exception:
-        return extracted
-
-    doc_id = None
-    if field_chunks:
-        for chunks in field_chunks.values():
-            for c in chunks or []:
-                md = c.get("metadata") if isinstance(c, dict) else None
-                if md and md.get("doc_id"):
-                    doc_id = md.get("doc_id")
-                    break
-            if doc_id:
-                break
-
-    where = {"doc_id": doc_id} if doc_id else None
-
-    verified: dict[str, object] = {}
-    for field_name, value in extracted.items():
-        qv = _normalize_for_query(field_name, value).strip()
-        if not qv:
-            continue
-
-        query = f"What is {qv}?"
-        results = query_chunks(
-            query,
-            n_results=1,
-            where=where,
-            collection_name=collection_name,
-        )
-        top = results[0] if results else None
-        if _top_result_supports_value(field_name, value, top):
-            verified[field_name] = value
-        else:
-            print(f"  [VERIFY FAIL] {field_name}='{value}' not supported by top re-retrieval")
-
-    return verified
+    return extracted, meta
 
 
 def extract_all_fields_with_meta(
@@ -708,202 +574,115 @@ def extract_all_fields_with_meta(
     doc_ctx: DocumentContext | None = None,
     collection_name: str | None = None,
 ) -> tuple[EquipmentSchema, dict[str, dict]]:
-    from concurrent.futures import ThreadPoolExecutor
-    from config import LLM_MAX_WORKERS
-
     if regex_results is None:
         regex_results = {}
 
-    extracted: dict[str, object] = {}
-    meta: dict[str, dict] = {}
+    extracted: dict = {}
+    meta: dict = {}
+    llm_fields: dict = {}
 
-    # --- Phase 1: Accept regex-extracted fields immediately ---
-    llm_fields: dict[str, list[dict]] = {}
+    # Phase 1 — regex results
     for field_name, chunks in field_chunks.items():
         if doc_ctx is not None and not _field_applicable(field_name, doc_ctx):
-            meta[field_name] = {
-                "accepted": False,
-                "confidence": 0.0,
-                "value": None,
-                "quote": None,
-                "source": "doc_type_gate",
-                "checks": {"applicable": False},
-                "rejection_reason": "inapplicable_for_doc_type",
-            }
+            meta[field_name] = {"accepted": False, "confidence": 0.0, "value": None,
+                                "quote": None, "source": "doc_type_gate",
+                                "rejection_reason": "inapplicable_for_doc_type"}
             continue
 
         if field_name in regex_results:
             rx = regex_results[field_name]
-            raw_value = rx.get("value")
-            confidence = rx.get("confidence", 1.0)
+            value = _normalize_value(field_name, rx.get("value"))
+            confidence = float(rx.get("confidence") or 1.0)
             quote = rx.get("quote")
-            value = _normalize_value(field_name, raw_value)
 
             checks = {
                 "non_null": value is not None,
-                "min_confidence": float(confidence or 0.0) >= min_confidence,
+                "min_confidence": confidence >= min_confidence,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote),
-                "semantic_guard": _passes_semantic_guard(field_name, value, quote),
                 "quote_in_context": _quote_in_context(quote, chunks or []),
             }
-
             ok = all(checks.values())
+            meta[field_name] = {
+                "accepted": ok, "confidence": confidence, "value": value if ok else None,
+                "quote": quote, "source": "regex", "checks": checks,
+                "rejection_reason": next((k for k, v in checks.items() if not v), None) if not ok else None,
+            }
             if ok:
                 extracted[field_name] = value
-                meta[field_name] = {
-                    "accepted": True,
-                    "confidence": confidence,
-                    "value": value,
-                    "quote": quote,
-                    "source": "regex",
-                    "checks": checks,
-                    "rejection_reason": None,
-                }
-                print(f"  [REGEX] {field_name} = {value}")
+                print(f"  [REGEX] {field_name} = {value!r}")
             else:
-                # Fall back to LLM for this field.
-                meta[field_name] = {
-                    "accepted": False,
-                    "confidence": confidence,
-                    "value": None,
-                    "quote": quote,
-                    "source": "regex",
-                    "checks": checks,
-                    "rejection_reason": "regex_verification_failed",
-                }
-                llm_fields[field_name] = chunks
+                llm_fields[field_name] = chunks  # fallback to LLM
         else:
             llm_fields[field_name] = chunks
 
-    # --- Phase 2: LLM extraction for remaining fields ---
-    def process_field(field_name, chunks):
-        print(f"  [LLM] START: {field_name} (from {len(chunks)} chunks)...")
-        start_time = time.time()
-        result = extract_field(field_name, chunks, doc_ctx=doc_ctx)
-        elapsed = time.time() - start_time
-        print(f"  [LLM] FINISH: {field_name} in {elapsed:.1f}s")
-        return field_name, result
-
+    # Phase 2 — LLM
     if llm_fields:
-        with ThreadPoolExecutor(max_workers=LLM_MAX_WORKERS) as executor:
-            futures = [
-                executor.submit(process_field, name, chunks)
-                for name, chunks in llm_fields.items()
-            ]
+        llm_extracted, llm_meta = _run_llm_fields(llm_fields, field_chunks, min_confidence, doc_ctx)
+        extracted.update(llm_extracted)
+        meta.update(llm_meta)
 
-            for future in futures:
-                field_name, result = future.result()
-                value = _normalize_value(field_name, result.get("value"))
-                confidence = result.get("confidence")
-                if confidence is None:
-                    confidence = 0.0
-                quote = result.get("quote")
+    # Phase 3 — cross-field guards
+    extracted = _apply_cross_field_guards(extracted)
 
-                checks = {
-                    "non_null": value is not None,
-                    "min_confidence": confidence >= min_confidence,
-                    "expected_type": _is_expected_type(field_name, value),
-                    "allowed_value": _is_value_allowed(field_name, value),
-                    "quote_supported": _value_supported_by_quote(value, quote),
-                    "semantic_guard": _passes_semantic_guard(field_name, value, quote),
-                    "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
-                }
+    # Phase 4 — re-retrieval verification (DISABLED: causes false negatives dropping valid fields)
+    # extracted = _post_extract_reretrieval_verification(extracted, field_chunks=field_chunks, collection_name=collection_name)
 
-                ok = (
-                    checks["non_null"]
-                    and checks["min_confidence"]
-                    and checks["expected_type"]
-                    and checks["allowed_value"]
-                    and checks["quote_supported"]
-                    and checks["semantic_guard"]
-                    and checks["quote_in_context"]
-                )
-
-                rejection_reason = None
-                if not ok:
-                    for k in [
-                        "non_null",
-                        "min_confidence",
-                        "expected_type",
-                        "allowed_value",
-                        "quote_supported",
-                        "semantic_guard",
-                        "quote_in_context",
-                    ]:
-                        if not checks.get(k, False):
-                            rejection_reason = k
-                            break
-
-                meta[field_name] = {
-                    "accepted": ok,
-                    "confidence": confidence,
-                    "value": value if ok else None,
-                    "quote": quote,
-                    "source": "llm",
-                    "checks": checks,
-                    "rejection_reason": rejection_reason,
-                    "raw": result.get("_raw"),
-                    "error": result.get("_error"),
-                }
-
-                if ok:
-                    extracted[field_name] = value
-                    print(f"  [OK] {field_name} = {value}")
-                else:
-                    print(f"  [MISS] {field_name} (conf: {confidence})")
-
-    schema_data = {}
-    for field_name, value in extracted.items():
-        if field_name == "plageMesure" and isinstance(value, dict):
-            schema_data["plageMesure"] = value
-        elif field_name == "sortiesAlarme" and isinstance(value, list):
-            schema_data["sortiesAlarme"] = value
-        else:
-            schema_data[field_name] = value
-
+    # Build schema
+    schema_data = {k: v for k, v in extracted.items()}
     return EquipmentSchema(**schema_data), meta
 
 
-def _apply_cross_field_guards(extracted: dict[str, object]) -> dict[str, object]:
-    """Apply cross-field consistency checks to reduce wrong-but-plausible outputs."""
-    out = dict(extracted)
+# ---------------------------------------------------------------------------
+# Re-retrieval verification
+# ---------------------------------------------------------------------------
 
-    def _looks_like_reference(s: str) -> bool:
-        t = (s or "").strip()
-        if not t:
-            return False
-        # Common industrial order numbers: long alphanumeric tokens and vendor prefixes.
-        if re.fullmatch(r"[A-Z0-9\-_/\.]{8,}", t.upper()):
-            if any(ch.isdigit() for ch in t) and any(ch.isalpha() for ch in t):
-                return True
-        if re.match(r"^(6AV|6ES7|7MF)\b", t.strip(), flags=re.IGNORECASE):
-            return True
-        return False
+def _normalize_for_query(field_name: str, value) -> str:
+    if value is None: return ""
+    if isinstance(value, str): return value
+    if field_name == "plageMesure" and isinstance(value, dict):
+        return f"{value.get('min')} {value.get('unite')} {value.get('max')}"
+    if field_name == "sortiesAlarme" and isinstance(value, list):
+        return " ".join(str(a.get("nomAlarme", "")) for a in value if isinstance(a, dict))
+    return str(value)
 
-    # equipmentName must be a commercial name; never accept a technical reference/order number.
-    eq = out.get("equipmentName")
-    if isinstance(eq, str):
-        ref = out.get("reference")
-        if _looks_like_reference(eq) or (isinstance(ref, str) and eq.strip() == ref.strip()):
-            out.pop("equipmentName", None)
 
-    type_mesure = (out.get("typeMesure") or "")
-    if isinstance(type_mesure, str) and type_mesure.lower() == "pression":
-        pm = out.get("plageMesure")
-        if isinstance(pm, dict):
-            unite = pm.get("unite")
-            if isinstance(unite, str):
-                allowed_pressure_units = {"bar", "pa", "psi", "kpa", "mpa", "mbar"}
-                if unite.strip().lower() not in allowed_pressure_units:
-                    out.pop("plageMesure", None)
+def _top_result_supports_value(field_name: str, value, top_chunk: dict | None) -> bool:
+    if value is None or not top_chunk: return bool(value is None)
+    text = top_chunk.get("text", "")
+    return _value_supported_by_quote(value, text)
 
-    techno = (out.get("technologie") or "")
-    if isinstance(techno, str) and techno.strip().lower() == "ultrasonique":
-        ts = out.get("typeSignal")
-        if isinstance(ts, str) and ts.strip() in {"Autre", ""}:
-            # Don't force a value; just drop an unhelpful placeholder.
-            out.pop("typeSignal", None)
 
-    return out
+def _post_extract_reretrieval_verification(
+    extracted: dict,
+    field_chunks: dict | None = None,
+    collection_name: str | None = None,
+) -> dict:
+    try:
+        from services.vector_store import query_chunks
+    except Exception:
+        return extracted
+
+    doc_id = None
+    if field_chunks:
+        for chunks in field_chunks.values():
+            for c in (chunks or []):
+                doc_id = (c.get("metadata") or {}).get("doc_id")
+                if doc_id: break
+            if doc_id: break
+
+    where = {"doc_id": doc_id} if doc_id else None
+    verified: dict = {}
+
+    for field_name, value in extracted.items():
+        qv = _normalize_for_query(field_name, value).strip()
+        if not qv: continue
+        results = query_chunks(f"What is {qv}?", n_results=1, where=where, collection_name=collection_name)
+        top = results[0] if results else None
+        if _top_result_supports_value(field_name, value, top):
+            verified[field_name] = value
+        else:
+            print(f"  [VERIFY FAIL] {field_name}='{value}' not supported by re-retrieval")
+
+    return verified

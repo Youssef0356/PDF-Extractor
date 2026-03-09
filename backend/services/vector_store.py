@@ -12,16 +12,20 @@ from services.embeddings import generate_embedding, generate_embeddings_batch
 _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
 
 
-def get_or_create_collection(name: str = CHROMA_COLLECTION_NAME):
+def get_or_create_collection(name: str | None = CHROMA_COLLECTION_NAME):
     """Get or create a ChromaDB collection."""
+    if not name:
+        name = CHROMA_COLLECTION_NAME
     return _client.get_or_create_collection(
         name=name,
         metadata={"hnsw:space": "cosine"},
     )
 
 
-def clear_collection(name: str = CHROMA_COLLECTION_NAME):
+def clear_collection(name: str | None = CHROMA_COLLECTION_NAME):
     """Delete and recreate a collection (for re-processing a PDF)."""
+    if not name:
+        name = CHROMA_COLLECTION_NAME
     try:
         _client.delete_collection(name)
     except Exception:
@@ -94,7 +98,7 @@ def store_chunks(chunks: list, collection_name: str = CHROMA_COLLECTION_NAME):
 def query_chunks(
     query_text: str,
     n_results: int = 5,
-    collection_name: str = CHROMA_COLLECTION_NAME,
+    collection_name: str | None = CHROMA_COLLECTION_NAME,
     where: dict | None = None,
 ) -> list[dict]:
     """
@@ -133,7 +137,7 @@ def query_chunks(
     return formatted
 
 
-def document_is_indexed(doc_id: str, collection_name: str = CHROMA_COLLECTION_NAME) -> bool:
+def document_is_indexed(doc_id: str, collection_name: str | None = CHROMA_COLLECTION_NAME) -> bool:
     """Return True if the collection already contains chunks for the given doc_id."""
     if not doc_id:
         return False
