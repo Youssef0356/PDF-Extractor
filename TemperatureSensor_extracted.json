@@ -1,0 +1,18 @@
+{
+  "equipmentName": "Bosch Motorsport | Temperature Sensor NTC M12",
+  "categorie": null,
+  "typeMesure": "Temperature",
+  "technologie": "NTC",
+  "plageMesure": null,
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": null,
+  "reperage": null,
+  "communication": null,
+  "classeProtection": null,
+  "sortiesAlarme": null,
+  "marque": "Bosch Engineering GmbH",
+  "modele": "8601",
+  "reference": "0280.130.026",
+  "dateCalibration": null
+}

@@ -1,0 +1,18 @@
+{
+  "equipmentName": "H250 M40",
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": null,
+  "plageMesure": null,
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": null,
+  "reperage": null,
+  "communication": "Foundation Fieldbus",
+  "classeProtection": "IP69K",
+  "sortiesAlarme": null,
+  "marque": "KROHNE",
+  "modele": "H250 M40",
+  "reference": "4000685703",
+  "dateCalibration": null
+}

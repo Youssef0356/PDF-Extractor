@@ -13,7 +13,6 @@ try:
 except Exception:  # pragma: no cover
     pdfplumber = None
 
-from config import IMAGE_DPI
 
 
 @dataclass

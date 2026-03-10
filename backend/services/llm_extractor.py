@@ -6,54 +6,12 @@ import json
 import ollama as ollama_client
 import re
 import time
+import unicodedata
 from datetime import datetime
 
-from config import ACCURACY_FIRST, TEXT_MODEL
+from config import ACCURACY_FIRST, TEXT_MODEL, ENABLE_RERETRIEVAL_VERIFICATION
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
 from services.document_classifier import DocumentContext
-
-
-def _parse_llm_json(raw: str) -> dict:
-    """Parse the model response into a dict.
-
-    The model sometimes wraps JSON in markdown fences or emits extra text.
-    This function extracts the first top-level JSON object and parses it.
-    """
-    if raw is None:
-        return {"value": None, "confidence": 0.0, "quote": None}
-
-    s = str(raw).strip()
-    if not s:
-        return {"value": None, "confidence": 0.0, "quote": None}
-
-    # Strip markdown fences if present
-    if s.startswith("```"):
-        s = re.sub(r"^```(?:json)?\s*", "", s, flags=re.IGNORECASE)
-        s = re.sub(r"\s*```$", "", s)
-        s = s.strip()
-
-    # Extract first JSON object by brace matching
-    start = s.find("{")
-    if start == -1:
-        return {"value": None, "confidence": 0.0, "quote": None}
-
-    depth = 0
-    end = None
-    for i, ch in enumerate(s[start:], start=start):
-        if ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                end = i + 1
-                break
-
-    payload = s[start:end] if end is not None else s[start:]
-    try:
-        obj = json.loads(payload)
-        return obj if isinstance(obj, dict) else {"value": None, "confidence": 0.0, "quote": None}
-    except Exception:
-        return {"value": None, "confidence": 0.0, "quote": None}
 
 
 # ---------------------------------------------------------------------------
@@ -62,13 +20,15 @@ def _parse_llm_json(raw: str) -> dict:
 
 FIELD_PROMPT_RULES: dict[str, str] = {
     "equipmentName": (
-        'Extract the commercial equipment designation as a short human-readable name (product/family + type if present).\n'
-        'Prefer the exact name as printed on the cover/title/header (e.g. "SITRANS P320", "OPTIFLUX 2000", "SIMATIC S7-1200", "LOGO! 8").\n'
-        'If the document is about a device that is primarily identified by a type number, include the brand when available (e.g. "SAMSON Type 3271").\n'
-        'NEVER return: plant tags (e.g. FT-101), page/section numbers (e.g. "4-4"), or pure numbers (e.g. "3271").\n'
-        'NEVER return part/order/article numbers (patterns: 6AV…, 6ES7…, 7MF…, long alphanumeric codes with many digits).\n'
-        'If you cannot form a human-readable designation from the excerpts → null.\n'
-        "GOOD: 'SAMSON Type 3271' | GOOD: 'SITRANS P320' | BAD: '3271' | BAD: 'FT-101' | BAD: '6ES7 153-1AA00-0XB0'"
+        'Extract the PRIMARY commercial product name — the main device this document is about.\n'
+        'It appears on the COVER PAGE or DOCUMENT TITLE, usually as the largest text or document heading.\n'
+        'Examples: "H250 M40", "SITRANS P320", "OPTIFLUX 2000", "SIMATIC S7-1200".\n'
+        'RULES:\n'
+        '  - If the title says "H250 M40 – Débitmètres à section variable", return "H250 M40".\n'
+        '  - Sub-components or modules mentioned inside the document (e.g. "ESK4", "FSK4") are NOT the equipment name.\n'
+        '  - NEVER return part/order numbers (6AV…, 6ES7…, 7MF…, alphanumeric codes with hyphens).\n'
+        '  - If the cover shows both a product family and a specific model, return the specific model.\n'
+        "GOOD: 'H250 M40', 'SITRANS P320' | BAD: 'ESK4' (module name), '6ES7 153-1AA00-0XB0' (order number)"
     ),
 
     "reference": (
@@ -85,105 +45,16 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         "GOOD: 'Endress+Hauser' | BAD: 'SITRANS', 'Series 3000'"
     ),
 
-    "marque": (
-        'Extract the manufacturer / brand name (company) as printed in the document (e.g. "KROHNE", "Siemens").\n'
-        'NEVER return numbers (page numbers, section numbers, years, order codes).\n'
-        'If the only candidates are numbers or codes, return null.'
-    ),
-
-    "modele": (
-        'Extract the model designation (e.g. "H250 M40", "SITRANS P320").\n'
-        'NEVER return pure numbers like "18" or "7.7" (these are almost always page/section numbers).\n'
-        'If multiple model strings appear, prefer the one repeated in headers/cover (often near the top of pages).'
-    ),
-
     "categorie": (
-        'Classify the equipment into the SINGLE most specific category that matches the document.\n'
-        'Return EXACTLY one of the allowed categorie values (case and spacing must match).\n'
-        '\n'
-        '=== MEASUREMENT INSTRUMENTS ===\n'
-        '  Pressure transmitter\n'
-        '  Pressure gauge\n'
-        '  Differential pressure transmitter\n'
-        '  Temperature transmitter\n'
-        '  Temperature sensor\n'
-        '  Temperature indicator\n'
-        '  Flowmeter\n'
-        '  Electromagnetic flowmeter\n'
-        '  Coriolis flowmeter\n'
-        '  Vortex flowmeter\n'
-        '  Ultrasonic flowmeter\n'
-        '  Variable area flowmeter\n'
-        '  Turbine flowmeter\n'
-        '  Positive displacement meter\n'
-        '  Pitot tube / annubar\n'
-        '  Orifice plate\n'
-        '  Level transmitter\n'
-        '  Level switch\n'
-        '  Radar level sensor\n'
-        '  Ultrasonic level sensor\n'
-        '  Float level switch\n'
-        '  Capacitive level sensor\n'
-        '  Vibrating fork / tuning fork\n'
-        '  Density meter\n'
-        '  Viscosity meter\n'
-        '\n'
-        '=== ANALYTICAL INSTRUMENTS ===\n'
-        '  pH sensor / transmitter\n'
-        '  Conductivity sensor\n'
-        '  Dissolved oxygen sensor\n'
-        '  Turbidity sensor\n'
-        '  Gas analyzer\n'
-        '  Flame detector\n'
-        '  Gas detector\n'
-        '  Moisture analyzer\n'
-        '  Particle counter\n'
-        '  Chromatograph\n'
-        '\n'
-        '=== FINAL CONTROL ELEMENTS ===\n'
-        '  Control valve\n'
-        '  Valve positioner\n'
-        '  Pneumatic actuator\n'
-        '  Electric actuator\n'
-        '  Solenoid valve\n'
-        '  Safety relief valve\n'
-        '  Butterfly valve\n'
-        '  Pump\n'
-        '  Variable speed drive\n'
-        '\n'
-        '=== AUTOMATION & CONTROL ===\n'
-        '  PLC\n'
-        '  DCS controller\n'
-        '  PID controller\n'
-        '  Remote I/O\n'
-        '  Safety system (SIS)\n'
-        '\n'
-        '=== HUMAN INTERFACE & DISPLAY ===\n'
-        '  HMI panel\n'
-        '  Field indicator\n'
-        '  Paperless recorder\n'
-        '  SCADA / RTU\n'
-        '\n'
-        '=== POWER & SIGNAL CONDITIONING ===\n'
-        '  Signal isolator / barrier\n'
-        '  Power supply\n'
-        '  Signal converter\n'
-        '\n'
-        '=== OTHER ===\n'
-        '  Weighing system\n'
-        '  Vibration sensor\n'
-        '  Position sensor\n'
-        '  Speed sensor\n'
-        '  Torque sensor\n'
-        '  Noise / acoustic sensor\n'
-        '  Autre\n'
-        '\n'
-        'RULES:\n'
-        '  - Pick the MOST SPECIFIC match, not a generic one.\n'
-        '  - A rotameter → "Variable area flowmeter", not "Flowmeter".\n'
-        '  - A PT100 without transmitter → "Temperature sensor", not "Temperature transmitter".\n'
-        '  - A valve + positioner + actuator as one assembly → "Control valve".\n'
-        'GOOD: "Variable area flowmeter" | BAD: "Flowmeter", "Measurement device", "Sensor"'
+        'Classify the equipment into ONE of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre.\n'
+        'Rules:\n'
+        '  - Flow meters (débitmètres, variable area, Coriolis, vortex, electromagnetic flow) → Débitmètre\n'
+        '  - Pressure/level/temp transmitters with 4-20mA output → Transmetteur\n'
+        '  - PLCs/CPUs/controllers → Automate\n'
+        '  - Touchscreens/HMI panels → IHM\n'
+        '  - Passive sensors without signal conditioning → Capteurs\n'
+        '  - Valves/positioners/actuators → Actionneur\n'
+        "GOOD: 'Débitmètre' (for H250 M40), 'Transmetteur' (for SITRANS P320) | BAD: 'flowmeter', 'capteur de débit'"
     ),
 
     "typeMesure": (
@@ -202,9 +73,7 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         'Do not translate or reformat — return a short French or bilingual label.\n'
         'Common examples: Electromagnetique, Piezo-resistif, Ultrasonique, Coriolis, Vortex, '
         'Radar, Capacitif, Pneumatique, Hydraulique, Section variable (flotteur), TFT Tactile, Autre.\n'
-        'If the actuator uses compressed air / air supply / "air" / "pneumatique" → technologie = "Pneumatique".\n'
         'For variable-area / rotameter / float-tube devices → "Section variable (flotteur)"\n'
-        'NEVER return numbers (page/section numbers like "18"). If the principle is not stated, return null.\n'
         "GOOD: 'Section variable (flotteur)', 'Electromagnetique', 'Coriolis' | BAD: 'float principle', 'variable area flowmeter'"
     ),
 
@@ -216,22 +85,40 @@ FIELD_PROMPT_RULES: dict[str, str] = {
     ),
 
     "plageMesure": (
-        'Extract the measuring range as {min, max, unite}.\n'
-        'Rules:\n'
-        '  - For numeric ranges: min and max are numbers, unite is the unit string.\n'
-        '  - CRITICAL: Ignore rangeability / turndown ratios (e.g. "100 : 1", "10:1"). DO NOT extract min=1, max=100. Return null if no true measurement range (like 0 to 10 m3/h) is given.\n'
-        '  - Never use "1" or "ratio" as a unit. Units must be physical (e.g., m3/h, bar, °C).\n'
-        '  - Ignore: time delays (ms/µs), supply voltages, and ratios.\n'
-        '  - The quote MUST contain the unit AND the numeric bounds you return (e.g. "10 ... 100 l/h").\n'
-        'BAD: {"min": 1, "max": 100, "unite": "1"} ← Ratios are NOT ranges.\n'
-        'BAD: {"min": 0, "max": 20, "unite": "ms"} ← this is a time delay'
+        'Extract the FLOW/PRESSURE/LEVEL measuring range as {min, max, unite}.\n'
+        'CRITICAL RULES:\n'
+        '  1. For a FLOW METER (débitmètre), the range MUST use flow units: L/h, m³/h, kg/h, t/h, gpm.\n'
+        '     NEVER return a temperature range (°C, °F, K) for a flowmeter — those are fluid temp LIMITS.\n'
+        '  2. For ratio/turndown (e.g. "10:1", "100:1") → return null, never a numeric range.\n'
+        '  3. Ignore: time delays (ms/µs), supply voltages, temperature operating limits for flow devices.\n'
+        '  4. If no numeric min/max range with CORRECT units is found → return null.\n'
+        'GOOD: {"min": 40, "max": 1200, "unite": "L/h"} ← flowmeter range\n'
+        'GOOD: {"min": 0, "max": 10, "unite": "bar"} ← pressure transmitter range\n'
+        'BAD: {"min": -196, "max": 300, "unite": "°C"} ← fluid temperature limit ≠ measuring range\n'
+        'BAD: {"min": 10, "max": 100, "unite": "1"} ← ratio misread as range'
+    ),
+
+    "modele": (
+        'Extract the model name or designation from the document title or ordering section.\n'
+        'This is usually the product name without manufacturer prefix.\n'
+        'Examples: "H250 M40", "SITRANS P320", "OPTIFLUX 2000".\n'
+        'RULES:\n'
+        '  - Look for "Type", "Model", "Type designation" labels.\n'
+        '  - The title often contains both manufacturer and model.\n'
+        '  - Do NOT return order numbers (6AV…, 7MF…) or phone numbers.\n'
+        '  - Do NOT return website URLs, homepage text, or marketing slogans.\n'
+        '  - If the title says "Temperature Sensor NTC M12", the model is "Temperature Sensor NTC M12".\n'
+        "GOOD: 'H250 M40', 'SITRANS P320', 'Temperature Sensor NTC M12' | BAD: 'Bosch Data Logging at our homepage' (URL), '6ES7 315' (order number)"
     ),
 
     "alimentation": (
         'Extract the supply voltage/power specification as printed '
         '(e.g. "24V DC", "220V AC", "10.5…30V DC", "85…264V AC").\n'
         'Normalise: Vdc→V DC, VAC→V AC.\n'
-        "GOOD: '24V DC' | BAD: 'loop powered', 'external supply'"
+        'CRITICAL: Only extract VOLTAGE values (V, VDC, VAC).\n'
+        'NEVER extract phone numbers, addresses, or contact info.\n'
+        'If no power supply voltage is mentioned, return null.\n'
+        "GOOD: '24V DC', '14-30V DC' | BAD: '248 876 2977' (phone), 'Bosch Engineering' (company)"
     ),
 
     "nbFils": (
@@ -281,11 +168,14 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         'Extract alarm/relay outputs as a list ONLY if alarm names, thresholds, AND units are ALL explicitly stated.\n'
         'Each object: {"nomAlarme": "<name>", "typeAlarme": "<Haut|Bas|Défaut>", '
         '"seuilAlarme": <number>, "uniteAlarme": "<unit>", "relaisAssocie": "<relay>"}\n'
-        'ANTI-HALLUCINATION — nomAlarme and seuilAlarme must be explicit in the document, never guessed.\n'
-        'DO NOT extract fault signal currents (e.g., "Courant de signalisation", 1.0mA, 3.6 mA, 22 mA) as alarm outputs. Alarms must be physical relay or switch outputs, not 4-20mA loop fault states.\n'
-        'If the document only mentions detector type (e.g. "NAMUR") with no thresholds → return null.\n'
+        'STRICT ANTI-HALLUCINATION RULES — return null unless ALL of these are met:\n'
+        '  1. nomAlarme: the exact alarm label must appear word-for-word in the document.\n'
+        '  2. seuilAlarme: a specific numeric threshold value must be stated next to the alarm name.\n'
+        '  3. uniteAlarme: the unit of that threshold must be stated.\n'
+        'If ANY of these three are absent → return null. Do NOT infer or guess any of them.\n'
+        'NAMUR detectors, MIN/MAX contacts, or relay outputs mentioned WITHOUT a setpoint value → null.\n'
         'GOOD: [{"nomAlarme": "High Flow", "typeAlarme": "Haut", "seuilAlarme": 100, "uniteAlarme": "m3/h", "relaisAssocie": "R1"}]\n'
-        'BAD: [{"nomAlarme": "Courant de signalisation", "seuilAlarme": 3.0, "uniteAlarme": "mA"}] ← Incorrect fault current'
+        'BAD: [{"nomAlarme": "MIN 1", "seuilAlarme": 1.0, "uniteAlarme": "mA"}] ← "MIN 1" not in document; 1.0 mA invented'
     ),
 }
 
@@ -304,16 +194,10 @@ def _build_extraction_prompt(
 
     allowed_str = ""
     if allowed:
-        if field_name == "categorie":
-            allowed_str = (
-                f"\nAllowed values (must choose EXACTLY one): {', '.join(allowed)}. "
-                "If none fits, return null."
-            )
-        else:
-            allowed_str = (
-                f"\nPreferred values (use one of these if it matches the document): {', '.join(allowed)}. "
-                "If the document has a value not in this list, return the exact document value."
-            )
+        allowed_str = (
+            f"\nPreferred values (use one of these if it matches the document): {', '.join(allowed)}. "
+            "If the document has a value not in this list, return the exact document value."
+        )
 
     doc_ctx_str = ""
     if doc_ctx:
@@ -345,7 +229,11 @@ Document excerpts:
 
 RULES:
 - Only extract if the value is EXPLICITLY stated or unambiguously implied.
-- "quote" must be a verbatim substring copied from the excerpts above — no paraphrasing, no ellipses.
+- "quote" must be a VERBATIM substring copied character-for-character from the excerpts above.
+  • Do NOT translate — if the document is in French, the quote must be in French.
+  • Do NOT paraphrase, summarize, or rephrase any part of the quote.
+  • Do NOT use ellipses (...) or (…) anywhere in the quote.
+  • The quote must appear exactly as-is in the excerpts (same words, same order, same language).
 - If the value is not found, return {{"value": null, "confidence": 0.0, "quote": null}}.
 - Respond with ONLY a JSON object. No explanation, no markdown.
 
@@ -368,13 +256,6 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
         return {"value": None, "confidence": 0.0, "quote": None}
 
     prompt = _build_extraction_prompt(field_name, chunks, doc_ctx=doc_ctx)
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a precise data extractor. Always respond with valid JSON only. No markdown, no explanation.",
-        },
-        {"role": "user", "content": prompt},
-    ]
     last_error: Exception | None = None
 
     for attempt in range(1, 4):
@@ -382,7 +263,7 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
             try:
                 response = ollama_client.chat(
                     model=TEXT_MODEL,
-                    messages=messages,
+                    messages=[{"role": "user", "content": prompt}],
                     options={"temperature": 0.1},
                     format="json",
                     keep_alive="10m",
@@ -390,7 +271,7 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
             except TypeError:
                 response = ollama_client.chat(
                     model=TEXT_MODEL,
-                    messages=messages,
+                    messages=[{"role": "user", "content": prompt}],
                     options={"temperature": 0.1},
                     keep_alive="10m",
                 )
@@ -421,39 +302,33 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
 # ---------------------------------------------------------------------------
 # Validation helpers  (lean — trust the LLM + quote anchor)
 # ---------------------------------------------------------------------------
+
 def _field_applicable(field_name: str, doc_ctx: DocumentContext | None) -> bool:
     return True  # Extend with doc_type gates if needed
 
 
-def _quote_in_context(quote: str | None, chunks: list[dict]) -> bool:
-    if not quote:
+def _quote_in_context(quote: str | None, chunks: list[dict], field_name: str = "") -> bool:
+    if not quote or "..." in quote or "…" in quote:
         return False
-
-    # Some datasheets legitimately use ellipsis to denote ranges (e.g. "0,2…1,0 bar").
-    # Only reject ellipsis when it looks like truncation rather than a numeric range.
-    qraw = quote
-    if "..." in qraw or "…" in qraw:
-        if not re.search(r"\d\s*(?:\.\.\.|…)\s*\d", qraw):
-            return False
     context = "\n---\n".join(c.get("text", "") for c in chunks)
     q = quote.strip()
-    if q in context:
-        return True
-
-    # Normalised whitespace + punctuation fallback
-    def _norm(s: str) -> str:
-        s = s.replace("…", "...").replace("–", "-").replace("−", "-")
-        s = s.replace("\u00a0", " ")
-        return re.sub(r"\s+", " ", s).strip().lower()
-
-    return bool(q) and _norm(q) in _norm(context)
+    found = q in context
+    if not found:
+        # Normalised whitespace fallback
+        def _norm(s): return re.sub(r"\s+", " ", s).strip().lower()
+        found = bool(q) and _norm(q) in _norm(context)
+    return found
 
 
-def _quote_optional(field_name: str) -> bool:
-    return field_name in {"categorie", "typeMesure", "technologie"}
+def _strip_accents(s: str) -> str:
+    """Remove diacritics/accents for fuzzy matching (é→e, ü→u, etc.)."""
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', s)
+        if unicodedata.category(c) != 'Mn'
+    )
 
 
-def _value_supported_by_quote(value, quote: str | None) -> bool:
+def _value_supported_by_quote(value, quote: str | None, field_name: str = "") -> bool:
     """Lightweight lexical check: extracted value should appear in the quote."""
     if value is None:
         return True
@@ -462,13 +337,50 @@ def _value_supported_by_quote(value, quote: str | None) -> bool:
     if isinstance(value, str):
         v = value.strip().lower()
         q = quote.lower()
-        # Try direct substring, then compact (strip non-alnum)
         if v in q:
             return True
-        vc = re.sub(r"[^a-z0-9]", "", v)
-        qc = re.sub(r"[^a-z0-9]", "", q)
-        return bool(vc) and vc in qc
-    # For dicts/lists just trust quote presence
+        # Accent-normalized comparison (e.g. "debit" matches "débit")
+        v_stripped = _strip_accents(v)
+        q_stripped = _strip_accents(q)
+        if v_stripped in q_stripped:
+            return True
+        vc = re.sub(r"[^a-z0-9]", "", v_stripped)
+        qc = re.sub(r"[^a-z0-9]", "", q_stripped)
+        if bool(vc) and vc in qc:
+            return True
+        # Handle abbreviations/symbols: T=Temperature, R=Resistance, etc.
+        _ABBREV_MAP = {
+            "temperature": ["t [", "t[", "°c", "°f"],
+            "resistance": ["r [", "r[", "ohm", "ω"],
+            "pression": ["p [", "p[", "bar", "psi", "pa"],
+            "débit": ["q [", "q[", "m³", "l/min"],
+            "debit": ["q [", "q[", "m³", "l/min", "débit", "debit"],
+        }
+        if v in _ABBREV_MAP:
+            for sym in _ABBREV_MAP[v]:
+                if sym in q:
+                    return True
+        if v_stripped in _ABBREV_MAP:
+            for sym in _ABBREV_MAP[v_stripped]:
+                if sym in q:
+                    return True
+        # Handle numeric extractions: "2 fils" -> quote "2-pole" or "2 | 2"
+        if field_name in ("nbFils", "reperage"):
+            nums = re.findall(r"\d+", v)
+            if nums and any(n in q for n in nums):
+                return True
+        return False
+    # For sortiesAlarme: each nomAlarme must be findable in the quote
+    if field_name == "sortiesAlarme" and isinstance(value, list):
+        for alarm in value:
+            if isinstance(alarm, dict):
+                nom = alarm.get("nomAlarme", "")
+                seuil = alarm.get("seuilAlarme")
+                if nom and nom.lower() not in quote.lower():
+                    return False  # alarm name not in document text
+                if seuil is not None and str(seuil) not in quote and str(int(seuil)) not in quote:
+                    return False  # threshold value not in document text
+        return True
     return True
 
 
@@ -491,6 +403,16 @@ def _normalize_value(field_name: str, value):
     vl = v.lower()
 
     ALIAS: dict[str, dict[str, str]] = {
+        "categorie": {
+            "transmitter": "Transmetteur", "transmetteur": "Transmetteur",
+            "débitmètre": "Débitmètre", "debitmetre": "Débitmètre", "flowmeter": "Débitmètre",
+            "flow meter": "Débitmètre", "compteur": "Débitmètre", "rotameter": "Débitmètre",
+            "capteur": "Capteurs", "capteurs": "Capteurs", "sensor": "Capteurs", "sensors": "Capteurs",
+            "actionneur": "Actionneur", "actuator": "Actionneur",
+            "automate": "Automate", "plc": "Automate", "cpu": "Automate",
+            "ihm": "IHM", "hmi": "IHM",
+            "autre": "Autre", "other": "Autre",
+        },
         "typeMesure": {
             "pression": "Pression", "pressure": "Pression", "druck": "Pression",
             "debit": "Debit", "débit": "Debit", "flow": "Debit", "durchfluss": "Debit",
@@ -509,8 +431,28 @@ def _normalize_value(field_name: str, value):
             "modbus rtu": "Modbus RTU", "hart": "HART",
         },
         "technologie": {
-            "électromagnétique": "Electromagnetique", "electromagnetique": "Electromagnetique", "electromagnetic": "Electromagnetique",
-            "magnetique": "Magnetique", "magnétique": "Magnetique",
+            # Electromagnetic
+            "électromagnétique": "Electromagnetique", "electromagnetique": "Electromagnetique",
+            "electromagnetic": "Electromagnetique", "magnétique": "Magnetique", "magnetique": "Magnetique",
+            # Variable area / float / rotameter
+            "section variable (flotteur)": "Section variable (flotteur)",
+            "section variable": "Section variable (flotteur)",
+            "flotteur": "Section variable (flotteur)",
+            "float": "Section variable (flotteur)",
+            "variable area": "Section variable (flotteur)",
+            "rotameter": "Section variable (flotteur)",
+            "variable-area": "Section variable (flotteur)",
+            "à flotteur": "Section variable (flotteur)",
+            "a flotteur": "Section variable (flotteur)",
+            "schwebekörper": "Section variable (flotteur)",
+            # Ultrasonic
+            "ultrasonique": "Ultrasonique", "ultrasonic": "Ultrasonique", "ultraschall": "Ultrasonique",
+            # Coriolis / Vortex / Radar / Capacitive
+            "coriolis": "Coriolis",
+            "vortex": "Vortex",
+            "radar": "Radar",
+            "capacitif": "Capacitif", "capacitive": "Capacitif",
+            # Others
             "hydraulique": "Hydraulique", "pneumatique": "Pneumatique",
             "numérique": "Numerique", "numerique": "Numerique", "digital": "Numerique",
             "piezo-resistif": "Piezo-resistif", "piézo-résistif": "Piezo-resistif",
@@ -538,7 +480,17 @@ def _normalize_value(field_name: str, value):
 
     # alimentation normalisation
     if field_name == "alimentation":
-        v = v.replace("Vdc", "V DC").replace("VDC", "V DC").replace("Vac", "V AC").replace("VAC", "V AC")
+        # French: CC = courant continu (DC), CA = courant alternatif (AC)
+        v = v.replace("V CC", "V DC").replace("V CA", "V AC")
+        v = v.replace("Vdc", "V DC").replace("VDC", "V DC")
+        v = v.replace("Vac", "V AC").replace("VAC", "V AC")
+        # Normalise "14 V DC et 30 V DC" → "14-30V DC" (range written in French prose)
+        range_m = re.match(r"(\d+(?:[.,]\d+)?)\s*V\s*DC\s+(?:et|à|to|and|-)\s*(\d+(?:[.,]\d+)?)\s*V\s*DC", v, re.IGNORECASE)
+        if range_m:
+            return f"{range_m.group(1)}-{range_m.group(2)}V DC"
+        range_m = re.match(r"(\d+(?:[.,]\d+)?)\s*V\s*AC\s+(?:et|à|to|and|-)\s*(\d+(?:[.,]\d+)?)\s*V\s*AC", v, re.IGNORECASE)
+        if range_m:
+            return f"{range_m.group(1)}-{range_m.group(2)}V AC"
         compact = re.sub(r"\s+", "", v).lower()
         if compact == "24vdc": return "24V DC"
         if compact == "220vac": return "220V AC"
@@ -572,48 +524,9 @@ def _is_expected_type(field_name: str, value) -> bool:
     return isinstance(value, str)
 
 
-def _is_numericish_string(s: str) -> bool:
-    v = (s or "").strip()
-    if not v:
-        return False
-    # Allow common separators but require at least one digit and no letters.
-    has_digit = any(ch.isdigit() for ch in v)
-    has_alpha = any(ch.isalpha() for ch in v)
-    return has_digit and not has_alpha
-
-
-def _field_sanity_check(field_name: str, value, quote: str | None) -> bool:
-    """Extra guardrails for common failure modes (page numbers, ratios, etc.)."""
-    if value is None:
-        return True
-
-    if field_name in {"equipmentName", "marque", "modele", "technologie"}:
-        if isinstance(value, str) and _is_numericish_string(value):
-            return False
-
-    if field_name == "plageMesure" and isinstance(value, dict):
-        q = (quote or "").lower()
-        unite = str(value.get("unite") or "").strip().lower()
-        vmin = value.get("min")
-        vmax = value.get("max")
-
-        # Reject the classic ratio confusion: "10 : 1", "100:1", etc.
-        if ":" in q:
-            # Only accept if the quote also contains the returned unit and both bounds.
-            if unite and unite not in q:
-                return False
-            if vmin is not None and str(vmin) not in (quote or ""):
-                return False
-            if vmax is not None and str(vmax) not in (quote or ""):
-                return False
-
-    return True
-
-
 # Fields where the allowed_values list is a soft hint, not a hard constraint.
 # The LLM may return valid values not in the list (e.g. "Débitmètre" for categorie).
-_OPEN_FIELDS = {"technologie", "typeMesure", "communication"}
-
+_OPEN_FIELDS = {"categorie", "technologie", "typeMesure", "communication"}
 
 def _is_value_allowed(field_name: str, value) -> bool:
     if not ACCURACY_FIRST: return True
@@ -622,6 +535,58 @@ def _is_value_allowed(field_name: str, value) -> bool:
     if value is None or not allowed: return True
     return isinstance(value, str) and value in allowed
 
+
+def _parse_llm_json(raw: str) -> dict:
+    if not raw:
+        return {"value": None, "confidence": 0.0, "quote": None}
+
+    # Strip markdown fences
+    if raw.startswith("```"):
+        raw = "\n".join(l for l in raw.split("\n") if not l.strip().startswith("```"))
+
+    def _first_json_obj(text: str) -> str | None:
+        start = text.find("{")
+        if start < 0: return None
+        depth = in_str = esc = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if in_str:
+                if esc: esc = False; continue
+                if ch == "\\": esc = True; continue
+                if ch == '"': in_str = False
+                continue
+            if ch == '"': in_str = True; continue
+            if ch == "{": depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0: return text[start:i + 1]
+        return None
+
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
+        extracted = _first_json_obj(raw)
+        if extracted:
+            try: parsed = json.loads(extracted)
+            except json.JSONDecodeError:
+                print(f"[LLM] JSON parse failed: {raw[:240]!r}")
+                return {"value": None, "confidence": 0.0, "quote": None}
+        else:
+            print(f"[LLM] No JSON object found: {raw[:240]!r}")
+            return {"value": None, "confidence": 0.0, "quote": None}
+
+    if not isinstance(parsed, dict):
+        return {"value": None, "confidence": 0.0, "quote": None}
+
+    parsed.setdefault("value", None)
+    parsed.setdefault("confidence", 0.0)
+    parsed.setdefault("quote", None)
+    return parsed
+
+
+# ---------------------------------------------------------------------------
+# Cross-field guard  (minimal — only clearly wrong cases)
+# ---------------------------------------------------------------------------
 
 def _apply_cross_field_guards(extracted: dict) -> dict:
     out = dict(extracted)
@@ -638,20 +603,27 @@ def _apply_cross_field_guards(extracted: dict) -> dict:
         if is_ref_pattern or (isinstance(ref, str) and eq.strip() == ref.strip()):
             out.pop("equipmentName", None)
 
-        # equipmentName must not be just a page/section number or a pure numeric token
-        if _is_numericish_string(eq):
-            out.pop("equipmentName", None)
-
     # plageMesure unit must match typeMesure (pressure → pressure unit)
     if out.get("typeMesure") == "Pression" and isinstance(out.get("plageMesure"), dict):
         unite = (out["plageMesure"].get("unite") or "").strip().lower()
         if unite not in {"bar", "pa", "psi", "kpa", "mpa", "mbar", "mmhg", "mmh2o", "inhg"}:
             out.pop("plageMesure", None)
 
-    # plageMesure unit must not be a ratio
-    if isinstance(out.get("plageMesure"), dict):
-        unite = (out["plageMesure"].get("unite") or "").strip()
-        if ":" in unite or unite.replace(".", "").isdigit():
+    # plageMesure unit must NOT be temperature for flow meters
+    _FLOW_INDICATORS = {"Debit", "Débitmètre"}
+    type_mesure = out.get("typeMesure", "")
+    categorie = out.get("categorie", "")
+    if (type_mesure in _FLOW_INDICATORS or categorie in _FLOW_INDICATORS) and isinstance(out.get("plageMesure"), dict):
+        unite = (out["plageMesure"].get("unite") or "").strip().lower()
+        if unite in {"°c", "°f", "k", "celsius", "fahrenheit", "kelvin"}:
+            print(f"  [GUARD] Rejected plageMesure with temp unit '{unite}' for flow device")
+            out.pop("plageMesure", None)
+
+    # plageMesure unit must NOT be temperature for pressure devices
+    if type_mesure == "Pression" and isinstance(out.get("plageMesure"), dict):
+        unite = (out["plageMesure"].get("unite") or "").strip().lower()
+        if unite in {"°c", "°f", "k", "celsius", "fahrenheit", "kelvin"}:
+            print(f"  [GUARD] Rejected plageMesure with temp unit '{unite}' for pressure device")
             out.pop("plageMesure", None)
 
     return out
@@ -687,20 +659,13 @@ def _run_llm_fields(
             confidence = float(result.get("confidence") or 0.0)
             quote = result.get("quote")
 
-            quote_supported = _value_supported_by_quote(value, quote)
-            quote_in_context = _quote_in_context(quote, field_chunks.get(field_name, []))
-            if _quote_optional(field_name) and not quote:
-                quote_supported = True
-                quote_in_context = True
-
             checks = {
                 "non_null": value is not None,
                 "min_confidence": confidence >= min_confidence,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
-                "quote_supported": quote_supported,
-                "quote_in_context": quote_in_context,
-                "sane_value": _field_sanity_check(field_name, value, quote),
+                "quote_supported": _value_supported_by_quote(value, quote),
+                "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
             }
             ok = all(checks.values())
             rejection = next((k for k, v in checks.items() if not v), None) if not ok else None
@@ -747,19 +712,13 @@ def extract_all_fields_with_meta(
             confidence = float(rx.get("confidence") or 1.0)
             quote = rx.get("quote")
 
-            quote_supported = _value_supported_by_quote(value, quote)
-            quote_in_context = _quote_in_context(quote, chunks or [])
-            if _quote_optional(field_name) and not quote:
-                quote_supported = True
-                quote_in_context = True
-
             checks = {
                 "non_null": value is not None,
                 "min_confidence": confidence >= min_confidence,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
-                "quote_supported": quote_supported,
-                "quote_in_context": quote_in_context,
+                "quote_supported": _value_supported_by_quote(value, quote),
+                "quote_in_context": _quote_in_context(quote, chunks or []),
             }
             ok = all(checks.values())
             meta[field_name] = {
@@ -784,8 +743,10 @@ def extract_all_fields_with_meta(
     # Phase 3 — cross-field guards
     extracted = _apply_cross_field_guards(extracted)
 
-    # Phase 4 — re-retrieval verification (DISABLED: causes false negatives dropping valid fields)
-    # extracted = _post_extract_reretrieval_verification(extracted, field_chunks=field_chunks, collection_name=collection_name)
+    # Phase 4 — re-retrieval verification (disabled by default - causes false negatives)
+    from config import ENABLE_RERETRIEVAL_VERIFICATION
+    if ENABLE_RERETRIEVAL_VERIFICATION:
+        extracted = _post_extract_reretrieval_verification(extracted, field_chunks=field_chunks, collection_name=collection_name)
 
     # Build schema
     schema_data = {k: v for k, v in extracted.items()}

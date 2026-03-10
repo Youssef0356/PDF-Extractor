@@ -1,18 +1,26 @@
 {
-  "equipmentName": null,
+  "equipmentName": "Évacuer la pression des parties concernées de l’installation et du servomoteur. Évacuer également les énergies résiduelles.",
   "categorie": null,
-  "typeMesure": "Pression",
-  "technologie": "Pneumatique",
+  "typeMesure": "0,2…1,0 bar",
+  "technologie": "6 bar",
   "plageMesure": null,
   "typeSignal": null,
   "nbFils": null,
-  "alimentation": "alimentation pneumatique auxiliaire",
+  "alimentation": "Évacuer également les énergies résiduelles.",
   "reperage": "3271",
   "communication": null,
   "classeProtection": null,
-  "sortiesAlarme": null,
-  "marque": "Samson",
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "Tige entre par manque d’air",
+      "typeAlarme": "Bas",
+      "seuilAlarme": null,
+      "uniteAlarme": null,
+      "relaisAssocie": null
+    }
+  ],
+  "marque": null,
   "modele": null,
-  "reference": "76",
-  "dateCalibration": null
+  "reference": "6 bar",
+  "dateCalibration": "6 bar"
 }

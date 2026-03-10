@@ -10,16 +10,31 @@ from config import (
     RERANK_CANDIDATES,
     RERANK_BATCH_SIZE,
 )
-import json
-import ollama as ollama_client
+from typing import Any
 from models.schema import FIELD_DESCRIPTIONS
 from services.vector_store import query_chunks
 
 
+_CROSS_ENCODER: Any | None = None
+
+
+def _get_cross_encoder() -> Any:
+    global _CROSS_ENCODER
+    if _CROSS_ENCODER is None:
+        from sentence_transformers import CrossEncoder
+
+        _CROSS_ENCODER = CrossEncoder(RERANKER_MODEL)
+    return _CROSS_ENCODER
+
+
+# ---------------------------------------------------------------------------
+# Field classification
+# ---------------------------------------------------------------------------
+
 _IDENTITY_FIELDS = {"marque", "modele", "reference", "equipmentName"}
 
-# Accuracy-first: for some fields, narrative text is much less noisy than tables.
-# We still allow fallback to mixed retrieval if we don't get enough hits.
+# These fields appear more reliably in narrative text than in tables.
+# We query text/ocr chunks first and fall back to all chunks if too few results.
 _TEXT_FIRST_FIELDS = {
     *_IDENTITY_FIELDS,
     "technologie",
@@ -27,6 +42,91 @@ _TEXT_FIRST_FIELDS = {
     "nbFils",
 }
 
+# Per-field reranking instructions (field-specific context improves score accuracy by 1-5%).
+# Written in English as recommended by Qwen3 docs.
+_RERANK_INSTRUCTIONS: dict[str, str] = {
+    "equipmentName":    "Retrieve text that contains the commercial product name or device designation.",
+    "marque":           "Retrieve text that mentions the manufacturer or brand name.",
+    "modele":           "Retrieve text that contains the model name or model designation.",
+    "reference":        "Retrieve text that contains an order number, part number, or article number.",
+    "categorie":        "Retrieve text that describes what type of instrument or device this is.",
+    "typeMesure":       "Retrieve text that states what physical quantity is being measured (flow, pressure, level, temperature).",
+    "technologie":      "Retrieve text that explains the measurement principle or technology used.",
+    "plageMesure":      "Retrieve text that states the measuring range, minimum and maximum values with units.",
+    "typeSignal":       "Retrieve text that describes the output signal type (4-20mA, 0-10V, etc.).",
+    "nbFils":           "Retrieve text that mentions 2-wire, 4-wire, or number of connection wires.",
+    "alimentation":     "Retrieve text that states the power supply voltage or type.",
+    "communication":    "Retrieve text that mentions a digital communication protocol (HART, Modbus, Profibus, etc.).",
+    "classeProtection": "Retrieve text that states the IP protection class or NEMA enclosure rating.",
+    "reperage":         "Retrieve text that contains an instrument tag number or P&ID identifier.",
+    "sortiesAlarme":    "Retrieve text that describes alarm outputs, relay contacts, or threshold setpoints.",
+    "dateCalibration":  "Retrieve text that states the calibration interval, frequency, or schedule.",
+}
+
+_DEFAULT_RERANK_INSTRUCTION = "Retrieve the most relevant passage for the given query from an industrial equipment datasheet."
+
+
+def _rerank(
+    query: str,
+    field_name: str,
+    results: list[dict],
+    limit: int,
+) -> list[dict]:
+    """
+    Rerank retrieved chunks using a local CrossEncoder (sentence-transformers).
+
+    Args:
+        query:      The search query string used for retrieval.
+        field_name: Used to select a field-specific instruction.
+        results:    Candidate chunks from vector search (unsorted or sorted by distance).
+        limit:      Number of top results to return after reranking.
+
+    Returns:
+        Top `limit` chunks reranked by relevance score (highest first).
+    """
+    if not ENABLE_RERANKING or not results or limit <= 0:
+        return results[:limit]
+
+    instruction = _RERANK_INSTRUCTIONS.get(field_name, _DEFAULT_RERANK_INSTRUCTION)
+    print(f"  [RERANK] model={RERANKER_MODEL} field={field_name} candidates={len(results)} limit={limit}")
+
+    texts: list[str] = [(r.get("text") or "").strip() for r in results]
+    scored: list[tuple[float, int]] = []
+    batch_size = max(1, int(RERANK_BATCH_SIZE))
+
+    try:
+        ce = _get_cross_encoder()
+    except Exception as e:
+        print(f"  [RERANK] failed to load CrossEncoder model={RERANKER_MODEL}: {e}")
+        return results[:limit]
+
+    query_with_instruction = f"{query}\n{instruction}".strip()
+
+    for batch_start in range(0, len(texts), batch_size):
+        batch_texts = texts[batch_start:batch_start + batch_size]
+        pairs = [(query_with_instruction, t) for t in batch_texts]
+
+        try:
+            scores = ce.predict(pairs)
+            if hasattr(scores, "tolist"):
+                scores = scores.tolist()
+            scores_list = [float(s) for s in scores]
+        except Exception as e:
+            print(f"  [RERANK] failed batch start={batch_start} size={len(batch_texts)}: {e}")
+            scores_list = [0.0] * len(batch_texts)
+
+        for i, s in enumerate(scores_list):
+            scored.append((float(s), batch_start + i))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top = scored[:limit]
+    reranked = [results[idx] for _, idx in top if 0 <= idx < len(results)]
+    return reranked
+
+
+# ---------------------------------------------------------------------------
+# Core search
+# ---------------------------------------------------------------------------
 
 def search_for_field(
     field_name: str,
@@ -36,179 +136,78 @@ def search_for_field(
 ) -> list[dict]:
     """
     Search for chunks relevant to a specific form field.
-    
-    Uses the predefined search queries for each field to find
-    the most semantically relevant document chunks.
-    
+
+    Strategy:
+    - Text-first fields: query text/ocr chunks first; fall back to all chunks if sparse.
+    - Other fields: query all chunk types directly.
+    - If reranking enabled: retrieve RERANK_CANDIDATES, rerank, return top n_results.
+
     Args:
-        field_name: Name of the field in the equipment schema.
-        n_results: Number of chunks to retrieve.
-        
+        field_name:       Schema field name.
+        n_results:        Final number of chunks to return.
+        doc_id:           Filter to a specific document (recommended).
+        collection_name:  ChromaDB collection name.
+
     Returns:
-        Deduplicated list of relevant chunks sorted by relevance.
+        Deduplicated list of chunks sorted by relevance (best first).
     """
     field_info = FIELD_DESCRIPTIONS.get(field_name)
     if not field_info:
         return []
-    
-    # Run multiple queries and merge results
+
+    # How many candidates to fetch — more if reranking will filter them down
+    fetch_n = max(n_results, int(RERANK_CANDIDATES)) if ENABLE_RERANKING else n_results
+
+    base_where = {"doc_id": doc_id} if doc_id else None
+
+    # Deduplicated result accumulator (keyed by chunk_id or text)
     all_results: dict[str, dict] = {}
 
-    def _key_for(r: dict) -> str:
-        md = (r.get("metadata") or {})
+    def _chunk_key(r: dict) -> str:
+        md = r.get("metadata") or {}
         cid = md.get("chunk_id")
         if isinstance(cid, str) and cid:
             return cid
         return r.get("text") or ""
 
-    def _merge_results(results: list[dict]) -> None:
-        for result in results:
-            k = _key_for(result)
+    def _merge(results: list[dict]) -> None:
+        for r in results:
+            k = _chunk_key(r)
             if not k:
                 continue
-            if k not in all_results or result["distance"] < all_results[k]["distance"]:
-                all_results[k] = result
+            # Keep the result with the lower (better) vector distance
+            if k not in all_results or r["distance"] < all_results[k]["distance"]:
+                all_results[k] = r
 
-    base_where = {"doc_id": doc_id} if doc_id else None
+    search_queries = field_info.get("search_queries", [field_name])
 
-    def _rerank(query: str, results: list[dict], limit: int) -> list[dict]:
-        if not ENABLE_RERANKING:
-            return results[:limit]
-        if not results or limit <= 0:
-            return []
-
-        texts: list[str] = []
-        for r in results:
-            t = (r.get("text") or "").strip()
-            if t:
-                texts.append(t)
-            else:
-                texts.append("")
-
-        scored: list[tuple[float, int]] = []
-
-        def _extract_first_json_array(text: str) -> str | None:
-            t = (text or "").strip()
-            if not t:
-                return None
-            if t.startswith("```"):
-                t = "\n".join(l for l in t.split("\n") if not l.strip().startswith("```"))
-            start = t.find("[")
-            if start < 0:
-                return None
-            depth = 0
-            in_str = False
-            esc = False
-            for i in range(start, len(t)):
-                ch = t[i]
-                if in_str:
-                    if esc:
-                        esc = False
-                        continue
-                    if ch == "\\":
-                        esc = True
-                        continue
-                    if ch == '"':
-                        in_str = False
-                    continue
-                if ch == '"':
-                    in_str = True
-                    continue
-                if ch == "[":
-                    depth += 1
-                elif ch == "]":
-                    depth -= 1
-                    if depth == 0:
-                        return t[start:i + 1]
-            return None
-
-        for start in range(0, len(texts), max(1, int(RERANK_BATCH_SIZE))):
-            batch_texts = texts[start:start + max(1, int(RERANK_BATCH_SIZE))]
-            messages = [
-                {
-                    "role": "user",
-                    "content": "You are a reranker. Score each document for relevance to the query. Return ONLY a JSON array of numbers (floats) with same length as documents.\n"
-                    f"Query: {query}\n"
-                    "Documents:\n" + "\n".join([f"[{i}] {d}" for i, d in enumerate(batch_texts)]),
-                }
-            ]
-            try:
-                resp = ollama_client.chat(
-                    model=RERANKER_MODEL,
-                    messages=messages,
-                    options={"temperature": 0.0},
-                    keep_alive="10m",
-                    format="json",
-                )
-                raw = (resp.get("message") or {}).get("content") or ""
-                payload = _extract_first_json_array(raw) or raw
-                scores = json.loads(payload)
-                if not isinstance(scores, list):
-                    raise ValueError("reranker did not return a list")
-                for i, s in enumerate(scores):
-                    try:
-                        scored.append((float(s), start + i))
-                    except Exception:
-                        scored.append((0.0, start + i))
-            except Exception:
-                for i in range(len(batch_texts)):
-                    scored.append((0.0, start + i))
-
-        scored.sort(key=lambda x: x[0], reverse=True)
-        top = scored[:limit]
-        reranked = [results[idx] for _, idx in top if 0 <= idx < len(results)]
-        return reranked
-
-    # Text-first fields: prefer narrative text first, then allow tables as fallback.
     if field_name in _TEXT_FIRST_FIELDS:
-        # Include OCR chunks as narrative text too.
-        for ct in ("text", "ocr"):
-            conditions = [{"chunk_type": ct}]
+        # Pass 1: text and OCR chunks only
+        for chunk_type in ("text", "ocr"):
+            conditions = [{"chunk_type": chunk_type}]
             if doc_id:
                 conditions.append({"doc_id": doc_id})
-            
-            where_text = {"$and": conditions} if len(conditions) > 1 else conditions[0]
-            
-            for query in field_info["search_queries"]:
-                _merge_results(
-                    query_chunks(
-                        query,
-                        n_results=max(n_results, int(RERANK_CANDIDATES)) if ENABLE_RERANKING else n_results,
-                        where=where_text,
-                        collection_name=collection_name,
-                    )
-                )
+            where = {"$and": conditions} if len(conditions) > 1 else conditions[0]
+            for query in search_queries:
+                _merge(query_chunks(query, n_results=fetch_n, where=where, collection_name=collection_name))
 
+        # Pass 2: fallback to all chunk types if we didn't get enough
         if len(all_results) < max(1, n_results // 2):
-            for query in field_info["search_queries"]:
-                _merge_results(
-                    query_chunks(
-                        query,
-                        n_results=max(n_results, int(RERANK_CANDIDATES)) if ENABLE_RERANKING else n_results,
-                        where=base_where,
-                        collection_name=collection_name,
-                    )
-                )
+            for query in search_queries:
+                _merge(query_chunks(query, n_results=fetch_n, where=base_where, collection_name=collection_name))
     else:
-        for query in field_info["search_queries"]:
-            _merge_results(
-                query_chunks(
-                    query,
-                    n_results=max(n_results, int(RERANK_CANDIDATES)) if ENABLE_RERANKING else n_results,
-                    where=base_where,
-                    collection_name=collection_name,
-                )
-            )
-    
-    # Sort by distance (lower = more relevant)
-    sorted_results = sorted(all_results.values(), key=lambda r: r["distance"])
+        for query in search_queries:
+            _merge(query_chunks(query, n_results=fetch_n, where=base_where, collection_name=collection_name))
 
-    if ENABLE_RERANKING and sorted_results:
-        # Use the field's first search query as the rerank query anchor.
-        rerank_query = (field_info.get("search_queries") or [field_name])[0]
-        return _rerank(rerank_query, sorted_results, n_results)
+    # Sort by vector distance before reranking (lower = better)
+    candidates = sorted(all_results.values(), key=lambda r: r["distance"])
 
-    return sorted_results[:n_results]
+    if ENABLE_RERANKING and candidates:
+        # Use the most specific search query as the reranker anchor
+        rerank_query = search_queries[0]
+        return _rerank(rerank_query, field_name, candidates, n_results)
+
+    return candidates[:n_results]
 
 
 def search_all_fields(
@@ -217,17 +216,17 @@ def search_all_fields(
     n_results: int = TOP_K_CHUNKS,
 ) -> dict[str, list[dict]]:
     """
-    Search for relevant chunks for ALL form fields.
-    
+    Search for relevant chunks for ALL schema fields.
+
     Returns:
-        Dict mapping field_name -> list of relevant chunks.
+        Dict mapping field_name -> list of relevant chunks (best first).
     """
-    results = {}
-    for field_name in FIELD_DESCRIPTIONS:
-        results[field_name] = search_for_field(
+    return {
+        field_name: search_for_field(
             field_name,
             n_results=n_results,
             doc_id=doc_id,
             collection_name=collection_name,
         )
-    return results
+        for field_name in FIELD_DESCRIPTIONS
+    }
