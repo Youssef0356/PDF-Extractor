@@ -1,0 +1,22 @@
+{
+  "equipmentName": null,
+  "categorie": null,
+  "typeMesure": null,
+  "technologie": "W band FMCW radar",
+  "plageMesure": {
+    "min": 0.0,
+    "max": 15.0,
+    "unite": "m"
+  },
+  "typeSignal": "4-20mA",
+  "nbFils": null,
+  "alimentation": "Loop powered (2 fils)",
+  "reperage": null,
+  "communication": "HART",
+  "classeProtection": "IP66",
+  "sortiesAlarme": null,
+  "marque": "Siemens",
+  "modele": "7ML1830-1DP",
+  "reference": "6NH3112-3BA00-0",
+  "dateCalibration": null
+}

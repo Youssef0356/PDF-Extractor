@@ -464,16 +464,16 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
             : isEmpty
                 ? 'bg-red-600'
                 : (typeof fieldConfidence === 'number')
-                    ? (fieldConfidence >= 0.90 ? 'bg-green-600' : 'bg-orange-600')
-                    : 'bg-orange-600';
+                    ? (fieldConfidence >= 0.90 ? 'bg-green-600' : 'bg-yellow-500')
+                    : 'bg-yellow-500';
 
         const bgTintClass = !hasAiResult
             ? ''
             : isEmpty
                 ? 'bg-red-50/30'
                 : (typeof fieldConfidence === 'number')
-                    ? (fieldConfidence >= 0.90 ? 'bg-green-50/30' : 'bg-orange-50/30')
-                    : 'bg-orange-50/30';
+                    ? (fieldConfidence >= 0.90 ? 'bg-green-50/30' : 'bg-yellow-50/30')
+                    : 'bg-yellow-50/30';
 
         const wrapperClass = `
             flex-1 min-w-0 transition-all duration-200 relative
@@ -506,7 +506,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -561,7 +561,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -598,7 +598,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -652,7 +652,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -712,7 +712,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -760,7 +760,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold border ${
                                     fieldConfidence >= 0.90 
                                         ? 'bg-green-50 text-green-700 border-green-200' 
-                                        : 'bg-orange-50 text-orange-700 border-orange-200'
+                                        : 'bg-yellow-50 text-yellow-700 border-yellow-200'
                                 }`}>
                                     {fieldConfidence >= 0.90 ? '✓ ' : ''}{Math.round(fieldConfidence * 100)}%
                                 </div>
@@ -815,7 +815,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                     </div>
                     <div className="flex h-1.5 w-full rounded-full overflow-hidden bg-slate-100 mb-4">
                         <div className="h-full bg-green-500 transition-all duration-500" style={{ width: `${(qualityMetrics.confirmed / qualityMetrics.total) * 100}%` }} />
-                        <div className="h-full bg-orange-500 transition-all duration-500" style={{ width: `${(qualityMetrics.uncertain / qualityMetrics.total) * 100}%` }} />
+                        <div className="h-full bg-yellow-400 transition-all duration-500" style={{ width: `${(qualityMetrics.uncertain / qualityMetrics.total) * 100}%` }} />
                         <div className="h-full bg-red-500 transition-all duration-500" style={{ width: `${(qualityMetrics.empty / qualityMetrics.total) * 100}%` }} />
                     </div>
                     <div className="flex gap-4">
@@ -824,7 +824,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                             <span className="text-[11px] font-semibold text-slate-600">{qualityMetrics.confirmed} Confirmés</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-orange-500" />
+                            <div className="w-2 h-2 rounded-full bg-yellow-400" />
                             <span className="text-[11px] font-semibold text-slate-600">{qualityMetrics.uncertain} À réviser</span>
                         </div>
                         <div className="flex items-center gap-1.5">

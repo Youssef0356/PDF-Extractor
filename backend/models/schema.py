@@ -174,11 +174,12 @@ FIELD_DESCRIPTIONS: dict[str, dict] = {
         # KEPT: these 5 are exhaustive for the domain; open-ended would reduce consistency.
         "allowed_values": ["Debit", "Niveau", "Pression", "Temperature", "Autre"],
         "search_queries": [
-            "temperature pressure flow level measurement",
-            "application range measuring range",
+            "What is the functional principle or measurement purpose of this device?",
+            "What physical quantity or variable does this instrument measure?",
+            "product overview functional principle description",
+            "continuous level measurement liquids solids",
+            "measuring flow pressure level temperature",
             "mesure température pression débit niveau",
-            "this sensor is designed to measure",
-            "Application: -40 to 130",
         ],
     },
 

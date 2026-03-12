@@ -54,8 +54,9 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         '  - Passive sensors WITHOUT signal conditioning → Capteurs\n'
         '  - Valves/positioners/actuators → Actionneur\n'
         'IMPORTANT: If the document title or description contains "transmitter" or "transmetteur", classify as Transmetteur.\n'
-        'For the quote, use the SHORTEST possible verbatim fragment (e.g. just "transmitter" or "Transmetteur").\n'
-        "GOOD: 'Transmetteur' (for SITRANS LR150 radar level transmitter) | BAD: 'flowmeter', 'capteur de débit'"
+        'For the quote, use the EXACT verbatim fragment from the source language (e.g. "transmitter", "level sensor", "débitmètre").\n'
+        'The "value" must be one of the French labels above, but the "quote" must be from the document.\n'
+        "GOOD: 'Transmetteur' with quote 'radar level transmitter' | BAD: 'flowmeter', 'capteur de débit'"
     ),
 
     "typeMesure": (
@@ -125,11 +126,12 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         'CRITICAL: Only extract VOLTAGE values (V, VDC, VAC, V DC, V AC).\n'
         'Valid formats: "24V DC", "12…35 V DC", "9…35 V DC", "85…264V AC"\n'
         'NEVER extract:\n'
+        '  - "Loop powered" or "2 fils" (these belong to nbFils, not alimentation)\n'
         '  - Product/order numbers (e.g. "7ML534", "6ES7…", anything with letters+digits like a part number)\n'
         '  - Phone numbers, addresses, model names\n'
         '  - Power consumption in watts (W) or current in mA alone\n'
         'If the document shows a range like "at 4 mA: 12…35 V DC / at 20 mA: 9…35 V DC", return "9…35 V DC" (the minimum range).\n'
-        "GOOD: '12…35 V DC', '9-35 V DC' | BAD: '7ML534' (product code), '248 876 2977' (phone)"
+        "GOOD: '12…35 V DC', '9-35 V DC' | BAD: 'Loop powered', '7ML534' (product code)"
     ),
 
     "nbFils": (
@@ -321,20 +323,60 @@ def extract_field(field_name: str, chunks: list[dict], doc_ctx: DocumentContext 
 # ---------------------------------------------------------------------------
 
 def _field_applicable(field_name: str, doc_ctx: DocumentContext | None) -> bool:
-    return True  # Extend with doc_type gates if needed
-
-
-def _quote_in_context(quote: str | None, chunks: list[dict], field_name: str = "") -> bool:
-    if not quote or "..." in quote or "…" in quote:
+    """Check if a field should be automatically extracted."""
+    # User request: exclude reference and plage de mesure from automatic determination
+    if field_name in ("reference", "plageMesure"):
         return False
+    return True
+
+
+from difflib import SequenceMatcher
+
+def _normalize_encoding(s: str) -> str:
+    """Normalize common encoding/OCR differences (ellipsis, quotes, spaces)."""
+    if not s:
+        return ""
+    # Ellipsis normalization
+    s = s.replace("…", "...").replace("..", ".")
+    # Quote normalization
+    s = s.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+    # Hyphen/Dash normalization
+    s = s.replace("–", "-").replace("—", "-")
+    # Whitespace normalization (handle non-breaking spaces, tabs, etc.)
+    s = re.sub(r"\s+", " ", s)
+    return s.strip()
+
+def _quote_in_context(quote: str | None, chunks: list[dict], threshold: float = 0.85) -> bool:
+    """Check if the quote exists in chunks using fuzzy matching to handle encoding/whitespace issues."""
+    if not quote:
+        return False
+    
+    q_norm = _normalize_encoding(quote).lower()
+    if not q_norm:
+        return False
+
     context = "\n---\n".join(c.get("text", "") for c in chunks)
-    q = quote.strip()
-    found = q in context
-    if not found:
-        # Normalised whitespace fallback
-        def _norm(s): return re.sub(r"\s+", " ", s).strip().lower()
-        found = bool(q) and _norm(q) in _norm(context)
-    return found
+    context_norm = _normalize_encoding(context).lower()
+    
+    # 1. Exact match (fast path)
+    if q_norm in context_norm:
+        return True
+    
+    # 2. Fuzzy sliding window match (handles minor encoding variations)
+    # Optimization: only check window if q_norm is long enough
+    if len(q_norm) < 10:
+        return q_norm in context_norm
+
+    # Check a bit wider than q_norm to catch nearby variations
+    window_size = len(q_norm)
+    for i in range(len(context_norm) - window_size + 1):
+        window = context_norm[i:i + window_size]
+        # Use SequenceMatcher for fuzzy ratio
+        ratio = SequenceMatcher(None, q_norm, window).ratio()
+        if ratio >= threshold:
+            return True
+        
+    return False
 
 
 def _compute_confidence(
@@ -387,60 +429,58 @@ def _strip_accents(s: str) -> str:
     )
 
 
+def llm_verify_coherence(value, quote, field_name: str = "") -> bool:
+    """Use a small, fast LLM call to verify if a quote supports an extracted value across languages."""
+    if not value or not quote:
+        return False
+
+    prompt = f"""
+    Verify if the following text excerpt (quote) supports the extracted information (value) for the field "{field_name}".
+    The document might be in English, German, or French, but the value is usually normalized to French or a technical standard.
+    
+    Field: {field_name}
+    Extracted Value: {value}
+    Quote from document: "{quote}"
+    
+    Does the quote logically support the extracted value? (e.g., "radar" supports "Niveau", "4...20mA" supports "4-20mA", "loop powered" supports "2 fils").
+    Answer ONLY with 'YES' or 'NO'.
+    """
+    
+    try:
+        response = ollama_client.chat(
+            model=TEXT_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            options={"temperature": 0.0},
+            keep_alive="5m"
+        )
+        answer = response["message"]["content"].strip().upper()
+        return "YES" in answer
+    except Exception as e:
+        print(f"  [COHERENCE] Error: {e}")
+        return True # Fallback to true to avoid aggressive rejection on API error
+
 def _value_supported_by_quote(value, quote: str | None, field_name: str = "") -> bool:
-    """Lightweight lexical check: extracted value should appear in the quote."""
+    """Check if the value is supported by the quote (direct lexical or LLM-based coherence)."""
     if value is None:
         return True
     if not quote:
         return False
+
+    # 1. Direct lexical support (Fast path)
+    q = _normalize_encoding(quote).lower()
     if isinstance(value, str):
-        v = value.strip().lower()
-        q = quote.lower()
+        v = _normalize_encoding(value).lower()
         if v in q:
             return True
-        # Accent-normalized comparison (e.g. "debit" matches "débit")
+            
+        # Accent-normalized comparison
         v_stripped = _strip_accents(v)
         q_stripped = _strip_accents(q)
         if v_stripped in q_stripped:
             return True
-        vc = re.sub(r"[^a-z0-9]", "", v_stripped)
-        qc = re.sub(r"[^a-z0-9]", "", q_stripped)
-        if bool(vc) and vc in qc:
-            return True
-        # Handle abbreviations/symbols: T=Temperature, R=Resistance, etc.
-        _ABBREV_MAP = {
-            "temperature": ["t [", "t[", "°c", "°f"],
-            "resistance": ["r [", "r[", "ohm", "ω"],
-            "pression": ["p [", "p[", "bar", "psi", "pa"],
-            "débit": ["q [", "q[", "m³", "l/min"],
-            "debit": ["q [", "q[", "m³", "l/min", "débit", "debit"],
-        }
-        if v in _ABBREV_MAP:
-            for sym in _ABBREV_MAP[v]:
-                if sym in q:
-                    return True
-        if v_stripped in _ABBREV_MAP:
-            for sym in _ABBREV_MAP[v_stripped]:
-                if sym in q:
-                    return True
-        # Handle numeric extractions: "2 fils" -> quote "2-pole" or "2 | 2"
-        if field_name in ("nbFils", "reperage"):
-            nums = re.findall(r"\d+", v)
-            if nums and any(n in q for n in nums):
-                return True
-        return False
-    # For sortiesAlarme: each nomAlarme must be findable in the quote
-    if field_name == "sortiesAlarme" and isinstance(value, list):
-        for alarm in value:
-            if isinstance(alarm, dict):
-                nom = alarm.get("nomAlarme", "")
-                seuil = alarm.get("seuilAlarme")
-                if nom and nom.lower() not in quote.lower():
-                    return False  # alarm name not in document text
-                if seuil is not None and str(seuil) not in quote and str(int(seuil)) not in quote:
-                    return False  # threshold value not in document text
-        return True
-    return True
+
+    # 2. LLM-based semantic coherence check (Handles cross-language and inference)
+    return llm_verify_coherence(value, quote, field_name)
 
 
 FIELD_MIN_CONFIDENCE_OVERRIDE = {
@@ -776,6 +816,51 @@ def _run_llm_fields(
     return extracted, meta
 
 
+def merge_extractions(results: list[dict], min_confidence: float = 0.3) -> tuple[dict, dict]:
+    """Merge extraction results from multiple documents (e.g. Datasheet + OI)."""
+    if not results:
+        return {}, {}
+
+    merged_data = {}
+    merged_meta = {}
+
+    # Priority order for fields if multiple documents provide values
+    # Generally, Datasheet (FI) > Operating Instructions (OI)
+    # But we can also use confidence as a tie-breaker
+    
+    all_fields = set()
+    for res in results:
+        all_fields.update(res.get("meta", {}).keys())
+
+    for field in all_fields:
+        best_val = None
+        best_meta = None
+        max_conf = -1.0
+
+        for res in results:
+            meta = res.get("meta", {}).get(field)
+            if not meta or not meta.get("accepted"):
+                continue
+            
+            conf = meta.get("confidence", 0.0)
+            
+            # If we have a very high confidence match, prefer it
+            if conf > max_conf:
+                max_conf = conf
+                best_val = meta.get("value")
+                best_meta = meta
+            elif conf == max_conf and conf > 0:
+                # Tie-breaker: prefer non-null if existing is null (shouldn't happen with accepted=True)
+                if best_val is None and meta.get("value") is not None:
+                    best_val = meta.get("value")
+                    best_meta = meta
+
+        if best_meta:
+            merged_data[field] = best_val
+            merged_meta[field] = best_meta
+
+    return merged_data, merged_meta
+
 def extract_all_fields_with_meta(
     field_chunks: dict[str, list[dict]],
     min_confidence: float = 0.3,
@@ -809,7 +894,7 @@ def extract_all_fields_with_meta(
                 "min_confidence": True,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
-                "quote_supported": _value_supported_by_quote(value, quote),
+                "quote_supported": _value_supported_by_quote(value, quote, field_name),
                 "quote_in_context": _quote_in_context(quote, chunks or []),
             }
             computed_confidence = _compute_confidence(
