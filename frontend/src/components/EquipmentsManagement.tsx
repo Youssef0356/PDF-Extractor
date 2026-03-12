@@ -4,126 +4,152 @@ import EquipmentForm from './EquipmentForm';
 import { extractFromPDF } from '../services/api';
 import type { EquipmentData } from '../services/api';
 
-type ExtractionStatus = 'idle' | 'uploading' | 'processing' | 'success' | 'error';
+interface PDFFile {
+    file: File;
+    id: string;
+    status: 'pending' | 'processing' | 'completed' | 'error';
+    progress: number;
+}
 
 function EquipmentManagement() {
     const [extractedData, setExtractedData] = useState<EquipmentData | null>(null);
-    const [status, setStatus] = useState<ExtractionStatus>('idle');
-    const [statusMessage, setStatusMessage] = useState('');
+    const [confidence, setConfidence] = useState<Record<string, number> | null>(null);
+    const [queuedFiles, setQueuedFiles] = useState<PDFFile[]>([]);
+    const [isExtracting, setIsExtracting] = useState(false);
+    const [globalStatus, setGlobalStatus] = useState<string>('');
 
-    const handleFileSelect = useCallback(async (file: File) => {
-        setStatus('uploading');
-        setStatusMessage('Envoi du PDF au serveur...');
-        setExtractedData(null);
-
-
-        try {
-            setStatus('processing');
-            setStatusMessage('Analyse IA en cours... Cela peut prendre quelques minutes.');
-
-            const response = await extractFromPDF(file);
-
-            if (response.success && response.data) {
-                setExtractedData(response.data);
-                setStatus('success');
-                setStatusMessage(
-                    `Extraction réussie en ${response.processing_time_seconds?.toFixed(1)}s`
-                );
-            } else {
-                setStatus('error');
-                setStatusMessage(response.message || 'Erreur lors de l\'extraction');
-            }
-        } catch (err) {
-            setStatus('error');
-            setStatusMessage(
-                err instanceof Error
-                    ? `Erreur: ${err.message}. Vérifiez que le serveur backend est en cours d'exécution.`
-                    : 'Erreur inconnue'
-            );
-        }
+    const handleFilesSelect = useCallback((files: File[]) => {
+        const newFiles = files.map(file => ({
+            file,
+            id: Math.random().toString(36).substring(7),
+            status: 'pending' as const,
+            progress: 0
+        }));
+        setQueuedFiles(prev => [...prev, ...newFiles]);
     }, []);
+
+    const removeFile = useCallback((id: string) => {
+        setQueuedFiles(prev => prev.filter(f => f.id !== id));
+    }, []);
+
+    const extractAll = useCallback(async () => {
+        if (queuedFiles.length === 0 || isExtracting) return;
+
+        setIsExtracting(true);
+        setExtractedData(null);
+        setConfidence(null);
+
+        const filesToProcess = [...queuedFiles];
+        
+        for (let i = 0; i < filesToProcess.length; i++) {
+            const pf = filesToProcess[i];
+            
+            // Update status to processing
+            setQueuedFiles(prev => prev.map(f => 
+                f.id === pf.id ? { ...f, status: 'processing', progress: 10 } : f
+            ));
+            setGlobalStatus(`Analyse de ${pf.file.name} (${i + 1}/${filesToProcess.length})...`);
+
+            try {
+                // Simulated progress steps
+                const progressInterval = setInterval(() => {
+                    setQueuedFiles(prev => prev.map(f => {
+                        if (f.id === pf.id && f.progress < 90) {
+                            return { ...f, progress: f.progress + 5 };
+                        }
+                        return f;
+                    }));
+                }, 500);
+
+                const response = await extractFromPDF(pf.file);
+                clearInterval(progressInterval);
+
+                if (response.success && response.data) {
+                    setQueuedFiles(prev => prev.map(f => 
+                        f.id === pf.id ? { ...f, status: 'completed', progress: 100 } : f
+                    ));
+                    
+                    // For now, we update the form with the latest successful extraction
+                    setExtractedData(response.data);
+                    setConfidence(response.confidence ?? null);
+                } else {
+                    setQueuedFiles(prev => prev.map(f => 
+                        f.id === pf.id ? { ...f, status: 'error', progress: 100 } : f
+                    ));
+                }
+            } catch (err) {
+                setQueuedFiles(prev => prev.map(f => 
+                    f.id === pf.id ? { ...f, status: 'error', progress: 100 } : f
+                ));
+            }
+        }
+
+        setIsExtracting(false);
+        setGlobalStatus('Traitement terminé');
+    }, [queuedFiles, isExtracting]);
 
     return (
         <div className="space-y-6">
             {/* Page Header */}
-            <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-blue-500 shadow-sm">
-                    <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-blue-500 shadow-sm text-white">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 className="text-xl font-bold text-slate-800">Gestion d'Équipement</h1>
+                        <p className="text-xs text-slate-400">Importez des documents techniques et extrayez les données</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 className="text-xl font-bold text-gray-800">Gestion d'Équipement</h1>
-                    <p className="text-sm text-gray-400">Importez un document et remplissez les informations</p>
-                </div>
+                {isExtracting && (
+                    <div className="flex items-center gap-3 px-4 py-2 bg-blue-50 rounded-full border border-blue-100 animate-pulse">
+                        <div className="w-2 h-2 rounded-full bg-blue-500" />
+                        <span className="text-[11px] font-bold text-blue-700 uppercase tracking-wider">{globalStatus}</span>
+                    </div>
+                )}
             </div>
 
             {/* Two-column layout */}
-            <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-6 items-start">
-                {/* Left: PDF Drop Zone */}
-                <div className="sticky top-6">
-                    <div className="mb-3">
-                        <h2 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
-                            <span className="w-1 h-5 rounded-full bg-blue-500"></span>
-                            Document PDF
+            <div className="grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-8 items-start">
+                {/* Left: PDF Drop Zone & Queue */}
+                <div className="space-y-6">
+                    <div>
+                        <h2 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <span className="w-1 h-4 rounded-full bg-blue-500"></span>
+                            Documents Source
                         </h2>
-                        <p className="text-xs text-gray-400 mt-1 ml-3">Glissez-déposez ou cliquez pour importer</p>
+                        <PDFDropZone 
+                            onFilesSelect={handleFilesSelect} 
+                            queuedFiles={queuedFiles}
+                            onRemoveFile={removeFile}
+                            onExtractAll={extractAll}
+                            isExtracting={isExtracting}
+                        />
                     </div>
-                    <PDFDropZone onFileSelect={handleFileSelect} />
-
-                    {/* Status Indicator */}
-                    {status !== 'idle' && (
-                        <div className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${status === 'uploading' || status === 'processing'
-                            ? 'bg-blue-50 border border-blue-200'
-                            : status === 'success'
-                                ? 'bg-green-50 border border-green-200'
-                                : 'bg-red-50 border border-red-200'
-                            }`}>
-                            {(status === 'uploading' || status === 'processing') && (
-                                <svg className="w-4 h-4 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                </svg>
-                            )}
-                            {status === 'success' && (
-                                <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                </svg>
-                            )}
-                            {status === 'error' && (
-                                <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            )}
-                            <p className={`text-sm font-medium ${status === 'uploading' || status === 'processing'
-                                ? 'text-blue-700'
-                                : status === 'success'
-                                    ? 'text-green-700'
-                                    : 'text-red-700'
-                                }`}>
-                                {statusMessage}
-                            </p>
-                        </div>
-                    )}
                 </div>
 
                 {/* Right: Equipment Form */}
-                <div>
-                    <div className="mb-3">
-                        <h2 className="text-sm font-semibold text-gray-600 flex items-center gap-2">
-                            <span className="w-1 h-5 rounded-full bg-blue-500"></span>
-                            Fiche Équipement
-                        </h2>
-                        <p className="text-xs text-gray-400 mt-1 ml-3">
-                            {extractedData
-                                ? 'Champs remplis automatiquement par l\'IA — vérifiez et ajustez'
-                                : 'Remplissez les champs librement'}
-                        </p>
+                <div className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+                    <div className="mb-6 flex items-center justify-between">
+                        <div>
+                            <h2 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+                                <span className="w-1 h-4 rounded-full bg-blue-500"></span>
+                                Fiche Technique
+                            </h2>
+                            <p className="text-xs text-slate-400">
+                                {extractedData 
+                                    ? 'Données extraites par l\'IA — vérifiez les champs avec un badge orange' 
+                                    : 'En attente d\'un document pour l\'extraction automatique'}
+                            </p>
+                        </div>
                     </div>
                     <EquipmentForm
                         extractedData={extractedData}
-                        isProcessing={status === 'uploading' || status === 'processing'}
+                        confidence={confidence}
+                        isProcessing={isExtracting}
                     />
                 </div>
             </div>

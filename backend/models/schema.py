@@ -113,6 +113,7 @@ class ExtractionResponse(BaseModel):
     """API response for PDF extraction."""
     success: bool
     data: Optional[EquipmentSchema] = None
+    confidence: Optional[dict[str, float]] = None
     message: str = ""
     processing_time_seconds: Optional[float] = None
     meta: Optional[dict[str, Any]] = None

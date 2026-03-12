@@ -509,8 +509,16 @@ def _normalize_value(field_name: str, value):
     if field_name == "typeSignal":
         v = v.replace("…", "-").replace("–", "-").replace("...", "-")
         compact = re.sub(r"\s+", "", v).lower()
-        MAP = {"4-20ma": "4-20mA", "4-20": "4-20mA", "0-20ma": "0-20mA",
-               "0-10v": "0-10V", "0-5v": "0-5V"}
+        MAP = {
+            "4-20ma": "4-20mA", 
+            "4-20": "4-20mA", 
+            "4-20ma/hart": "4-20mA",
+            "420ma/hart": "4-20mA",
+            "420mahrt": "4-20mA",
+            "0-20ma": "0-20mA",
+            "0-10v": "0-10V", 
+            "0-5v": "0-5V"
+        }
         return MAP.get(compact, v)
 
     # alimentation normalisation
@@ -696,8 +704,8 @@ def _run_llm_fields(
 
             checks = {
                 "non_null": value is not None,
-                # min_confidence is applied after computing deterministic confidence.
-                "min_confidence": True,
+                # Use model_confidence for the acceptance gate, not the blended score
+                "min_confidence": model_confidence >= min_confidence,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote),
@@ -710,7 +718,6 @@ def _run_llm_fields(
                 source="llm",
                 model_confidence=model_confidence,
             )
-            checks["min_confidence"] = computed_confidence >= min_confidence
             ok = all(checks.values())
             rejection = next((k for k, v in checks.items() if not v), None) if not ok else None
 

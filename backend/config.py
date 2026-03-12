@@ -15,13 +15,13 @@ RERANK_BATCH_SIZE = 8
 
 # -- Extraction Policy ----------------------------------------------
 # If True: accuracy-first (strict). If False: permissive (do not enforce enum allowed-values).
-ACCURACY_FIRST = True
+ACCURACY_FIRST = False
 
-MIN_EXTRACT_CONFIDENCE = 0.7
+MIN_EXTRACT_CONFIDENCE = 0.5
 
 # -- Chunking ------------------------------------------------------
 CHUNK_SIZE = 500          # tokens (~375 words)
-CHUNK_OVERLAP = 100       # 20% overlap
+CHUNK_OVERLAP = 80       # 20% overlap
 CHARS_PER_TOKEN = 4     # approximate characters per token (standard for most tokenizers)
 
 # -- ChromaDB ------------------------------------------------------
@@ -30,7 +30,7 @@ CHROMA_COLLECTION_NAME = "pdf_chunks"
 
 # -- PDF Processing -------------------------------------------------
 IMAGE_DPI = 300           # DPI for rendering PDF pages as images
-TOP_K_CHUNKS = 3         # Number of chunks to retrieve per field
+TOP_K_CHUNKS = 5         # Number of chunks to retrieve per field
 
 
 # -- Server ---------------------------------------------------------

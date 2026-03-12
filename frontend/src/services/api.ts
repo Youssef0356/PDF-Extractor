@@ -40,6 +40,7 @@ export interface EquipmentData {
 export interface ExtractionResponse {
     success: boolean;
     data: EquipmentData | null;
+    confidence?: Record<string, number> | null;
     message: string;
     processing_time_seconds: number | null;
 }

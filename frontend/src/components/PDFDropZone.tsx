@@ -1,12 +1,28 @@
 import React, { useState, useCallback } from 'react';
 
-interface PDFDropZoneProps {
-    onFileSelect: (file: File) => void;
+interface PDFFile {
+    file: File;
+    id: string;
+    status: 'pending' | 'processing' | 'completed' | 'error';
+    progress: number;
 }
 
-const PDFDropZone: React.FC<PDFDropZoneProps> = ({ onFileSelect }) => {
+interface PDFDropZoneProps {
+    onFilesSelect: (files: File[]) => void;
+    queuedFiles: PDFFile[];
+    onRemoveFile: (id: string) => void;
+    onExtractAll: () => void;
+    isExtracting: boolean;
+}
+
+const PDFDropZone: React.FC<PDFDropZoneProps> = ({ 
+    onFilesSelect, 
+    queuedFiles, 
+    onRemoveFile, 
+    onExtractAll,
+    isExtracting
+}) => {
     const [isDragging, setIsDragging] = useState(false);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleDragEnter = useCallback((e: React.DragEvent) => {
         e.preventDefault();
@@ -30,113 +46,128 @@ const PDFDropZone: React.FC<PDFDropZoneProps> = ({ onFileSelect }) => {
         e.stopPropagation();
         setIsDragging(false);
 
-        const files = e.dataTransfer.files;
-        if (files && files.length > 0) {
-            const file = files[0];
-            if (file.type === 'application/pdf') {
-                setSelectedFile(file);
-                onFileSelect(file);
-            } else {
-                alert('Please drop a PDF file');
-            }
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
+        if (files.length > 0) {
+            onFilesSelect(files);
         }
-    }, [onFileSelect]);
+    }, [onFilesSelect]);
 
     const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        if (files && files.length > 0) {
-            const file = files[0];
-            if (file.type === 'application/pdf') {
-                setSelectedFile(file);
-                onFileSelect(file);
-            } else {
-                alert('Please select a PDF file');
-            }
+        const files = Array.from(e.target.files || []).filter(f => f.type === 'application/pdf');
+        if (files.length > 0) {
+            onFilesSelect(files);
         }
-    }, [onFileSelect]);
+    }, [onFilesSelect]);
 
     const handleClick = () => {
-        document.getElementById('file-input')?.click();
+        if (!isExtracting) {
+            document.getElementById('file-input')?.click();
+        }
     };
 
     return (
-        <div
-            className={`
-                relative w-full max-w-[700px] min-h-[450px] p-12
-                bg-gradient-to-br from-white/95 to-gray-50/95
-                border-3 border-dashed border-indigo-500/30 rounded-3xl
-                cursor-pointer transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]
-                backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.08)]
-                hover:border-indigo-500/60 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(99,102,241,0.15)]
-                ${isDragging ? '!border-indigo-500 bg-gradient-to-br from-indigo-500/10 to-violet-500/10 !scale-[1.02] shadow-[0_20px_60px_rgba(99,102,241,0.25)]' : ''}
-                ${selectedFile ? '!border-emerald-500/50 bg-gradient-to-br from-emerald-500/5 to-emerald-600/5' : ''}
-            `}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onClick={handleClick}
-        >
-            <input
-                id="file-input"
-                type="file"
-                accept=".pdf,application/pdf"
-                onChange={handleFileInput}
-                style={{ display: 'none' }}
-            />
+        <div className="space-y-4">
+            <div
+                className={`
+                    relative w-full p-8
+                    bg-white/80 border-2 border-dashed border-slate-200 rounded-2xl
+                    cursor-pointer transition-all duration-300
+                    hover:border-blue-400 hover:bg-slate-50/50
+                    ${isDragging ? 'border-blue-500 bg-blue-50/50 scale-[1.01]' : ''}
+                    ${isExtracting ? 'opacity-50 cursor-not-allowed' : ''}
+                `}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={handleClick}
+            >
+                <input
+                    id="file-input"
+                    type="file"
+                    multiple
+                    accept=".pdf,application/pdf"
+                    onChange={handleFileInput}
+                    className="hidden"
+                    disabled={isExtracting}
+                />
 
-            <div className="flex flex-col items-center justify-center min-h-[350px] text-center">
-                {selectedFile ? (
-                    <>
-                        <div className="mb-8 animate-scale-in">
-                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                                <circle cx="32" cy="32" r="32" fill="url(#successGradient)" />
-                                <path d="M20 32l8 8 16-16" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                                <defs>
-                                    <linearGradient id="successGradient" x1="0" y1="0" x2="64" y2="64">
-                                        <stop offset="0%" stopColor="#10b981" />
-                                        <stop offset="100%" stopColor="#059669" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <h3 className="text-3xl font-bold mb-3 bg-gradient-to-br from-emerald-500 to-emerald-600 bg-clip-text text-transparent">File Selected!</h3>
-                        <p className="text-xl font-semibold text-gray-800 my-2 break-all max-w-full">{selectedFile.name}</p>
-                        <p className="text-base text-gray-500 my-1">{(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                    </>
-                ) : (
-                    <>
-                        <div className="mb-8 animate-float">
-                            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                <rect x="20" y="10" width="40" height="50" rx="4" stroke="url(#iconGradient)" strokeWidth="3" fill="none" />
-                                <path d="M30 25h20M30 35h20M30 45h15" stroke="url(#iconGradient)" strokeWidth="3" strokeLinecap="round" />
-                                <path d="M40 55v10m-5-5l5 5 5-5" stroke="url(#iconGradient)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                                <defs>
-                                    <linearGradient id="iconGradient" x1="20" y1="10" x2="60" y2="70">
-                                        <stop offset="0%" stopColor="#0084ffff" />
-                                        <stop offset="100%" stopColor="#5cb8f6ff" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <h3 className="text-3xl font-bold mb-3 bg-gradient-to-br from-blue-600 to-blue-300 bg-clip-text text-transparent">Drop your PDF here</h3>
-                        <p className="text-lg text-gray-500 mb-8 font-medium">or click to browse</p>
-                        <div className="flex flex-col items-center gap-3 mt-6">
-                            <span className="bg-gradient-to-br from-blue-500 to-blue-300 text-white px-6 py-2 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-blue-500/30">PDF</span>
-                            <span className="text-sm text-gray-400">Maximum file size: 50MB</span>
-                        </div>
-                    </>
+                <div className="flex flex-col items-center justify-center text-center py-4">
+                    <div className={`mb-4 p-3 rounded-xl bg-blue-50 text-blue-500 transition-transform duration-300 ${isDragging ? 'scale-110' : ''}`}>
+                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                    </div>
+                    <h3 className="text-sm font-semibold text-slate-700">
+                        {queuedFiles.length > 0 ? 'Ajouter plus de PDFs' : 'Déposer vos PDFs ici'}
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1">ou cliquez pour parcourir</p>
+                </div>
+
+                {isDragging && (
+                    <div className="absolute inset-0 bg-blue-500/10 rounded-2xl flex items-center justify-center backdrop-blur-[1px]">
+                        <p className="text-blue-600 font-bold text-lg animate-bounce">Déposez les fichiers !</p>
+                    </div>
                 )}
             </div>
 
-            {isDragging && (
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/95 to-violet-500/95 rounded-3xl flex items-center justify-center animate-fade-in">
-                    <div className="flex flex-col items-center gap-6">
-                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="45" stroke="white" strokeWidth="4" strokeDasharray="8 8" />
-                            <path d="M50 30v40m-15-15l15 15 15-15" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <p className="text-white text-3xl font-bold m-0 drop-shadow-md">Drop it!</p>
+            {queuedFiles.length > 0 && (
+                <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="px-4 py-3 border-bottom border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">File d'attente ({queuedFiles.length})</span>
+                        {!isExtracting && (
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onExtractAll(); }}
+                                className="px-3 py-1 bg-blue-600 text-white text-[11px] font-bold rounded-full hover:bg-blue-700 transition-colors flex items-center gap-1.5"
+                            >
+                                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                </svg>
+                                Extraire tout
+                            </button>
+                        )}
+                    </div>
+                    <div className="divide-y divide-slate-100 max-h-[300px] overflow-y-auto">
+                        {queuedFiles.map((pf) => (
+                            <div key={pf.id} className="px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors group">
+                                <div className="p-2 rounded-lg bg-slate-100 text-slate-400">
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <p className="text-[13px] font-medium text-slate-700 truncate">{pf.file.name}</p>
+                                        {!isExtracting && (
+                                            <button 
+                                                onClick={() => onRemoveFile(pf.id)}
+                                                className="text-slate-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        )}
+                                    </div>
+                                    <div className="mt-1 flex items-center gap-2">
+                                        <span className="text-[10px] text-slate-400">{(pf.file.size / 1024 / 1024).toFixed(2)} MB</span>
+                                        {pf.status !== 'pending' && (
+                                            <>
+                                                <div className="h-1 flex-1 bg-slate-100 rounded-full overflow-hidden">
+                                                    <div 
+                                                        className={`h-full transition-all duration-500 ${pf.status === 'error' ? 'bg-red-500' : 'bg-blue-500'}`}
+                                                        style={{ width: `${pf.progress}%` }}
+                                                    />
+                                                </div>
+                                                <span className={`text-[10px] font-bold ${pf.status === 'error' ? 'text-red-500' : 'text-blue-500'}`}>
+                                                    {pf.status === 'completed' ? '✓' : pf.status === 'error' ? '!' : `${pf.progress}%`}
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

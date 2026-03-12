@@ -1,5 +1,6 @@
 """PDF Extractor Backend - FastAPI Application."""
 
+import json
 import os
 import time
 import uuid
@@ -210,6 +211,17 @@ async def extract_from_pdf(
         )
         t_llm_ms = (time.time() - t0) * 1000.0
 
+        confidence_map = None
+        try:
+            if isinstance(meta, dict):
+                confidence_map = {
+                    k: float((v or {}).get("confidence") or 0.0)
+                    for k, v in meta.items()
+                    if isinstance(v, dict) and (v.get("confidence") is not None)
+                }
+        except Exception:
+            confidence_map = None
+
         timings_ms = {
             "save": round(t_save_ms, 2),
             "open_pdf": round(t_open_ms, 2),
@@ -238,9 +250,44 @@ async def extract_from_pdf(
         except Exception:
             pass
 
+        # Persist results to disk (same behavior as CLI outputs)
+        try:
+            outputs_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs"))
+            os.makedirs(outputs_dir, exist_ok=True)
+
+            safe_name = (file.filename or "document.pdf").replace("/", "_").replace("\\", "_")
+            base = f"{doc_id}_{safe_name}"
+            extracted_path = os.path.join(outputs_dir, f"{base}_extracted.json")
+            evidence_path = os.path.join(outputs_dir, f"{base}_evidence.json")
+
+            with open(extracted_path, "w", encoding="utf-8") as f:
+                json.dump(equipment.model_dump(exclude_none=False), f, indent=2, ensure_ascii=False)
+
+            with open(evidence_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "file": file_path,
+                        "collection": collection_name,
+                        "field_max_distance": field_max_distance,
+                        "min_confidence": min_confidence,
+                        "evidence": evidence,
+                        "llm_meta": meta,
+                        "confidence": confidence_map,
+                    },
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
+
+            print(f"[OUTPUTS] Saved extracted JSON: {extracted_path}")
+            print(f"[OUTPUTS] Saved evidence JSON:  {evidence_path}")
+        except Exception as e:
+            print(f"[OUTPUTS] Failed to save JSON outputs: {e}")
+
         return ExtractionResponse(
             success=True,
             data=equipment,
+            confidence=confidence_map,
             message=f"Extracted from {pdf.total_pages} pages",
             processing_time_seconds=round(time.time() - t_start, 2),
             meta=(meta if return_meta else None),
