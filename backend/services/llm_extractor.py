@@ -38,13 +38,6 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         "GOOD: '6ES7 315-2EH14-0AB0' | BAD: 'SIMATIC S7-300', 'transmitter'"
     ),
 
-    "fabricant": (
-        'Extract the manufacturer / brand name as printed in the document '
-        '(e.g. "Siemens", "Endress+Hauser", "Krohne", "Yokogawa", "ABB", "Emerson").\n'
-        'Return only the company name, not a product family.\n'
-        "GOOD: 'Endress+Hauser' | BAD: 'SITRANS', 'Series 3000'"
-    ),
-
     "categorie": (
         'Classify the equipment into ONE of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre.\n'
         'Rules:\n'
@@ -318,6 +311,48 @@ def _quote_in_context(quote: str | None, chunks: list[dict], field_name: str = "
         def _norm(s): return re.sub(r"\s+", " ", s).strip().lower()
         found = bool(q) and _norm(q) in _norm(context)
     return found
+
+
+def _compute_confidence(
+    *,
+    checks: dict,
+    chunks: list[dict] | None,
+    source: str,
+    model_confidence: float | None = None,
+) -> float:
+    if not checks.get("non_null", True):
+        return 0.0
+
+    best_distance: float | None = None
+    if chunks:
+        for c in chunks:
+            d = c.get("distance")
+            if isinstance(d, (int, float)):
+                best_distance = float(d) if best_distance is None else min(best_distance, float(d))
+
+    if best_distance is None:
+        retrieval_score = 0.5
+    else:
+        retrieval_score = 1.0 - max(0.0, min(1.0, best_distance))
+
+    score = retrieval_score
+    if not checks.get("quote_in_context", True):
+        score *= 0.35
+    if not checks.get("quote_supported", True):
+        score *= 0.50
+    if not checks.get("expected_type", True):
+        score *= 0.25
+    if not checks.get("allowed_value", True):
+        score *= 0.65
+
+    if source == "regex" and all(checks.values()):
+        score = max(score, 0.90)
+
+    if isinstance(model_confidence, (int, float)):
+        mc = max(0.0, min(1.0, float(model_confidence)))
+        score = 0.90 * score + 0.10 * mc
+
+    return max(0.0, min(1.0, float(score)))
 
 
 def _strip_accents(s: str) -> str:
@@ -656,22 +691,34 @@ def _run_llm_fields(
     with ThreadPoolExecutor(max_workers=LLM_MAX_WORKERS) as executor:
         for field_name, result in (f.result() for f in [executor.submit(process, n, c) for n, c in llm_fields.items()]):
             value = _normalize_value(field_name, result.get("value"))
-            confidence = float(result.get("confidence") or 0.0)
+            model_confidence = float(result.get("confidence") or 0.0)
             quote = result.get("quote")
 
             checks = {
                 "non_null": value is not None,
-                "min_confidence": confidence >= min_confidence,
+                # min_confidence is applied after computing deterministic confidence.
+                "min_confidence": True,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote),
                 "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
             }
+
+            computed_confidence = _compute_confidence(
+                checks=checks,
+                chunks=field_chunks.get(field_name, []),
+                source="llm",
+                model_confidence=model_confidence,
+            )
+            checks["min_confidence"] = computed_confidence >= min_confidence
             ok = all(checks.values())
             rejection = next((k for k, v in checks.items() if not v), None) if not ok else None
 
             meta[field_name] = {
-                "accepted": ok, "confidence": confidence, "value": value if ok else None,
+                "accepted": ok,
+                "confidence": computed_confidence,
+                "model_confidence": model_confidence,
+                "value": value if ok else None,
                 "quote": quote, "source": "llm", "checks": checks,
                 "rejection_reason": rejection, "raw": result.get("_raw"), "error": result.get("_error"),
             }
@@ -679,7 +726,7 @@ def _run_llm_fields(
                 extracted[field_name] = value
                 print(f"  [OK]   {field_name} = {value!r}")
             else:
-                print(f"  [MISS] {field_name} (reason: {rejection}, conf: {confidence:.2f})")
+                print(f"  [MISS] {field_name} (reason: {rejection}, conf: {computed_confidence:.2f})")
 
     return extracted, meta
 
@@ -709,20 +756,30 @@ def extract_all_fields_with_meta(
         if field_name in regex_results:
             rx = regex_results[field_name]
             value = _normalize_value(field_name, rx.get("value"))
-            confidence = float(rx.get("confidence") or 1.0)
+            model_confidence = float(rx.get("confidence") or 1.0)
             quote = rx.get("quote")
 
             checks = {
                 "non_null": value is not None,
-                "min_confidence": confidence >= min_confidence,
+                "min_confidence": True,
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote),
                 "quote_in_context": _quote_in_context(quote, chunks or []),
             }
+            computed_confidence = _compute_confidence(
+                checks=checks,
+                chunks=chunks or [],
+                source="regex",
+                model_confidence=model_confidence,
+            )
+            checks["min_confidence"] = computed_confidence >= min_confidence
             ok = all(checks.values())
             meta[field_name] = {
-                "accepted": ok, "confidence": confidence, "value": value if ok else None,
+                "accepted": ok,
+                "confidence": computed_confidence,
+                "model_confidence": model_confidence,
+                "value": value if ok else None,
                 "quote": quote, "source": "regex", "checks": checks,
                 "rejection_reason": next((k for k, v in checks.items() if not v), None) if not ok else None,
             }

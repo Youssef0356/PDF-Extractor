@@ -1,0 +1,628 @@
+{
+  "file": "backend/uploads/4_H250-M40_COR_FR.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": null,
+  "min_confidence": 0.3,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c1",
+        "distance": 0.6360302567481995,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c2",
+        "distance": 0.6367408037185669,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      },
+      {
+        "page_number": 2,
+        "chunk_id": "cli_p2_c5",
+        "distance": 0.5779697895050049,
+        "text_preview": "SOMMAIRE\n2\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nH250 M40\n1  Caractéristiques produit\n3\n1.1  Modularité intelligente.....................................................................................................\n3\n1.2  Options et types ......................................."
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c1",
+        "distance": 0.5371440649032593,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_c0",
+        "distance": 0.5309786200523376,
+        "text_preview": "1 CARACTÉRISTIQUES PRODUIT\n4\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nPoints forts\n•\nMontage simple et économique : mesure et indication sans alimentation auxiliaire\n•\nConception Ex universelle : Ex i et Ex d\n•\nSystème modulaire pour l'indicateur : version mécanique à fieldb"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "cli_p1_t0_summary",
+        "distance": 0.5393164157867432,
+        "text_preview": "| NNNNoooottttiiiicccceeee tttteeeecccchhhhnnnniiiiqqqquuuueeee |  |\n| --- | --- |"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t3_r7",
+        "distance": 0.3420921564102173,
+        "text_preview": "TABLE ROW:  = H250 H/U | Matériau = Matériau de ressort, acier inox\n1.4301 | Température du produit\nà mesurer = -40...+100 |  = -40…+212 | Température ambiante = -40…+120 |  = -40…+248"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t1_r0",
+        "distance": 0.2517203092575073,
+        "text_preview": "TABLE ROW: Modèle = ESK4, ESK4A, ESK4-FF, ESK4-PA 1 | [°C] = -40...+70 | [°F] = -40...+158"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t2_r2",
+        "distance": 0.30937206745147705,
+        "text_preview": "TABLE ROW:  = ESK4-T | T < +40°C\namb. = +200 |  = +300 | T < +60°C 1\namb. = +80 |  = +130"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 7,
+        "chunk_id": "cli_p7_c0",
+        "distance": 0.4171789288520813,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n7\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n1.3  Principe de fonctionnement\nLe débitmètre H250 fonctionne selon le principe de mesure à flotteur.\nLe tube de mesure est un\ncône métallique dans lequel coulisse librement un flotteur.\nLe sens d'écouleme"
+      },
+      {
+        "page_number": 27,
+        "chunk_id": "cli_p27_c0",
+        "distance": 0.4549828767776489,
+        "text_preview": "MONTAGE 3\n27\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n3.2  Conditions de montage\nRespecter les instructions suivantes pour le montage de l'appareil dans la conduite:\n•\nLe débitmètre à section variable doit être installé verticalement (principe de mesure).\nSens\nd'écoulement a"
+      },
+      {
+        "page_number": 5,
+        "chunk_id": "cli_p5_c0",
+        "distance": 0.4232662320137024,
+        "text_preview": "CARACTÉRISTIQUES PRODUIT 1\n5\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n1.2  Options et types\nConception robuste pour conditions de process extrêmes\nVersion sanitaire pour l'industrie agroalimentaire et pharmaceutique\nH250 M40R\nLe principe de mesure permet une\nconception robus"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 19,
+        "chunk_id": "cli_p19_t1_r0",
+        "distance": 0.37609928846359253,
+        "text_preview": "TABLE ROW: Plage de mesure: = Valeurs du débit: | 10 : 1 = Valeurs = 100% |  = Eau: 20°C / 68°F |  = Air: 20°C / 68°F, 1,013 bara / 14,7 psia"
+      },
+      {
+        "page_number": 20,
+        "chunk_id": "cli_p20_t1_r0",
+        "distance": 0.37609928846359253,
+        "text_preview": "TABLE ROW: Plage de mesure: = Valeurs du débit: | 10 : 1 = Valeurs = 100% |  = Eau: 20°C / 68°F |  = Air: 20°C / 68°F, 1,013 bara / 14,7 psia"
+      },
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_t1_r0",
+        "distance": 0.37609928846359253,
+        "text_preview": "TABLE ROW: Plage de mesure: = Valeurs du débit: | 10 : 1 = Valeurs = 100% |  = Eau: 20°C / 68°F |  = Air: 20°C / 68°F, 1,013 bara / 14,7 psia"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_c0",
+        "distance": 0.4757143259048462,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n13\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nESK4-T avec afficheur LCD, entrées et sorties binaires et totalisateur numérique\nSortie binaire\nDeux sorties binaires\nà séparation galvanique, passives\nMode\nSortie commutation\nNAMUR ou transistor (coll"
+      },
+      {
+        "page_number": 40,
+        "chunk_id": "cli_p40_c0",
+        "distance": 0.3309624195098877,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n40\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.2.4  ESK4-T Sortie impulsions\nLa sortie impulsion est une sortie passive de type «°collecteur ouvert°» isolée galvaniquement\nde la sortie courant et de la sortie B1.\nElle peut être utilisée comme sortie "
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r1",
+        "distance": 0.27896445989608765,
+        "text_preview": "TABLE ROW: HT = ESK4-T | Version haute température = ESK4 avec afficheur LCD, sorties binaires de signalisation d'état, totalisateur numérique\net sortie impulsions."
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 47,
+        "chunk_id": "cli_p47_c0",
+        "distance": 0.5655742883682251,
+        "text_preview": "NOTES 6\n47\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_c0",
+        "distance": 0.3766382932662964,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nL'entrée de l'ailette de contact de l'aiguille dans la fourche déclenche une alarme.\nSi l'ailette de\nl'aiguille est hors du capteur à fourche, une rupture de câble dans un contact NAMUR déclenche\négalement"
+      },
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_c0",
+        "distance": 0.36620885133743286,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n32\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.1  Consignes de sécurité\nToute intervention sur le raccordement électrique ne doit s'effectuer que si l'alimentation\nélectrique est coupée.\nObserver les caractéristiques de tension indiquées sur la plaqu"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 26,
+        "chunk_id": "cli_p26_c0",
+        "distance": 0.5093915462493896,
+        "text_preview": "3 MONTAGE\n26\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n3.1  Utilisation prévue\nLes débitmètres à section variable sont conçus pour mesurer le débit de gaz, de vapeurs et de\nliquides propres.\nUtilisation prévue :\n•\nLe produit à mesurer ne doit pas contenir de particules ou de "
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_c0",
+        "distance": 0.52617347240448,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n13\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nESK4-T avec afficheur LCD, entrées et sorties binaires et totalisateur numérique\nSortie binaire\nDeux sorties binaires\nà séparation galvanique, passives\nMode\nSortie commutation\nNAMUR ou transistor (coll"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_c0",
+        "distance": 0.542115330696106,
+        "text_preview": "CARACTÉRISTIQUES TECHNIQUES 2\n11\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nAbréviation\nPresse-étoupe\nDétecteurs de seuil K1/K2\nSortie courant ESK4 / ESK4A\nHT\nVersion haute température\nESK4 / ESK4A\nSortie courant 2 fils 4...20 mA avec HART 5 / HART 7\nESK4-T\nESK4 avec afficheur"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t0_summary",
+        "distance": 0.3356444835662842,
+        "text_preview": "|  | H250 M40 |\n| --- | --- |"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t0_summary",
+        "distance": 0.3356444835662842,
+        "text_preview": "|  | H250 M40 |\n| --- | --- |"
+      },
+      {
+        "page_number": 3,
+        "chunk_id": "cli_p3_t0_summary",
+        "distance": 0.41813141107559204,
+        "text_preview": "|  | H250 M40 |\n| --- | --- |"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c0",
+        "distance": 0.4669450521469116,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n12\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nESK4-FF\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Foundation\nFieldbus ».\nESK4-PA\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Prof"
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c1",
+        "distance": 0.45898282527923584,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c0",
+        "distance": 0.4593287706375122,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      }
+    ],
+    "classeProtection": [
+      {
+        "page_number": 43,
+        "chunk_id": "cli_p43_c0",
+        "distance": 0.3637775778770447,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n43\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.3  Raccordements de mise à la terre\n4.4  Classe de protection\nCet appareil satisfait à toutes les exigences de la classe de protection IP66/68.\nPour cette raison, respecter scrupuleusement les points sui"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t0_summary",
+        "distance": 0.370904803276062,
+        "text_preview": "|  | H250 M40 |\n| --- | --- |"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t0_summary",
+        "distance": 0.370904803276062,
+        "text_preview": "|  | H250 M40 |\n| --- | --- |"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r5",
+        "distance": 0.33488929271698,
+        "text_preview": "TABLE ROW: Sortie binaire = Courant de signalisation |  = > 3 mA seuil non atteint; |  = < 1 mA valeur seuil atteinte"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_c0",
+        "distance": 0.38290321826934814,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n34\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nL'entrée de l'ailette de contact de l'aiguille dans la fourche déclenche une alarme.\nSi l'ailette de\nl'aiguille est hors du capteur à fourche, une rupture de câble dans un contact NAMUR déclenche\négalement"
+      },
+      {
+        "page_number": 10,
+        "chunk_id": "cli_p10_t2_r12",
+        "distance": 0.3901062607765198,
+        "text_preview": "TABLE ROW:  = Détecteur de seuil 3 fils | T < +40°C\namb. = +190 |  = +300 | T < +60°C 1\namb. = +110 |  = +160"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c0",
+        "distance": 0.4693642854690552,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n12\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nESK4-FF\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Foundation\nFieldbus ».\nESK4-PA\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Prof"
+      },
+      {
+        "page_number": 45,
+        "chunk_id": "cli_p45_c0",
+        "distance": 0.43710505962371826,
+        "text_preview": "NOTES 6\n45\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      },
+      {
+        "page_number": 46,
+        "chunk_id": "cli_p46_c0",
+        "distance": 0.43496495485305786,
+        "text_preview": "6 NOTES\n46\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_c0",
+        "distance": 0.5241740942001343,
+        "text_preview": "2 CARACTÉRISTIQUES TECHNIQUES\n12\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nESK4-FF\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Foundation\nFieldbus ».\nESK4-PA\nPour plus d'informations, voir le supplément au manuel de référence « H250 M40 Prof"
+      },
+      {
+        "page_number": 45,
+        "chunk_id": "cli_p45_c0",
+        "distance": 0.4501993656158447,
+        "text_preview": "NOTES 6\n45\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      },
+      {
+        "page_number": 47,
+        "chunk_id": "cli_p47_c0",
+        "distance": 0.4427065849304199,
+        "text_preview": "NOTES 6\n47\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 46,
+        "chunk_id": "cli_p46_c0",
+        "distance": 0.4521951675415039,
+        "text_preview": "6 NOTES\n46\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      },
+      {
+        "page_number": 47,
+        "chunk_id": "cli_p47_c0",
+        "distance": 0.4486581087112427,
+        "text_preview": "NOTES 6\n47\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      },
+      {
+        "page_number": 45,
+        "chunk_id": "cli_p45_c0",
+        "distance": 0.4549822211265564,
+        "text_preview": "NOTES 6\n45\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr"
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t1_r0",
+        "distance": 0.4541085958480835,
+        "text_preview": "TABLE ROW: Standard = ATEX /\nIECEx | Affichage = M40 mécanique | Marquage = II2GD IIC\nII3GD IIC"
+      },
+      {
+        "page_number": 15,
+        "chunk_id": "cli_p15_t2_r1",
+        "distance": 0.5003558397293091,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = ½\" | c 1 = 94 |  = 3,70 | e 2 = 114 |  = 4,49 | Ø f = 20 |  = 0,80 | g = 97 |  = 3,82 | j = 197 |  = 7,76"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": "cli_p31_t1_r5",
+        "distance": 0.45137453079223633,
+        "text_preview": "TABLE ROW: Diamètre nominal selon = DN 100 |  = 4\" | Pression de service = ≤0,2 |  = ≤2,9"
+      }
+    ]
+  },
+  "llm_meta": {
+    "typeMesure": {
+      "accepted": false,
+      "confidence": 0.33070810258388517,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "Température du produit à mesurer = -40...+100 |  = -40…+212 | Température ambiante = -40…+120 |  = -40…+248",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": \"Température\", \"confidence\": 0.95, \"quote\": \"Température du produit à mesurer = -40...+100 |  = -40…+212 | Température ambiante = -40…+120 |  = -40…+248\"}",
+      "error": null
+    },
+    "typeSignal": {
+      "accepted": false,
+      "confidence": 0.20856309756636618,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "La sortie impulsion est une sortie passive de type «°collecteur ouvert°» isolée galvaniquement de la sortie courant et de la sortie B1. Elle peut être utilisée comme sortie à tension faible ou comme sortie NAMUR. La largeur d'impulsion tactivé peut être configurée de 50...500 ms dans le menu de l'indicateur. Les sorties binaires peuvent être exploitées comme sortie impulsions. En cas d'utilisation de la sortie binaire comme sortie impulsions, deux circuits de signal séparés sont nécessaires. Chaque circuit de signal nécessite sa propre tension d'alimentation. La résistance totale 4 devra être adaptée de telle sorte que le courant total Itot ne dépasse pas 100 mA.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": false
+      },
+      "rejection_reason": "min_confidence",
+      "raw": "{\"value\": \"4...20 mA\", \"confidence\": 0.95, \"quote\": \"La sortie impulsion est une sortie passive de type «°collecteur ouvert°» isolée galvaniquement de la sortie courant et de la sortie B1. Elle peut être utilisée comme sortie à tension faible ou comme sortie NAMUR. La largeur d'impulsion tactivé peut être configurée de 50...500 ms dans le menu de l'indicateur. Les sorties binaires peuvent être exploitées comme sortie impulsions. En cas d'utilisation de la sortie binaire comme sortie impulsions, deux circuits de signal séparés sont nécessaires. Chaque circuit de signal nécessite sa propre tension d'alimentation. La résistance totale 4 devra être adaptée de telle sorte que le courant total Itot ne dépasse pas 100 mA.\"}",
+      "error": null
+    },
+    "nbFils": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "2 fils",
+      "quote": "2 fils",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "communication": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "Profibus PA",
+      "quote": "Profibus PA",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "classeProtection": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "IP66",
+      "quote": "IP66",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "marque": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "KROHNE",
+      "quote": "KROHNE",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "modele": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "H250 M40",
+      "quote": "H250 M40",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 0.4748271894454956,
+      "model_confidence": 0.95,
+      "value": "H250 M40",
+      "quote": "H250 M40",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"H250 M40\", \"confidence\": 0.95, \"quote\": \"H250 M40\"}",
+      "error": null
+    },
+    "categorie": {
+      "accepted": false,
+      "confidence": 0.16887086734175683,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "Le calcul de la résistance de charge maximale s'effectue selon la formule suivante : Configuration Le paramétrage de l'ESK peut être effectué via une communication HART® Pour réaliser le paramétrage, des fichiers DD (Device Description) pour AMS et PDM ainsi qu'un fichier DTM (Device Type Manager) pour PACTwareTM sont disponibles. Ils peuvent être téléchargés depuis notre site Internet. La communication HART® intégrée permet de transmettre le débit instantané.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": false
+      },
+      "rejection_reason": "min_confidence",
+      "raw": "{\"value\": \"Transmetteur\", \"confidence\": 0.95, \"quote\": \"Le calcul de la résistance de charge maximale s'effectue selon la formule suivante : Configuration Le paramétrage de l'ESK peut être effectué via une communication HART® Pour réaliser le paramétrage, des fichiers DD (Device Description) pour AMS et PDM ainsi qu'un fichier DTM (Device Type Manager) pour PACTwareTM sont disponibles. Ils peuvent être téléchargés depuis notre site Internet. La communication HART® intégrée permet de transmettre le débit instantané.\"}",
+      "error": null
+    },
+    "technologie": {
+      "accepted": false,
+      "confidence": 0.3572694820165634,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "Le débitmètre H250 fonctionne selon le principe de mesure à flotteur.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"section variable (flotteur)\", \"confidence\": 0.95, \"quote\": \"Le débitmètre H250 fonctionne selon le principe de mesure à flotteur.\"}",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": true,
+      "confidence": 0.5615106403827668,
+      "model_confidence": 0.0,
+      "value": {
+        "min": null,
+        "max": null,
+        "unite": null
+      },
+      "quote": "Plage de mesure: = Valeurs du débit: | 10 : 1 = Valeurs = 100% |  = Eau: 20°C / 68°F |  = Air: 20°C / 68°F, 1,013 bara / 14,7 psia",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": {\"min\": null, \"max\": null, \"unite\": null}, \"confidence\": 0.0, \"quote\": \"Plage de mesure: = Valeurs du débit: | 10 : 1 = Valeurs = 100% |  = Eau: 20°C / 68°F |  = Air: 20°C / 68°F, 1,013 bara / 14,7 psia\"}",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": false,
+      "confidence": 0.3157738041877747,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "Alimentation\n8,2 V CC",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"8,2 V CC\", \"confidence\": 0.95, \"quote\": \"Alimentation\\n8,2 V CC\"}",
+      "error": null
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "model_confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": false,
+      "confidence": 0.3095098727941513,
+      "model_confidence": 1.0,
+      "value": null,
+      "quote": "Contact MIN ≤ 1 mA",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "quote_in_context",
+      "raw": "{\"value\": [{\"nomAlarme\": \"MIN 1\", \"typeAlarme\": \"Haut\", \"seuilAlarme\": 1, \"uniteAlarme\": \"mA\", \"relaisAssocie\": \"NAMUR\"}], \"confidence\": 1.0, \"quote\": \"Contact MIN ≤ 1 mA\"}",
+      "error": null
+    },
+    "reference": {
+      "accepted": true,
+      "confidence": 0.5912077021598816,
+      "model_confidence": 0.95,
+      "value": "4000685703",
+      "quote": "4000685703",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"4000685703\", \"confidence\": 0.95, \"quote\": \"4000685703\"}",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.0,
+      "model_confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    }
+  }
+}
