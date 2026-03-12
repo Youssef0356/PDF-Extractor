@@ -32,33 +32,44 @@ FIELD_PROMPT_RULES: dict[str, str] = {
     ),
 
     "reference": (
-        'Extract the manufacturer part number / order number / article number '
-        '(e.g. "6ES7 315-2EH14-0AB0", "7MF4433-1DA02", "FMR51-AAACBMJF2A4").\n'
-        'This is the alphanumeric code used to order the product — NOT the commercial name.\n'
-        "GOOD: '6ES7 315-2EH14-0AB0' | BAD: 'SIMATIC S7-300', 'transmitter'"
+        'Extract the MAIN PRODUCT manufacturer part number / order number.\n'
+        'It must be the order code for the primary instrument described in this document.\n'
+        'Siemens examples: "7MF4433-1DA02", "7ML1830-1DP", "6NH3112-3BA00-0"\n'
+        'RULES:\n'
+        '  - Must appear in the ordering section, title page, or ordering data table\n'
+        '  - Do NOT extract accessory codes, accessory part numbers, or power supply references\n'
+        '  - "7ML534" appearing in a power/accessory section is NOT the main reference\n'
+        '  - If no clear order number is found, return null — do not guess\n'
+        "GOOD: '7MF4433-1DA02' (from ordering section) | BAD: '7ML534' (accessory reference)"
     ),
 
     "categorie": (
         'Classify the equipment into ONE of: Transmetteur, Débitmètre, Capteurs, Actionneur, Automate, IHM, Autre.\n'
         'Rules:\n'
+        '  - Radar level transmitters, level transmitters, distance/level sensors with 4-20mA output → Transmetteur\n'
         '  - Flow meters (débitmètres, variable area, Coriolis, vortex, electromagnetic flow) → Débitmètre\n'
         '  - Pressure/level/temp transmitters with 4-20mA output → Transmetteur\n'
         '  - PLCs/CPUs/controllers → Automate\n'
         '  - Touchscreens/HMI panels → IHM\n'
-        '  - Passive sensors without signal conditioning → Capteurs\n'
+        '  - Passive sensors WITHOUT signal conditioning → Capteurs\n'
         '  - Valves/positioners/actuators → Actionneur\n'
-        "GOOD: 'Débitmètre' (for H250 M40), 'Transmetteur' (for SITRANS P320) | BAD: 'flowmeter', 'capteur de débit'"
+        'IMPORTANT: If the document title or description contains "transmitter" or "transmetteur", classify as Transmetteur.\n'
+        'For the quote, use the SHORTEST possible verbatim fragment (e.g. just "transmitter" or "Transmetteur").\n'
+        "GOOD: 'Transmetteur' (for SITRANS LR150 radar level transmitter) | BAD: 'flowmeter', 'capteur de débit'"
     ),
 
     "typeMesure": (
-        'Extract the physical quantity being measured. Use ONE of: Pression, Debit, Niveau, Temperature, Autre.\n'
-        'Match regardless of language:\n'
-        '  flow/débit/durchfluss → Debit\n'
-        '  pressure/pression/druck → Pression\n'
-        '  level/niveau/füllstand → Niveau\n'
-        '  temperature/température/temperatur → Temperature\n'
-        'A flow meter (débitmètre) always measures Debit.\n'
-        "GOOD: 'Debit' | BAD: 'flow measurement', 'débit de liquides'"
+        'Extract the PRIMARY physical quantity this instrument DIRECTLY measures.\n'
+        'Allowed values: Debit, Niveau, Pression, Temperature, Autre\n'
+        'CRITICAL RULES:\n'
+        '  - A RADAR sensor measures DISTANCE or LEVEL → return "Niveau"\n'
+        '  - An ultrasonic level sensor → "Niveau"\n'
+        '  - Even if level can be CONVERTED to flow (via weir/flume formulas), the direct measurement is STILL "Niveau"\n'
+        '  - Only return "Debit" if the instrument DIRECTLY outputs a flow value (e.g. electromagnetic flowmeter)\n'
+        '  - Pressure transmitter → "Pression"\n'
+        '  - Thermocouple / RTD → "Temperature"\n'
+        'GOOD: "Niveau" (for radar, ultrasonic, float, capacitive level sensors)\n'
+        'BAD: "Debit" for a radar that can be configured for open-channel flow measurement'
     ),
 
     "technologie": (
@@ -71,10 +82,14 @@ FIELD_PROMPT_RULES: dict[str, str] = {
     ),
 
     "typeSignal": (
-        'Extract the output signal type (e.g. "4-20mA", "0-20mA", "0-10V", "HART", "Profibus PA").\n'
-        'Normalise to compact form: "4-20mA", "0-10V", etc.\n'
-        'If multiple signals exist, return the PRIMARY/analog output.\n'
-        "GOOD: '4-20mA' | BAD: '4 to 20 milliampere', 'analog output'"
+        'Extract the output signal type.\n'
+        'Look for sections titled: "Output signal", "Electrical output", "Signal output", "Communication".\n'
+        'Allowed values: 4-20mA, 0-20mA, 0-10V, 0-5V, 24V DC (DI/DO), Autre\n'
+        'Rules:\n'
+        '  - "4 ... 20 mA", "4…20mA", "4 to 20 mA", "4-20 mA" → all mean "4-20mA"\n'
+        '  - If document shows "4 … 20 mA/HART" → return "4-20mA" (HART is the protocol, not the signal type)\n'
+        '  - For the quote, use the shortest verbatim fragment containing the signal range (e.g. "4 … 20 mA")\n'
+        'GOOD: "4-20mA" | BAD: "4-20mA with HART", "loop current"'
     ),
 
     "plageMesure": (
@@ -105,19 +120,28 @@ FIELD_PROMPT_RULES: dict[str, str] = {
     ),
 
     "alimentation": (
-        'Extract the supply voltage/power specification as printed '
-        '(e.g. "24V DC", "220V AC", "10.5…30V DC", "85…264V AC").\n'
-        'Normalise: Vdc→V DC, VAC→V AC.\n'
-        'CRITICAL: Only extract VOLTAGE values (V, VDC, VAC).\n'
-        'NEVER extract phone numbers, addresses, or contact info.\n'
-        'If no power supply voltage is mentioned, return null.\n'
-        "GOOD: '24V DC', '14-30V DC' | BAD: '248 876 2977' (phone), 'Bosch Engineering' (company)"
+        'Extract the supply voltage/power specification.\n'
+        'Look for sections titled: "Voltage supply", "Power supply", "Operating voltage", "Alimentation".\n'
+        'CRITICAL: Only extract VOLTAGE values (V, VDC, VAC, V DC, V AC).\n'
+        'Valid formats: "24V DC", "12…35 V DC", "9…35 V DC", "85…264V AC"\n'
+        'NEVER extract:\n'
+        '  - Product/order numbers (e.g. "7ML534", "6ES7…", anything with letters+digits like a part number)\n'
+        '  - Phone numbers, addresses, model names\n'
+        '  - Power consumption in watts (W) or current in mA alone\n'
+        'If the document shows a range like "at 4 mA: 12…35 V DC / at 20 mA: 9…35 V DC", return "9…35 V DC" (the minimum range).\n'
+        "GOOD: '12…35 V DC', '9-35 V DC' | BAD: '7ML534' (product code), '248 876 2977' (phone)"
     ),
 
     "nbFils": (
-        'Extract the number of wires for the electrical connection (e.g. "2 fils", "4 fils").\n'
-        '2-wire/2 fils/loop-powered → "2 fils" | 4-wire/4 fils → "4 fils".\n'
-        "GOOD: '2 fils' | BAD: '2-wire transmitter', 'loop'"
+        'Extract or INFER the number of wires for electrical connection.\n'
+        'Allowed values: "2 fils", "4 fils", "Autre (3,5,...)"\n'
+        'Direct evidence: look for "fils" "wire" "2-wire", "4-wire", "2 fils", "4 fils", "loop powered"\n'
+        'INFERENCE RULES (use when not directly stated):\n'
+        '  - 4-20mA loop powered → "2 fils" (power and signal on same 2 wires)\n'
+        '  - 4-20mA with separate power supply → "4 fils"\n'
+        '  - If document states operating voltage 9-35V DC at 4-20mA and no separate power terminal mentioned → "2 fils"\n'
+        'For the quote: use the shortest phrase that supports this (e.g. "loop powered", "2-wire", or the voltage/current spec).\n'
+        "GOOD: '2 fils' with quote '4 … 20 mA' (loop-powered inference) | BAD: long wiring paragraphs as quote"
     ),
 
     "communication": (
@@ -419,6 +443,15 @@ def _value_supported_by_quote(value, quote: str | None, field_name: str = "") ->
     return True
 
 
+FIELD_MIN_CONFIDENCE_OVERRIDE = {
+    "typeSignal": 0.25,   # table dots vs ellipsis causes quote mismatches
+    "alimentation": 0.25, # same issue with voltage tables
+    "categorie": 0.25,    # short single-word classification
+}
+
+def _get_min_confidence(field_name: str, default_min: float) -> float:
+    return FIELD_MIN_CONFIDENCE_OVERRIDE.get(field_name, default_min)
+
 def _normalize_value(field_name: str, value):
     """Minimal normalization — canonical casing and alias resolution only."""
     if value is None:
@@ -436,6 +469,11 @@ def _normalize_value(field_name: str, value):
 
     v = value.strip()
     vl = v.lower()
+
+    # Reject alimentation if it looks like a part number (e.g. 7ML534, 6ES7...)
+    if field_name == "alimentation" and v:
+        if re.match(r'^[0-9A-Z]{3,}\d{3,}', v.replace(' ', '')):
+            return None
 
     ALIAS: dict[str, dict[str, str]] = {
         "categorie": {
@@ -705,11 +743,11 @@ def _run_llm_fields(
             checks = {
                 "non_null": value is not None,
                 # Use model_confidence for the acceptance gate, not the blended score
-                "min_confidence": model_confidence >= min_confidence,
+                "min_confidence": model_confidence >= _get_min_confidence(field_name, min_confidence),
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
-                "quote_supported": _value_supported_by_quote(value, quote),
-                "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, [])),
+                "quote_supported": _value_supported_by_quote(value, quote, field_name),
+                "quote_in_context": _quote_in_context(quote, field_chunks.get(field_name, []), field_name),
             }
 
             computed_confidence = _compute_confidence(

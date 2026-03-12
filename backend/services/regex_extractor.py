@@ -340,8 +340,6 @@ def _extract_communication(text: str) -> Optional[dict]:
 
     return None
 
-
-# ---------------------------------------------------------------------------
 # Output signal type
 # ADDED: NAMUR, pulse, frequency, relay patterns
 # ---------------------------------------------------------------------------
@@ -356,7 +354,9 @@ def _extract_type_signal(text: str) -> Optional[dict]:
     for pat, canonical in patterns:
         m = pat.search(text)
         if m:
-            return {"value": canonical, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
+            # Normalize internal separators for the canonical result
+            val = canonical
+            return {"value": val, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
     return None
 
 
