@@ -69,9 +69,34 @@ function EquipmentManagement() {
                         f.id === pf.id ? { ...f, status: 'completed', progress: 100 } : f
                     ));
                     
-                    // For now, we update the form with the latest successful extraction
-                    setExtractedData(response.data);
-                    setConfidence(response.confidence ?? null);
+                    // Issue 1: Merge data based on confidence scores
+                    setExtractedData(prevData => {
+                        if (!prevData) return response.data!;
+                        
+                        const newData = { ...prevData };
+                        const newConfidence = response.confidence || {};
+                        
+                        setConfidence(prevConf => {
+                            const mergedConf = { ...(prevConf || {}) };
+                            
+                            // Iterate over all fields in the new data
+                            Object.keys(response.data!).forEach(key => {
+                                const k = key as keyof EquipmentData;
+                                const curConf = mergedConf[k] || 0;
+                                const nextConf = newConfidence[k] || 0;
+                                
+                                // Only override if new confidence is strictly higher
+                                if (nextConf > curConf) {
+                                    (newData as any)[k] = response.data![k];
+                                    mergedConf[k] = nextConf;
+                                }
+                            });
+                            
+                            return mergedConf;
+                        });
+                        
+                        return newData;
+                    });
                 } else {
                     setQueuedFiles(prev => prev.map(f => 
                         f.id === pf.id ? { ...f, status: 'error', progress: 100 } : f

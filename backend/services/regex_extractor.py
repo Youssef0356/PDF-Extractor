@@ -483,11 +483,16 @@ def _extract_reference(text: str) -> Optional[dict]:
             return {"value": value, "confidence": 0.9, "quote": m.group(0).strip(), "source": "regex"}
     return None
 
-
 # ---------------------------------------------------------------------------
 # Equipment name
 # ---------------------------------------------------------------------------
 def _extract_equipment_name(text: str) -> Optional[dict]:
+    # Siemens SITRANS level/pressure/flow
+    re_SITRANS = re.compile(r"\b(SITRANS\s+[A-Z]{1,3}\d{2,4}(?:\s*[A-Z]+\d*)?)\b", re.IGNORECASE)
+    m_sitrans = re_SITRANS.search(text)
+    if m_sitrans:
+        return {"value": m_sitrans.group(1).strip(), "confidence": 0.9, "quote": m_sitrans.group(0).strip(), "source": "regex"}
+
     patterns = [
         re.compile(r"(?:Equipment|Device|Instrument|Product)\s*Name\s*[:=]\s*([^\n]{3,80})", re.IGNORECASE),
         re.compile(r"(?:Designation|Désignation)\s*[:=]\s*([^\n]{3,80})", re.IGNORECASE),
@@ -506,6 +511,7 @@ def _extract_equipment_name(text: str) -> Optional[dict]:
 # Category  (only when explicitly labeled)
 # ---------------------------------------------------------------------------
 def _extract_categorie(text: str) -> Optional[dict]:
+    # 1. Explicit labels
     pat = re.compile(
         r"(?:Cat(?:égorie|egorie)|Category|Type\s+d['']?instrument)\s*[:=]\s*([^\n]{3,80})",
         re.IGNORECASE,
@@ -514,6 +520,14 @@ def _extract_categorie(text: str) -> Optional[dict]:
     if m:
         value = re.sub(r"\s+", " ", m.group(1).strip())
         return {"value": value, "confidence": 1.0, "quote": m.group(0).strip(), "source": "regex"}
+
+    # 2. Heuristic for Siemens/Industrial transmitters
+    t_lower = text.lower()
+    if "transmitter" in t_lower or "transmetteur" in t_lower:
+        # Check if it's a level/pressure/temp transmitter
+        if any(k in t_lower for k in ["level", "niveau", "pressure", "pression", "temp"]):
+            return {"value": "Transmetteur", "confidence": 0.8, "quote": "transmitter" if "transmitter" in t_lower else "transmetteur", "source": "regex"}
+
     return None
 
 

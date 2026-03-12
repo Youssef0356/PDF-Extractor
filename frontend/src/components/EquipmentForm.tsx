@@ -459,21 +459,20 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
             return currentValue !== String(aiVal);
         })();
 
-        const barColorClass = !hasAiResult
-            ? 'bg-slate-200'
-            : isEmpty
-                ? 'bg-red-600'
-                : (typeof fieldConfidence === 'number')
-                    ? (fieldConfidence >= 0.90 ? 'bg-green-600' : 'bg-yellow-500')
-                    : 'bg-yellow-500';
+        const isPlaceholder = field.key === 'seuilAlarme' && currentValue === '0' && values['uniteAlarme'] === 's';
+        const effectivelyEmpty = isEmpty || isPlaceholder || fieldConfidence === 0;
 
-        const bgTintClass = !hasAiResult
+        const barColorClass = !hasAiResult || effectivelyEmpty
+            ? 'bg-slate-200'
+            : (typeof fieldConfidence === 'number')
+                ? (fieldConfidence >= 0.90 ? 'bg-green-600' : 'bg-yellow-500')
+                : 'bg-yellow-500';
+
+        const bgTintClass = !hasAiResult || effectivelyEmpty
             ? ''
-            : isEmpty
-                ? 'bg-red-50/30'
-                : (typeof fieldConfidence === 'number')
-                    ? (fieldConfidence >= 0.90 ? 'bg-green-50/30' : 'bg-yellow-50/30')
-                    : 'bg-yellow-50/30';
+            : (typeof fieldConfidence === 'number')
+                ? (fieldConfidence >= 0.90 ? 'bg-green-50/30' : 'bg-yellow-50/30')
+                : 'bg-yellow-50/30';
 
         const wrapperClass = `
             flex-1 min-w-0 transition-all duration-200 relative

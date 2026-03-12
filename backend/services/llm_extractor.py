@@ -135,15 +135,16 @@ FIELD_PROMPT_RULES: dict[str, str] = {
     ),
 
     "nbFils": (
-        'Extract or INFER the number of wires for electrical connection.\n'
+        'Extract or INFER the number of wires for electrical connection (wiring topology).\n'
         'Allowed values: "2 fils", "4 fils", "Autre (3,5,...)"\n'
-        'Direct evidence: look for "fils" "wire" "2-wire", "4-wire", "2 fils", "4 fils", "loop powered"\n'
-        'INFERENCE RULES (use when not directly stated):\n'
-        '  - 4-20mA loop powered → "2 fils" (power and signal on same 2 wires)\n'
-        '  - 4-20mA with separate power supply → "4 fils"\n'
-        '  - If document states operating voltage 9-35V DC at 4-20mA and no separate power terminal mentioned → "2 fils"\n'
+        'Direct evidence: look for "fils", "wire", "2-wire", "4-wire", "2 fils", "4 fils", "loop powered", "2-Leiter", "4-Leiter".\n'
+        'INFERENCE RULES:\n'
+        '  - If the document says "Loop powered", "auto-alimenté par la boucle", or "alimenté par la boucle" → return "2 fils".\n'
+        '  - 4-20mA loop powered → "2 fils" (power and signal on same 2 wires).\n'
+        '  - 4-20mA with separate power supply (e.g. 230V AC or separate 24V supply terminals) → "4 fils".\n'
+        '  - If document states operating voltage 9-35V DC at 4-20mA and no separate power terminal mentioned → "2 fils".\n'
         'For the quote: use the shortest phrase that supports this (e.g. "loop powered", "2-wire", or the voltage/current spec).\n'
-        "GOOD: '2 fils' with quote '4 … 20 mA' (loop-powered inference) | BAD: long wiring paragraphs as quote"
+        "GOOD: '2 fils' with quote 'loop powered' | BAD: '2 fils' with quote '4...20 mA' if 'loop powered' was available."
     ),
 
     "communication": (
@@ -615,6 +616,15 @@ def _normalize_value(field_name: str, value):
         compact = re.sub(r"\s+", "", v).lower()
         if compact == "24vdc": return "24V DC"
         if compact == "220vac": return "220V AC"
+        
+        # Issue 1 & 2: If alimentation contains wiring topology, it should be remapped, not kept here.
+        # We return it as-is for now, and remap in _apply_cross_field_guards.
+        # However, if it ONLY contains wiring topology and NO voltage, we might want to flag it.
+        WIRING_PATTERNS = [r"loop\s*powered", r"2\s*fils?", r"2\s*wires?", r"4\s*fils?", r"4\s*wires?"]
+        if any(re.search(p, vl) for p in WIRING_PATTERNS) and not any(c.isdigit() for c in v if c not in "24"):
+            # If it matches wiring and doesn't look like a voltage (except maybe the '2' or '4' from 2-wire)
+            pass 
+
         return v
 
     # dateCalibration: ensure "<N> mois" format
@@ -746,6 +756,64 @@ def _apply_cross_field_guards(extracted: dict) -> dict:
         if unite in {"°c", "°f", "k", "celsius", "fahrenheit", "kelvin"}:
             print(f"  [GUARD] Rejected plageMesure with temp unit '{unite}' for pressure device")
             out.pop("plageMesure", None)
+
+    # Issue 1 & 2: alimentation to nbFils remapping
+    alim = out.get("alimentation")
+    if isinstance(alim, str):
+        alim_l = alim.lower()
+        wiring_found = None
+        if any(x in alim_l for x in ["loop powered", "boucle", "2 wire", "2-wire", "2 fils", "2.fil"]):
+            wiring_found = "2 fils"
+        elif any(x in alim_l for x in ["4 wire", "4-wire", "4 fils", "4.fil"]):
+            wiring_found = "4 fils"
+        
+        if wiring_found:
+            # If nbFils is missing, populate it
+            if not out.get("nbFils"):
+                out["nbFils"] = wiring_found
+                print(f"  [GUARD] Remapped '{alim}' from alimentation to nbFils='{wiring_found}'")
+            
+            # IMPROVED: Only clear alimentation if it contains NO voltage information.
+            # Look for 2-3 digits followed by V (e.g., 24V, 230V, 12...35 V)
+            has_voltage = bool(re.search(r'\d{1,3}(?:\s*[-.]{1,3}\s*\d{1,3})?\s*V', alim, re.I))
+            
+            # If it's just "Loop powered (2 fils)", and has no voltage, clear it.
+            if not has_voltage:
+                out.pop("alimentation", None)
+                print(f"  [GUARD] Cleared alimentation '{alim}' (no voltage detected, only wiring topology)")
+
+    # Issue 3: nomAlarme validation
+    sorties = out.get("sortiesAlarme")
+    if isinstance(sorties, list):
+        valid_sorties = []
+        for s in sorties:
+            nom = s.get("nomAlarme")
+            if not nom or not isinstance(nom, str):
+                continue
+            
+            # Reject parameter descriptions or long sentences
+            # Alarms are usually short: "High", "Low", "HH", "LL", "NAMUR", "Défaut", etc.
+            nom_l = nom.lower()
+            is_param_desc = any(x in nom_l for x in ["adjustable", "damping", "signal =", "input variable", "damping"])
+            is_too_long = len(nom) > 30
+            
+            if is_param_desc or is_too_long:
+                print(f"  [GUARD] Rejected alarm name: '{nom}' (looks like parameter description)")
+                continue
+            
+            # Additional check: seuilAlarme 0.0 with uniteAlarme "s" is often a default/placeholder
+            if s.get("seuilAlarme") == 0.0 and s.get("uniteAlarme") == "s":
+                # Only keep if the name is very specific
+                if "delay" not in nom_l:
+                    print(f"  [GUARD] Rejected alarm: '{nom}' (placeholder values 0.0s)")
+                    continue
+
+            valid_sorties.append(s)
+        
+        if valid_sorties:
+            out["sortiesAlarme"] = valid_sorties
+        else:
+            out.pop("sortiesAlarme", None)
 
     return out
 

@@ -1,0 +1,18 @@
+{
+  "equipmentName": null,
+  "categorie": "Transmetteur",
+  "typeMesure": null,
+  "technologie": "W band FMCW radar",
+  "plageMesure": null,
+  "typeSignal": "4-20mA",
+  "nbFils": "2 fils",
+  "alimentation": null,
+  "reperage": null,
+  "communication": "HART",
+  "classeProtection": "IP66",
+  "sortiesAlarme": null,
+  "marque": "Siemens",
+  "modele": "7ML1830-1DP",
+  "reference": null,
+  "dateCalibration": null
+}
