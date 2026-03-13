@@ -1,3 +1,4 @@
+import uvicorn
 import os
 import uuid
 import time
@@ -124,3 +125,6 @@ async def extract_from_pdf(file: UploadFile = File(...)):
         # Cleanup temp file
         if os.path.exists(temp_path):
             os.remove(temp_path)
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
