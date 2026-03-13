@@ -1,84 +1,131 @@
-/**
- * API service for communicating with the PDF Extractor backend.
- */
+import axios from 'axios';
 
-export const API_BASE = 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8000';
 
-export interface PlageMesure {
-    min: number | null;
-    max: number | null;
-    unite: string | null;
-}
+// ---------------------------------------------------------------------------
+// V2 Data Interfaces
+// ---------------------------------------------------------------------------
 
-export interface SortieAlarme {
-    nomAlarme: string | null;
-    typeAlarme: string | null;
-    seuilAlarme: number | null;
-    uniteAlarme: string | null;
-    relaisAssocie: string | null;
-}
-
-export interface EquipmentData {
-    equipmentName: string | null;
-    categorie: string | null;
-    typeMesure: string | null;
-    technologie: string | null;
-    plageMesure: PlageMesure | null;
-    typeSignal: string | null;
-    nbFils: string | null;
-    alimentation: string | null;
-    reperage: string | null;
-    communication: string | null;
-    indiceIP: string | null;
-    sortiesAlarme: SortieAlarme[] | null;
-    marque: string | null;
-    modele: string | null;
-    reference: string | null;
-    dateCalibration: string | null;
+export interface InstrumentData {
+  category?: string;
+  typeMesure?: string;
+  typeActionneur?: string;
+  code?: string;
+  technologie?: string;
+  codeTechnologie?: string;
+  plageMesureMin?: number;
+  plageMesureMax?: number;
+  plageMesureUnite?: string;
+  signalSortie?: string;
+  hart?: boolean;
+  nombreFils?: number;
+  alimentation?: string;
+  communication?: string;
+  sortieTOR?: boolean;
+  seuil?: number;
+  seuilUnite?: string;
+  repérageArmoire?: string;
+  precision?: string;
+  marque?: string;
+  référence?: string;
+  certificats?: string[];
+  indiceIP?: string;
+  températureProcess?: string;
+  matériauMembrane?: string;
+  datasheetUrl?: string;
+  typeVérin?: string;
+  typeActionneurSpécial?: string;
+  positionSécurité?: string;
+  courseMM?: number;
+  forceN?: number;
+  pressionAlimentationBar?: number;
 }
 
 export interface ExtractionResponse {
-    success: boolean;
-    data: EquipmentData | null;
-    confidence?: Record<string, number> | null;
-    doc_context?: {
-        doc_id?: string | null;
-        doc_type?: string | null;
-        confidence?: number | null;
-        rationale?: string | null;
-    } | null;
-    message: string;
-    processing_time_seconds: number | null;
+  success: boolean;
+  data?: InstrumentData;
+  confidence?: Record<string, number>;
+  message?: string;
+  processing_time_seconds?: number;
+  meta?: {
+    pdf_id: string;
+  };
+  doc_context?: {
+    category: string;
+    code?: string;
+    typeMesure?: string;
+    source: string;
+  };
 }
 
-/**
- * Send a PDF file to the backend for extraction.
- */
-export async function extractFromPDF(file: File): Promise<ExtractionResponse> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await fetch(`${API_BASE}/extract`, {
-        method: 'POST',
-        body: formData,
-    });
-
-    if (!response.ok) {
-        throw new Error(`Server error: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json();
+export interface CorrectionRecord {
+  field_name: string;
+  ai_extracted_value: any;
+  user_corrected_value: any;
+  rule?: string;
+  accepted: boolean;
 }
 
-/**
- * Health check for the backend API.
- */
-export async function checkApiHealth(): Promise<boolean> {
-    try {
-        const response = await fetch(`${API_BASE}/`);
-        const data = await response.json();
-        return data.status === 'ok';
-    } catch {
-        return false;
-    }
+export interface CorrectionBatch {
+  pdf_id: string;
+  category?: string;
+  typeMesure?: string;
+  corrections: CorrectionRecord[];
 }
+
+export interface SchemaOptions {
+  categories: string[];
+  typesMesure: string[];
+  typesActionneur: string[];
+  codes: Record<string, string[]>;
+  technologies: Record<string, string[]>;
+  signals: string[];
+  powers: string[];
+  communications: string[];
+  brands: string[];
+  indicesIP: string[];
+  materials: string[];
+  actuatorTypes: string[];
+  safetyPositions: string[];
+  specialActuatorTypes: string[];
+}
+
+// ---------------------------------------------------------------------------
+// API Methods
+// ---------------------------------------------------------------------------
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+export const extractFromPDF = async (file: File): Promise<ExtractionResponse> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await api.post<ExtractionResponse>('/extract', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
+
+export const submitCorrections = async (batch: CorrectionBatch): Promise<any> => {
+  const response = await api.post('/corrections', batch);
+  return response.data;
+};
+
+export const fetchSchemaOptions = async (): Promise<SchemaOptions> => {
+  const response = await api.get<SchemaOptions>('/schema/options');
+  return response.data;
+};
+
+export const checkApiHealth = async () => {
+  const response = await api.get('/health');
+  return response.data;
+};
+
+export default {
+  extractFromPDF,
+  submitCorrections,
+  fetchSchemaOptions,
+  checkApiHealth,
+};

@@ -25,8 +25,8 @@ from services.chunker import chunk_text, Chunk, make_table_chunks
 from services.pdf_parser import open_pdf, iter_pages, render_page_image
 from services.embeddings import generate_embeddings_batch
 from services.vector_store import clear_collection, query_chunks, store_chunks_batch
-from services.semantic_search import search_all_fields
-from services.llm_extractor import extract_all_fields_with_meta
+from services.semantic_search import SemanticSearchService
+from services.llm_extractor import LLMExtractor
 from services.regex_extractor import extract_with_regex
 from services.document_classifier import classify_document
 
@@ -228,28 +228,34 @@ def run_extraction(
 
     # Semantic search per field + LLM extraction (kept for later)
     logger.info("[5/6] Semantic search per field...")
-    field_chunks = search_all_fields()
+    search_service = SemanticSearchService()
+    field_chunks = search_service.search_all_fields()
     field_chunks = _filter_field_chunks_by_distance(field_chunks, field_max_distance)
     evidence = _build_evidence(field_chunks)
 
     logger.info(f"[6/6] Extracting values with LLM ({TEXT_MODEL}) + regex...")
-    equipment, llm_meta = extract_all_fields_with_meta(
-        field_chunks, min_confidence=min_confidence, regex_results=regex_results, doc_ctx=doc_ctx
+    extractor = LLMExtractor()
+    equipment_result = extractor.extract_all_fields(
+        field_chunks, full_text=full_text
     )
+    
+    # Map back to what CLI expects if needed, or just use the data
+    equipment_data = equipment_result["data"]
+    llm_meta = {
+        "confidence": equipment_result["confidence"],
+        "evidence": equipment_result["evidence"]
+    }
 
     elapsed = time.time() - total_start
     logger.info(f"DONE in {elapsed:.1f}s")
 
     logger.info("EXTRACTED DATA:")
-    full_result = equipment.model_dump(exclude_none=False)
-
-    result = full_result
-    print(json.dumps(result, indent=4, ensure_ascii=False))
+    print(json.dumps(equipment_data, indent=4, ensure_ascii=False))
 
     extracted_path = f"{output_prefix}_extracted.json"
     evidence_path = f"{output_prefix}_evidence.json"
     with open(extracted_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
+        json.dump(equipment_data, f, indent=2, ensure_ascii=False)
     with open(evidence_path, "w", encoding="utf-8") as f:
         json.dump(
             {

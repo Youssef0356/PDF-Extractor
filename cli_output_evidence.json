@@ -1,0 +1,1018 @@
+{
+  "file": "backend/uploads/4_H250-M40_COR_FR.pdf",
+  "collection": "pdf_chunks",
+  "field_max_distance": null,
+  "min_confidence": 0.3,
+  "evidence": {
+    "category": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.5202844142913818,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.5202844142913818,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_c0",
+        "distance": 0.5345109701156616,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n39\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nÉchelle de valeurs NAMUR\nL'échelle de valeurs ne s'applique qu'en cas de raccordement à un amplificateur\nséparateur aux valeurs de référence suivantes :\n•\nTension contact ouvert Uo = 8,2 V CC\n•\nRésistance "
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.5363336801528931,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r1",
+        "distance": 0.5379258394241333,
+        "text_preview": "TABLE ROW: Courants de signal = Catégorie 2 | I [mA]\nL = 0 |  = 2 | I [mA]\nH = 20 |  = 110"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r18",
+        "distance": 0.3859083652496338,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [GPH] = 8982 | Air [SCFM] = 558 | Perte de pression\n[psig] = 6,17"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r21",
+        "distance": 0.3949581980705261,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 85.2 | Eau [GPH] = 15851 | Air [SCFM] = 992 | Perte de pression\n[psig] = 4,26"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r20",
+        "distance": 0.39566606283187866,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 85.2 | Eau [GPH] = 9246 | Air [SCFM] = 589 | Perte de pression\n[psig] = 1,91"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r3",
+        "distance": 0.39674800634384155,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.4 | Eau [GPH] = 74,0 | Air [SCFM] = 4,65 | Perte de pression\n[psig] = 3,31"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r22",
+        "distance": 0.39834749698638916,
+        "text_preview": "TABLE ROW: EN = DN100 | ASME = 4\" | Cône = K 105.1 | Eau [GPH] = 21134 | Air [SCFM] = 1364 | Perte de pression\n[psig] = 3,68"
+      }
+    ],
+    "code": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.3182251453399658,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.3182251453399658,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r1",
+        "distance": 0.34741175174713135,
+        "text_preview": "TABLE ROW: Courants de signal = Catégorie 2 | I [mA]\nL = 0 |  = 2 | I [mA]\nH = 20 |  = 110"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r5",
+        "distance": 0.3554534316062927,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® =  |  = Valeur [%] de fin d'échelle |  = Sortie signal [mA]"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.3595387935638428,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r1",
+        "distance": 0.46387070417404175,
+        "text_preview": "TABLE ROW: Courants de signal = Catégorie 2 | I [mA]\nL = 0 |  = 2 | I [mA]\nH = 20 |  = 110"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.47822457551956177,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.45574986934661865,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t3_r10",
+        "distance": 0.47247791290283203,
+        "text_preview": "TABLE ROW: Borne de raccordement = 1 de sécurité\n2 sans inductance | 2,5mm2 ="
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.45574986934661865,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "plageMesureMin": [
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r17",
+        "distance": 0.34175312519073486,
+        "text_preview": "TABLE ROW: Système de mesure = M40, M40S, M40R |  = IP66/68 selon EN60529, NEMA 4/4X/6 selon NEMA 250"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r7",
+        "distance": 0.341988205909729,
+        "text_preview": "TABLE ROW: Sortie binaire = Alimentation |  = Nominale 24 VCC, maximale 30 VCC"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r11",
+        "distance": 0.34686946868896484,
+        "text_preview": "TABLE ROW: Système de mesure = Température de service TS maxi |  = -196..+300°C / -321...+572°F\nselon la version (voir plaque signalétique)"
+      },
+      {
+        "page_number": 28,
+        "chunk_id": "cli_p28_c0",
+        "distance": 0.3525018095970154,
+        "text_preview": "3 MONTAGE\n28\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nDistance mini entre les appareils\nEn cas de montage de plusieurs appareils côte à côte, assurer une distance mini de > 300 mm\nentre deux appareils.\nAccorder un soin particulier à la position de montage du H250H avec sens\n"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r21",
+        "distance": 0.3534209728240967,
+        "text_preview": "TABLE ROW: Système de mesure = DN50...100 / 2\"...4\" |  = Pression de service <0,2bar / 2,9psig"
+      }
+    ],
+    "plageMesureMax": [
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r7",
+        "distance": 0.341988205909729,
+        "text_preview": "TABLE ROW: Sortie binaire = Alimentation |  = Nominale 24 VCC, maximale 30 VCC"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r17",
+        "distance": 0.34175312519073486,
+        "text_preview": "TABLE ROW: Système de mesure = M40, M40S, M40R |  = IP66/68 selon EN60529, NEMA 4/4X/6 selon NEMA 250"
+      },
+      {
+        "page_number": 28,
+        "chunk_id": "cli_p28_c0",
+        "distance": 0.3525018095970154,
+        "text_preview": "3 MONTAGE\n28\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nDistance mini entre les appareils\nEn cas de montage de plusieurs appareils côte à côte, assurer une distance mini de > 300 mm\nentre deux appareils.\nAccorder un soin particulier à la position de montage du H250H avec sens\n"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r21",
+        "distance": 0.3534209728240967,
+        "text_preview": "TABLE ROW: Système de mesure = DN50...100 / 2\"...4\" |  = Pression de service <0,2bar / 2,9psig"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r11",
+        "distance": 0.34686946868896484,
+        "text_preview": "TABLE ROW: Système de mesure = Température de service TS maxi |  = -196..+300°C / -321...+572°F\nselon la version (voir plaque signalétique)"
+      }
+    ],
+    "plageMesureUnite": [
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r10",
+        "distance": 0.24322474002838135,
+        "text_preview": "TABLE ROW: Système de mesure = TTTTeeeemmmmppppéééérrrraaaattttuuuurrrreeee"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r12",
+        "distance": 0.24322474002838135,
+        "text_preview": "TABLE ROW: Système de mesure = PPPPrrrreeeessssssssiiiioooonnnn"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r2",
+        "distance": 0.2492908239364624,
+        "text_preview": "TABLE ROW: Système de mesure = Valeur mesurée"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r17",
+        "distance": 0.2529386281967163,
+        "text_preview": "TABLE ROW: Système de mesure = M40, M40S, M40R |  = IP66/68 selon EN60529, NEMA 4/4X/6 selon NEMA 250"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r5",
+        "distance": 0.25447750091552734,
+        "text_preview": "TABLE ROW: Système de mesure = Précision de mesure"
+      }
+    ],
+    "signalSortie": [
+      {
+        "page_number": 40,
+        "chunk_id": "cli_p40_c0",
+        "distance": 0.27837812900543213,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n40\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.2.4  ESK4-T Sortie impulsions\nLa sortie impulsion est une sortie passive de type «°collecteur ouvert°» isolée galvaniquement\nde la sortie courant et de la sortie B1.\nElle peut être utilisée comme sortie "
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r1",
+        "distance": 0.26641690731048584,
+        "text_preview": "TABLE ROW: HT = ESK4-T | Version haute température = ESK4 avec afficheur LCD, sorties binaires de signalisation d'état, totalisateur numérique\net sortie impulsions."
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.27489209175109863,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_c0",
+        "distance": 0.2598695158958435,
+        "text_preview": "4 RACCORDEMENT ÉLECTRIQUE\n38\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.2.3  Sorties limites ESK4-T\nL'échelle peut être enlevée après avoir dévissé le couvercle du boîtier.\nLes bornes de\nraccordement sont de type enfichables et peuvent être retirées pour raccorder les câbles"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.27489209175109863,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "hart": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t2_r0",
+        "distance": 0.36580324172973633,
+        "text_preview": "TABLE ROW: Couche physique = Standard de communication | IEC61158-2 et modèle FISCO = Protocole FOUNDATION Fieldbus H1"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t3_r0",
+        "distance": 0.36975735425949097,
+        "text_preview": "TABLE ROW: Couche physique = Standard de communication | IEC61158-2 et modèle FISCO = Profil Profibus PA 3.02"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t2_summary",
+        "distance": 0.3793092370033264,
+        "text_preview": "| Couche physique | IEC61158-2 et modèle FISCO |\n| --- | --- |\n| Standard de communication | Protocole FOUNDATION Fieldbus H1 |\n| Version ITK | 5,2 |\n| Alimentation | Alimentation du bus |\n| Courant nominal | 16mA |\n| Courant de défaut | 23mA |\n| Courant de démarrage après 10ms | < Courant nominal |"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r9",
+        "distance": 0.3854139447212219,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® = Mode multipoints |  = 4,5"
+      },
+      {
+        "page_number": 44,
+        "chunk_id": "cli_p44_t3_summary",
+        "distance": 0.3941178321838379,
+        "text_preview": "| Société: |  |\n| --- | --- |\n| Personne à contacter: |  |\n| Téléphone: |  |\n| Fax: |  |\n| E-mail |  |"
+      }
+    ],
+    "nombreFils": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_c0",
+        "distance": 0.463128924369812,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n39\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nÉchelle de valeurs NAMUR\nL'échelle de valeurs ne s'applique qu'en cas de raccordement à un amplificateur\nséparateur aux valeurs de référence suivantes :\n•\nTension contact ouvert Uo = 8,2 V CC\n•\nRésistance "
+      },
+      {
+        "page_number": 35,
+        "chunk_id": "cli_p35_c0",
+        "distance": 0.4687765836715698,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n35\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\n4.2.2  Sortie courant ESK4 / ESK4A\nLes bornes de raccordement de l'ESK4 / ESK4A sont enfichables et peuvent être retirées pour\nbrancher les câbles.\nAlimentation M40 à séparation galvanique\nAlimentation M40"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r9",
+        "distance": 0.47093671560287476,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® = Mode multipoints |  = 4,5"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.4715787172317505,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t2_r6",
+        "distance": 0.47428959608078003,
+        "text_preview": "TABLE ROW:  = DN100 |  = 4“ | H250/C [Céramique / PTFE] = 15 |  = 33,1 |  = 16 |  = 35,3 |  = 17 |  = 37,5 | Raccord vissé = 10,3 |  = 22,7"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.4290516972541809,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_c0",
+        "distance": 0.4349476099014282,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n39\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nÉchelle de valeurs NAMUR\nL'échelle de valeurs ne s'applique qu'en cas de raccordement à un amplificateur\nséparateur aux valeurs de référence suivantes :\n•\nTension contact ouvert Uo = 8,2 V CC\n•\nRésistance "
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t3_r10",
+        "distance": 0.43876194953918457,
+        "text_preview": "TABLE ROW: Borne de raccordement = 1 de sécurité\n2 sans inductance | 2,5mm2 ="
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.44329720735549927,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.44329720735549927,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t2_r0",
+        "distance": 0.38534659147262573,
+        "text_preview": "TABLE ROW: Couche physique = Standard de communication | IEC61158-2 et modèle FISCO = Protocole FOUNDATION Fieldbus H1"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t3_summary",
+        "distance": 0.3865487575531006,
+        "text_preview": "| Couche physique | IEC61158-2 et modèle FISCO |\n| --- | --- |\n| Standard de communication | Profil Profibus PA 3.02 |\n| PNO ID | 4531 HEX |\n| Alimentation | Alimentation du bus |\n| Courant nominal | 16mA |\n| Courant de défaut | 23mA |\n| Courant de démarrage après 10ms | < Courant nominal |"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t3_r0",
+        "distance": 0.38742852210998535,
+        "text_preview": "TABLE ROW: Couche physique = Standard de communication | IEC61158-2 et modèle FISCO = Profil Profibus PA 3.02"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t2_summary",
+        "distance": 0.3945411443710327,
+        "text_preview": "| Couche physique | IEC61158-2 et modèle FISCO |\n| --- | --- |\n| Standard de communication | Protocole FOUNDATION Fieldbus H1 |\n| Version ITK | 5,2 |\n| Alimentation | Alimentation du bus |\n| Courant nominal | 16mA |\n| Courant de défaut | 23mA |\n| Courant de démarrage après 10ms | < Courant nominal |"
+      },
+      {
+        "page_number": 44,
+        "chunk_id": "cli_p44_t3_summary",
+        "distance": 0.4049215316772461,
+        "text_preview": "| Société: |  |\n| --- | --- |\n| Personne à contacter: |  |\n| Téléphone: |  |\n| Fax: |  |\n| E-mail |  |"
+      }
+    ],
+    "sortieTOR": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_c0",
+        "distance": 0.4445653557777405,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n39\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nÉchelle de valeurs NAMUR\nL'échelle de valeurs ne s'applique qu'en cas de raccordement à un amplificateur\nséparateur aux valeurs de référence suivantes :\n•\nTension contact ouvert Uo = 8,2 V CC\n•\nRésistance "
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_summary",
+        "distance": 0.4490947723388672,
+        "text_preview": "| Courants de signal | I [mA]\nL |  | I [mA]\nH |  |\n| --- | --- | --- | --- | --- |\n|  | Seuil inférieur | Seuil supérieur | Seuil inférieur | Seuil supérieur |\n| Catégorie 2 | 0 | 2 | 20 | 110 |"
+      },
+      {
+        "page_number": 44,
+        "chunk_id": "cli_p44_t3_r0",
+        "distance": 0.452447772026062,
+        "text_preview": "TABLE ROW: Société: = Personne à contacter:"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r1",
+        "distance": 0.4528203010559082,
+        "text_preview": "TABLE ROW: Courants de signal = Catégorie 2 | I [mA]\nL = 0 |  = 2 | I [mA]\nH = 20 |  = 110"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.45761656761169434,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "seuil": [
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r1",
+        "distance": 0.46623075008392334,
+        "text_preview": "TABLE ROW: Courants de signal = Catégorie 2 | I [mA]\nL = 0 |  = 2 | I [mA]\nH = 20 |  = 110"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.4778723120689392,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.4778723120689392,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 37,
+        "chunk_id": "cli_p37_c1",
+        "distance": 0.4923774003982544,
+        "text_preview": "RACCORDEMENT ÉLECTRIQUE 4\n37\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nCharge pour la communication HART®\nLe calcul de la résistance de charge maximale s'effectue selon la formule suivante :\nConfiguration\nLe paramétrage de l'ESK peut être effectué via une communication HART®."
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r1",
+        "distance": 0.49263429641723633,
+        "text_preview": "TABLE ROW: Tensions de signal = via charge R\nL | U [V]\nL = 0 |  = 2 | U [V]\nH = 16 |  = 30"
+      }
+    ],
+    "precision": [
+      {
+        "page_number": 28,
+        "chunk_id": "cli_p28_c0",
+        "distance": 0.5436599850654602,
+        "text_preview": "3 MONTAGE\n28\nH250 M40\nwww.krohne.com\n10/2015 - 4000685703 - TD H250-M40 R03 fr\nDistance mini entre les appareils\nEn cas de montage de plusieurs appareils côte à côte, assurer une distance mini de > 300 mm\nentre deux appareils.\nAccorder un soin particulier à la position de montage du H250H avec sens\n"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t3_r8",
+        "distance": 0.5451946258544922,
+        "text_preview": "TABLE ROW: Matériau = Matériau de ressort, Hastelloy\n2.4610 | Température du produit\nà mesurer = -40...+200 |  = -40...+392 | Température ambiante = -40…+120 |  = -40…+248"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r2",
+        "distance": 0.5513078570365906,
+        "text_preview": "TABLE ROW: Appareil = H250/F - Food | Bride = Acier CrNi 1.4435 | Tube de\nmesure =  | Flotteur = Acier CrNi 1.4435 / 1.4404 | Guidage du flotteur =  | Diaphragme\nannulaire ="
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t1_r20",
+        "distance": 0.5549737811088562,
+        "text_preview": "TABLE ROW: Système de mesure = DN15...25 / ½\"...1\" |  = Pression de service <0,3bar / 4,4psig"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t4_r2",
+        "distance": 0.5551933646202087,
+        "text_preview": "TABLE ROW: Borne de raccordement = Signal de mesure | 2,5 mm2 = 4,00...20,00 mA pour débit 0...100% en technique 2 fils"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r0",
+        "distance": 0.3898470401763916,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® = Nom du fabricant (code) |  = KROHNE Messtechnik (0x45 = 69)"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_summary",
+        "distance": 0.42305082082748413,
+        "text_preview": "| ESK4 Paramétrage HART® |  |  |\n| --- | --- | --- |\n| Nom du fabricant (code) | KROHNE Messtechnik (0x45 = 69) |  |\n| Nom du modèle / Révision HART® | ESK4 (214 = 0xD6) / HART 5.9 |  |\n|  | ESK4A (17854 = 0x45BE) / HART 7.4 |  |\n| Couche physique | FSK (codage par modulation de fréquence) |  |\n| Va"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t1_r5",
+        "distance": 0.46072423458099365,
+        "text_preview": "TABLE ROW: Diamètre nominal selon\nEN 1092-1 = DN100 PN16 1 | Tirants = 8x M16 | Couples de serrage = 67 |  = 48"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t1_r4",
+        "distance": 0.46010535955429077,
+        "text_preview": "TABLE ROW: Diamètre nominal selon\nEN 1092-1 = DN80 PN16 1 | Tirants = 8x M16 | Couples de serrage = 47 |  = 34"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "cli_p17_t1_r0",
+        "distance": 0.459693968296051,
+        "text_preview": "TABLE ROW: Diamètre nominal selon\nEN 1092-1 =  | Tirants = Nombre x taille | Couples de serrage = [Nm] |  = [lb-ft]"
+      }
+    ],
+    "certificats": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_t0_summary",
+        "distance": 0.4257328510284424,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 8,
+        "chunk_id": "cli_p8_t0_summary",
+        "distance": 0.4257328510284424,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 22,
+        "chunk_id": "cli_p22_t0_summary",
+        "distance": 0.4257328510284424,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 32,
+        "chunk_id": "cli_p32_t0_summary",
+        "distance": 0.4257328510284424,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "cli_p38_t0_summary",
+        "distance": 0.4257328510284424,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      }
+    ],
+    "indiceIP": [
+      {
+        "page_number": 4,
+        "chunk_id": "cli_p4_t0_summary",
+        "distance": 0.4048210382461548,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 6,
+        "chunk_id": "cli_p6_t0_summary",
+        "distance": 0.4048210382461548,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t0_summary",
+        "distance": 0.4048210382461548,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_t0_summary",
+        "distance": 0.4048210382461548,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 40,
+        "chunk_id": "cli_p40_t0_summary",
+        "distance": 0.4048210382461548,
+        "text_preview": "| H250 M40 |  |\n| --- | --- |"
+      }
+    ],
+    "températureProcess": [
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r4",
+        "distance": 0.4701703190803528,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® = Variable de process ESK4 / ESK4A"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r17",
+        "distance": 0.47179895639419556,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [GPH] = 5812 | Air [SCFM] = 360 | Perte de pression\n[psig] = 3,23"
+      },
+      {
+        "page_number": 22,
+        "chunk_id": "cli_p22_t2_r17",
+        "distance": 0.47246813774108887,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [l/h] = 22000 | Air [Nm3/h] = 580 | Perte de pression\n[mbar] = 220"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r18",
+        "distance": 0.4729920029640198,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [GPH] = 8982 | Air [SCFM] = 558 | Perte de pression\n[psig] = 6,17"
+      },
+      {
+        "page_number": 22,
+        "chunk_id": "cli_p22_t2_r18",
+        "distance": 0.4744083881378174,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [l/h] = 34000 | Air [Nm3/h] = 900 | Perte de pression\n[mbar] = 420"
+      }
+    ],
+    "matériauMembrane": [
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r2",
+        "distance": 0.458524227142334,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.3 | Eau [GPH] = 47,6 | Air [SCFM] = 2,79 | Perte de pression\n[psig] = 2,87"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r12",
+        "distance": 0.45996540784835815,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 25.4 | Eau [GPH] = 1321 | Air [SCFM] = 80,6 | Perte de pression\n[psig] = 2,13"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r3",
+        "distance": 0.4630659818649292,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.4 | Eau [GPH] = 74,0 | Air [SCFM] = 4,65 | Perte de pression\n[psig] = 3,31"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t3_r6",
+        "distance": 0.46391159296035767,
+        "text_preview": "TABLE ROW: Standard = SMS 1146 | Dim. raccord = 1...4\" | Pression nom. = 6 bar / 88,2 psi"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r21",
+        "distance": 0.46485471725463867,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 85.2 | Eau [GPH] = 15851 | Air [SCFM] = 992 | Perte de pression\n[psig] = 4,26"
+      }
+    ],
+    "typeActionneur": [
+      {
+        "page_number": 15,
+        "chunk_id": "cli_p15_t1_r1",
+        "distance": 0.5493334531784058,
+        "text_preview": "TABLE ROW:  = H250/RR Bride\nH250/F Raccord clamp | a = 141 |  = 5,56 | b = 250 |  = 9,85 | d = 150 |  = 5,91 | h = 150 |  = 5,91"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_t1_r0",
+        "distance": 0.5586928129196167,
+        "text_preview": "TABLE ROW: Contact = MIN 1 | Type = NAMUR | courant = ≤ 1 mA"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t1_r2",
+        "distance": 0.5645283460617065,
+        "text_preview": "TABLE ROW: Standard = FM (USA) NEC500\nFM (Canada)\nNEC505 | Affichage = M40 électrique | Marquage = IS Classe I Div 1\nXP Classe I Div 1\nNI Classe I Div 2\nDIP Classe II / III Div 1"
+      },
+      {
+        "page_number": 34,
+        "chunk_id": "cli_p34_t1_summary",
+        "distance": 0.5654233694076538,
+        "text_preview": "| Contact | Type | courant |\n| --- | --- | --- |\n| MIN 1 | NAMUR | ≤ 1 mA |\n| MIN 2 | NAMUR | ≤ 1 mA |\n| MAX 1 | NAMUR | ≥ 3 mA |\n| MAX 2 | NAMUR | ≥ 3 mA |"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.5667136907577515,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "typeVérin": [
+      {
+        "page_number": 22,
+        "chunk_id": "cli_p22_t2_r0",
+        "distance": 0.466671884059906,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = ½ | Cône = K 15.1 | Eau [l/h] = 70 | Air [Nm3/h] = 1,8 | Perte de pression\n[mbar] = 195"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": "cli_p25_t2_r0",
+        "distance": 0.4681699275970459,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = ½\" | Cône = K 15.1 | Eau [GPH] = 17,2 | Air [SCFM] = 0,99 | Perte de pression\n[psig] = 2,57"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r0",
+        "distance": 0.4704749584197998,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = 1/2\" | Cône = K 15.1 | Eau [GPH] = 18,5 | Air [SCFM] = 1,12 | Perte de pression\n[psig] = 2,87"
+      },
+      {
+        "page_number": 13,
+        "chunk_id": "cli_p13_t1_r16",
+        "distance": 0.4715558886528015,
+        "text_preview": "TABLE ROW: Sortie binaire = Entrée |  = Isolée galvaniquement"
+      },
+      {
+        "page_number": 24,
+        "chunk_id": "cli_p24_t2_r13",
+        "distance": 0.4766842722892761,
+        "text_preview": "TABLE ROW: EN = DN50 | ASME = 2\" | Cône = K 55.1 | Eau [l/h] = 9000 | Air [Nm3/h] = 240 | Perte de pression\n[mbar] = 220"
+      }
+    ],
+    "typeActionneurSpécial": [
+      {
+        "page_number": 9,
+        "chunk_id": "cli_p9_t1_r4",
+        "distance": 0.5080012083053589,
+        "text_preview": "TABLE ROW: Appareil = 1 DN100/4\" uniquement PTFE\n2 TFM/PTFE (non conducteur d'électricité), PTFE conducteur sur demande | Bride =  | Tube de\nmesure =  | Flotteur =  | Guidage du flotteur =  | Diaphragme\nannulaire ="
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t3_r7",
+        "distance": 0.5092987418174744,
+        "text_preview": "TABLE ROW:  = Filetage femelle soudé (H250/RR /HC) | Standard = ISO 228 | Dim. raccord = G½...G2\" | Pression nom. = ≥ 50 bar / 735 psi"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t3_r9",
+        "distance": 0.5314961075782776,
+        "text_preview": "TABLE ROW:  = Filetage femelle (H250/RR /HC) avec insert, joint FPM et\nécrou-raccord | Standard = ISO 228 | Dim. raccord = G½…2\" | Pression nom. = ≤ 50 bar\n≤ 735 psi"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t2_r0",
+        "distance": 0.5322534441947937,
+        "text_preview": "TABLE ROW: Tensions de signal =  | U [V]\nL = Seuil inférieur |  = Seuil supérieur | U [V]\nH = Seuil inférieur |  = Seuil supérieur"
+      },
+      {
+        "page_number": 39,
+        "chunk_id": "cli_p39_t3_r0",
+        "distance": 0.5322534441947937,
+        "text_preview": "TABLE ROW: Courants de signal =  | I [mA]\nL = Seuil inférieur |  = Seuil supérieur | I [mA]\nH = Seuil inférieur |  = Seuil supérieur"
+      }
+    ],
+    "positionSécurité": [
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t1_r3",
+        "distance": 0.46714019775390625,
+        "text_preview": "TABLE ROW: Standard = NEPSI | Affichage = M40 électrique | Marquage = Ex ia, Ex d, Ex nA, Ex t"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t1_r6",
+        "distance": 0.46714019775390625,
+        "text_preview": "TABLE ROW: Standard = INMETRO | Affichage = M40 électrique | Marquage = Ex ia, Ex d, Ex nA, Ex t"
+      },
+      {
+        "page_number": 14,
+        "chunk_id": "cli_p14_t1_r7",
+        "distance": 0.46714019775390625,
+        "text_preview": "TABLE ROW: Standard = KGS | Affichage = M40 électrique | Marquage = Ex ia, Ex d, Ex nA, Ex t"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "cli_p12_t1_r6",
+        "distance": 0.4744955897331238,
+        "text_preview": "TABLE ROW: ESK4 Paramétrage HART® = Saturation |  = +102,5 (±1%) |  = 20,24...20,56"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t1_r1",
+        "distance": 0.4780425429344177,
+        "text_preview": "TABLE ROW: HT = ESK4-T | Version haute température = ESK4 avec afficheur LCD, sorties binaires de signalisation d'état, totalisateur numérique\net sortie impulsions."
+      }
+    ],
+    "courseMM": [
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r0",
+        "distance": 0.44523149728775024,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = 1/2\" | Cône = K 15.1 | Eau [GPH] = 18,5 | Air [SCFM] = 1,12 | Perte de pression\n[psig] = 2,87"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t2_r0",
+        "distance": 0.4478987455368042,
+        "text_preview": "TABLE ROW: Presse-étoupe = M20x1,5 standard | Matériau = PA | Section de câble = 8...13 mm |  = 0,315...0,512\""
+      },
+      {
+        "page_number": 29,
+        "chunk_id": "cli_p29_t1_r5",
+        "distance": 0.45017558336257935,
+        "text_preview": "TABLE ROW: Diamètre nominal selon = 80 |  = 16 |  = 3“ |  = 150/300 | Tirants = 8 x M16 |  = 4 x 5/8“ |  = 8 x ¾“ | Couple maxi = 47 |  = 34 |  = 70 |  = 51"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t3_r4",
+        "distance": 0.4518696069717407,
+        "text_preview": "TABLE ROW: Borne de raccordement = Tension nominale U\n0 | 2,5mm2 = 8,2 VCC |  = 8,2 VCC |  = 8,2 VCC |  = 10...30 VCC |  = 32 VCC maxi\n2"
+      },
+      {
+        "page_number": 11,
+        "chunk_id": "cli_p11_t2_r1",
+        "distance": 0.4556006193161011,
+        "text_preview": "TABLE ROW: Presse-étoupe = M20x1,5 | Matériau = Laiton nickelé | Section de câble = 10...14 mm |  = 0,394...0,552\""
+      }
+    ],
+    "forceN": [
+      {
+        "page_number": 25,
+        "chunk_id": "cli_p25_t2_r3",
+        "distance": 0.4114949703216553,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.4 | Eau [GPH] = 68,7 | Air [SCFM] = 3,72 | Perte de pression\n[psig] = 2,94"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r8",
+        "distance": 0.41722142696380615,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.8 | Eau [GPH] = 634 | Air [SCFM] = 37,2 | Perte de pression\n[psig] = 23,5"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r2",
+        "distance": 0.4187915325164795,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.3 | Eau [GPH] = 47,6 | Air [SCFM] = 2,79 | Perte de pression\n[psig] = 2,87"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r1",
+        "distance": 0.4196443557739258,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.2 | Eau [GPH] = 31,7 | Air [SCFM] = 1,86 | Perte de pression\n[psig] = 3,00"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": "cli_p25_t2_r14",
+        "distance": 0.4200674295425415,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.2 | Eau [GPH] = 3963 | Air [SCFM] = 248 | Perte de pression\n[psig] = 3,38"
+      }
+    ],
+    "pressionAlimentationBar": [
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t3_r6",
+        "distance": 0.4243130087852478,
+        "text_preview": "TABLE ROW: Standard = SMS 1146 | Dim. raccord = 1...4\" | Pression nom. = 6 bar / 88,2 psi"
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "cli_p16_t3_r5",
+        "distance": 0.43462955951690674,
+        "text_preview": "TABLE ROW:  = Raccords vissés (H250/RR /HC /F) | Standard = DIN 11851 | Dim. raccord = DN15...100 | Pression nom. = 25...40 bar"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r18",
+        "distance": 0.4362351894378662,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 55.3 | Eau [GPH] = 8982 | Air [SCFM] = 558 | Perte de pression\n[psig] = 6,17"
+      },
+      {
+        "page_number": 25,
+        "chunk_id": "cli_p25_t2_r7",
+        "distance": 0.4471047520637512,
+        "text_preview": "TABLE ROW: EN =  | ASME =  | Cône = K 15.8 | Eau [GPH] = 396 | Air [SCFM] = 24,8 | Perte de pression\n[psig] = 12,3"
+      },
+      {
+        "page_number": 23,
+        "chunk_id": "cli_p23_t2_r0",
+        "distance": 0.4474409818649292,
+        "text_preview": "TABLE ROW: EN = DN15 | ASME = 1/2\" | Cône = K 15.1 | Eau [GPH] = 18,5 | Air [SCFM] = 1,12 | Perte de pression\n[psig] = 2,87"
+      }
+    ]
+  },
+  "llm_meta": {
+    "confidence": {
+      "category": 1.0,
+      "typeMesure": 0.99,
+      "code": 0.99,
+      "technologie": 1.0,
+      "alimentation": 1.0,
+      "sortieTOR": 1.0,
+      "plageMesureMin": 0.95,
+      "plageMesureMax": 1.0,
+      "plageMesureUnite": 1.0,
+      "signalSortie": 1.0,
+      "hart": 1.0,
+      "nombreFils": 1.0,
+      "communication": 1.0,
+      "seuil": 1.0,
+      "precision": 0.99,
+      "marque": 1.0,
+      "certificats": 1.0,
+      "indiceIP": 1.0,
+      "températureProcess": 0.95,
+      "matériauMembrane": 1.0
+    },
+    "evidence": {
+      "category": [
+        {
+          "text": "Transmetteur/Capteur",
+          "confidence": 1.0
+        }
+      ],
+      "typeMesure": [
+        {
+          "text": "[psig] = 6,17",
+          "confidence": 0.99
+        }
+      ],
+      "code": [
+        {
+          "text": "PT",
+          "confidence": 0.99
+        }
+      ],
+      "technologie": [
+        {
+          "text": "Pression",
+          "confidence": 1.0
+        }
+      ],
+      "alimentation": [
+        {
+          "text": "24VDC",
+          "confidence": 1.0
+        }
+      ],
+      "sortieTOR": [
+        {
+          "text": "Seuil atteint",
+          "confidence": 1.0
+        }
+      ],
+      "plageMesureMin": [
+        {
+          "text": "0,2bar",
+          "confidence": 0.95
+        }
+      ],
+      "plageMesureMax": [
+        {
+          "text": "300°C",
+          "confidence": 1.0
+        }
+      ],
+      "plageMesureUnite": [
+        {
+          "text": "300.0",
+          "confidence": 1.0
+        }
+      ],
+      "signalSortie": [
+        {
+          "text": "4...20 mA",
+          "confidence": 1.0
+        }
+      ],
+      "hart": [
+        {
+          "text": "ESK4 Paramétrage HART® = Mode multipoints",
+          "confidence": 1.0
+        }
+      ],
+      "nombreFils": [
+        {
+          "text": "4",
+          "confidence": 1.0
+        }
+      ],
+      "communication": [
+        {
+          "text": "Protocole FOUNDATION Fieldbus H1",
+          "confidence": 1.0
+        }
+      ],
+      "seuil": [
+        {
+          "text": "signal (haut) de défaillance est activé par la sortie analogique (courant > 21 mA)",
+          "confidence": 1.0
+        }
+      ],
+      "precision": [
+        {
+          "text": "±0.5% de la pleine échelle",
+          "confidence": 0.99
+        }
+      ],
+      "marque": [
+        {
+          "text": "Krohne Messtechnik",
+          "confidence": 1.0
+        }
+      ],
+      "certificats": [
+        {
+          "text": "Certificats",
+          "confidence": 1.0
+        }
+      ],
+      "indiceIP": [
+        {
+          "text": "IP65",
+          "confidence": 1.0
+        }
+      ],
+      "températureProcess": [
+        {
+          "text": "3,23",
+          "confidence": 0.95
+        }
+      ],
+      "matériauMembrane": [
+        {
+          "text": "Hastelloy",
+          "confidence": 1.0
+        }
+      ]
+    }
+  }
+}

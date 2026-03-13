@@ -4,8 +4,10 @@ Configuration for the PDF Extractor backend.
 import os
 
 # -- Ollama Models --------------------------------------------------
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 TEXT_MODEL = "gemma3:4b"         
-EMBEDDING_MODEL = "nomic-embed-text"  # 335M multilingual embedding model
+EMBEDDING_MODEL = "nomic-embed-text"  
+EMBEDDING_DIM = 768
 
 # -- Reranker (optional) -------------------------------------------
 ENABLE_RERANKING = True
@@ -52,3 +54,5 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger("pdf_extractor")
+# Schema Settings
+SCHEMA_VERSION = "v2"

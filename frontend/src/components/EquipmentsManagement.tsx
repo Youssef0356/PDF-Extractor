@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import PDFDropZone from './PDFDropZone';
 import EquipmentForm from './EquipmentForm';
 import { extractFromPDF } from '../services/api';
-import type { EquipmentData } from '../services/api';
+import type { InstrumentData } from '../services/api';
 
 interface PDFFile {
     file: File;
@@ -12,9 +12,8 @@ interface PDFFile {
 }
 
 function EquipmentManagement() {
-    const [extractedData, setExtractedData] = useState<EquipmentData | null>(null);
+    const [extractedData, setExtractedData] = useState<InstrumentData | null>(null);
     const [confidence, setConfidence] = useState<Record<string, number> | null>(null);
-    const [docType, setDocType] = useState<string>('');
     const [queuedFiles, setQueuedFiles] = useState<PDFFile[]>([]);
     const [isExtracting, setIsExtracting] = useState(false);
     const [globalStatus, setGlobalStatus] = useState<string>('');
@@ -36,7 +35,6 @@ function EquipmentManagement() {
     const handleFormReset = useCallback(() => {
         setExtractedData(null);
         setConfidence(null);
-        setDocType('');
         setQueuedFiles([]);
         setGlobalStatus('');
     }, []);
@@ -47,7 +45,6 @@ function EquipmentManagement() {
         setIsExtracting(true);
         setExtractedData(null);
         setConfidence(null);
-        setDocType('');
 
         const filesToProcess = [...queuedFiles];
         
@@ -75,7 +72,6 @@ function EquipmentManagement() {
                 clearInterval(progressInterval);
 
                 if (response.success && response.data) {
-                    setDocType(response.doc_context?.doc_type || '');
                     setQueuedFiles(prev => prev.map(f => 
                         f.id === pf.id ? { ...f, status: 'completed', progress: 100 } : f
                     ));
@@ -92,7 +88,7 @@ function EquipmentManagement() {
                             
                             // Iterate over all fields in the new data
                             Object.keys(response.data!).forEach(key => {
-                                const k = key as keyof EquipmentData;
+                                const k = key as keyof InstrumentData;
                                 const curConf = mergedConf[k] || 0;
                                 const nextConf = newConfidence[k] || 0;
                                 
@@ -183,10 +179,9 @@ function EquipmentManagement() {
                         </div>
                     </div>
                     <EquipmentForm
-                        extractedData={extractedData}
+                        initialData={extractedData}
                         confidence={confidence}
                         isProcessing={isExtracting}
-                        docType={docType}
                         onReset={handleFormReset}
                     />
                 </div>
