@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { API_BASE } from '../services/api';
 import type { EquipmentData } from '../services/api';
 
 // --- Field definitions organized by section ---
@@ -52,6 +53,26 @@ interface Section {
     icon: string;
     fields: FormField[];
 }
+
+const OPTIONAL_FIELDS = new Set<string>([
+    'plageMesure',
+    'technologie',
+    'nbFils',
+    'alimentation',
+    'reperage',
+    'communication',
+    'sortiesAlarme',
+    'nomAlarme',
+    'typeAlarme',
+    'seuilAlarme',
+    'uniteAlarme',
+    'relaisAssocie',
+    'reference',
+    'image',
+    'datasheet',
+    'dateCalibration',
+    'indiceIP',
+]);
 
 const SECTIONS: Section[] = [
     {
@@ -167,14 +188,14 @@ const SECTIONS: Section[] = [
         ],
     },
     {
-        title: 'Classe',
+        title: 'Indice IP',
         icon: '5',
         fields: [
             {
-                key: 'classe',
-                label: 'classe',
-                type: 'select',
-                options: ['Classe A', 'Classe B', 'A', 'B', 'Autre'],
+                key: 'indiceIP',
+                label: 'indice_ip',
+                type: 'text',
+                placeholder: 'IP67',
             },
         ],
     },
@@ -265,9 +286,10 @@ interface EquipmentFormProps {
     extractedData?: EquipmentData | null;
     confidence?: Record<string, number> | null;
     isProcessing?: boolean;
+    docType?: string;
 }
 
-function EquipmentForm({ extractedData, confidence, isProcessing = false }: EquipmentFormProps) {
+function EquipmentForm({ extractedData, confidence, isProcessing = false, docType = '' }: EquipmentFormProps) {
 
     const [values, setValues] = useState<FormValues>(() => {
         const init: FormValues = {};
@@ -295,7 +317,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
             'equipmentName',
             'categorie', 'typeMesure', 'technologie', 'typeSignal',
             'nbFils', 'alimentation', 'reperage', 'communication',
-            'classe', 'marque', 'modele', 'reference', 'dateCalibration',
+            'indiceIP', 'marque', 'modele', 'reference', 'dateCalibration',
         ] as const;
 
         // Helper to find field definition
@@ -414,8 +436,63 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Build the list of corrections (AI value ≠ what user kept)
+        const corrections: Array<{ field: string; ai_value: string; correct_value: string }> = [];
+
+        for (const key of ALL_FIELD_KEYS) {
+            // Only check fields the AI actually filled
+            if (!aiFilledFields.has(key)) continue;
+            if (!extractedData) continue;
+
+            let aiValue: unknown = (extractedData as any)?.[key];
+
+            // Special-case: range field stored as "min|max" in the form
+            if (key === 'plageMesure') {
+                const pm = (extractedData as any)?.plageMesure;
+                const min = pm?.min != null ? String(pm.min) : '';
+                const max = pm?.max != null ? String(pm.max) : '';
+                aiValue = `${min}|${max}`;
+            }
+
+            // Special-case: sortiesAlarme is an array in extractedData, but the form uses flat keys
+            if (['nomAlarme', 'typeAlarme', 'seuilAlarme', 'uniteAlarme', 'relaisAssocie'].includes(key)) {
+                const alarm0 = (extractedData as any)?.sortiesAlarme?.[0];
+                aiValue = alarm0?.[key];
+                if (aiValue != null && key === 'seuilAlarme') {
+                    aiValue = String(aiValue);
+                }
+            }
+
+            const currentValue =
+                values[key] === 'Autre' && customValues[key]
+                    ? customValues[key]
+                    : values[key];
+
+            // Normalize both to string for comparison
+            const aiStr = aiValue != null ? String(aiValue) : '';
+            const currentStr = currentValue ?? '';
+
+            if (aiStr !== '' && aiStr !== currentStr) {
+                corrections.push({
+                    field: key,
+                    ai_value: aiStr,
+                    correct_value: currentStr,
+                });
+            }
+        }
+
+        // Send corrections to backend (fire and forget, don't block save)
+        if (corrections.length > 0) {
+            fetch(`${API_BASE}/feedback`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ corrections, doc_type: docType || '' }),
+            }).catch(console.error);
+        }
+
         // Merge custom values back in for submission
         const finalValues = { ...values };
         for (const key of Object.keys(finalValues)) {
@@ -423,7 +500,8 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                 finalValues[key] = customValues[key];
             }
         }
-        console.log('Form submitted:', finalValues);
+        console.log('Form submitted with corrections detected:', corrections.length);
+        console.log('Final values:', finalValues);
     };
 
     // Compute progress
@@ -434,6 +512,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
         const isEnabled = enabledFields.has(field.key);
         const isAiFilled = aiFilledFields.has(field.key);
         const typing = isTyping.has(field.key);
+        const isOptional = OPTIONAL_FIELDS.has(field.key);
         
         const hasAiResult = Boolean(extractedData) || Boolean(confidence);
         const currentValue = values[field.key];
@@ -518,7 +597,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                             <select
                                 className={`${inputClass} ${isAutre ? 'w-1/3' : 'w-full'}`}
                                 disabled={!isEnabled}
-                                required
+                                required={!isOptional}
                                 value={values[field.key]}
                                 onChange={(e) => handleChange(field.key, e.target.value)}
                             >
@@ -534,7 +613,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                     type="text"
                                     className={`${inputClass} w-2/3 border-blue-300 ring-1 ring-blue-100 bg-blue-50/30`}
                                     disabled={!isEnabled}
-                                    required
+                                    required={!isOptional}
                                     placeholder="Précisez..."
                                     value={customValues[field.key] || ''}
                                     onChange={(e) => setCustomValues(prev => ({ ...prev, [field.key]: e.target.value }))}
@@ -574,7 +653,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 type="text"
                                 className={inputClass}
                                 disabled={!isEnabled}
-                                required
+                                required={!isOptional}
                                 placeholder={field.placeholder}
                                 value={values[field.key]}
                                 onChange={(e) => handleChange(field.key, e.target.value)}
@@ -612,7 +691,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                     type="text"
                                     className={inputClass}
                                     disabled={!isEnabled}
-                                    required
+                                    required={!isOptional}
                                     placeholder={field.placeholderMin}
                                     value={values[field.key]?.split('|')[0] || ''}
                                     onChange={(e) => {
@@ -624,7 +703,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                     type="text"
                                     className={inputClass}
                                     disabled={!isEnabled}
-                                    required
+                                    required={!isOptional}
                                     placeholder={field.placeholderMax}
                                     value={values[field.key]?.split('|')[1] || ''}
                                     onChange={(e) => {
@@ -773,7 +852,7 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false }: Equi
                                 type="date"
                                 className={inputClass}
                                 disabled={!isEnabled}
-                                required
+                                required={!isOptional}
                                 value={values[field.key]}
                                 onChange={(e) => handleChange(field.key, e.target.value)}
                             />

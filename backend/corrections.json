@@ -1,0 +1,30 @@
+[
+  {
+    "field": "alimentation",
+    "ai_value": "Loop powered (2 fils)",
+    "correct_value": "12 à 35 V DC (Loop powered)",
+    "doc_type": "unknown",
+    "timestamp": "2026-03-13T10:12:41.240945+00:00"
+  },
+  {
+    "field": "modele",
+    "ai_value": "7ML1830-1DP",
+    "correct_value": "LR150",
+    "doc_type": "unknown",
+    "timestamp": "2026-03-13T10:12:42.265351+00:00"
+  },
+  {
+    "field": "alimentation",
+    "ai_value": "Loop powered (2 fils)",
+    "correct_value": "12 à 35 V DC (Loop powered)",
+    "doc_type": "unknown",
+    "timestamp": "2026-03-13T10:13:00.476099+00:00"
+  },
+  {
+    "field": "modele",
+    "ai_value": "7ML1830-1DP",
+    "correct_value": "LR150",
+    "doc_type": "unknown",
+    "timestamp": "2026-03-13T10:13:00.598296+00:00"
+  }
+]

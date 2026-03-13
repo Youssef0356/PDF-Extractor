@@ -25,6 +25,7 @@ from services.semantic_search import search_all_fields
 from services.llm_extractor import extract_all_fields_with_meta
 from services.regex_extractor import extract_with_regex
 from services.document_classifier import classify_document
+from services.correction_store import save_correction
 
 
 # -- FastAPI App ----------------------------------------------------
@@ -58,6 +59,29 @@ async def health():
         "text_model": TEXT_MODEL,
         "embedding_model": EMBEDDING_MODEL,
     }
+
+
+@app.post("/feedback")
+async def receive_feedback(payload: dict):
+    """
+    Called on 'Enregistrer l'équipement'.
+    Receives list of corrections where AI was wrong.
+    """
+    corrections = payload.get("corrections", []) or []
+    doc_type = payload.get("doc_type", "") or ""
+
+    saved = 0
+    for c in corrections:
+        if not isinstance(c, dict):
+            continue
+        field = c.get("field")
+        ai_value = c.get("ai_value")
+        correct_value = c.get("correct_value")
+        if field and ai_value != correct_value:
+            if save_correction(str(field), "" if ai_value is None else str(ai_value), "" if correct_value is None else str(correct_value), doc_type):
+                saved += 1
+
+    return {"status": "ok", "saved": saved}
 
 
 @app.post("/extract", response_model=ExtractionResponse)

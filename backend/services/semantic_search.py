@@ -57,7 +57,7 @@ _RERANK_INSTRUCTIONS: dict[str, str] = {
     "nbFils":           "Retrieve text that mentions 2-wire, 4-wire, or number of connection wires.",
     "alimentation":     "Retrieve text that states the power supply voltage or type.",
     "communication":    "Retrieve text that mentions a digital communication protocol (HART, Modbus, Profibus, etc.).",
-    "classeProtection": "Retrieve text that states the IP protection class or NEMA enclosure rating.",
+    "indiceIP":         "Retrieve text that states the IP protection class or NEMA enclosure rating.",
     "reperage":         "Retrieve text that contains an instrument tag number or P&ID identifier.",
     "sortiesAlarme":    "Retrieve text that describes alarm outputs, relay contacts, or threshold setpoints.",
     "dateCalibration":  "Retrieve text that states the calibration interval, frequency, or schedule.",

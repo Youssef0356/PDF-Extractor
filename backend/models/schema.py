@@ -94,11 +94,10 @@ class EquipmentSchema(BaseModel):
         ),
     )
 
-    classeProtection: Optional[str] = Field(
+    indiceIP: Optional[str] = Field(
         None,
         description="IP protection class, e.g. IP67, IP68, NEMA 4X",
-        # Renamed from "classe" — "classe" was ambiguous (safety class vs IP class).
-        # If you need IEC safety class, add a separate "classeSurete" field.
+        # Previously: classeProtection. The UI label is "Indice IP".
     )
 
     sortiesAlarme: Optional[list[SortieAlarme]] = None
@@ -314,15 +313,14 @@ FIELD_DESCRIPTIONS: dict[str, dict] = {
         ],
     },
 
-    "classeProtection": {
-        "description": "IP / NEMA protection class (e.g. IP67, IP68, NEMA 4X)",
-        # FIXED: renamed from "classe" which was ambiguous.
-        # OPEN: too many valid IP codes to enumerate.
+    "indiceIP": {
+        "description": "IP / NEMA protection class (e.g. IP67, IP68, IP69K, NEMA 4X)",
         "allowed_values": None,
         "search_queries": [
             "IP protection class degré protection",
-            "IP67 IP68 NEMA enclosure rating",
+            "IP67 IP68 IP69K NEMA enclosure rating",
             "ingress protection indice de protection",
+            "indice IP",
         ],
     },
 

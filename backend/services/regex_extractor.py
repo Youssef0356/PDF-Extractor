@@ -413,7 +413,7 @@ def _extract_nb_fils(text: str) -> Optional[dict]:
 
 
 # ---------------------------------------------------------------------------
-# IP / protection class  (classeProtection)
+# IP / protection class  (indiceIP)
 # ---------------------------------------------------------------------------
 def _extract_classe_protection(text: str) -> Optional[dict]:
     for pat in _IP_PATTERNS:
@@ -694,7 +694,7 @@ def extract_with_regex(full_text: str) -> dict[str, dict]:
         ("communication",    _extract_communication),
         ("alimentation",     _extract_alimentation),
         ("nbFils",           _extract_nb_fils),
-        ("classeProtection", _extract_classe_protection),
+        ("indiceIP",         _extract_classe_protection),
         ("marque",           _extract_marque),
         ("reperage",         _extract_reperage),
         ("equipmentName",    _extract_equipment_name),

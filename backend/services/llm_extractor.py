@@ -12,6 +12,7 @@ from datetime import datetime
 from config import ACCURACY_FIRST, TEXT_MODEL, ENABLE_RERETRIEVAL_VERIFICATION
 from models.schema import FIELD_DESCRIPTIONS, EquipmentSchema
 from services.document_classifier import DocumentContext
+from services.correction_store import get_corrections_for_field
 
 
 # ---------------------------------------------------------------------------
@@ -155,7 +156,7 @@ FIELD_PROMPT_RULES: dict[str, str] = {
         "GOOD: 'HART' | BAD: '4-20mA with HART option', 'serial'"
     ),
 
-    "classeProtection": (
+    "indiceIP": (
         'Extract the IP/NEMA protection class exactly as written (e.g. "IP67", "IP68", "NEMA 4X").\n'
         'If multiple IP ratings appear, return the highest one.\n'
         "GOOD: 'IP67' | BAD: 'dust-proof', 'weatherproof'"
@@ -229,6 +230,15 @@ def _build_extraction_prompt(
     field_rule = FIELD_PROMPT_RULES.get(field_name, "")
     field_rule_block = f"\nField rules:\n{field_rule}\n" if field_rule else ""
 
+    # Inject past correction memory
+    past_corrections = get_corrections_for_field(field_name, top_k=3)
+    corrections_block = ""
+    if past_corrections:
+        corrections_block = "\nPAST CORRECTIONS (learn from these mistakes):\n"
+        for c in past_corrections:
+            corrections_block += f"  - {c}\n"
+        corrections_block += "Do NOT repeat these mistakes.\n"
+
     # Response format hint
     if field_name == "plageMesure":
         fmt = '{"value": {"min": <number|null>, "max": <number|null>, "unite": "<unit|null>"}, "confidence": 0.0-1.0, "quote": "<verbatim text>"}'
@@ -241,7 +251,7 @@ def _build_extraction_prompt(
 {doc_ctx_str}
 Extract the field "{field_name}" from the document excerpts below.
 Description: {description}{allowed_str}
-{field_rule_block}
+{field_rule_block}{corrections_block}
 Document excerpts:
 \"\"\"
 {context}
@@ -347,7 +357,7 @@ def _normalize_encoding(s: str) -> str:
     s = re.sub(r"\s+", " ", s)
     return s.strip()
 
-def _quote_in_context(quote: str | None, chunks: list[dict], threshold: float = 0.85) -> bool:
+def _quote_in_context(quote: str | None, chunks: list[dict], field_name: str = "", threshold: float = 0.85) -> bool:
     """Check if the quote exists in chunks using fuzzy matching to handle encoding/whitespace issues."""
     if not quote:
         return False
@@ -363,6 +373,14 @@ def _quote_in_context(quote: str | None, chunks: list[dict], threshold: float = 
     if q_norm in context_norm:
         return True
     
+    # Special case for brand names: they are often single words or short
+    if field_name == "marque" and len(q_norm) < 15:
+        if q_norm in context_norm:
+            return True
+        # Check if the brand appears as a whole word
+        if re.search(r'\b' + re.escape(q_norm) + r'\b', context_norm):
+            return True
+
     # 2. Fuzzy sliding window match (handles minor encoding variations)
     # Optimization: only check window if q_norm is long enough
     if len(q_norm) < 10:
@@ -773,14 +791,15 @@ def _apply_cross_field_guards(extracted: dict) -> dict:
                 out["nbFils"] = wiring_found
                 print(f"  [GUARD] Remapped '{alim}' from alimentation to nbFils='{wiring_found}'")
             
-            # IMPROVED: Only clear alimentation if it contains NO voltage information.
-            # Look for 2-3 digits followed by V (e.g., 24V, 230V, 12...35 V)
+            # IMPROVED: Only clear alimentation if it contains NO voltage OR power information.
+            # Look for 2-3 digits followed by V (e.g., 24V, 230V, 12...35 V) or 'loop powered'
             has_voltage = bool(re.search(r'\d{1,3}(?:\s*[-.]{1,3}\s*\d{1,3})?\s*V', alim, re.I))
+            is_loop_powered = "loop powered" in alim_l or "alimenté par la boucle" in alim_l
             
-            # If it's just "Loop powered (2 fils)", and has no voltage, clear it.
-            if not has_voltage:
+            # If it has no voltage AND isn't 'loop powered', clear it.
+            if not has_voltage and not is_loop_powered:
                 out.pop("alimentation", None)
-                print(f"  [GUARD] Cleared alimentation '{alim}' (no voltage detected, only wiring topology)")
+                print(f"  [GUARD] Cleared alimentation '{alim}' (no voltage or 'loop powered' detected)")
 
     # Issue 3: nomAlarme validation
     sorties = out.get("sortiesAlarme")
@@ -963,7 +982,7 @@ def extract_all_fields_with_meta(
                 "expected_type": _is_expected_type(field_name, value),
                 "allowed_value": _is_value_allowed(field_name, value),
                 "quote_supported": _value_supported_by_quote(value, quote, field_name),
-                "quote_in_context": _quote_in_context(quote, chunks or []),
+                "quote_in_context": _quote_in_context(quote, chunks or [], field_name=field_name),
             }
             computed_confidence = _compute_confidence(
                 checks=checks,

@@ -14,6 +14,7 @@ interface PDFFile {
 function EquipmentManagement() {
     const [extractedData, setExtractedData] = useState<EquipmentData | null>(null);
     const [confidence, setConfidence] = useState<Record<string, number> | null>(null);
+    const [docType, setDocType] = useState<string>('');
     const [queuedFiles, setQueuedFiles] = useState<PDFFile[]>([]);
     const [isExtracting, setIsExtracting] = useState(false);
     const [globalStatus, setGlobalStatus] = useState<string>('');
@@ -38,6 +39,7 @@ function EquipmentManagement() {
         setIsExtracting(true);
         setExtractedData(null);
         setConfidence(null);
+        setDocType('');
 
         const filesToProcess = [...queuedFiles];
         
@@ -65,6 +67,7 @@ function EquipmentManagement() {
                 clearInterval(progressInterval);
 
                 if (response.success && response.data) {
+                    setDocType(response.doc_context?.doc_type || '');
                     setQueuedFiles(prev => prev.map(f => 
                         f.id === pf.id ? { ...f, status: 'completed', progress: 100 } : f
                     ));
@@ -175,6 +178,7 @@ function EquipmentManagement() {
                         extractedData={extractedData}
                         confidence={confidence}
                         isProcessing={isExtracting}
+                        docType={docType}
                     />
                 </div>
             </div>

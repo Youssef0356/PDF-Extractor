@@ -1,0 +1,824 @@
+{
+  "file": "./uploads\\c37abd6d2eae_A5E50352155-AAen_LR150_Hart_OI.pdf",
+  "collection": "pdf_chunks_c37abd6d2eae",
+  "field_max_distance": null,
+  "min_confidence": 0.5,
+  "evidence": {
+    "equipmentName": [
+      {
+        "page_number": 17,
+        "chunk_id": "c37abd6d2eae_p17_c0",
+        "distance": 0.41771382093429565,
+        "text_preview": "Description\n3.2 Principle of operation\nConstituent parts\n1\nVentilation/pressure compensation\n2\nDisplay and adjustment unit\n3\nElectronics housing\n4\nRadar antenna\n5\nProcess fitting\n6\nProcess seal\nFigure 3.1\nComponents of SITRANS LR150 (Example process fitting G1½)\nNameplate\nThe nameplate contains the "
+      },
+      {
+        "page_number": 105,
+        "chunk_id": "c37abd6d2eae_p105_c0",
+        "distance": 0.4722890257835388,
+        "text_preview": "Technical data and dimensions\n15.3 Licensing information for open source software\n15.3\nLicensing information for open source software\nOpen source software components are also used in this device.\nA documentation\nof these components with the respective license type, the associated license texts,\ncopy"
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.5004588961601257,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.5013391971588135,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c2",
+        "distance": 0.5050856471061707,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      }
+    ],
+    "categorie": [
+      {
+        "page_number": 17,
+        "chunk_id": "c37abd6d2eae_p17_c0",
+        "distance": 0.358795166015625,
+        "text_preview": "Description\n3.2 Principle of operation\nConstituent parts\n1\nVentilation/pressure compensation\n2\nDisplay and adjustment unit\n3\nElectronics housing\n4\nRadar antenna\n5\nProcess fitting\n6\nProcess seal\nFigure 3.1\nComponents of SITRANS LR150 (Example process fitting G1½)\nNameplate\nThe nameplate contains the "
+      },
+      {
+        "page_number": 16,
+        "chunk_id": "c37abd6d2eae_p16_c0",
+        "distance": 0.4149300456047058,
+        "text_preview": "Description\n3\n3.1\nConfiguration\nScope of delivery\nThe scope of delivery encompasses:\n•\nSITRANS LR150 radar transmitter\n•\nInformation sheet \" Documents and software\" with:\n•\nTransmitter serial number\n•\nQR code with link for direct scanning\n•\nInformation sheet \" Device Bluetooth and Parameter Access C"
+      },
+      {
+        "page_number": 100,
+        "chunk_id": "c37abd6d2eae_p100_c0",
+        "distance": 0.3916775584220886,
+        "text_preview": "Technical data and dimensions\n15\n15.1\nTechnical data\nNote for approved transmitters\nDevice specifications:\nSiemens makes every effort to ensure the accuracy of these specifications, but\nreserves the right to change them at any time.\nDevice-specific approvals:\nThe device-specific approvals are always"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "c37abd6d2eae_p18_c0",
+        "distance": 0.38245195150375366,
+        "text_preview": "Description\n3.3 Adjustment\nFunctional principle\nThe transmitter emits a continuous, frequency-modulated radar signal through its\nantenna.\nThe emitted signal is reflected by the medium and received by the antenna\nas an echo with modified frequency.\nThe frequency change is proportional to the\ndistance"
+      },
+      {
+        "page_number": 12,
+        "chunk_id": "c37abd6d2eae_p12_c0",
+        "distance": 0.41983848810195923,
+        "text_preview": "Safety notes\n2\n2.1\nAuthorised personnel\nAll operations described in this documentation must be carried out only by trained,\nqualified personnel authorised by the plant operator.\nDuring work on and with the device, the required personal protective equipment\nmust always be worn.\n2.2\nAppropriate use\nSI"
+      }
+    ],
+    "typeMesure": [
+      {
+        "page_number": 87,
+        "chunk_id": "c37abd6d2eae_p87_t0_r9",
+        "distance": 0.4104176163673401,
+        "text_preview": "TABLE ROW: Code\nText message = F265\nMeasurement\nfunction\ndisturbed | Cause = Program sequence of the\nmeasuring function disturbed | Rectification = Device restarts automatically | DevSpec\nState in CMD 48 = Byte 4, Bit 3 of\nByte 0 … 5"
+      },
+      {
+        "page_number": 18,
+        "chunk_id": "c37abd6d2eae_p18_c0",
+        "distance": 0.40346360206604004,
+        "text_preview": "Description\n3.3 Adjustment\nFunctional principle\nThe transmitter emits a continuous, frequency-modulated radar signal through its\nantenna.\nThe emitted signal is reflected by the medium and received by the antenna\nas an echo with modified frequency.\nThe frequency change is proportional to the\ndistance"
+      },
+      {
+        "page_number": 17,
+        "chunk_id": "c37abd6d2eae_p17_c0",
+        "distance": 0.4139822721481323,
+        "text_preview": "Description\n3.2 Principle of operation\nConstituent parts\n1\nVentilation/pressure compensation\n2\nDisplay and adjustment unit\n3\nElectronics housing\n4\nRadar antenna\n5\nProcess fitting\n6\nProcess seal\nFigure 3.1\nComponents of SITRANS LR150 (Example process fitting G1½)\nNameplate\nThe nameplate contains the "
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "c37abd6d2eae_p51_c0",
+        "distance": 0.3603564500808716,
+        "text_preview": "Setup with the integrated HMI\n7.5.4 Quick setup volume flow\nSetting\nDescription\nReference point\nVolume flow\nVFLOW\nFlow measurement in open\nchannel in volume flow unit\nZero point level, zero point flow\nMaterial type\nUsed to optimize the device function depending on the type of material or\napplication"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "c37abd6d2eae_p51_t0_r0",
+        "distance": 0.29106688499450684,
+        "text_preview": "TABLE ROW: Setting = Volume flow |  = VFLOW | Description = Flow measurement in open\nchannel in volume flow unit | Reference point = Zero point level, zero point flow"
+      }
+    ],
+    "technologie": [
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.5045491456985474,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.5045697093009949,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c2",
+        "distance": 0.5075430274009705,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 89,
+        "chunk_id": "c37abd6d2eae_p89_c0",
+        "distance": 0.5007373094558716,
+        "text_preview": "Diagnostics and troubleshooting\n12.5 Treatment of measurement errors\nCode\nText message\nCause\nRectification\nDevSpec\nState in CMD 48\nM510\nNo\ncommunication\nwith the main\ncontroller\nCommunication between main\nelectronics and display module\ndisturbed\nCheck the connection cable to\nthe display\nSend transmi"
+      },
+      {
+        "page_number": 51,
+        "chunk_id": "c37abd6d2eae_p51_c0",
+        "distance": 0.46051615476608276,
+        "text_preview": "Setup with the integrated HMI\n7.5.4 Quick setup volume flow\nSetting\nDescription\nReference point\nVolume flow\nVFLOW\nFlow measurement in open\nchannel in volume flow unit\nZero point level, zero point flow\nMaterial type\nUsed to optimize the device function depending on the type of material or\napplication"
+      }
+    ],
+    "plageMesure": [
+      {
+        "page_number": 64,
+        "chunk_id": "c37abd6d2eae_p64_t1_r0",
+        "distance": 0.39991068840026855,
+        "text_preview": "TABLE ROW: Setting = SIGNAL | Selection = ECHO CONFIG | Selection = NEAR RANGE ON | Description = Measuring range begin\nactivated\nMeasuring range begin value"
+      },
+      {
+        "page_number": 67,
+        "chunk_id": "c37abd6d2eae_p67_c0",
+        "distance": 0.41480422019958496,
+        "text_preview": "Setup with the integrated HMI\n7.8.3 Circuit test\nMax. measured distance\nMAX DISTANCE:\nDisplays the value of the maximum measured distance.\nThe value may reset if the\nunit is changed.\nMinimum electronics temperature\nTR TEMP MIN:\nDisplays the value of the minimum transmitter temperature.\nMaximum elect"
+      },
+      {
+        "page_number": 103,
+        "chunk_id": "c37abd6d2eae_p103_t4_r1",
+        "distance": 0.3599277138710022,
+        "text_preview": "TABLE ROW: Measured value and menu display = Max. indicating range |  = -99999 … 99999"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_c0",
+        "distance": 0.4297253489494324,
+        "text_preview": "Technical data and dimensions\n15.1 Technical data\nMax. measuring range a\n15 m (49.21 ft)\nblanking distance b\nModes 1, 2, 4\n0 mm (0 in)\nMode 3\n≥ 250 mm (9.843 in)\na Depending on application and medium\nb Depending on the operating conditions\nSwitch-on phase\nStart-up time with operating\nvoltage UB\n< 15"
+      },
+      {
+        "page_number": 64,
+        "chunk_id": "c37abd6d2eae_p64_t1_summary",
+        "distance": 0.4008539915084839,
+        "text_preview": "| Setting | Selection | Selection | Description |\n| --- | --- | --- | --- |\n| SIGNAL | ECHO CONFIG | NEAR RANGE ON | Measuring range begin\nactivated\nMeasuring range begin value |\n|  |  | NEAR RANGE OFF | Measuring range begin\ndeactivated |"
+      }
+    ],
+    "typeSignal": [
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r0",
+        "distance": 0.28696131706237793,
+        "text_preview": "TABLE ROW: Output signal = Range of the output signal | 4 … 20 mA/HART = 3.8 … 20.5 mA/HART (default setting)"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r1",
+        "distance": 0.3275601863861084,
+        "text_preview": "TABLE ROW: Output signal = Signal resolution | 4 … 20 mA/HART = 0.3 µA"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r2",
+        "distance": 0.3066791296005249,
+        "text_preview": "TABLE ROW: Output signal = Resolution, digital | 4 … 20 mA/HART = 1 mm (0.039 in)"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r3",
+        "distance": 0.3190035820007324,
+        "text_preview": "TABLE ROW: Output signal = Fault signal, current output\n(adjustable) | 4 … 20 mA/HART = ≤ 3.6 mA, ≥ 21 mA, last valid measured value"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r6",
+        "distance": 0.3385353684425354,
+        "text_preview": "TABLE ROW: Output signal = Load | 4 … 20 mA/HART = 545 Ohm at 24 V DC"
+      }
+    ],
+    "nbFils": [
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.5598281025886536,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.5616973042488098,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 30,
+        "chunk_id": "c37abd6d2eae_p30_c0",
+        "distance": 0.3796975612640381,
+        "text_preview": "Connecting\n5.3 Wiring plan\nFixed conductors and flexible conductors with ferrules can be inserted directly into\nthe terminal openings.\nIn the case of flexible conductors for opening the terminals,\nuse a screwdriver (3 mm blade width) to push the actuator lever away from the\nterminal opening.\nWhen re"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": "c37abd6d2eae_p31_c0",
+        "distance": 0.41078561544418335,
+        "text_preview": "Connecting\n5.4 Connecting HMI to electronic module\n2\nPlug connector for HMI\nFigure 5.2\nConnection compartment SITRANS LR150\n5.4\nConnecting HMI to electronic module\n5.5\nSwitch-on phase\nAfter connection to the power supply, the device carries out a self-test:\n•\nInternal check of the electronics\n•\nOutp"
+      },
+      {
+        "page_number": 9,
+        "chunk_id": "c37abd6d2eae_p9_c0",
+        "distance": 0.5035637021064758,
+        "text_preview": "Preface\nviii\nSITRANS LR150\nOperating Instructions, 08/2020, A5E50352155"
+      }
+    ],
+    "alimentation": [
+      {
+        "page_number": 28,
+        "chunk_id": "c37abd6d2eae_p28_c0",
+        "distance": 0.32912683486938477,
+        "text_preview": "Connecting\n5\n5.1\nPreparing the connection\nSafety instructions\nAlways keep in mind the following safety instructions:\n•\nCarry out electrical connection by trained, qualified personnel authorised by the\nplant operator\nWARNING\nOnly connect or disconnect in de-energized state.\nVoltage supply\nThe data fo"
+      },
+      {
+        "page_number": 104,
+        "chunk_id": "c37abd6d2eae_p104_c0",
+        "distance": 0.39157724380493164,
+        "text_preview": "Technical data and dimensions\n15.2 Dimensions\nVoltage supply\nOperating voltage UB\nat 4 mA\n12 … 35 V DC\nat 20 mA\n9 … 35 V DC\nOperating voltage UB -\nilluminated display and\nadjustment unit\n15 … 35 V DC\nReverse voltage protection\nIntegrated\nOvervoltage protection\nDielectric strength against\nmetallic mo"
+      },
+      {
+        "page_number": 88,
+        "chunk_id": "c37abd6d2eae_p88_c0",
+        "distance": 0.4368097186088562,
+        "text_preview": "Diagnostics and troubleshooting\n12.4 Status messages according to NE 107\nOut of specification\nCode\nText message\nCause\nRectification\nDevSpec\nState in CMD 48\nS600\nImpermissible\nelectronics\ntemperature\nTemperature of the electronics\nin the non-specified range\nCheck ambient temperature\nInsulate electron"
+      },
+      {
+        "page_number": 31,
+        "chunk_id": "c37abd6d2eae_p31_c0",
+        "distance": 0.3862771987915039,
+        "text_preview": "Connecting\n5.4 Connecting HMI to electronic module\n2\nPlug connector for HMI\nFigure 5.2\nConnection compartment SITRANS LR150\n5.4\nConnecting HMI to electronic module\n5.5\nSwitch-on phase\nAfter connection to the power supply, the device carries out a self-test:\n•\nInternal check of the electronics\n•\nOutp"
+      },
+      {
+        "page_number": 96,
+        "chunk_id": "c37abd6d2eae_p96_c0",
+        "distance": 0.39181047677993774,
+        "text_preview": "Service and maintenance\n13\n13.1\nDismounting steps\nWARNING\nBefore dismounting, be aware of dangerous process conditions such as e.g. pressure\nin the vessel or pipeline, high temperatures, corrosive or toxic media etc.\nTake note of chapters \" Mounting\" and \" Connecting to voltage supply\" and carry\nout"
+      }
+    ],
+    "reperage": [
+      {
+        "page_number": 1,
+        "chunk_id": "c37abd6d2eae_p1_t0_summary",
+        "distance": 0.3339582681655884,
+        "text_preview": "| Operating Instructions |  |\n| --- | --- |"
+      },
+      {
+        "page_number": 86,
+        "chunk_id": "c37abd6d2eae_p86_t0_summary",
+        "distance": 0.3726429343223572,
+        "text_preview": "| Code\nText message | Cause | Rectification | DevSpec\nState in CMD 48 |\n| --- | --- | --- | --- |"
+      },
+      {
+        "page_number": 45,
+        "chunk_id": "c37abd6d2eae_p45_t0_r2",
+        "distance": 0.4402676224708557,
+        "text_preview": "TABLE ROW: Setting = DIST | Description = Distance"
+      },
+      {
+        "page_number": 47,
+        "chunk_id": "c37abd6d2eae_p47_t0_r2",
+        "distance": 0.4402676224708557,
+        "text_preview": "TABLE ROW: Setting = DIST | Description = Distance"
+      },
+      {
+        "page_number": 38,
+        "chunk_id": "c37abd6d2eae_p38_t0_r14",
+        "distance": 0.3810460567474365,
+        "text_preview": "TABLE ROW: Menu item =  | Parameter = CONFIRM | Setting =  | Default ="
+      }
+    ],
+    "communication": [
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r2",
+        "distance": 0.3960038423538208,
+        "text_preview": "TABLE ROW: Output signal = Resolution, digital | 4 … 20 mA/HART = 1 mm (0.039 in)"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r13",
+        "distance": 0.4741050601005554,
+        "text_preview": "TABLE ROW: Output signal = Fulfilled HART specification | 4 … 20 mA/HART = 7.0"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r6",
+        "distance": 0.3708479404449463,
+        "text_preview": "TABLE ROW: Output signal = Load | 4 … 20 mA/HART = 545 Ohm at 24 V DC"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r1",
+        "distance": 0.4895753860473633,
+        "text_preview": "TABLE ROW: Output signal = Signal resolution | 4 … 20 mA/HART = 0.3 µA"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r0",
+        "distance": 0.4913044571876526,
+        "text_preview": "TABLE ROW: Output signal = Range of the output signal | 4 … 20 mA/HART = 3.8 … 20.5 mA/HART (default setting)"
+      }
+    ],
+    "indiceIP": [
+      {
+        "page_number": 104,
+        "chunk_id": "c37abd6d2eae_p104_t2_r1",
+        "distance": 0.3104759454727173,
+        "text_preview": "TABLE ROW: Protection rating I = Protection class I | P66/IP67 acc. to IEC 60529Type 4X acc. to UL 50 = II"
+      },
+      {
+        "page_number": 104,
+        "chunk_id": "c37abd6d2eae_p104_t2_summary",
+        "distance": 0.3653806447982788,
+        "text_preview": "| Protection rating I | P66/IP67 acc. to IEC 60529Type 4X acc. to UL 50 |\n| --- | --- |\n| Altitude above sea level | 5000 m (16404 ft) |\n| Protection class I | II |\n| Pollution degree | 4 |"
+      },
+      {
+        "page_number": 104,
+        "chunk_id": "c37abd6d2eae_p104_t2_r2",
+        "distance": 0.3372231721878052,
+        "text_preview": "TABLE ROW: Protection rating I = Pollution degree | P66/IP67 acc. to IEC 60529Type 4X acc. to UL 50 = 4"
+      },
+      {
+        "page_number": 104,
+        "chunk_id": "c37abd6d2eae_p104_t2_r0",
+        "distance": 0.34797531366348267,
+        "text_preview": "TABLE ROW: Protection rating I = Altitude above sea level | P66/IP67 acc. to IEC 60529Type 4X acc. to UL 50 = 5000 m (16404 ft)"
+      },
+      {
+        "page_number": 1,
+        "chunk_id": "c37abd6d2eae_p1_t0_summary",
+        "distance": 0.3713452219963074,
+        "text_preview": "| Operating Instructions |  |\n| --- | --- |"
+      }
+    ],
+    "sortiesAlarme": [
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r0",
+        "distance": 0.4846285581588745,
+        "text_preview": "TABLE ROW: Output signal = Range of the output signal | 4 … 20 mA/HART = 3.8 … 20.5 mA/HART (default setting)"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r13",
+        "distance": 0.4941386580467224,
+        "text_preview": "TABLE ROW: Output signal = Fulfilled HART specification | 4 … 20 mA/HART = 7.0"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r7",
+        "distance": 0.48763108253479004,
+        "text_preview": "TABLE ROW: Output signal = Damping (63 % of the input\nvariable), adjustable | 4 … 20 mA/HART = 0 … 999 s"
+      },
+      {
+        "page_number": 101,
+        "chunk_id": "c37abd6d2eae_p101_t2_r8",
+        "distance": 0.4785565137863159,
+        "text_preview": "TABLE ROW: Output signal = a\nHART output values according to HART 7.0 | 4 … 20 mA/HART ="
+      },
+      {
+        "page_number": 65,
+        "chunk_id": "c37abd6d2eae_p65_t0_r0",
+        "distance": 0.4553324580192566,
+        "text_preview": "TABLE ROW: Setting = SIGNAL | Selection = ECHO SELECT | Selection = ALGORITHM ON | Description = Selection first large echo\nactivated\nValue of the response\nthreshold"
+      }
+    ],
+    "marque": [
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.2678391933441162,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.2678542137145996,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c2",
+        "distance": 0.27064841985702515,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c3",
+        "distance": 0.2816603183746338,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c4",
+        "distance": 0.33090418577194214,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      }
+    ],
+    "modele": [
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.2733108401298523,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.27616405487060547,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c2",
+        "distance": 0.2822553515434265,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c3",
+        "distance": 0.29823100566864014,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c4",
+        "distance": 0.36446893215179443,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      }
+    ],
+    "reference": [
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c0",
+        "distance": 0.2807994484901428,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c1",
+        "distance": 0.2845885753631592,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c2",
+        "distance": 0.291726291179657,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c3",
+        "distance": 0.30920934677124023,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      },
+      {
+        "page_number": 4,
+        "chunk_id": "c37abd6d2eae_p4_c4",
+        "distance": 0.38138800859451294,
+        "text_preview": "Table of Contents\nPreface .......................................................................................................................................... vii\n1\nIntroduction ...................................................................................................................."
+      }
+    ],
+    "dateCalibration": [
+      {
+        "page_number": 87,
+        "chunk_id": "c37abd6d2eae_p87_t0_r7",
+        "distance": 0.35825157165527344,
+        "text_preview": "TABLE ROW: Code\nText message = F260\nError in the\ncalibration | Cause = Checksum error in the\ncalibration values\nError in the EEPROM | Rectification = Send transmitter for repair | DevSpec\nState in CMD 48 = Byte 4, Bit 0 of\nByte 0 … 5"
+      },
+      {
+        "page_number": 87,
+        "chunk_id": "c37abd6d2eae_p87_c1",
+        "distance": 0.493863582611084,
+        "text_preview": "Diagnostics and troubleshooting\n12.4 Status messages according to NE 107\nCode\nText message\nCause\nRectification\nDevSpec\nState in CMD 48\nno measured\nvalue available\nClean the antenna system\nF017\nAdjustment span\ntoo small\nAdjustment not within\nspecification\nChange adjustment according\nto the limit valu"
+      },
+      {
+        "page_number": 87,
+        "chunk_id": "c37abd6d2eae_p87_c0",
+        "distance": 0.4937809109687805,
+        "text_preview": "Diagnostics and troubleshooting\n12.4 Status messages according to NE 107\nCode\nText message\nCause\nRectification\nDevSpec\nState in CMD 48\nno measured\nvalue available\nClean the antenna system\nF017\nAdjustment span\ntoo small\nAdjustment not within\nspecification\nChange adjustment according\nto the limit valu"
+      },
+      {
+        "page_number": 45,
+        "chunk_id": "c37abd6d2eae_p45_t1_r2",
+        "distance": 0.4270358085632324,
+        "text_preview": "TABLE ROW: Setting = DIST | Description = Distance to the material surface | Reference point = Lower calibration point"
+      },
+      {
+        "page_number": 102,
+        "chunk_id": "c37abd6d2eae_p102_t2_r0",
+        "distance": 0.27963268756866455,
+        "text_preview": "TABLE ROW: Measuring frequency = a\nMeasuring cycle time | W-band (80 GHz technology) = ≤ 250 ms"
+      }
+    ]
+  },
+  "llm_meta": {
+    "equipmentName": {
+      "accepted": true,
+      "confidence": 0.6240575611591339,
+      "model_confidence": 1.0,
+      "value": "SITRANS LR150",
+      "quote": "SITRANS LR150",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"SITRANS LR150\", \"confidence\": 1.0, \"quote\": \"SITRANS LR150\"}",
+      "error": null
+    },
+    "categorie": {
+      "accepted": true,
+      "confidence": 0.8900000000000001,
+      "model_confidence": 0.8,
+      "value": "Transmetteur",
+      "quote": "transmitter",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "typeMesure": {
+      "accepted": true,
+      "confidence": 0.7380398035049438,
+      "model_confidence": 1.0,
+      "value": "Niveau",
+      "quote": "SITRANS LR150 is a radar transmitter for non-contact, continuous level measurement.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Niveau\", \"confidence\": 1.0, \"quote\": \"SITRANS LR150 is a radar transmitter for non-contact, continuous level measurement.\"}",
+      "error": null
+    },
+    "plageMesure": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "typeSignal": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "4-20mA",
+      "quote": "4 … 20 mA",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "nbFils": {
+      "accepted": false,
+      "confidence": 0.3741360974311829,
+      "model_confidence": 0.95,
+      "value": null,
+      "quote": "Wiring plan\nFixed conductors and flexible conductors with ferrules can be inserted directly into\nthe terminal openings. In the case of flexible conductors for opening the terminals,\nuse a screwdriver (3 mm blade width) to push the actuator lever away from the\nterminal opening. When released, the terminals are closed again.",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"2 fils\", \"confidence\": 0.95, \"quote\": \"Wiring plan\\nFixed conductors and flexible conductors with ferrules can be inserted directly into\\nthe terminal openings. In the case of flexible conductors for opening the terminals,\\nuse a screwdriver (3 mm blade width) to push the actuator lever away from the\\nterminal opening. When released, the terminals are closed again.\"}",
+      "error": null
+    },
+    "alimentation": {
+      "accepted": true,
+      "confidence": 0.6987858486175537,
+      "model_confidence": 0.95,
+      "value": "12 … 35 V DC",
+      "quote": "Operating voltage UB\nat 4 mA\n12 … 35 V DC\nat 20 mA\n9 … 35 V DC",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"12 … 35 V DC\", \"confidence\": 0.95, \"quote\": \"Operating voltage UB\\nat 4 mA\\n12 … 35 V DC\\nat 20 mA\\n9 … 35 V DC\"}",
+      "error": null
+    },
+    "communication": {
+      "accepted": true,
+      "confidence": 0.91,
+      "model_confidence": 1.0,
+      "value": "HART",
+      "quote": "HART",
+      "source": "regex",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null
+    },
+    "indiceIP": {
+      "accepted": true,
+      "confidence": 0.7205716490745544,
+      "model_confidence": 1.0,
+      "value": "IP67",
+      "quote": "IP67",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"IP67\", \"confidence\": 1.0, \"quote\": \"IP67\"}",
+      "error": null
+    },
+    "marque": {
+      "accepted": false,
+      "confidence": 0.0,
+      "model_confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "modele": {
+      "accepted": false,
+      "confidence": 0.0,
+      "model_confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "reference": {
+      "accepted": false,
+      "confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "doc_type_gate",
+      "rejection_reason": "inapplicable_for_doc_type"
+    },
+    "technologie": {
+      "accepted": true,
+      "confidence": 0.5805354607105255,
+      "model_confidence": 0.95,
+      "value": "Radar",
+      "quote": "Radar frequencies for worldwide use",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": \"Radar\", \"confidence\": 0.95, \"quote\": \"Radar frequencies for worldwide use\"}",
+      "error": null
+    },
+    "reperage": {
+      "accepted": false,
+      "confidence": 0.0,
+      "model_confidence": 0.0,
+      "value": null,
+      "quote": null,
+      "source": "llm",
+      "checks": {
+        "non_null": false,
+        "min_confidence": false,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": false
+      },
+      "rejection_reason": "non_null",
+      "raw": "{\"value\": null, \"confidence\": 0.0, \"quote\": null}",
+      "error": null
+    },
+    "sortiesAlarme": {
+      "accepted": true,
+      "confidence": 0.589200787782669,
+      "model_confidence": 0.99,
+      "value": [
+        {
+          "nomAlarme": "Output signal = Damping (63 % of the input variable), adjustable",
+          "typeAlarme": "Haut",
+          "seuilAlarme": 0,
+          "uniteAlarme": "s",
+          "relaisAssocie": null
+        }
+      ],
+      "quote": "Output signal = Damping (63 % of the input variable), adjustable | 4 … 20 mA/HART = 0 … 999 s",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": true,
+        "quote_in_context": true
+      },
+      "rejection_reason": null,
+      "raw": "{\"value\": [{\"nomAlarme\": \"Output signal = Damping (63 % of the input variable), adjustable\", \"typeAlarme\": \"Haut\", \"seuilAlarme\": 0, \"uniteAlarme\": \"s\", \"relaisAssocie\": null}], \"confidence\": 0.99, \"quote\": \"Output signal = Damping (63 % of the input variable), adjustable | 4 … 20 mA/HART = 0 … 999 s\"}",
+      "error": null
+    },
+    "dateCalibration": {
+      "accepted": false,
+      "confidence": 0.424165290594101,
+      "model_confidence": 1.0,
+      "value": null,
+      "quote": "Error in the calibration Checksum error in the calibration values Error in the EEPROM Send transmitter for repair",
+      "source": "llm",
+      "checks": {
+        "non_null": true,
+        "min_confidence": true,
+        "expected_type": true,
+        "allowed_value": true,
+        "quote_supported": false,
+        "quote_in_context": true
+      },
+      "rejection_reason": "quote_supported",
+      "raw": "{\"value\": \"12 mois\", \"confidence\": 1.0, \"quote\": \"Error in the calibration Checksum error in the calibration values Error in the EEPROM Send transmitter for repair\"}",
+      "error": null
+    }
+  },
+  "confidence": {
+    "equipmentName": 0.6240575611591339,
+    "categorie": 0.8900000000000001,
+    "typeMesure": 0.7380398035049438,
+    "plageMesure": 0.0,
+    "typeSignal": 0.91,
+    "nbFils": 0.3741360974311829,
+    "alimentation": 0.6987858486175537,
+    "communication": 0.91,
+    "indiceIP": 0.7205716490745544,
+    "marque": 0.0,
+    "modele": 0.0,
+    "reference": 0.0,
+    "technologie": 0.5805354607105255,
+    "reperage": 0.0,
+    "sortiesAlarme": 0.589200787782669,
+    "dateCalibration": 0.424165290594101
+  }
+}

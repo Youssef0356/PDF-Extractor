@@ -2,7 +2,7 @@
  * API service for communicating with the PDF Extractor backend.
  */
 
-const API_BASE = 'http://localhost:8000';
+export const API_BASE = 'http://localhost:8000';
 
 export interface PlageMesure {
     min: number | null;
@@ -29,7 +29,7 @@ export interface EquipmentData {
     alimentation: string | null;
     reperage: string | null;
     communication: string | null;
-    classe: string | null;
+    indiceIP: string | null;
     sortiesAlarme: SortieAlarme[] | null;
     marque: string | null;
     modele: string | null;
@@ -41,6 +41,12 @@ export interface ExtractionResponse {
     success: boolean;
     data: EquipmentData | null;
     confidence?: Record<string, number> | null;
+    doc_context?: {
+        doc_id?: string | null;
+        doc_type?: string | null;
+        confidence?: number | null;
+        rationale?: string | null;
+    } | null;
     message: string;
     processing_time_seconds: number | null;
 }
