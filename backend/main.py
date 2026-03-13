@@ -77,8 +77,9 @@ async def receive_feedback(payload: dict):
         field = c.get("field")
         ai_value = c.get("ai_value")
         correct_value = c.get("correct_value")
+        rule = c.get("rule", "")
         if field and ai_value != correct_value:
-            if save_correction(str(field), "" if ai_value is None else str(ai_value), "" if correct_value is None else str(correct_value), doc_type):
+            if save_correction(str(field), "" if ai_value is None else str(ai_value), "" if correct_value is None else str(correct_value), doc_type, rule):
                 saved += 1
 
     return {"status": "ok", "saved": saved}

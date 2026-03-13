@@ -33,6 +33,14 @@ function EquipmentManagement() {
         setQueuedFiles(prev => prev.filter(f => f.id !== id));
     }, []);
 
+    const handleFormReset = useCallback(() => {
+        setExtractedData(null);
+        setConfidence(null);
+        setDocType('');
+        setQueuedFiles([]);
+        setGlobalStatus('');
+    }, []);
+
     const extractAll = useCallback(async () => {
         if (queuedFiles.length === 0 || isExtracting) return;
 
@@ -179,6 +187,7 @@ function EquipmentManagement() {
                         confidence={confidence}
                         isProcessing={isExtracting}
                         docType={docType}
+                        onReset={handleFormReset}
                     />
                 </div>
             </div>

@@ -76,36 +76,36 @@ const OPTIONAL_FIELDS = new Set<string>([
 
 const SECTIONS: Section[] = [
     {
-        title: 'General Information',
+        title: 'Informations Générales',
         icon: '1',
         fields: [
             {
                 key: 'equipmentName',
-                label: 'equipment_name',
+                label: 'Nom de l\'équipement',
                 type: 'text',
-                placeholder: 'equipment name',
+                placeholder: 'ex: OPTIFLUX 2000',
             },
             {
                 key: 'categorie',
-                label: 'categorie_equipement',
+                label: 'Catégorie d\'équipement',
                 type: 'select',
                 options: ['Transmetteur', 'Actionneur', 'Capteurs', 'Automate', 'IHM', 'Autre'],
             }
         ],
     },
     {
-        title: 'Type de mesure',
+        title: 'Type de Mesure',
         icon: '2',
         fields: [
             {
                 key: 'typeMesure',
-                label: 'type_mesure',
+                label: 'Grandeur physique',
                 type: 'select',
                 options: ['Debit', 'Niveau', 'Pression', 'Temperature', 'Autre'],
             },
             {
                 key: 'technologie',
-                label: 'technologie',
+                label: 'Technologie utilisée',
                 type: 'select',
                 options: [
                     'Electromagnetique',
@@ -123,7 +123,7 @@ const SECTIONS: Section[] = [
             },
             {
                 key: 'plageMesure',
-                label: 'plage_de_mesure',
+                label: 'Plage de mesure (Min | Max)',
                 type: 'range',
                 placeholderMin: 'min',
                 placeholderMax: 'max',
@@ -236,41 +236,41 @@ const SECTIONS: Section[] = [
         ],
     },
     {
-        title: 'Manufacturer & Files',
+        title: 'Fabricant & Documents',
         icon: '7',
         fields: [
             {
                 key: 'marque',
-                label: 'marque',
+                label: 'Marque',
                 type: 'text',
-                placeholder: 'marque',
+                placeholder: 'ex: Krohne, Siemens...',
             },
             {
                 key: 'modele',
-                label: 'modele',
+                label: 'Modèle',
                 type: 'text',
-                placeholder: 'modele',
+                placeholder: 'ex: IFC 300',
             },
             {
                 key: 'reference',
-                label: 'ref',
+                label: 'Référence / Code',
                 type: 'text',
-                placeholder: 'ref',
+                placeholder: 'ex: VG31 4041',
             },
             {
                 key: 'dateCalibration',
-                label: 'date_calibration',
+                label: 'Date de calibration',
                 type: 'date',
             },
             {
                 key: 'datasheet',
-                label: 'Datasheet',
+                label: 'Fiche Technique (PDF)',
                 type: 'file',
                 accept: '.pdf,application/pdf',
             },
             {
                 key: 'image',
-                label: 'Image',
+                label: 'Photo de l\'équipement',
                 type: 'file',
                 accept: 'image/*',
             },
@@ -287,9 +287,10 @@ interface EquipmentFormProps {
     confidence?: Record<string, number> | null;
     isProcessing?: boolean;
     docType?: string;
+    onReset?: () => void;
 }
 
-function EquipmentForm({ extractedData, confidence, isProcessing = false, docType = '' }: EquipmentFormProps) {
+function EquipmentForm({ extractedData, confidence, isProcessing = false, docType = '', onReset }: EquipmentFormProps) {
 
     const [values, setValues] = useState<FormValues>(() => {
         const init: FormValues = {};
@@ -304,6 +305,18 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
 
     const [prevValues, setPrevValues] = useState<FormValues>({});
     const [isTyping, setIsTyping] = useState<Set<string>>(new Set());
+    const [showSavedPopup, setShowSavedPopup] = useState(false);
+    const [pendingCorrections, setPendingCorrections] = useState<Array<{ field: string; ai_value: string; correct_value: string; rule?: string }>>([]);
+    const [showCorrectionModal, setShowCorrectionModal] = useState(false);
+
+    const handleReset = () => {
+        const init: FormValues = {};
+        ALL_FIELD_KEYS.forEach((k) => (init[k] = ''));
+        setValues(init);
+        setCustomValues({});
+        setAiFilledFields(new Set());
+        if (onReset) onReset();
+    };
 
     // Auto-fill form when extractedData arrives
     useEffect(() => {
@@ -439,17 +452,14 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Build the list of corrections (AI value ≠ what user kept)
         const corrections: Array<{ field: string; ai_value: string; correct_value: string }> = [];
 
         for (const key of ALL_FIELD_KEYS) {
-            // Only check fields the AI actually filled
             if (!aiFilledFields.has(key)) continue;
             if (!extractedData) continue;
 
             let aiValue: unknown = (extractedData as any)?.[key];
 
-            // Special-case: range field stored as "min|max" in the form
             if (key === 'plageMesure') {
                 const pm = (extractedData as any)?.plageMesure;
                 const min = pm?.min != null ? String(pm.min) : '';
@@ -457,7 +467,6 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
                 aiValue = `${min}|${max}`;
             }
 
-            // Special-case: sortiesAlarme is an array in extractedData, but the form uses flat keys
             if (['nomAlarme', 'typeAlarme', 'seuilAlarme', 'uniteAlarme', 'relaisAssocie'].includes(key)) {
                 const alarm0 = (extractedData as any)?.sortiesAlarme?.[0];
                 aiValue = alarm0?.[key];
@@ -471,7 +480,6 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
                     ? customValues[key]
                     : values[key];
 
-            // Normalize both to string for comparison
             const aiStr = aiValue != null ? String(aiValue) : '';
             const currentStr = currentValue ?? '';
 
@@ -484,24 +492,38 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
             }
         }
 
-        // Send corrections to backend (fire and forget, don't block save)
         if (corrections.length > 0) {
+            setPendingCorrections(corrections.map(c => ({ ...c, rule: '' })));
+            setShowCorrectionModal(true);
+        } else {
+            finalizeSubmission([]);
+        }
+    };
+
+    const finalizeSubmission = async (correctionsWithRules: typeof pendingCorrections) => {
+        // Send corrections to backend
+        if (correctionsWithRules.length > 0) {
             fetch(`${API_BASE}/feedback`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ corrections, doc_type: docType || '' }),
+                body: JSON.stringify({ 
+                    corrections: correctionsWithRules, 
+                    doc_type: docType || '' 
+                }),
             }).catch(console.error);
         }
 
-        // Merge custom values back in for submission
         const finalValues = { ...values };
         for (const key of Object.keys(finalValues)) {
             if (finalValues[key] === 'Autre' && customValues[key]) {
                 finalValues[key] = customValues[key];
             }
         }
-        console.log('Form submitted with corrections detected:', corrections.length);
         console.log('Final values:', finalValues);
+        
+        setShowCorrectionModal(false);
+        setShowSavedPopup(true);
+        setTimeout(() => setShowSavedPopup(false), 3000);
     };
 
     // Compute progress
@@ -975,37 +997,146 @@ function EquipmentForm({ extractedData, confidence, isProcessing = false, docTyp
                     )}
                 </div>
                 
-                <button
-                    type="submit"
-                    className="
-                        px-8 py-3 rounded-xl font-bold text-white text-sm
-                        bg-blue-600 hover:bg-blue-700
-                        shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40
-                        active:scale-[0.98]
-                        transition-all duration-150
-                        disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed
-                        flex items-center gap-2
-                    "
-                    disabled={isProcessing}
-                >
-                    {isProcessing ? (
-                        <>
-                            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                            </svg>
-                            Extraction...
-                        </>
-                    ) : (
-                        <>
-                            Enregistrer l'équipement
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                        </>
-                    )}
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        onClick={handleReset}
+                        className="px-4 py-2 rounded-xl font-bold text-slate-500 text-xs hover:bg-slate-100 transition-colors flex items-center gap-2"
+                        disabled={isProcessing}
+                    >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Réinitialiser
+                    </button>
+                    <button
+                        type="submit"
+                        className="
+                            px-8 py-3 rounded-xl font-bold text-white text-sm
+                            bg-blue-600 hover:bg-blue-700
+                            shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40
+                            active:scale-[0.98]
+                            transition-all duration-150
+                            disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed
+                            flex items-center gap-2
+                        "
+                        disabled={isProcessing}
+                    >
+                        {isProcessing ? (
+                            <>
+                                <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                </svg>
+                                Extraction...
+                            </>
+                        ) : (
+                            <>
+                                Enregistrer l'équipement
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                            </>
+                        )}
+                    </button>
+                </div>
             </div>
+
+            {/* Correction Modal */}
+            {showCorrectionModal && (
+                <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-200">
+                        <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-yellow-100 rounded-xl text-yellow-700">
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-slate-800">Corrections détectées</h3>
+                                    <p className="text-xs text-slate-500 font-medium">{pendingCorrections.length} erreur{pendingCorrections.length > 1 ? 's' : ''} d'extraction IA</p>
+                                </div>
+                            </div>
+                            <button 
+                                type="button"
+                                onClick={() => finalizeSubmission(pendingCorrections)}
+                                className="text-slate-400 hover:text-slate-600 transition-colors"
+                            >
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="p-8 max-h-[60vh] overflow-y-auto space-y-6">
+                            {pendingCorrections.map((corr, idx) => (
+                                <div key={corr.field} className="space-y-3 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{corr.field}</span>
+                                        <div className="flex items-center gap-2 text-xs font-semibold">
+                                            <span className="text-red-500 line-through opacity-60">{corr.ai_value || 'vide'}</span>
+                                            <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                            <span className="text-green-600">{corr.correct_value || 'vide'}</span>
+                                        </div>
+                                    </div>
+                                    <div className="relative">
+                                        <textarea
+                                            placeholder="Expliquez la règle (ex: Toute vanne = Actionneur)..."
+                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all resize-none min-h-[80px]"
+                                            value={corr.rule}
+                                            onChange={(e) => {
+                                                const newCorrs = [...pendingCorrections];
+                                                newCorrs[idx].rule = e.target.value;
+                                                setPendingCorrections(newCorrs);
+                                            }}
+                                        />
+                                        <div className="absolute right-3 bottom-3 text-[10px] font-bold text-slate-300 uppercase tracking-wider pointer-events-none">
+                                            Règle optionnelle
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="px-8 py-6 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                            <button
+                                type="button"
+                                onClick={() => finalizeSubmission(pendingCorrections)}
+                                className="text-sm font-bold text-slate-500 hover:text-slate-700 transition-colors"
+                            >
+                                Ignorer les règles
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => finalizeSubmission(pendingCorrections)}
+                                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 transition-all active:scale-95"
+                            >
+                                Enregistrer avec règles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Success Notification Popup */}
+            {showSavedPopup && (
+                <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="bg-green-600 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-green-500/50 backdrop-blur-sm">
+                        <div className="bg-white/20 p-1 rounded-full">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-bold">Équipement Enregistré !</span>
+                            <span className="text-[10px] opacity-90 font-medium">Les données et corrections ont été sauvegardées.</span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </form>
     );
 }

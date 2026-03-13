@@ -1,0 +1,18 @@
+{
+  "equipmentName": "SAMSON AG, Weismüllerstraße 3, 60314 Frankfurt am Main, Germany",
+  "categorie": "Transmetteur",
+  "typeMesure": "Pression",
+  "technologie": null,
+  "plageMesure": null,
+  "typeSignal": null,
+  "nbFils": null,
+  "alimentation": "14-6",
+  "reperage": null,
+  "communication": null,
+  "indiceIP": null,
+  "sortiesAlarme": null,
+  "marque": "Samson",
+  "modele": "type 3241",
+  "reference": null,
+  "dateCalibration": null
+}

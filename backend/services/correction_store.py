@@ -54,9 +54,10 @@ def _correction_already_exists(collection, field: str, ai_value: str, correct_va
         return False
 
 
-def save_correction(field: str, ai_value: str, correct_value: str, doc_type: str = "") -> str | None:
+def save_correction(field: str, ai_value: str, correct_value: str, doc_type: str = "", rule: str = "") -> str | None:
     """Save one correction to JSON log + embed it in ChromaDB.
 
+    If a manual 'rule' is provided, it is used as the primary text for embedding.
     Returns the Chroma ID if stored successfully, else None.
     """
     if not field:
@@ -73,20 +74,26 @@ def save_correction(field: str, ai_value: str, correct_value: str, doc_type: str
         "ai_value": ai_value,
         "correct_value": correct_value,
         "doc_type": doc_type or "",
+        "rule": rule or "",
         "timestamp": ts,
     }
 
-    text = (
-        f'Field "{field}": AI said "{ai_value}" but correct value is "{correct_value}". '
-        f'Doc type: {doc_type or "unknown"}.'
-    )
+    if rule:
+        text = f'RULE for field "{field}": {rule} (Value should be "{correct_value}", not "{ai_value}")'
+    else:
+        text = (
+            f'Field "{field}": AI said "{ai_value}" but correct value is "{correct_value}". '
+            f'Doc type: {doc_type or "unknown"}.'
+        )
+    
     uid = f"corr_{uuid.uuid4().hex}"
     try:
         collection = get_or_create_collection(CORRECTIONS_COLLECTION)
+        # Check if identical correction exists (ignoring rule text for duplicate check)
         if _correction_already_exists(collection, field, ai_value, correct_value):
             return None
 
-        # 1) Append to JSON log (only if new)
+        # 1) Append to JSON log
         path = _corrections_file_path()
         log = _read_json_list(path)
         log.append(entry)
@@ -103,6 +110,7 @@ def save_correction(field: str, ai_value: str, correct_value: str, doc_type: str
                     "ai_value": ai_value,
                     "correct_value": correct_value,
                     "doc_type": doc_type or "",
+                    "rule": rule or "",
                     "timestamp": ts,
                 }
             ],
