@@ -1,0 +1,26 @@
+{
+  "equipmentName": "H250 M40",
+  "categorie": "Capteurs",
+  "typeMesure": "Temperature",
+  "technologie": "Principe de mesure à section variable",
+  "plageMesure": null,
+  "typeSignal": "4-20mA",
+  "nbFils": "2 fils",
+  "alimentation": "8,2 V DC",
+  "reperage": null,
+  "communication": "Profibus PA",
+  "indiceIP": "IP66",
+  "sortiesAlarme": [
+    {
+      "nomAlarme": "MIN 1",
+      "typeAlarme": "Haut",
+      "seuilAlarme": 1.0,
+      "uniteAlarme": "mA",
+      "relaisAssocie": "NAMUR"
+    }
+  ],
+  "marque": "KROHNE",
+  "modele": "H250 M40",
+  "reference": null,
+  "dateCalibration": null
+}
