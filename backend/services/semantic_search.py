@@ -50,6 +50,30 @@ class SemanticSearchService:
             metadata={"hnsw:space": "cosine"}
         )
 
+    def index_document(self, pdf_id: str, pages: List[Any]) -> None:
+        """Indexes the parsed pages into ChromaDB for this PDF."""
+        ids = []
+        documents = []
+        metadatas = []
+        for p in pages:
+            text = getattr(p, "text", "")
+            page_number = getattr(p, "page_number", 0)
+            if len(text.strip()) > 50:
+                ids.append(f"{pdf_id}-p{page_number}")
+                documents.append(text)
+                metadatas.append({"pdf_id": pdf_id, "page": page_number})
+                
+        if documents:
+            from services.embeddings import generate_embeddings_batch
+            embeddings = generate_embeddings_batch(documents)
+            self.collection.add(
+                ids=ids,
+                documents=documents,
+                metadatas=metadatas,
+                embeddings=embeddings
+            )
+            logger.info(f"Indexed {len(documents)} pages for PDF {pdf_id} into ChromaDB.")
+
     def search_for_field(
         self, 
         field_name: str, 
@@ -78,13 +102,16 @@ class SemanticSearchService:
 
         chunks = []
         if results and results["documents"] and len(results["documents"]) > 0:
-            for i in range(len(results["documents"][0])):
-                chunks.append({
-                    "text": results["documents"][0][i],
-                    "metadata": results["metadatas"][0][i],
-                    "distance": results["distances"][0][i] if "distances" in results else 1.0,
-                    "id": results["ids"][0][i]
-                })
+            for q_idx in range(len(results["documents"])):
+                for i in range(len(results["documents"][q_idx])):
+                    chunk_id = results["ids"][q_idx][i]
+                    if not any(c.get("id") == chunk_id for c in chunks):
+                        chunks.append({
+                            "text": results["documents"][q_idx][i],
+                            "metadata": results["metadatas"][q_idx][i],
+                            "distance": results["distances"][q_idx][i] if "distances" in results else 1.0,
+                            "id": chunk_id
+                        })
 
         # 2. Rerank if enabled
         if reranker and chunks and field_name in _RERANK_INSTRUCTIONS:

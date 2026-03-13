@@ -91,18 +91,21 @@ async def extract_from_pdf(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Failed to save file: {str(e)}")
 
     try:
-        # 2. Extract text (Dummy placeholder for real OCR/Parser)
-        # In real app, this would use a PDF parser to index into search_service
-        # For now, we simulate extraction context
-        full_text = f"Sample sheet {file.filename}. Look for FT-101 flowmeter." 
+        # 2. Extract REAL text using pdf_parser
+        from services.pdf_parser import parse_pdf
+        parsed_pdf = parse_pdf(temp_path)
+        full_text = parsed_pdf.full_text
         
         # 3. Detect context
         doc_ctx = detect_schema_context(full_text)
         
         # 4. Search relevant chunks for all fields
-        chunks_per_field = search_service.search_all_fields()
+        # Index the document first!
+        search_service.index_document(pdf_id, parsed_pdf.pages)
         
-        # 5. Extract with LLM
+        chunks_per_field = search_service.search_all_fields(metadata_filters={"pdf_id": pdf_id})
+        
+        # 5. Extract with LLM (pre-classifier now runs inside extract_all_fields)
         extraction_result = extractor.extract_all_fields(chunks_per_field, full_text=full_text)
         
         return ExtractionResponse(

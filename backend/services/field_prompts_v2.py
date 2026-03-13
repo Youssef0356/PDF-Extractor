@@ -75,7 +75,8 @@ FIELD_PROMPT_RULES_V2: dict[str, str] = {
     ),
 
     "typeMesure": (
-        "Look for the process variable being measured. "
+        "Look for the PRIMARY process variable being measured by the instrument. "
+        "Pay special attention to the title, first page, and product description, not just examples. "
         "Allowed: Pression | Débit | Température | Niveau | Analyse procédé. "
         "Keywords: flow/débit → Débit | level/niveau → Niveau | "
         "pressure/pression → Pression | temperature/température → Température | "
@@ -106,13 +107,15 @@ FIELD_PROMPT_RULES_V2: dict[str, str] = {
     ),
 
     "plageMesureMin": (
-        "Extract the MINIMUM value of the measurement range. Return a number only. "
+        "Extract the MINIMUM value of the main measurement range. Return a number only. "
+        "Look for 'Technical Data', 'Measuring range', 'Range', 'Max. measuring distance'. "
         "Example: '0 to 300 bar' → value is 0. "
         "Example: '-100...+500 mbar' → value is -100."
     ),
 
     "plageMesureMax": (
-        "Extract the MAXIMUM value of the measurement range. Return a number only. "
+        "Extract the MAXIMUM value of the main measurement range. Return a number only. "
+        "Look for 'Technical Data', 'Measuring range', 'Range', 'Max. measuring distance'. "
         "Example: '0 to 300 bar' → value is 300. "
         "Example: '-100...+500 mbar' → value is 500."
     ),
@@ -137,6 +140,7 @@ FIELD_PROMPT_RULES_V2: dict[str, str] = {
     "signalSortie": (
         "Look for the analog output signal specification. "
         "Allowed: 4-20mA | 0-20mA | 0-5V | 0-10V | -/+5V | -/+10V. "
+        "Industry standard is 4-20mA (look for '4...20mA', '4 - 20 mA', etc.). "
         "Map: '4...20 mA' → '4-20mA' | '0...20 mA' → '0-20mA' | '0-10 V' → '0-10V'. "
         "If none match, return 'Autre: <original>'."
     ),
@@ -160,7 +164,8 @@ FIELD_PROMPT_RULES_V2: dict[str, str] = {
         "Map: 'loop powered'/'boucle' → 'boucle' | '24V DC'/'24VDC' → '24VDC' | "
         "'24V AC' → '24VAC' | '220V AC' → '220VAC' | '12-30V DC' → '12-30VDC' | "
         "'85-264V AC' → '85-264VAC'. "
-        "If loop powered (2-wire), return 'boucle'. "
+        "Note: 'loop powered' (boucle) usually implies a 2-wire 4-20mA setup. "
+        "If loop powered (2-wire) or derived from the 4-20mA loop without separate power, return 'boucle'. "
         "If not found, return null."
     ),
 
@@ -200,7 +205,7 @@ FIELD_PROMPT_RULES_V2: dict[str, str] = {
     ),
 
     "certificats": (
-        "Look for certifications and approvals. "
+        "Look for certifications and approvals, often under 'Approvals', 'Certificates', 'Explosion protection'. "
         "Return as a JSON list. Examples: ['ATEX', 'IECEx'], ['SIL 2'], []. "
         "Recognized values: ATEX | IECEx | SIL 2 | SIL 3 | FM | CSA | UL | CE. "
         "If explicitly stated as 'no certifications', return []."

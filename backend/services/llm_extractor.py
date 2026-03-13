@@ -23,6 +23,8 @@ from services.field_prompts_v2 import SYSTEM_PROMPT_V2, FIELD_PROMPT_RULES_V2
 from services.normalize_v2 import normalize_value_v2, detect_isa_tag_info
 from services.feedback import get_corrections_for_field
 from services.semantic_search import SemanticSearchService
+from services.confidence_scoring import compute_confidence
+from services.pre_extraction_classifier import run_pre_extraction, CLASSIFIER_OWNED_FIELDS
 
 logger = logging.getLogger(__name__)
 
@@ -72,15 +74,30 @@ class LLMExtractor:
                 # Fallback if LLM failed to produce valid JSON
                 data = {"value": None, "confidence": 0.0, "quote": "Invalid JSON response"}
             
-            # 4. Normalize
-            raw_val = data.get("value")
+            # 4. Normalize + compute blended confidence
+            raw_val  = data.get("value")
             norm_val = normalize_value_v2(field_name, raw_val)
-            
+            quote    = data.get("quote", "") or ""
+            llm_conf = float(data.get("confidence") or 0.5)
+
+            field_meta = FIELD_DESCRIPTIONS_V2.get(field_name, {})
+            is_enum    = bool(field_meta.get("allowed_values"))
+
+            blended = compute_confidence(
+                field_name=field_name,
+                value=norm_val,
+                llm_raw_confidence=llm_conf,
+                quote=quote,
+                chunks=chunks,
+                is_enum=is_enum,
+            )
+
             return {
-                "value": norm_val,
-                "confidence": data.get("confidence", 0.0),
-                "quote": data.get("quote", ""),
-                "raw_extraction": raw_val
+                "value":            norm_val,
+                "confidence":       blended,    # blended multi-signal score
+                "model_confidence": llm_conf,   # raw LLM value kept for debug
+                "quote":            quote,
+                "raw_extraction":   raw_val,
             }
         except Exception as e:
             logger.error(f"Error extracting field {field_name}: {e}")
@@ -160,13 +177,35 @@ Return JSON: {{"value": ..., "confidence": ..., "quote": "..."}}
 """
         return prompt
 
-    def extract_all_fields(self, chunks_per_field: Dict[str, List[Dict]], full_text: str = None) -> Dict[str, Any]:
+    def extract_all_fields(
+        self,
+        chunks_per_field: Dict[str, List[Dict]],
+        full_text: str = None
+    ) -> Dict[str, Any]:
         """Orchestrates extraction of all applicable fields."""
         extracted_data = {}
         confidence_data = {}
         evidence_data = {}
 
-        # 1. Detect initial context (ISA tag priority)
+        # ── STEP 1: Deterministic pre-classifier (runs on full text) ─────────
+        # Handles typeMesure, code, technologie, marque, signalSortie, hart,
+        # alimentation, indiceIP, températureProcess, certificats.
+        # These are never sent to the LLM — they are regex-certain.
+        if full_text:
+            classifier_results = run_pre_extraction(full_text)
+            logger.info(f"Classifier results: {json.dumps(classifier_results, indent=2)}")
+            for field, result in classifier_results.items():
+                extracted_data[field] = result["value"]
+                confidence_data[field] = result["confidence"]
+                evidence_data[field] = [{
+                    "text": f"Classifier: {result['value']}",
+                    "confidence": result["confidence"],
+                    "source": "classifier"
+                }]
+            logger.info(f"Pre-classifier locked {len(classifier_results)} fields: "
+                        f"{list(classifier_results.keys())}")
+
+        # ── STEP 2: ISA tag (overrides classifier if tag found) ───────────────
         if full_text:
             isa_info = detect_isa_tag_info(full_text)
             if isa_info:
@@ -175,39 +214,39 @@ Return JSON: {{"value": ..., "confidence": ..., "quote": "..."}}
                     if k != "source":
                         extracted_data[k] = v
                         confidence_data[k] = 1.0
-                        evidence_data[k] = [{"text": f"Detected ISA Tag: {v}", "source": "isa_rule"}]
+                        evidence_data[k] = [{
+                            "text": f"ISA Tag: {v}",
+                            "source": "isa_rule"
+                        }]
 
-        # 2. Sequential extraction to respect dependencies
-        # Order matters: category -> typeMesure -> others
-        priority_fields = ["category", "typeMesure", "typeActionneur", "code", "technologie", "alimentation", "sortieTOR"]
-        
-        # Initialize search service
-        search_service = SemanticSearchService()
-        
+        # ── STEP 3: LLM extracts remaining fields only ────────────────────────
+        priority_fields = [
+            "category", "typeMesure", "typeActionneur", "code",
+            "technologie", "alimentation", "sortieTOR"
+        ]
         for field in priority_fields:
-            if field in extracted_data: continue # skip if ISA tag already filled it
-            
+            if field in extracted_data:
+                continue   # already locked by classifier or ISA tag
             res = self.extract_field(field, chunks_per_field.get(field, []), extracted_data)
             if res["value"] is not None:
                 extracted_data[field] = res["value"]
                 confidence_data[field] = res["confidence"]
                 evidence_data[field] = [{"text": res["quote"], "confidence": res["confidence"]}]
 
-        # 3. Extract remaining fields
         for field in FIELD_DESCRIPTIONS_V2.keys():
-            if field in extracted_data: continue
-            if not FIELD_DESCRIPTIONS_V2[field].get("ai_fills", True): continue
-            
+            if field in extracted_data:
+                continue
+            if not FIELD_DESCRIPTIONS_V2[field].get("ai_fills", True):
+                continue
             res = self.extract_field(field, chunks_per_field.get(field, []), extracted_data)
             if res["value"] is not None:
                 extracted_data[field] = res["value"]
                 confidence_data[field] = res["confidence"]
                 evidence_data[field] = [{"text": res["quote"], "confidence": res["confidence"]}]
 
-        # 4. Final guards and remapping
+        # ── STEP 4: Final guards ──────────────────────────────────────────────
         self._apply_v2_guards(extracted_data)
 
-        # 5. Build final model
         try:
             if extracted_data.get("category") == "Actionneur":
                 result_obj = ActionneurInstrument(**extracted_data)
